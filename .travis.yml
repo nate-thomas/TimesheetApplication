@@ -1,14 +1,8 @@
 language: csharp
-solution: TimeSheetApplication.sln
+mono: none
 dotnet: 2.0.0
 dist: trusty
-matrix:
-  include:
-      dotnet: 1.1.5
-      mono: none
-      env: DOTNETCORE=1  # optional, can be used to take different code paths in your script
-      mono: latest
-      
+
 addons:
   apt:
     sources:
@@ -17,3 +11,6 @@ addons:
     packages:
     - dotnet-hostfxr-1.0.1
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
+
+script:
+  - build/travis.sh
