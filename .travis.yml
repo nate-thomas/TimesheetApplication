@@ -2,6 +2,7 @@ language: csharp
 mono: none
 dotnet: 2.0.0
 dist: trusty
+solution: TimesheetApplication.sln
 
 addons:
   apt:
@@ -11,3 +12,4 @@ addons:
     packages:
     - dotnet-hostfxr-1.0.1
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
+
