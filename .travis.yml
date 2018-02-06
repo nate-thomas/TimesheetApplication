@@ -3,9 +3,6 @@ mono: none
 dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
-script:  
-  - dotnet restore
-  - dotnet build
 
 addons:
   apt:
