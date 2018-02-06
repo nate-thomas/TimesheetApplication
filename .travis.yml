@@ -6,6 +6,12 @@ solution: TimesheetApplication.sln
 script:
  - dotnet restore
  
+notifications:
+  slack:
+    rooms:
+      - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#testing
+      - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#voldemortdevs_2
+ 
 addons:
   apt:
     sources:
