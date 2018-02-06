@@ -19,4 +19,4 @@ deploy:
   provider: azure_web_apps
   username: username       # If AZURE_WA_USERNAME isn't set
   password: password
-  site: https://timesheetapplication.azurewebsites.net
+  site: TimesheetApplication
