@@ -9,8 +9,7 @@ script:
 notifications:
   slack:
     rooms:
-      - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#testing
-      - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#voldemortdevs_2
+      - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#voldemort_builds
  
 addons:
   apt:
