@@ -8,13 +8,17 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 {
     public class Timesheets
     {
-        [Key]
+        public String TimesheetsId { get; set; }
+        /*[Key]
+        [Required]
         public string EmployeeNumber { get; set; }
         [Key]
+        [DataType(DataType.Date)]
+        [Required]
         public DateTime EndDate { get; set; }
 
 
         public Employees Employee { get; set; }
-        public List<TimesheetRows> TimesheetRows { get; set; }
+        public List<TimesheetRows> TimesheetRows { get; set; }*/
     }
 }

@@ -8,7 +8,8 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 {
     public class WorkPackages
     {
-        [Key]
+        public String WorkPackagesID { get; set; }
+        /*[Key]
         public string ProjectNumber { get; set; }
         [Key]
         public string WorkPackageNumber { get; set; }
@@ -16,6 +17,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 
 
         public Projects Project { get; set; }
-        public List<TimesheetRows> TimesheetRows { get; set; }
+        public List<TimesheetRows> TimesheetRows { get; set; }*/
     }
 }

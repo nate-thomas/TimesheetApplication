@@ -1,5 +1,0 @@
-﻿Enable-Migrations -ContextTypeName ApplicationDbContext -MigrationsDirectory Migrations\TimesheetSystem
-
-Add-Migration -ConfigurationTypeName TimeSheetApplication.Migrations.TimesheetSystem.Configuration "InitialCreate"
-
-Update-Database -ConfigurationTypeName TimeSheetApplication.Migrations.TimesheetSystem.Configuration

@@ -13,6 +13,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public string Grade { get; set; }
         public double PayAmount { get; set; }
 
-        public List<Employees> Employees { get; set; }
+        public ICollection<Employees> Employees { get; set; }
     }
 }

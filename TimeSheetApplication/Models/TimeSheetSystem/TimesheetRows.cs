@@ -8,13 +8,18 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 {
     public class TimesheetRows
     {
+        public String TimesheetRowsId { get; set; }
+        /*[Key]
+        [Required]
+        public string EmployeeNumber { get; set; }
         [Key]
-        public string EmployeeNumer { get; set; }
-        [Key]
+        [Required]
         public DateTime EndDate { get; set; }
         [Key]
+        [Required]
         public string ProjectNumber { get; set; }
         [Key]
+        [Required]
         public string WorkPackageNumber { get; set; }
 
         public double Saturday { get; set; }
@@ -26,7 +31,8 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public double Friday { get; set; }
 
         public WorkPackages WorkPackage { get; set; }
-        public Timesheets Timesheet { get; set; }
-      
+        public Timesheets Timesheet { get; set; }*/
+
+
     }
 }

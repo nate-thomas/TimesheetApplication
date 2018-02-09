@@ -1,0 +1,54 @@
+﻿@model TimeSheetApplication.Models.TimeSheetSystem.Employees
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employees</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeIntials)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeIntials)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SupervisorNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SupervisorNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorizationCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AuthorizationCode.AuthCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LaborGrade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LaborGrade.Grade)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.EmployeeNumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

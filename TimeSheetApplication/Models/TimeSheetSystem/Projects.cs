@@ -12,6 +12,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public string ProjectNumber { get; set; }
         public string Description { get; set; }
 
-        public List<WorkPackages> WorkPackages { get; set; }
+
+        public ICollection<WorkPackages> WorkPackages { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        [ForeignKey("Grade")]
         public LaborGrades LaborGrade { get; set; }
         public string Grade { get; set; }
 
@@ -24,8 +26,10 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         //TODO: Determine if there should be a column to indicate if the individual can be a supervisor
         
         public string AuthCode { get; set; }
+
+        [ForeignKey("AuthCode")]
         public AuthorizationCodes AuthorizationCode { get; set; }
 
-        public List<TimesheetRows> TimesheetRows { get; set; }
+        //public List<TimesheetRows> TimesheetRows { get; set; }
     }
 }
