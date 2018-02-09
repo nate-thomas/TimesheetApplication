@@ -10,5 +10,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
     {
         [Key]
         public string AuthCode { get; set; }
+
+        public List<Employees> Employees { get; set; }
     }
 }

@@ -12,5 +12,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         [Key]
         public string Grade { get; set; }
         public double PayAmount { get; set; }
+
+        public List<Employees> Employees { get; set; }
     }
 }

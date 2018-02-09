@@ -16,5 +16,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 
 
         public Projects Project { get; set; }
+        public List<TimesheetRows> TimesheetRows { get; set; }
     }
 }

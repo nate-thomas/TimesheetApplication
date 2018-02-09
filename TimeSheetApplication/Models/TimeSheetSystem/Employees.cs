@@ -25,5 +25,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         
         public string AuthCode { get; set; }
         public AuthorizationCodes AuthorizationCode { get; set; }
+
+        public List<TimesheetRows> TimesheetRows { get; set; }
     }
 }
