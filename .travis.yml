@@ -10,6 +10,8 @@ notifications:
   slack:
     rooms:
       - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#voldemort_builds
+      - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#testing
+
  
 addons:
   apt:
