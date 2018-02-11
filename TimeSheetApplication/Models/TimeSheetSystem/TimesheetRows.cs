@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,16 +10,13 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
     public class TimesheetRows
     {
         public String TimesheetRowsId { get; set; }
-        /*[Key]
+        
         [Required]
         public string EmployeeNumber { get; set; }
-        [Key]
         [Required]
         public DateTime EndDate { get; set; }
-        [Key]
         [Required]
         public string ProjectNumber { get; set; }
-        [Key]
         [Required]
         public string WorkPackageNumber { get; set; }
 
@@ -31,7 +29,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public double Friday { get; set; }
 
         public WorkPackages WorkPackage { get; set; }
-        public Timesheets Timesheet { get; set; }*/
+        public Timesheets Timesheet { get; set; }
 
 
     }

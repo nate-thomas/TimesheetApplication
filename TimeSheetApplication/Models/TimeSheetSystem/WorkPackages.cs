@@ -15,6 +15,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 
         [ForeignKey("ProjectNumber")]
         public Projects Project { get; set; }
-        //public List<TimesheetRows> TimesheetRows { get; set; }
+        public ICollection<TimesheetRows> TimesheetRows { get; set; }
     }
 }

@@ -1,0 +1,84 @@
+﻿@model TimeSheetApplication.Models.TimeSheetSystem.TimesheetRows
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>TimesheetRows</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TimesheetRowsId" class="control-label"></label>
+                <input asp-for="TimesheetRowsId" class="form-control" />
+                <span asp-validation-for="TimesheetRowsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeNumber" class="control-label"></label>
+                <select asp-for="EmployeeNumber" class ="form-control" asp-items="ViewBag.EmployeeNumber"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <select asp-for="EndDate" class ="form-control" asp-items="ViewBag.EndDate"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectNumber" class="control-label"></label>
+                <select asp-for="ProjectNumber" class ="form-control" asp-items="ViewBag.ProjectNumber"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkPackageNumber" class="control-label"></label>
+                <select asp-for="WorkPackageNumber" class ="form-control" asp-items="ViewBag.WorkPackageNumber"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Saturday" class="control-label"></label>
+                <input asp-for="Saturday" class="form-control" />
+                <span asp-validation-for="Saturday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sunday" class="control-label"></label>
+                <input asp-for="Sunday" class="form-control" />
+                <span asp-validation-for="Sunday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Monday" class="control-label"></label>
+                <input asp-for="Monday" class="form-control" />
+                <span asp-validation-for="Monday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tuesday" class="control-label"></label>
+                <input asp-for="Tuesday" class="form-control" />
+                <span asp-validation-for="Tuesday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Wednesday" class="control-label"></label>
+                <input asp-for="Wednesday" class="form-control" />
+                <span asp-validation-for="Wednesday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Thursday" class="control-label"></label>
+                <input asp-for="Thursday" class="form-control" />
+                <span asp-validation-for="Thursday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Friday" class="control-label"></label>
+                <input asp-for="Friday" class="form-control" />
+                <span asp-validation-for="Friday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
