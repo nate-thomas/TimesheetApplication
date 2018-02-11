@@ -9,11 +9,21 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { TimesheetsComponent } from './components/timesheets/timesheets';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { EmployeesComponent } from './components/employees/employees.component';
+import { AdmintasksComponent } from './components/admintasks/admintasks.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
+        TimesheetsComponent,
+        ProjectsComponent,
+        EmployeesComponent,
+        AdmintasksComponent,
+        UserComponent,
         CounterComponent,
         FetchDataComponent,
         HomeComponent
@@ -25,6 +35,11 @@ import { CounterComponent } from './components/counter/counter.component';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
+            { path: 'timesheets', component: TimesheetsComponent },            { path: 'timesheets', component: TimesheetsComponent },
+            { path: 'projects', component: ProjectsComponent },
+            { path: 'employees', component: EmployeesComponent },
+            { path: 'admintasks', component: AdmintasksComponent },
+            { path: 'user', component: UserComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
