@@ -13,6 +13,7 @@ import { TimesheetsComponent } from './components/timesheets/timesheets';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { AdmintasksComponent } from './components/admintasks/admintasks.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { AdmintasksComponent } from './components/admintasks/admintasks.componen
         ProjectsComponent,
         EmployeesComponent,
         AdmintasksComponent,
+        UserComponent,
         CounterComponent,
         FetchDataComponent,
         HomeComponent
@@ -35,8 +37,9 @@ import { AdmintasksComponent } from './components/admintasks/admintasks.componen
             { path: 'home', component: HomeComponent },
             { path: 'timesheets', component: TimesheetsComponent },            { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
-            { path: 'admintasks', component: AdmintasksComponent },
             { path: 'employees', component: EmployeesComponent },
+            { path: 'admintasks', component: AdmintasksComponent },
+            { path: 'user', component: UserComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
