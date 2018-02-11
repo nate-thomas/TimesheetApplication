@@ -10,13 +10,15 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { TimesheetsComponent } from './components/timesheets/timesheets';
+import { ProjectsComponent } from './components/projects/projects.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
         TimesheetsComponent,
+        ProjectsComponent,
+        CounterComponent,
         FetchDataComponent,
         HomeComponent
     ],
@@ -27,7 +29,8 @@ import { TimesheetsComponent } from './components/timesheets/timesheets';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'timesheets', component: TimesheetsComponent },
+            { path: 'timesheets', component: TimesheetsComponent },            { path: 'timesheets', component: TimesheetsComponent },
+            { path: 'projects', component: ProjectsComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
