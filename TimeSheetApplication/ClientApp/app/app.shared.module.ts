@@ -11,6 +11,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { TimesheetsComponent } from './components/timesheets/timesheets';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { EmployeesComponent } from './components/employees/employees.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
         NavMenuComponent,
         TimesheetsComponent,
         ProjectsComponent,
+        EmployeesComponent,
         CounterComponent,
         FetchDataComponent,
         HomeComponent
@@ -31,6 +33,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
             { path: 'home', component: HomeComponent },
             { path: 'timesheets', component: TimesheetsComponent },            { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
+            { path: 'employees', component: EmployeesComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
