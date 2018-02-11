@@ -22,3 +22,10 @@ We're a group of motivated individuals who aim to develop a project management a
   - ASP.NET Core 2.0
   - Angular 4.0
   -
+
+
+
+###DATABASE TUTORIAL REFERENCES###
+https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro
+https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/complex-data-model
+https://docs.microsoft.com/en-us/ef/core/modeling/relationships
