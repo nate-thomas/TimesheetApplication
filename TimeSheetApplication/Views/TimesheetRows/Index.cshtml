@@ -1,0 +1,110 @@
+﻿@model IEnumerable<TimeSheetApplication.Models.TimeSheetSystem.TimesheetRows>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkPackageNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Saturday)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sunday)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Monday)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tuesday)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Wednesday)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Thursday)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Friday)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timesheet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkPackage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkPackageNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimesheetRowsId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Saturday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sunday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Monday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tuesday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wednesday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Thursday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Friday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Timesheet.EmployeeNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkPackage.ProjectNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+        </td>
+    </tr>
+}
+    </tbody>
+</table>
