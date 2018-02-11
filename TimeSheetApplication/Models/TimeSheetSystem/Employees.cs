@@ -30,6 +30,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         [ForeignKey("AuthCode")]
         public AuthorizationCodes AuthorizationCode { get; set; }
 
-        //public List<TimesheetRows> TimesheetRows { get; set; }
+        public ICollection<Timesheets> Timesheets { get; set; }
     }
 }
