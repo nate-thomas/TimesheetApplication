@@ -12,6 +12,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { TimesheetsComponent } from './components/timesheets/timesheets';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { EmployeesComponent } from './components/employees/employees.component';
+import { AdmintasksComponent } from './components/admintasks/admintasks.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { EmployeesComponent } from './components/employees/employees.component';
         TimesheetsComponent,
         ProjectsComponent,
         EmployeesComponent,
+        AdmintasksComponent,
         CounterComponent,
         FetchDataComponent,
         HomeComponent
@@ -33,6 +35,7 @@ import { EmployeesComponent } from './components/employees/employees.component';
             { path: 'home', component: HomeComponent },
             { path: 'timesheets', component: TimesheetsComponent },            { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
+            { path: 'admintasks', component: AdmintasksComponent },
             { path: 'employees', component: EmployeesComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
