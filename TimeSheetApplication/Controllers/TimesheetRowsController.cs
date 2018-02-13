@@ -96,9 +96,9 @@ namespace TimeSheetApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("TimesheetRowsId,EmployeeNumber,EndDate,ProjectNumber,WorkPackageNumber,Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday")] TimesheetRows timesheetRows)
+        public async Task<IActionResult> Edit(string EmployeeNumber, DateTime EndDate, string ProjectNumber, string WorkPackageNumber, [Bind("TimesheetRowsId,EmployeeNumber,EndDate,ProjectNumber,WorkPackageNumber,Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday")] TimesheetRows timesheetRows)
         {
-            if (id != timesheetRows.EmployeeNumber)
+            if (timesheetRows == null)
             {
                 return NotFound();
             }
@@ -107,6 +107,7 @@ namespace TimeSheetApplication.Controllers
             {
                 try
                 {
+                    
                     _context.Update(timesheetRows);
                     await _context.SaveChangesAsync();
                 }
