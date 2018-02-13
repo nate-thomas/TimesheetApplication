@@ -107,7 +107,6 @@ namespace TimeSheetApplication.Controllers
             {
                 try
                 {
-                    
                     _context.Update(timesheetRows);
                     await _context.SaveChangesAsync();
                 }
