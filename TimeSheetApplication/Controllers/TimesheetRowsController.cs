@@ -73,14 +73,15 @@ namespace TimeSheetApplication.Controllers
         }
 
         // GET: TimesheetRows/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(string EmployeeNumber, DateTime EndDate, string ProjectNumber, string WorkPackageNumber)
         {
-            if (id == null)
+            TimesheetRows row = _context.TimesheetRows.Find(EmployeeNumber, EndDate, ProjectNumber, WorkPackageNumber);
+            if (row == null)
             {
                 return NotFound();
             }
 
-            var timesheetRows = await _context.TimesheetRows.SingleOrDefaultAsync(m => m.EmployeeNumber == id);
+            var timesheetRows = await _context.TimesheetRows.SingleOrDefaultAsync(m => m.EmployeeNumber == EmployeeNumber && m.EndDate == EndDate && m.ProjectNumber == ProjectNumber && m.WorkPackageNumber == WorkPackageNumber);
             if (timesheetRows == null)
             {
                 return NotFound();
@@ -95,9 +96,9 @@ namespace TimeSheetApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("TimesheetRowsId,EmployeeNumber,EndDate,ProjectNumber,WorkPackageNumber,Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday")] TimesheetRows timesheetRows)
+        public async Task<IActionResult> Edit(string EmployeeNumber, DateTime EndDate, string ProjectNumber, string WorkPackageNumber, [Bind("TimesheetRowsId,EmployeeNumber,EndDate,ProjectNumber,WorkPackageNumber,Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday")] TimesheetRows timesheetRows)
         {
-            if (id != timesheetRows.EmployeeNumber)
+            if (timesheetRows == null)
             {
                 return NotFound();
             }
