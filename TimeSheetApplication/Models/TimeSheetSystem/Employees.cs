@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace TimeSheetApplication.Models.TimeSheetSystem
 {
     public class Employees
-    {
+    {   
         [Key]
         public string EmployeeNumber { get; set; }
         public string FirstName { get; set; }
