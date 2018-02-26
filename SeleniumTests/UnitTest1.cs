@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace SeleniumTests
@@ -12,22 +13,14 @@ namespace SeleniumTests
         [TestMethod]
         public void GoogleSearchTest()
         {
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.BinaryLocation = "/usr/bin/google-chrome-stable";
-            chromeOptions.AddArgument("--headless");
-            chromeOptions.AddArgument("--disable-gpu");
-            
-            DesiredCapabilities dc = new DesiredCapabilities();
-            dc.SetCapability(ChromeOptions.Capability, chromeOptions);
-            
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments(new List<string>() { "headless" });
 
-            IWebDriver driver = new ChromeDriver(chromeOptions);
-
+            var driver = new ChromeDriver(chromeOptions);
 
             driver.Navigate().GoToUrl("https://www.google.com");
             driver.FindElement(By.Name("q")).SendKeys("How to cook");
             driver.FindElement(By.Name("btnK")).Submit();
-            
 
             Assert.IsNotNull(driver.FindElement(By.XPath("//div[@id='resultStats']")));
             driver.Close();
