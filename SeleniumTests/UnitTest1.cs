@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 using System.Reflection;
 
 namespace SeleniumTests
@@ -9,11 +10,18 @@ namespace SeleniumTests
     public class UnitTest1
     {
         [TestMethod]
-        public void SampleTest()
+        public void GoogleSearchTest()
         {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.BinaryLocation = "/path/to/google-chrome-stable";
+            chromeOptions.AddArgument("--headless");
+            chromeOptions.AddArgument("--disable-gpu");
 
-            var driverDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            IWebDriver driver = new ChromeDriver(driverDir);
+            DesiredCapabilities dc = new DesiredCapabilities();
+            dc.SetCapability(ChromeOptions.Capability, chromeOptions);
+            
+
+            IWebDriver driver = new ChromeDriver(chromeOptions);
 
 
             driver.Navigate().GoToUrl("https://www.google.com");

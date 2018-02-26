@@ -4,6 +4,7 @@ dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
 script:
+ - whereis google-chrome-stable
  - dotnet test
  - dotnet restore
  
@@ -12,9 +13,11 @@ notifications:
     rooms:
       - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#voldemort_builds
       - infosys-2017:TVvKGNzlz8ScmVpQxfX7wadf#testing
+      
 
  
 addons:
+  chrome: stable
   apt:
     sources:
     - sourceline: 'deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main'
@@ -23,6 +26,14 @@ addons:
     - dotnet-hostfxr-1.0.1
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
 
+install: # Install ChromeDriver (64bits; replace 64 with 32 for 32bits).
+  - wget -N http://chromedriver.storage.googleapis.com/2.30/chromedriver_linux64.zip -P ~/
+  - unzip ~/chromedriver_linux64.zip -d ~/
+  - rm ~/chromedriver_linux64.zip
+  - sudo mv -f ~/chromedriver /usr/local/share/
+  - sudo chmod +x /usr/local/share/chromedriver
+  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+    
 deploy:
   provider: azure_web_apps
   username: username       # If AZURE_WA_USERNAME isn't set
