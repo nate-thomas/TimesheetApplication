@@ -13,10 +13,10 @@ namespace SeleniumTests
         public void GoogleSearchTest()
         {
             ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.BinaryLocation = "/path/to/google-chrome-stable";
+            chromeOptions.BinaryLocation = "/usr/bin/google-chrome-stable";
             chromeOptions.AddArgument("--headless");
             chromeOptions.AddArgument("--disable-gpu");
-
+            
             DesiredCapabilities dc = new DesiredCapabilities();
             dc.SetCapability(ChromeOptions.Capability, chromeOptions);
             
