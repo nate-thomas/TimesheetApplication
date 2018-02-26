@@ -15,6 +15,7 @@ notifications:
 
  
 addons:
+  chrome: stable
   apt:
     sources:
     - sourceline: 'deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main'
