@@ -15,6 +15,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { AdmintasksComponent } from './components/admintasks/admintasks.component';
 import { UserComponent } from './components/user/user.component';
+import { TimesheetsTableComponent } from './components/timesheetsTable/timesheetsTable';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { UserComponent } from './components/user/user.component';
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        LoginComponent
+		LoginComponent,
+		TimesheetsTableComponent
     ],
     imports: [
         CommonModule,
