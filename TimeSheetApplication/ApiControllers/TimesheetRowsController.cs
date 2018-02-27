@@ -20,7 +20,12 @@ namespace TimeSheetApplication.ApiControllers
         {
             _context = context;
         }
-
+        // GET: api/TimesheetRows/
+        [HttpGet]
+        public IEnumerable<TimesheetRows> GetTimesheetRows()
+        {
+            return _context.TimesheetRows.ToList();
+        }
         // GET: api/TimesheetRows/1234/02-02-2018
         [HttpGet("{employeeNumber}/{endDate}")]
         public IEnumerable<TimesheetRows> GetTimesheetRowsByEmployeeAndDate([FromRoute] string employeeNumber,
