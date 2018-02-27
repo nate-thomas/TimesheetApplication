@@ -10,6 +10,8 @@ before-script:
 
 script:
  - dotnet restore
+ - dotnet msbuild
+ - dotnet test XUnitTestProject/XUnitTestProject.csproj
  
 notifications:
   slack:
