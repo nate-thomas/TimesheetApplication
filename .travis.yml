@@ -1,11 +1,11 @@
-sudo: required 
 language: csharp
 mono: none
 dotnet: 2.0.0
+sudo: required 
 dist: trusty
 solution: TimesheetApplication.sln
 script:
- - dotnet tests
+ - dotnet test
  - dotnet restore
  - whereischrome
 notifications:
