@@ -30,8 +30,9 @@ export class LoginComponent {
 
                 // If response object contains a non-null object ...
                 if (user.employeeId && user.token) {
-                    // Store currentUser to localStorage
+                    // Store currentUser and currentToken to localStorage
                     localStorage.setItem('currentUser', user.employeeId);
+                    localStorage.setItem('currentToken', user.token);
 
                     // Navigate to home page
                     this.router.navigateByUrl('/home');
@@ -46,6 +47,9 @@ export class LoginComponent {
         this.password = "";
 
         localStorage.setItem('currentUser', "");
+        localStorage.setItem('currentToken', "");
+
+        this.router.navigateByUrl('/login');
     }
 
 }
