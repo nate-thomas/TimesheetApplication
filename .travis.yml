@@ -5,10 +5,10 @@ sudo: required
 dist: trusty
 solution: TimesheetApplication.sln
 script:
- - dotnet test
- - dotnet restore
- - whereis google-chrome-stable
+ - whereis -b google-chrome-stable
  - whereis chromedriver
+ - dotnet restore
+ - dotnet test
  
 notifications:
   slack:

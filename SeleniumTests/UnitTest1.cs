@@ -14,6 +14,7 @@ namespace SeleniumTests
         public void GoogleSearchTest()
         {
             var chromeOptions = new ChromeOptions();
+            chromeOptions.BinaryLocation = "/usr/bin/google-chrome-stable";
             chromeOptions.AddArgument("--headless");
 
             var driver = new ChromeDriver(chromeOptions);
