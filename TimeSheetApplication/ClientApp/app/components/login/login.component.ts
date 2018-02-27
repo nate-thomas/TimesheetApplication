@@ -25,7 +25,7 @@ export class LoginComponent {
         // Make a POST request to /api/login/ with username and password contained in an object
         return this.http.post("http://localhost:54255/api/login", body, options)
             .map(response => {
-                // JSONify the repsonse object
+                // JSONify the response object
                 let user = response.json();
 
                 // If response object contains a non-null object ...
@@ -46,8 +46,8 @@ export class LoginComponent {
         this.username = "";
         this.password = "";
 
-        localStorage.setItem('currentUser', "");
-        localStorage.setItem('currentToken', "");
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentToken');
 
         this.router.navigateByUrl('/login');
     }
