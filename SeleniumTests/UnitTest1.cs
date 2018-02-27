@@ -14,7 +14,7 @@ namespace SeleniumTests
         public void GoogleSearchTest()
         {
             var chromeOptions = new ChromeOptions();
-            chromeOptions.AddArguments(new List<string>() { "headless" });
+            chromeOptions.AddArgument("--headless");
 
             var driver = new ChromeDriver(chromeOptions);
 
