@@ -8,7 +8,7 @@ script:
  - whereis -b google-chrome-stable
  - whereis chromedriver
  - dotnet restore
- - dotnet test
+ - dotnet test SeleniumTests/SeleniumTests.csproj
  
 notifications:
   slack:
