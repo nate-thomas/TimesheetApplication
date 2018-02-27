@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngularJS.Core" Version="1.6.8" />
     <PackageReference Include="bootstrap" Version="4.0.0" />
     <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
@@ -29,7 +28,6 @@
     <None Remove="ClientApp\app\components\admintasks\admintasks.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
-    <None Remove="ClientApp\app\components\projectsTable\projectsTable.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
   </ItemGroup>
@@ -38,7 +36,6 @@
     <TypeScriptCompile Include="ClientApp\app\components\admintasks\admintasks.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\projectsTable\projectsTable.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.ts" />
   </ItemGroup>
