@@ -7,6 +7,8 @@ solution: TimesheetApplication.sln
 script:
  - dotnet test
  - dotnet restore
+ - whereis google-chrome-stable
+ - whereis chromedriver
  
 notifications:
   slack:
