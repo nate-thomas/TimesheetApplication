@@ -27,5 +27,18 @@ namespace TimeSheetApplication.Controllers
         {
             return _context.Employees.ToList();
         }
+
+        [HttpGet("{empNumber}", Name = "GetByEmployeeNumber")]
+        public IActionResult GetByEmployeeNumber(long empNumber)
+        {
+            string empNumberStr = empNumber.ToString();
+
+            var item = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
+        }
     }
 }
