@@ -133,5 +133,21 @@ namespace TimeSheetApplication.Controllers
             }
             
         }
+
+        [HttpDelete("{empNumber}")]
+        public IActionResult Delete(long empNumber)
+        {
+            string empNumberStr = empNumber.ToString();
+
+            var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            _context.Employees.Remove(employee);
+            _context.SaveChanges();
+            return new NoContentResult();
+        }
     }
 }
