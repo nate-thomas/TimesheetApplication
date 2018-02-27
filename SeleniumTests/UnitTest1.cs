@@ -17,7 +17,7 @@ namespace SeleniumTests
             chromeOptions.BinaryLocation = "/usr/bin/google-chrome-stable";
             chromeOptions.AddArgument("--headless");
 
-            var driver = new ChromeDriver(chromeOptions);
+            IWebDriver driver = new ChromeDriver(chromeOptions);
 
             driver.Navigate().GoToUrl("https://www.google.com");
             driver.FindElement(By.Name("q")).SendKeys("How to cook");
