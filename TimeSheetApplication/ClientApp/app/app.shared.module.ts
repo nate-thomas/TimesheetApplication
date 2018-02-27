@@ -16,6 +16,7 @@ import { EmployeesComponent } from './components/employees/employees.component';
 import { AdmintasksComponent } from './components/admintasks/admintasks.component';
 import { UserComponent } from './components/user/user.component';
 import { TimesheetsTableComponent } from './components/timesheetsTable/timesheetsTable';
+import { ProjectsTableComponent } from './components/projectsTable/projectsTable';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { TimesheetsTableComponent } from './components/timesheetsTable/timesheet
         FetchDataComponent,
         HomeComponent,
 		LoginComponent,
-		TimesheetsTableComponent
+		TimesheetsTableComponent,
+		ProjectsTableComponent
     ],
     imports: [
         CommonModule,
