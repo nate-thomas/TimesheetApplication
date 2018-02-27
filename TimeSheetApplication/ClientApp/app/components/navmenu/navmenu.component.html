@@ -13,6 +13,11 @@
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/login']">
+                        <span class='glyphicon glyphicon-log-in'></span> Login
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
@@ -41,7 +46,7 @@
                     <a [routerLink]="['/user']">
                         <span class='glyphicon glyphicon-user'></span> User
                     </a>
-                </li> 
+                </li>
             </ul>
         </div>
     </div>
