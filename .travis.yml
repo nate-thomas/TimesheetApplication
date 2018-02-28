@@ -3,6 +3,7 @@ mono: none
 dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
+skip_cleanup: true
 
 before-script: 
   - nuget restore TimesheetApplication.sln
@@ -10,6 +11,7 @@ before-script:
 
 script:
  - dotnet restore
+ - dotnet test XUnitTestProject/XUnitTestProject.csproj
  
 notifications:
   slack:
