@@ -36,7 +36,7 @@ export class EmployeesComponent {
             );
     }
 
-    loadEmployee(employeeNumber: number) {
+    loadEmployee(employeeNumber: string) {
         this.getEmployee(employeeNumber)
             .subscribe(
                 employee => this.employee = employee,
@@ -46,7 +46,7 @@ export class EmployeesComponent {
             );
     }
 
-    removeEmployee(employeeNumber: number) {
+    removeEmployee(employeeNumber: string) {
         this.deleteEmployee(employeeNumber)
             .subscribe(res => console.log("Response: " + res));
     }
@@ -69,13 +69,13 @@ export class EmployeesComponent {
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
 
-    getEmployee(employeeNumber: number): Observable<Employee> {
+    getEmployee(employeeNumber: string): Observable<Employee> {
         return this.http.get("http://localhost:61150/api/EmployeesAPI/" + employeeNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
 
-    deleteEmployee(employeeNumber: number): Observable<Employee> {
+    deleteEmployee(employeeNumber: string): Observable<Employee> {
         return this.http.delete("http://localhost:61150/api/EmployeesAPI/" + employeeNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
@@ -91,7 +91,7 @@ export class EmployeesComponent {
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
 
-    putEmployee(employeeNumber: number, employee: Employee): Observable<Response> {
+    putEmployee(employeeNumber: string, employee: Employee): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let body = { employee: this.employee };
         let options = new RequestOptions({ headers: headers });

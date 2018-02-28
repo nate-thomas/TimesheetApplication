@@ -1,11 +1,11 @@
 ﻿export class Employee {
-    employeeNumber: number;
+    employeeNumber: string;
     firstName: string;
     lastName: string;
-    laborGrade: string;
+    laborGrade: Object;
     grade: string;
     employeeInitials: string;
-    supervisor: string;
+    supervisor: Object;
     supervisorNumber: number;
     authCode: string;
     authorizationCode: string;
