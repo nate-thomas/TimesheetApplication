@@ -11,12 +11,17 @@ import { Employee } from './employee';
     selector: 'employees',
     templateUrl: './employees.component.html'
 })
+
 export class EmployeesComponent {
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
     constructor(private http: Http) { }
-    
+
+    ngOnInit() {
+        console.log(this.employee);
+    }
+
     /* Temporary method to clear the properties in the component */
 
     clearProperties() {
@@ -83,20 +88,18 @@ export class EmployeesComponent {
 
     postEmployee(employee: Employee): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let body = { employee: this.employee };
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post("http://localhost:61150/api/EmployeesAPI/", body, options)
+        return this.http.post("http://localhost:61150/api/EmployeesAPI/", this.employee, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
 
     putEmployee(employeeNumber: string, employee: Employee): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        let body = { employee: this.employee };
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put("http://localhost:61150/api/EmployeesAPI/" + employeeNumber, body, options)
+        return this.http.put("http://localhost:61150/api/EmployeesAPI/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }

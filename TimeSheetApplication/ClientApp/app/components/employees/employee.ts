@@ -6,9 +6,9 @@
     grade: string;
     employeeInitials: string;
     supervisor: Object;
-    supervisorNumber: number;
+    supervisorNumber: string;
     authCode: string;
-    authorizationCode: string;
+    authorizationCode: Object;
     timesheets: Object;
 
     constructor() { }
