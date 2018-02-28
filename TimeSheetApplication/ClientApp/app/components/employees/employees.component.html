@@ -1,4 +1,12 @@
-﻿<!--<h1>View Employees</h1>
+﻿<h1>Employees Page</h1>
+
+<button (click)="clearProperties()">Clear Properties</button>
+
+<br />
+
+<h2>View Employees</h2>
+
+<button (click)="loadEmployees()">View Employees</button>
 
 <div *ngFor="let employee of employees">
     <ul>
@@ -14,13 +22,15 @@
         <li>Authorization Code: {{employee.authorizationCode}}</li>
         <li>Timesheets: {{employee.timesheets}}</li>
     </ul>
-</div>-->
+</div>
 
-<!--<h1>View Employee</h1>
+<br />
 
-Employee Number: <input type="text" #employeeNumber/> <button (click)="loadEmployee(employeeNumber.value)">View</button>
+<h2>View Employee</h2>
 
-<div *ngIf="employee">
+Employee Number: <input type="text" #employeeNumberView/> <button (click)="loadEmployee(employeeNumberView.value)">View Employee</button>
+
+<div *ngIf="employee.employeeNumber">
     <ul>
         <li>Employee Number: {{employee.employeeNumber}}</li>
         <li>First Name: {{employee.firstName}}</li>
@@ -34,108 +44,116 @@ Employee Number: <input type="text" #employeeNumber/> <button (click)="loadEmplo
         <li>Authorization Code: {{employee.authorizationCode}}</li>
         <li>Timesheets: {{employee.timesheets}}</li>
     </ul>
-</div>-->
+</div>
 
-<!--<h1>Delete Employee</h1>
+<br />
 
-Employee Number: <input type="text" #employeeNumber/> <button (click)="removeEmployee(employeeNumber.value)">Delete</button>-->
+<h2>Delete Employee</h2>
 
-<!--<h1>Add Employee</h1>
+Employee Number: <input type="text" #employeeNumberDelete/> <button (click)="removeEmployee(employeeNumberDelete.value)">Delete Employee</button>
 
-<form>
+<h2>Add Employee</h2>
+
+<form (ngSubmit)="addEmployee()">
     <table>
         <tr>
             <td>Employee Number: </td>
-            <td><input type="text" name="employeeNumber"/></td>
+            <td><input type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" /></td>
         </tr>
         <tr>
             <td>First Name: </td>
-            <td><input type="text" name="firstName"/></td>
+            <td><input type="text" name="firstName" [(ngModel)]="employee.firstName" /></td>
         </tr>
         <tr>
             <td>Last Name: </td>
-            <td><input type="text"  name="lastName"/></td>
+            <td><input type="text" name="lastName" [(ngModel)]="employee.lastName" /></td>
         </tr>
         <tr>
             <td>Labor Grade: </td>
-            <td><input type="text" name="laborGrade"/></td>
+            <td><input type="text" name="laborGrade" [(ngModel)]="employee.laborGrade" /></td>
         </tr>
         <tr>
             <td>Grade: </td>
-            <td><input type="text" name="grade"/></td>
+            <td><input type="text" name="grade" [(ngModel)]="employee.grade" /></td>
         </tr>
         <tr>
             <td>Employee Initials: </td>
-            <td><input type="text" name="employeeInitials"/></td>
+            <td><input type="text" name="employeeInitials" [(ngModel)]="employee.employeeInitials" /></td>
         </tr>
         <tr>
             <td>Supervisor: </td>
-            <td><input type="text" name="supervisor"/></td>
+            <td><input type="text" name="supervisor" [(ngModel)]="employee.supervisor" /></td>
         </tr>
         <tr>
             <td>Supervisor Number: </td>
-            <td><input type="text" name="supervisorNumber"/></td>
+            <td><input type="text" name="supervisorNumber" [(ngModel)]="employee.supervisorNumber" /></td>
         </tr>
         <tr>
             <td>Auth Code: </td>
-            <td><input type="text" name="authCode"/></td>
+            <td><input type="text" name="authCode" [(ngModel)]="employee.authCode" /></td>
         </tr>
         <tr>
             <td>Authorization Code: </td>
-            <td><input type="text" name="authorizationCode"/></td>
+            <td><input type="text" name="authorizationCode" [(ngModel)]="employee.authorizationCode" /></td>
         </tr>
         <tr>
             <td>Timesheets: </td>
-            <td><input type="text" name="timesheets"/></td>
+            <td><input type="text" name="timesheets" [(ngModel)]="employee.timesheets" /></td>
         </tr>
     </table>
-    <button>Add</button>
-</form>-->
+    <button>Add Employee</button>
+</form>
 
-<!--<h1>Update Employee</h1>
+<br />
 
-<form>
+<h2>Update Employee</h2>
+
+<form (ngSubmit)="updateEmployee()">
     <table>
         <tr>
+            <td>Employee Number: </td>
+            <td><input type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber"/></td>
+        </tr>
+        <tr>
             <td>First Name: </td>
-            <td><input type="text" name="firstName" /></td>
+            <td><input type="text" name="firstName" [(ngModel)]="employee.firstName"/></td>
         </tr>
         <tr>
             <td>Last Name: </td>
-            <td><input type="text" name="lastName" /></td>
+            <td><input type="text"  name="lastName" [(ngModel)]="employee.lastName"/></td>
         </tr>
         <tr>
             <td>Labor Grade: </td>
-            <td><input type="text" name="laborGrade" /></td>
+            <td><input type="text" name="laborGrade" [(ngModel)]="employee.laborGrade"/></td>
         </tr>
         <tr>
             <td>Grade: </td>
-            <td><input type="text" name="grade" /></td>
+            <td><input type="text" name="grade" [(ngModel)]="employee.grade"/></td>
         </tr>
         <tr>
             <td>Employee Initials: </td>
-            <td><input type="text" name="employeeInitials" /></td>
+            <td><input type="text" name="employeeInitials" [(ngModel)]="employee.employeeInitials"/></td>
         </tr>
         <tr>
             <td>Supervisor: </td>
-            <td><input type="text" name="supervisor" /></td>
+            <td><input type="text" name="supervisor" [(ngModel)]="employee.supervisor"/></td>
         </tr>
         <tr>
             <td>Supervisor Number: </td>
-            <td><input type="text" name="supervisorNumber" /></td>
+            <td><input type="text" name="supervisorNumber" [(ngModel)]="employee.supervisorNumber"/></td>
         </tr>
         <tr>
             <td>Auth Code: </td>
-            <td><input type="text" name="authCode" /></td>
+            <td><input type="text" name="authCode" [(ngModel)]="employee.authCode"/></td>
         </tr>
         <tr>
             <td>Authorization Code: </td>
-            <td><input type="text" name="authorizationCode" /></td>
+            <td><input type="text" name="authorizationCode" [(ngModel)]="employee.authorizationCode"/></td>
         </tr>
         <tr>
             <td>Timesheets: </td>
-            <td><input type="text" name="timesheets" /></td>
+            <td><input type="text" name="timesheets" [(ngModel)]="employee.timesheets"/></td>
         </tr>
     </table>
-    <button>Add</button>
-</form>-->
+    <button>Update Employee</button>
+</form>

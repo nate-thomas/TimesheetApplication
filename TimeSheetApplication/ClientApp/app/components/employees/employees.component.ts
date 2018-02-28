@@ -12,13 +12,16 @@ import { Employee } from './employee';
     templateUrl: './employees.component.html'
 })
 export class EmployeesComponent {
-    employees: Employee[];
-    employee: Employee;
+    employees: Employee[] = new Array();
+    employee: Employee = new Employee();
 
     constructor(private http: Http) { }
+    
+    /* Temporary method to clear the properties in the component */
 
-    ngOnInit() {
-        this.loadEmployees();
+    clearProperties() {
+        this.employees = new Array();
+        this.employee = new Employee();
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
@@ -36,10 +39,10 @@ export class EmployeesComponent {
     loadEmployee(employeeNumber: number) {
         this.getEmployee(employeeNumber)
             .subscribe(
-            employee => this.employee = employee,
-            errors => {
-                console.log(errors)
-            }
+                employee => this.employee = employee,
+                errors => {
+                    console.log(errors)
+                }
             );
     }
 
@@ -48,15 +51,13 @@ export class EmployeesComponent {
             .subscribe(res => console.log("Response: " + res));
     }
 
-    addEmployee(employee: Employee) {
-        console.log(employee);
-
-        this.postEmployee(employee)
+    addEmployee() {
+        this.postEmployee(this.employee)
             .subscribe(res => console.log("Response: " + res));
     }
 
-    updateEmployee(employee: Employee) {
-        this.putEmployee(employee.employeeNumber, employee)
+    updateEmployee() {
+        this.putEmployee(this.employee.employeeNumber, this.employee)
             .subscribe(res => console.log("Response: " + res));
     }
 
