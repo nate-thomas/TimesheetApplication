@@ -36,7 +36,7 @@ namespace SeleniumTests
 
             driver.Navigate().GoToUrl("https://lab03-v2.azurewebsites.net");
             driver.FindElement(By.XPath("//*[@id='registerLink']")).Click();
-            driver.FindElement(By.XPath("//*[@id='Email']")).SendKeys("aasddd@ad.af");
+            driver.FindElement(By.XPath("//*[@id='Email']")).SendKeys("qweaasddd@ad.af");
 
             driver.FindElement(By.XPath("//*[@id='Password']")).SendKeys("123qwe!@#QWE");
             driver.FindElement(By.XPath("//*[@id='ConfirmPassword']")).SendKeys("123qwe!@#QWE");
@@ -44,7 +44,7 @@ namespace SeleniumTests
 
             var check = driver.FindElement(By.XPath("//*[@title='Manage']"));
 
-            Assert.AreEqual(check.Text, "Hello aasddd@ad.af!");
+            Assert.AreEqual(check.Text, "Hello qweaasddd@ad.af!");
 
 
             driver.Close();
