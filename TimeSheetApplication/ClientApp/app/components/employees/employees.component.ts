@@ -5,22 +5,17 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
-import { Employee } from './employee';
+import { Employee } from './employees';
 
 @Component({
     selector: 'employees',
     templateUrl: './employees.component.html'
 })
-
 export class EmployeesComponent {
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
     constructor(private http: Http) { }
-
-    ngOnInit() {
-        console.log(this.employee);
-    }
 
     /* Temporary method to clear the properties in the component */
 
