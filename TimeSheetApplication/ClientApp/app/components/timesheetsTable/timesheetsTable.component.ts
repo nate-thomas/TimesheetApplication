@@ -24,6 +24,16 @@ export class TimesheetsTableComponent {
         this.timesheet = new Array();
     }
 
+    printProperties() {
+        console.log(JSON.stringify(this.timesheet));
+    }
+
+    /* Utility methods */
+
+    addTimesheetRow() {
+        this.timesheet.push(new TimesheetRow());
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet(employeeNumber: string, endDate: string) {

@@ -10,9 +10,11 @@
     </tr>
     <tr>
         <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)">Load Timesheet</button></td>
+        <td><button (click)="addTimesheetRow()">Add TimesheetRow</button></td>
     </tr>
     <tr>
-        <td><button (click)="clearProperties()">Clear Timesheet</button></td>
+        <td><button (click)="clearProperties()">Reset Timesheet</button></td>
+        <td><button (click)="printProperties()">Print to Console</button></td>
     </tr>
 </table>
 
@@ -69,16 +71,16 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let timesheetRow of timesheet">
-				<td>{{timesheetRow.projectNumber}}</td>
-				<td>{{timesheetRow.workPackageNumber}}</td>
-				<td>{{timesheetRow.saturday}}</td>
-				<td>{{timesheetRow.sunday}}</td>
-				<td>{{timesheetRow.monday}}</td>
-                <td>{{timesheetRow.tuesday}}</td>
-                <td>{{timesheetRow.wednesday}}</td>
-                <td>{{timesheetRow.thursday}}</td>
-                <td>{{timesheetRow.friday}}</td>
-				<td>Finished all tasks</td>
+				<td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;"/></td>
+				<td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;"/></td>
+				<td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;"/></td>
+				<td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;"/></td>
+				<td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;"/></td>
+                <td><input type="text" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;"/></td>
+                <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;"/></td>
+                <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;"/></td>
+                <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;"/></td>
+				<td><input type="text" name="notes" value="Finished all tasks" style="width: 125px;"/></td>
 			</tr>
 			<tr>
 				<td colspan="3"></td>
