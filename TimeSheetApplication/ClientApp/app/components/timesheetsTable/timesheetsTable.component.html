@@ -1,4 +1,24 @@
-﻿<div class="container">
+﻿<!-- Temporary Input and Button to load a Timesheet -->
+<table>
+    <tr>
+        <td>Employee Number:</td>
+        <td><input type="text" #employeeNumber /><br /></td>
+    </tr>
+    <tr>
+        <td>End Date (YYYY-MM-DD):</td>
+        <td><input type="text" #endDate /><br /></td>
+    </tr>
+    <tr>
+        <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)">Load Timesheet</button></td>
+    </tr>
+    <tr>
+        <td><button (click)="clearProperties()">Clear Timesheet</button></td>
+    </tr>
+</table>
+
+<br />
+
+<div class="container">
 	<!-- Table Header -->
 	<div class="tableHeader">
 		<!-- xs, sm view -->
@@ -48,41 +68,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>P1</td>
-				<td>P1023</td>
-				<td>1</td>
-				<td>0.25</td>
-				<td>3.25</td>
-				<td>1</td>
-				<td>1</td>
-				<td>2</td>
-				<td>1</td>
+			<tr *ngFor="let timesheetRow of timesheet">
+				<td>{{timesheetRow.projectNumber}}</td>
+				<td>{{timesheetRow.workPackageNumber}}</td>
+				<td>{{timesheetRow.saturday}}</td>
+				<td>{{timesheetRow.sunday}}</td>
+				<td>{{timesheetRow.monday}}</td>
+                <td>{{timesheetRow.tuesday}}</td>
+                <td>{{timesheetRow.wednesday}}</td>
+                <td>{{timesheetRow.thursday}}</td>
+                <td>{{timesheetRow.friday}}</td>
 				<td>Finished all tasks</td>
-			</tr>
-			<tr>
-				<td>P26</td>
-				<td>P16003</td>
-				<td>1.25</td>
-				<td>2</td>
-				<td>3</td>
-				<td>6</td>
-				<td>4</td>
-				<td>2</td>
-				<td>1</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>P1</td>
-				<td>P1006</td>
-				<td>4</td>
-				<td>8</td>
-				<td>4</td>
-				<td>1</td>
-				<td>4</td>
-				<td>0.755</td>
-				<td>4</td>
-				<td></td>
 			</tr>
 			<tr>
 				<td colspan="3"></td>

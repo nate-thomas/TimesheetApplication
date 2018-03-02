@@ -12,6 +12,8 @@ import { Employee } from './employees';
     templateUrl: './employees.component.html'
 })
 export class EmployeesComponent {
+    url: string = "http://localhost:58911";
+
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
@@ -64,19 +66,19 @@ export class EmployeesComponent {
     /* CRUD methods to make RESTful calls to the API */
 
     getEmployees(): Observable<Employee[]> {
-        return this.http.get("http://localhost:61150/api/EmployeesAPI/")
+        return this.http.get(this.url + "/api/EmployeesAPI/")
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
 
     getEmployee(employeeNumber: string): Observable<Employee> {
-        return this.http.get("http://localhost:61150/api/EmployeesAPI/" + employeeNumber)
+        return this.http.get(this.url + "/api/EmployeesAPI/" + employeeNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
 
     deleteEmployee(employeeNumber: string): Observable<Employee> {
-        return this.http.delete("http://localhost:61150/api/EmployeesAPI/" + employeeNumber)
+        return this.http.delete(this.url + "/api/EmployeesAPI/" + employeeNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
@@ -85,7 +87,7 @@ export class EmployeesComponent {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post("http://localhost:61150/api/EmployeesAPI/", this.employee, options)
+        return this.http.post(this.url + "/api/EmployeesAPI/", this.employee, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
@@ -94,7 +96,7 @@ export class EmployeesComponent {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put("http://localhost:61150/api/EmployeesAPI/" + employeeNumber, this.employee, options)
+        return this.http.put(this.url + "/api/EmployeesAPI/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
