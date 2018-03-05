@@ -1,126 +1,124 @@
 ﻿<!-- Temporary Input and Button to load a Timesheet -->
-<table>
-    <tr>
-        <td>Employee Number:</td>
-        <td><input type="text" #employeeNumber /><br /></td>
-    </tr>
-    <tr>
-        <td>End Date (YYYY-MM-DD):</td>
-        <td><input type="text" #endDate /><br /></td>
-    </tr>
-    <tr>
-        <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)">Load Timesheet</button></td>
-        <td><button (click)="addTimesheetRow()">Add TimesheetRow</button></td>
-    </tr>
-    <tr>
-        <td><button (click)="clearProperties()">Reset Timesheet</button></td>
-        <td><button (click)="printProperties()">Print to Console</button></td>
-    </tr>
-</table>
 
-<br />
+<div class="wrapper">
+    <table>
+        <!--<tr>
+            <td>Employee Number:</td>
+            <td><input type="text" #employeeNumber /><br /></td>
+        </tr>-->
+        <tr>
+            <td>End Date (YYYY-MM-DD):</td>
+            <td><input type="text" #endDate /><br /></td>
+            <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)"><img class="img-icon" src="../../assets/images/search.png" alt="Load Timesheet" /></button></td>
+        </tr>
+    </table>
 
-<div class="container">
-	<!-- Table Header -->
-	<div class="tableHeader">
-		<!-- xs, sm view -->
-		<div class="row visible-xs visible-sm bg-warning">
-			<div class="col-xs-12">
-				<div class="row">
-					<button>Archive</button>
-					<button>This week</button>
-				</div>
+    <br />
 
-			</div>
-			<div class="col-xs-12 text-center">
-				<h1>Timesheet</h1>
-			</div>
-		</div>
+    <!-- Table Header -->
+    <div class="tableHeader">
+        <!-- xs, sm view -->
+        <div class="row visible-xs visible-sm">
+            <div class="col-xs-12">
+                <div class="row">
+                    <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+                </div>
 
-		<!--  md, lg, xl views -->
-		<div class="row hidden-xs hidden-sm">
-			<div class="col-md-4">
-				<button>Archive</button>
-				<button>This week</button>
-			</div>
-			<div class="col-md-4 text-center">
-				<h1>Timesheet</h1>
-			</div>
-			<div class="col-md-4">
-				<h4 class="pull-right">Week No.</h4>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="col-xs-12 text-center">
+                <h1>Timesheet</h1>
+            </div>
+        </div>
+
+        <!--  md, lg, xl views -->
+        <div class="row hidden-xs hidden-sm">
+            <div class="col-md-4">
+                <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+            </div>
+            <div class="col-md-4 text-center">
+                <h1>Timesheet</h1>
+            </div>
+            <div class="col-md-4">
+                <h4 class="pull-right">Week No.</h4>
+            </div>
+        </div>
+    </div>
 
 
-	<!-- Table Body -->
-	<table class="table table-hover table-striped">
-		<thead>
-			<tr>
-				<th>Project #</th>
-				<th>WP #</th>
-				<th>Saturday</th>
-				<th>Sunday</th>
-				<th>Monday</th>
-				<th>Tuesday</th>
-				<th>Wednesday</th>
-				<th>Thursday</th>
-				<th>Friday</th>
-				<th>Notes</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let timesheetRow of timesheet">
-				<td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;"/></td>
-				<td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;"/></td>
-				<td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;"/></td>
-				<td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;"/></td>
-				<td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;"/></td>
-                <td><input type="text" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;"/></td>
-                <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;"/></td>
-                <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;"/></td>
-                <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;"/></td>
-				<td><input type="text" name="notes" value="Finished all tasks" style="width: 125px;"/></td>
-			</tr>
-			<tr>
-				<td colspan="3"></td>
-			</tr>
-			<tr>
-				FlexTime:
-			</tr>
+    <!-- Table Body -->
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Project #</th>
+                <th>WP #</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let timesheetRow of timesheet">
+                <td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
+                <td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
+                <td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" /></td>
+                <td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" /></td>
+                <td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" /></td>
+                <td><input type="text" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" /></td>
+                <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" /></td>
+                <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" /></td>
+                <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" /></td>
+                <td><input type="text" name="notes" value="Finished all tasks" style="width: 125px;" /></td>
+            </tr>
+            <!--<tr>
+                <td colspan="3"></td>
+            </tr>-->
+            <tr>
+                <td colspan="2"><button (click)="addTimesheetRow()">+</button></td>
+            </tr>
+            <tr>
+                FlexTime:
+            </tr>
+            <tr>
+                Overtime:
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <button (click)="printProperties()">Print to Console</button>
+    <button class="pull-right" (click)="clearProperties()">Reset Timesheet</button>
+    
+    <br /> <br /> <br />
+    
+    <!-- Table Footer -->
+    <!-- xs, sm view -->
+    <div class="row visible-xs visible-sm">
+        <br />
+        <div class="row">
+            <p>Approval Status: <strong>Not Approved</strong></p>
 
-			<tr>
-				Overtime:
-			</tr>
-		</tbody>
-		
-	</table>
+        </div>
+        <div class="row">
+            <button>Sign Timesheet</button>
+        </div>
+    </div>
 
-	<!-- Table Footer -->
-	<!-- xs, sm view -->
-	<div class="row visible-xs visible-sm">
-		<br />
-		<div class="row">
-			<p>Approval Status: <strong>Not Approved</strong></p>
+    <!-- md, lg, xl view -->
 
-		</div>
-		<div class="row">
-			<button>Sign Timesheet</button>
-		</div>
-	</div>
+    <div class="row hidden-xs hidden-sm">
 
-	<!-- md, lg, xl view -->
+        <div class="col-md-6">
+            <p>Approval Status: <strong>Not Approved</strong></p>
 
-	<div class="row hidden-xs hidden-sm">
-
-		<div class="col-md-6">
-			<p>Approval Status: <strong>Not Approved</strong></p>
-
-		</div>
-		<div class="col-md-6 ">
-			<button class="pull-right">Sign Timesheet</button>
-		</div>
-	</div>
+        </div>
+        <div class="col-md-6 ">
+            <button class="pull-right">Sign Timesheet</button>
+        </div>
+    </div>
 
 </div>
 

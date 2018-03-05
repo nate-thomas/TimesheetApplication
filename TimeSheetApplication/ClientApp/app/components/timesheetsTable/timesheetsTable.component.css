@@ -1,3 +1,13 @@
 ﻿.tableHeader {
 	padding-top: 30px;
 }
+
+.wrapper {
+    margin: 5%;
+
+}
+
+.img-icon {
+    height: 15px;
+    width: 15px;
+}

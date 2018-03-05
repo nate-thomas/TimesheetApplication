@@ -1,8 +1,20 @@
-﻿<h4>Login</h4>
+﻿<div class="wrapper">
+    
+    <div class="row"></div>
+    <div class="row"><hr /></div>
+    <div class="row">USERNAME</div>
+    
+    <div class="row">
+        <input type="text" placeholder="A12345678" [(ngModel)]="username" />
+    </div>
+    <div class="row"><hr /></div>
+    <div class="row">PASSWORD</div> 
+    
+    <div class="row">
+        <input type="password" placeholder="********" [(ngModel)]="password" />
+    </div>
+    <br />
 
-Username: <input type="text" [(ngModel)]="username" />
-Password: <input type="password" [(ngModel)]="password" />
-
-<br />
-
-<button (click)="login()">Login</button>
+    <div class="row"><button class="btn-block" (click)="login()">Login</button>
+    </div>
+</div>
