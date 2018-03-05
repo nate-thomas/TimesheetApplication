@@ -12,12 +12,13 @@ li .glyphicon {
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
-    background-color: #4cff00;
-    color: darkslategrey;
+    background-color: #4697CE;
+    color: white;
+    font-weight: bold;
 }
 
 .navbar-inverse {
-    background-color: #313131;
+    background-color: #2A3C50;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */
