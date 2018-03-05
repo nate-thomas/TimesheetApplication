@@ -1,13 +1,94 @@
-﻿<h1>Employees Page</h1>
+﻿<!-- Temporary Input and Button to load a Timesheet -->
 
-<button (click)="clearProperties()">Clear Properties</button>
+<div class="wrapper">
+    <table>
+        <!--<tr>
+            <td>Employee Number:</td>
+            <td><input type="text" #employeeNumber /><br /></td>
+        </tr>-->
+        <tr>
+            <td>End Date (YYYY-MM-DD):</td>
+            <td><input type="text" #endDate /><br /></td>
+            <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)"><img class="img-icon" src="../../assets/images/search.png" alt="Load Timesheet" /></button></td>
+        </tr>
+        <tr><td><button (click)="loadEmployees()">View Employees</button></td></tr>
+    </table>
+
+    <br />
+
+    <!-- Table Header -->
+    <div class="tableHeader">
+        <!-- xs, sm view -->
+        <div class="row visible-xs visible-sm">
+            <div class="col-xs-12">
+                <div class="row">
+                    <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+                </div>
+
+            </div>
+            <div class="col-xs-12 text-center">
+                <h1>Employees</h1>
+            </div>
+        </div>
+
+        <!--  md, lg, xl views -->
+        <div class="row hidden-xs hidden-sm">
+            <div class="col-md-4">
+                <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+            </div>
+            <div class="col-md-4 text-center">
+                <h1>Employees</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Table Body -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Employee #</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Labour Grade</th>
+                <th>Grade</th>
+                <th>Initials</th>
+                <th>Supervisor</th>
+                <th>Supervisor #</th>
+                <th>Authorization Code</th>
+                <th>Timesheets</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let timesheetRow of timesheet">
+                <td><input type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" style="width: 75px;" /></td>
+                <td><input type="text" name="firstName" [(ngModel)]="employee.firstName" style="width: 75px;" /></td>
+                <td><input type="text" name="lastName" [(ngModel)]="employee.lastName" style="width: 75px;" /></td>
+                <td><input type="text" name="labourGrade" [(ngModel)]="employee.laborGrade" style="width: 75px;" /></td>
+                <td><input type="text" name="grade" [(ngModel)]="employee.grade" style="width: 75px;" /></td>
+                <td><input type="text" name="employeeInitials" [(ngModel)]="employee.employeeInitials" style="width: 75px;" /></td>
+                <td><input type="text" name="supervisor" [(ngModel)]="employee.supervisor" style="width: 75px;" /></td>
+                <td><input type="text" name="supervisorNumber" [(ngModel)]="employee.supervisorNumber" style="width: 75px;" /></td>
+                <td><input type="text" name="authcode" [(ngModel)]="employee.authCode" style="width: 75px;" /></td>
+                <td><input type="text" name="authorizationCode" [(ngModel)]="employee.authorizationCode" style="width: 75px;" /></td>
+                <td><input type="text" name="timsheets" [(ngModel)]="employee.timesheets" style="width: 75px;" /></td>
+            </tr>
+            <!--<tr>
+        <td colspan="3"></td>
+    </tr>-->
+            <tr>
+                <td colspan="10"><button class="btn-block" (click)="addEmployeeRow()">+</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <button class="pull-right" (click)="clearProperties()">Reset Properties</button>
+
 
 <br />
 
-<h2>View Employees</h2>
 
-<button (click)="loadEmployees()">View Employees</button>
-
+<!-- Fetch Data?  -->
 <div *ngFor="let employee of employees">
     <ul>
         <li>Employee Number: {{employee.employeeNumber}}</li>
@@ -28,7 +109,8 @@
 
 <h2>View Employee</h2>
 
-Employee Number: <input type="text" #employeeNumberView/> <button (click)="loadEmployee(employeeNumberView.value)">View Employee</button>
+Employee Number: <input type="text" #employeeNumberView />
+<button (click)="loadEmployee(employeeNumberView.value)">View Employee</button>
 
 <div *ngIf="employee.employeeNumber">
     <ul>
@@ -50,7 +132,8 @@ Employee Number: <input type="text" #employeeNumberView/> <button (click)="loadE
 
 <h2>Delete Employee</h2>
 
-Employee Number: <input type="text" #employeeNumberDelete/> <button (click)="removeEmployee(employeeNumberDelete.value)">Delete Employee</button>
+Employee Number: <input type="text" #employeeNumberDelete />
+<button (click)="removeEmployee(employeeNumberDelete.value)">Delete Employee</button>
 
 <h2>Add Employee</h2>
 
@@ -112,47 +195,47 @@ Employee Number: <input type="text" #employeeNumberDelete/> <button (click)="rem
     <table>
         <tr>
             <td>Employee Number: </td>
-            <td><input type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber"/></td>
+            <td><input type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" /></td>
         </tr>
         <tr>
             <td>First Name: </td>
-            <td><input type="text" name="firstName" [(ngModel)]="employee.firstName"/></td>
+            <td><input type="text" name="firstName" [(ngModel)]="employee.firstName" /></td>
         </tr>
         <tr>
             <td>Last Name: </td>
-            <td><input type="text"  name="lastName" [(ngModel)]="employee.lastName"/></td>
+            <td><input type="text" name="lastName" [(ngModel)]="employee.lastName" /></td>
         </tr>
         <tr>
             <td>Labor Grade: </td>
-            <td><input type="text" name="laborGrade" [(ngModel)]="employee.laborGrade"/></td>
+            <td><input type="text" name="laborGrade" [(ngModel)]="employee.laborGrade" /></td>
         </tr>
         <tr>
             <td>Grade: </td>
-            <td><input type="text" name="grade" [(ngModel)]="employee.grade"/></td>
+            <td><input type="text" name="grade" [(ngModel)]="employee.grade" /></td>
         </tr>
         <tr>
             <td>Employee Initials: </td>
-            <td><input type="text" name="employeeInitials" [(ngModel)]="employee.employeeInitials"/></td>
+            <td><input type="text" name="employeeInitials" [(ngModel)]="employee.employeeInitials" /></td>
         </tr>
         <tr>
             <td>Supervisor: </td>
-            <td><input type="text" name="supervisor" [(ngModel)]="employee.supervisor"/></td>
+            <td><input type="text" name="supervisor" [(ngModel)]="employee.supervisor" /></td>
         </tr>
         <tr>
             <td>Supervisor Number: </td>
-            <td><input type="text" name="supervisorNumber" [(ngModel)]="employee.supervisorNumber"/></td>
+            <td><input type="text" name="supervisorNumber" [(ngModel)]="employee.supervisorNumber" /></td>
         </tr>
         <tr>
             <td>Auth Code: </td>
-            <td><input type="text" name="authCode" [(ngModel)]="employee.authCode"/></td>
+            <td><input type="text" name="authCode" [(ngModel)]="employee.authCode" /></td>
         </tr>
         <tr>
             <td>Authorization Code: </td>
-            <td><input type="text" name="authorizationCode" [(ngModel)]="employee.authorizationCode"/></td>
+            <td><input type="text" name="authorizationCode" [(ngModel)]="employee.authorizationCode" /></td>
         </tr>
         <tr>
             <td>Timesheets: </td>
-            <td><input type="text" name="timesheets" [(ngModel)]="employee.timesheets"/></td>
+            <td><input type="text" name="timesheets" [(ngModel)]="employee.timesheets" /></td>
         </tr>
     </table>
     <button>Update Employee</button>
