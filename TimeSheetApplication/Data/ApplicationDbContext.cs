@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Models.TimeSheetSystem;
 
 namespace TimeSheetApplication.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<Employees>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {
             
@@ -23,7 +24,7 @@ namespace TimeSheetApplication.Data
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AuthorizationCodes>().ToTable("AuthorizationCodes");
             modelBuilder.Entity<Employees>().ToTable("Employees");
             modelBuilder.Entity<LaborGrades>().ToTable("LaborGrades");
