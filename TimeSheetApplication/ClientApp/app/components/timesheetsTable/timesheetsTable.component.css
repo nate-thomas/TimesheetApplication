@@ -11,3 +11,10 @@
     height: 15px;
     width: 15px;
 }
+
+.tableHeader {
+    background-color: #436252;
+    opacity: .8;
+    padding: 10px;
+    color: white;
+}

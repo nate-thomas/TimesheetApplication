@@ -46,7 +46,7 @@
 
 
     <!-- Table Body -->
-    <table class="table table-hover table-striped">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Project #</th>
@@ -72,16 +72,16 @@
                 <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" /></td>
                 <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" /></td>
                 <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" /></td>
-                <td><input type="text" name="notes" value="Finished all tasks" style="width: 125px;" /></td>
+                <td><input type="text" name="notes" value="" style="width: 125px;" /></td>
             </tr>
             <!--<tr>
                 <td colspan="3"></td>
             </tr>-->
             <tr>
-                <td colspan="2"><button (click)="addTimesheetRow()">+</button></td>
+                <td colspan="10"><button class="btn-block" (click)="addTimesheetRow()">+</button></td>
             </tr>
             <tr>
-                FlexTime:
+                Flextime:
             </tr>
             <tr>
                 Overtime:

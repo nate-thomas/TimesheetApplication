@@ -2,12 +2,22 @@ li .glyphicon {
     margin-right: 10px;
 }
 
+
+
+/*.navbar-inverse .navbar-nav > li > a {
+    color: lightgray;
+}*/
+
 /* Highlighting rules for nav menu items */
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
-    background-color: #4189C7;
-    color: white;
+    background-color: #4cff00;
+    color: darkslategrey;
+}
+
+.navbar-inverse {
+    background-color: #313131;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */
@@ -25,30 +35,37 @@ li.link-active a:focus {
         height: 100%;
         width: calc(25% - 20px);
     }
+
     .navbar {
         border-radius: 0px;
         border-width: 0px;
         height: 100%;
     }
+
     .navbar-header {
         float: none;
     }
+
     .navbar-collapse {
         border-top: 1px solid #444;
         padding: 0px;
     }
+
     .navbar ul {
         float: none;
     }
+
     .navbar li {
         float: none;
         font-size: 15px;
         margin: 6px;
     }
-    .navbar li a {
-        padding: 10px 16px;
-        border-radius: 4px;
-    }
+
+        .navbar li a {
+            padding: 10px 16px;
+            border-radius: 4px;
+        }
+
     .navbar a {
         /* If a menu item's text is too long, truncate it */
         width: 100%;
