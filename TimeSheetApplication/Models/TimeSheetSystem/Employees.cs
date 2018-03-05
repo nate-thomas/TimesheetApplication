@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 
 namespace TimeSheetApplication.Models.TimeSheetSystem
 {
-    public class Employees : IdentityUser
+    public class Employees
     {   
         [Key]
         public string EmployeeNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public AppUser Identity { get; set; } //will this fix the error?
 
         [ForeignKey("Grade")]
         public LaborGrades LaborGrade { get; set; }

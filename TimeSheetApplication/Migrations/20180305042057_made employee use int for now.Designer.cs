@@ -11,9 +11,10 @@ using TimeSheetApplication.Data;
 namespace TimeSheetApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180305042057_made employee use int for now")]
+    partial class madeemployeeuseintfornow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,6 +196,8 @@ namespace TimeSheetApplication.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AuthCode");
+
+                    b.Property<int>("EmmployeeId");
 
                     b.Property<string>("EmployeeIntials");
 

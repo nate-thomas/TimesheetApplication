@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TimeSheetApplication.Models;
 using TimeSheetApplication.Models.TimeSheetSystem;
 
 namespace TimeSheetApplication.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<Employees>
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {
             
