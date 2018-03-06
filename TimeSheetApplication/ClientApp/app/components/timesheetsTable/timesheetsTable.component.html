@@ -9,7 +9,7 @@
         <tr>
             <td>End Date (YYYY-MM-DD):</td>
             <td><input type="text" #endDate /><br /></td>
-            <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)"><img class="img-icon" src="../../assets/images/search.png" alt="Load Timesheet" /></button></td>
+            <td><button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)"><img class="img-icon" src="../../assets/images/search.png" alt="Load Timesheet" /></button></td>
         </tr>
     </table>
 
@@ -21,7 +21,7 @@
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
                 <div class="row">
-                    <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+                    <button class="btn-icon"><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
                 </div>
 
             </div>
@@ -33,7 +33,7 @@
         <!--  md, lg, xl views -->
         <div class="row hidden-xs hidden-sm">
             <div class="col-md-4">
-                <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+                <button class="btn-icon"><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
             </div>
             <div class="col-md-4 text-center">
                 <h1>Timesheet</h1>
@@ -78,7 +78,7 @@
                 <td colspan="3"></td>
             </tr>-->
             <tr>
-                <td colspan="10"><button class="btn-block" (click)="addTimesheetRow()">+</button></td>
+                <td colspan="10"><button class="btn-block btn-icon" (click)="addTimesheetRow()">+</button></td>
             </tr>
             <tr>
                 Flextime:
@@ -88,12 +88,13 @@
             </tr>
         </tbody>
     </table>
-    <hr />
+    <hr />http://localhost:4176/login
     <button (click)="printProperties()">Print to Console</button>
-    <button class="pull-right" (click)="clearProperties()">Reset Timesheet</button>
-    
+    <button class="pull-right" (click)="clearProperties()">Reset</button>
+    <button class="pull-right">Save</button>
+
     <br /> <br /> <br />
-    
+
     <!-- Table Footer -->
     <!-- xs, sm view -->
     <div class="row visible-xs visible-sm">
