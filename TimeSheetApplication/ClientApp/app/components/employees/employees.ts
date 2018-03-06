@@ -1,4 +1,6 @@
-﻿export class Employee {
+﻿import { Timesheet } from '../timesheetsTable/timesheets'
+
+export class Employee {
     employeeNumber: string;
     firstName: string;
     lastName: string;
@@ -9,7 +11,7 @@
     supervisorNumber: string;
     authCode: string;
     authorizationCode: Object;
-    timesheets: Object;
+    timesheets: Timesheet[];
 
     constructor() { }
 }

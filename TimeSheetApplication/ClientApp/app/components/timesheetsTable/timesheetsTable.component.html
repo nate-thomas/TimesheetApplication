@@ -1,4 +1,26 @@
-﻿<div class="container">
+﻿<!-- Temporary Input and Button to load a Timesheet -->
+<table>
+    <tr>
+        <td>Employee Number:</td>
+        <td><input type="text" #employeeNumber /><br /></td>
+    </tr>
+    <tr>
+        <td>End Date (YYYY-MM-DD):</td>
+        <td><input type="text" #endDate /><br /></td>
+    </tr>
+    <tr>
+        <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)">Load Timesheet</button></td>
+        <td><button (click)="addTimesheetRow()">Add TimesheetRow</button></td>
+    </tr>
+    <tr>
+        <td><button (click)="clearProperties()">Reset Timesheet</button></td>
+        <td><button (click)="printProperties()">Print to Console</button></td>
+    </tr>
+</table>
+
+<br />
+
+<div class="container">
 	<!-- Table Header -->
 	<div class="tableHeader">
 		<!-- xs, sm view -->
@@ -48,41 +70,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>P1</td>
-				<td>P1023</td>
-				<td>1</td>
-				<td>0.25</td>
-				<td>3.25</td>
-				<td>1</td>
-				<td>1</td>
-				<td>2</td>
-				<td>1</td>
-				<td>Finished all tasks</td>
-			</tr>
-			<tr>
-				<td>P26</td>
-				<td>P16003</td>
-				<td>1.25</td>
-				<td>2</td>
-				<td>3</td>
-				<td>6</td>
-				<td>4</td>
-				<td>2</td>
-				<td>1</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>P1</td>
-				<td>P1006</td>
-				<td>4</td>
-				<td>8</td>
-				<td>4</td>
-				<td>1</td>
-				<td>4</td>
-				<td>0.755</td>
-				<td>4</td>
-				<td></td>
+			<tr *ngFor="let timesheetRow of timesheet">
+				<td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;"/></td>
+				<td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;"/></td>
+				<td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;"/></td>
+				<td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;"/></td>
+				<td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;"/></td>
+                <td><input type="text" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;"/></td>
+                <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;"/></td>
+                <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;"/></td>
+                <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;"/></td>
+				<td><input type="text" name="notes" value="Finished all tasks" style="width: 125px;"/></td>
 			</tr>
 			<tr>
 				<td colspan="3"></td>

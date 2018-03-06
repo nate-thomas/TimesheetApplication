@@ -26,20 +26,24 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\admintasks\admintasks.component.ts" />
-    <None Remove="ClientApp\app\components\employees\employee.ts" />
     <None Remove="ClientApp\app\components\employees\employees.component.ts" />
+    <None Remove="ClientApp\app\components\employees\employees.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
+    <None Remove="ClientApp\app\components\timesheets\timesheetRows.ts" />
+    <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\admintasks\admintasks.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\employees\employee.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\employees\employees.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\timesheetsTable\timesheetRows.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\timesheetsTable\timesheets.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
