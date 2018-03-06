@@ -10,11 +10,18 @@
     </tr>
     <tr>
         <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)">Load Timesheet</button></td>
-        <td><button (click)="addTimesheetRow()">Add TimesheetRow</button></td>
+        <td><button (click)="addTimesheetRow(employeeNumber.value, endDate.value)">Add TimesheetRow</button></td>
     </tr>
     <tr>
-        <td><button (click)="clearProperties()">Reset Timesheet</button></td>
+        <td><button (click)="addTimesheet(employeeNumber.value, endDate.value)">Create Timesheet</button></td>
+        <td><button (click)="clearProperties()">Reset Properties</button></td>
+    </tr>
+    <tr>
+        <td><button (click)="updateTimesheet(employeeNumber.value, endDate.value)">Update Timesheet</button></td>
         <td><button (click)="printProperties()">Print to Console</button></td>
+    </tr>
+    <tr>
+        <td><button (click)="removeTimesheet(employeeNumber.value, endDate.value)">Delete Timesheet</button></td>
     </tr>
 </table>
 
@@ -80,7 +87,7 @@
                 <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;"/></td>
                 <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;"/></td>
                 <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;"/></td>
-				<td><input type="text" name="notes" value="Finished all tasks" style="width: 125px;"/></td>
+				<td><input type="text" name="notes" value="" style="width: 125px;" disabled/></td>
 			</tr>
 			<tr>
 				<td colspan="3"></td>
