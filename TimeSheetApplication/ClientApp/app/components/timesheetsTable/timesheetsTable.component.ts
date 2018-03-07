@@ -9,6 +9,7 @@ import { TimesheetRow } from './timesheetRows'
 
 @Component({
     selector: 'timesheetsTable',
+    styleUrls: ['./timesheetsTable.component.css'],
     templateUrl: './timesheetsTable.component.html'
 })
 export class TimesheetsTableComponent {
