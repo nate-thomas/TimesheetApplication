@@ -2,18 +2,16 @@
     margin-top: 5%;
     margin-left: 25%;
     margin-right: 25%;
-
 }
 
 input::placeholder {
-    color:lightgrey;
+    color: lightgrey;
 }
 
 input {
-   border: 0;
-    
+    border: 0;
 }
 
-input:focus {
-    outline-width: 0;
-}
+    input:focus {
+        outline-width: 0;
+    }

@@ -1,27 +1,37 @@
-﻿<!-- Temporary Input and Button to load a Timesheet -->
+﻿<div class="wrapper">
 
-<div class="wrapper">
+    <!-- Temporary Input and Button to load a Timesheet -->
     <table>
-        <!--<tr>
+        <tr>
             <td>Employee Number:</td>
             <td><input type="text" #employeeNumber /><br /></td>
-        </tr>-->
+            <td rowspan="2">
+                <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
+                    <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
+                </button>
+            </td>
+        </tr>
         <tr>
             <td>End Date (YYYY-MM-DD):</td>
             <td><input type="text" #endDate /><br /></td>
-            <td><button (click)="loadTimesheet(employeeNumber.value, endDate.value)"><img class="img-icon" src="../../assets/images/search.png" alt="Load Timesheet" /></button></td>
+        </tr>
+        <tr>
+            <!--<td><button disabled (click)="addTimesheet(employeeNumber.value, endDate.value)">Create Timesheet</button></td>-->
+        </tr>
+        <tr>
+            <!--<td><button disabled (click)="removeTimesheet(employeeNumber.value, endDate.value)">Delete Timesheet</button></td>-->
         </tr>
     </table>
-
     <br />
-
     <!-- Table Header -->
     <div class="tableHeader">
         <!-- xs, sm view -->
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
                 <div class="row">
-                    <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+                    <div class="row">
+                        <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
+                    </div>
                 </div>
 
             </div>
@@ -33,7 +43,7 @@
         <!--  md, lg, xl views -->
         <div class="row hidden-xs hidden-sm">
             <div class="col-md-4">
-                <button><img class="img-icon" src="../../assets/images/archive.png" alt="Archive" /></button>
+                <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
             </div>
             <div class="col-md-4 text-center">
                 <h1>Timesheet</h1>
@@ -72,28 +82,48 @@
                 <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" /></td>
                 <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" /></td>
                 <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" /></td>
-                <td><input type="text" name="notes" value="" style="width: 125px;" /></td>
+                <td><input type="text" name="notes" value="" style="width: 125px;" disabled /></td>
+                <td><input type="text" name="total" value="" style="width: 125px;" disabled /></td>
             </tr>
-            <!--<tr>
-                <td colspan="3"></td>
-            </tr>-->
+            <tr></tr>
             <tr>
-                <td colspan="10"><button class="btn-block" (click)="addTimesheetRow()">+</button></td>
-            </tr>
-            <tr>
-                Flextime:
+                <td colspan="11"><button class="btn-block" (click)="addTimesheetRow(employeeNumber.value, endDate.value)">+</button></td>
             </tr>
             <tr>
-                Overtime:
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Flextime:</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Overtime:</td>
+                <td></td>
+
             </tr>
         </tbody>
+
     </table>
-    <hr />
+
+    <button class="pull-right" (click)="clearProperties()">Reset</button>
+    <button class="pull-right" (click)="updateTimesheet(employeeNumber.value, endDate.value)">Update</button>
     <button (click)="printProperties()">Print to Console</button>
-    <button class="pull-right" (click)="clearProperties()">Reset Timesheet</button>
-    
-    <br /> <br /> <br />
-    
+    <br />
+    <hr />
     <!-- Table Footer -->
     <!-- xs, sm view -->
     <div class="row visible-xs visible-sm">
@@ -119,6 +149,7 @@
             <button class="pull-right">Sign Timesheet</button>
         </div>
     </div>
+
 </div>
 
 
