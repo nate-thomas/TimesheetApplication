@@ -1,6 +1,6 @@
 ﻿<div class="wrapper">
 
-    <!-- Temporary Input and Button to load a Timesheet -->
+    <!-- Temporary Input and Button to load an employee -->
     <table>
         <tr>
             <td>Employee Number:</td>
@@ -56,18 +56,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let timesheetRow of timesheet">
-                <td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
-                <td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
-                <td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" /></td>
-                <td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" /></td>
-                <td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" /></td>
-                <td><input type="text" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" /></td>
-                <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" /></td>
-                <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" /></td>
-                <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" /></td>
-                <td><input type="text" name="notes" value="" style="width: 125px;" disabled /></td>
-                <td><input type="text" name="total" value="" style="width: 125px;" disabled /></td>
+            <tr *ngFor="let employee of employees">
+                <td>{{employee.employeeNumber}}</td>
+                <td>{{employee.firstName}}</td>
+                <td>{{employee.lastName}}</td>
+                <td>{{employee.grade}}</td>
+                <td>{{employee.supervisorNumber}}</td>
             </tr>
             <tr></tr>
         </tbody>
@@ -81,7 +75,7 @@
 
 <!-- Table Footer -->
 
-<button (click)="clearProperties()">Clear Properties</button>
+<!--<button (click)="clearProperties()">Clear Properties</button>
 
 <br />
 
@@ -239,4 +233,4 @@ Employee Number: <input type="text" #employeeNumberDelete />
         </tr>
     </table>
     <button>Update Employee</button>
-</form>
+</form>-->

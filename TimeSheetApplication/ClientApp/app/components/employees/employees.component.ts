@@ -27,6 +27,12 @@ export class EmployeesComponent {
         this.employee = new Employee();
     }
 
+    /* Functions to be called when component is loaded */
+
+    ngOnInit() {
+        this.loadEmployees();
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadEmployees() {
