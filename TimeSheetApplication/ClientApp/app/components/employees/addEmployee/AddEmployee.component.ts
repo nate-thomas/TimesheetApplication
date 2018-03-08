@@ -5,14 +5,14 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
-import { Employee } from './employees';
+import { Employee } from '../employees';
 
 @Component({
-    selector: 'employees',
-    styleUrls: ['./employees.component.css'],
-    templateUrl: './employees.component.html'
+    selector: 'AddEmployee',
+    styleUrls: ['./addEmployee.component.css'],
+    templateUrl: './addEmployee.component.html'
 })
-export class EmployeesComponent {
+export class AddEmployeeComponent {
     url: string = "http://localhost:58911";
 
     employees: Employee[] = new Array();
