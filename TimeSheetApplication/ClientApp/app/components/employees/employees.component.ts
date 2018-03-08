@@ -9,6 +9,7 @@ import { Employee } from './employees';
 
 @Component({
     selector: 'employees',
+    styleUrls: ['./employees.component.css'],
     templateUrl: './employees.component.html'
 })
 export class EmployeesComponent {
