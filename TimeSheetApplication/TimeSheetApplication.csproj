@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\admintasks\admintasks.component.ts" />
+    <None Remove="ClientApp\app\components\employees\addEmployee\AddEmployee.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
@@ -37,6 +38,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\admintasks\admintasks.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\employees\addEmployee\AddEmployee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />

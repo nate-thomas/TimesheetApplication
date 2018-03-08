@@ -16,6 +16,7 @@ import { EmployeesComponent } from './components/employees/employees.component';
 import { AdmintasksComponent } from './components/admintasks/admintasks.component';
 import { UserComponent } from './components/user/user.component';
 import { TimesheetsTableComponent } from './components/timesheetsTable/timesheetsTable.component';
+import { AddEmployeeComponent } from './components/employees/addEmployee/AddEmployee.component';
 
 @NgModule({
     declarations: [
@@ -24,13 +25,15 @@ import { TimesheetsTableComponent } from './components/timesheetsTable/timesheet
         TimesheetsComponent,
         ProjectsComponent,
         EmployeesComponent,
+        AddEmployeeComponent,
         AdmintasksComponent,
         UserComponent,
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
 		LoginComponent,
-		TimesheetsTableComponent
+        TimesheetsTableComponent,
+
     ],
     imports: [
         CommonModule,
@@ -43,6 +46,7 @@ import { TimesheetsTableComponent } from './components/timesheetsTable/timesheet
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
+            { path: 'addEmployee', component: AddEmployeeComponent },
             { path: 'admintasks', component: AdmintasksComponent },
             { path: 'user', component: UserComponent },
             { path: 'counter', component: CounterComponent },
