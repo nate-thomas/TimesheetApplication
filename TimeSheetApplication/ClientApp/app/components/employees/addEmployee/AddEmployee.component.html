@@ -1,4 +1,4 @@
-﻿<div *ngFor="let employee of employees">
+﻿<!--<div *ngFor="let employee of employees">
     <ul>
         <li>Employee Number: {{employee.employeeNumber}}</li>
         <li>First Name: {{employee.firstName}}</li>
@@ -28,7 +28,8 @@
         <li>Authorization Code: {{employee.authorizationCode}}</li>
         <li>Timesheets: {{employee.timesheets}}</li>
     </ul>
-</div>
+</div>-->
+
 <div class="wrapper">
     <div class="title" align="center">
         <h2>Creating New Employee</h2>
@@ -63,21 +64,21 @@
                     <div class="col-xs-12">
                         Labor Grade
                         <br />
-                        <input type="text" name="LaborGrade" [(ngModel)]="employee.laborGrade" />
+                        <input type="text" name="grade" [(ngModel)]="employee.grade" />
                     </div>
                 </div>
                 <div class="row inputBox">
                     <div class="col-xs-12">
                         Supervisor SEARCH FIELD
                         <br />
-                        <input type="text" name="LaborGrade" [(ngModel)]="employee.supervisor.Name" />
+                        <input type="text" name="supervisor" [(ngModel)]="employee.supervisorNumber" />
                     </div>
                 </div>
                 <div class="row inputBox">
                     <div class="col-xs-12">
                         Authorization Code
                         <br />
-                        <input type="text" name="LaborGrade" [(ngModel)]="employee.authCode" />
+                        <input type="text" name="authCode" [(ngModel)]="employee.authCode" />
                     </div>
                 </div>
                 <br />
@@ -96,14 +97,14 @@
                     <div class="col-md-6" align="center">
                             Supervisor SEARCH FIELD
                             <br />
-                            <input type="text" name="firstName" [(ngModel)]="employee.supervisor.Name" />
+                            <input type="text" name="supervisorNumber" [(ngModel)]="employee.supervisorNumber" />
                     </div>
                 </div>
                 <div class="row inputBox">
                     <div class="col-md-6" align="center">
                         First Name
                         <br />
-                        <input type="text" name="LaborGrade" [(ngModel)]="employee.firstName" />
+                        <input type="text" name="firstName" [(ngModel)]="employee.firstName" />
                     </div>
                     <div class="col-md-6" align="center">
                         Last Name
@@ -116,12 +117,12 @@
                     <div class="col-md-6" align="center">
                         Labor Grade DROPDOWN
                         <br />
-                        <input type="text" name="LaborGrade" [(ngModel)]="employee.laborGrade" />
+                        <input type="text" name="grade" [(ngModel)]="employee.grade" />
                     </div>
                     <div class="col-md-6" align="center">
                         Authorization Code DROPDOWN
                         <br />
-                        <input type="text" name="LaborGrade" [(ngModel)]="employee.authCode" />
+                        <input type="text" name="authCode" [(ngModel)]="employee.authCode" />
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Employee } from '../employees';
 
 @Component({
@@ -18,13 +19,15 @@ export class AddEmployeeComponent {
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private router: Router) { }
 
     /* Temporary method to clear the properties in the component */
 
     clearProperties() {
         this.employees = new Array();
         this.employee = new Employee();
+
+        this.router.navigateByUrl('/employees');
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
