@@ -13,7 +13,7 @@ import { TimesheetRow } from './timesheetRows'
     templateUrl: './timesheetsTable.component.html'
 })
 export class TimesheetsTableComponent {
-    url: string = "http://localhost:58911";
+    url: string = "http://localhost:51050";
 
     timesheet: TimesheetRow[] = new Array();
 

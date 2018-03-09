@@ -1,0 +1,81 @@
+﻿<h1>Workpackages</h1>
+
+<div class="wrapper">
+    <!-- Temporary Input and Button to load an employee -->
+    <table>
+        <tr>
+            <td>Work Package:</td>
+            <td><input type="text" #workpackage /><br /></td>
+            <td rowspan="2">
+                <!-- change this to load employee info-->
+
+
+               <!-- THIS HAS TO BE CHANGED TO WORKPACKAGES-->
+                <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
+                    <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Workpackage" />
+                </button>
+
+
+            </td>
+        </tr>
+    </table>
+    <br />
+    <!-- Table Header -->
+    <div class="tableHeader">
+        <!-- xs, sm view -->
+        <div class="row visible-xs visible-sm">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="row">
+                        <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 text-center">
+                <h1>Workpackages</h1>
+            </div>
+        </div>
+
+        <!--  md, lg, xl views -->
+        <div class="row hidden-xs hidden-sm">
+            <div class="col-md-4">
+                <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
+            </div>
+            <div class="col-md-4 text-center">
+                <h1>Workpackages</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Table Body -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Project Number</th>
+                <th>Workpackage Number</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <!-- THIS HAS TO BE CHANGED TO WORKPACKAGES-->
+        <tbody>
+            <tr *ngFor="let employee of employees">
+                <td>{{employee.employeeNumber}}</td>
+                <td>{{employee.firstName}}</td>
+                <td>{{employee.lastName}}</td>
+                <td>{{employee.grade}}</td>
+                <td>{{employee.supervisorNumber}}</td>
+            </tr>
+            <tr></tr>
+        </tbody>
+
+
+
+
+    </table>
+    <button [routerLink]="['/addEmployee']">New Workpackage</button>
+    <br />
+    <button (click)="printProperties()">Print to Console</button>
+</div>

@@ -13,7 +13,7 @@ import { Employee } from './employees';
     templateUrl: './employees.component.html'
 })
 export class EmployeesComponent {
-    url: string = "http://localhost:58911";
+    url: string = "http://localhost:51050";
 
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
