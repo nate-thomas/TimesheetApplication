@@ -11,7 +11,7 @@
 
 
                <!-- THIS HAS TO BE CHANGED TO WORKPACKAGES-->
-                <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
+                <button class="btn-icon" (click)="loadWorkpackge(workpackage.value)">
                     <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Workpackage" />
                 </button>
 
@@ -56,17 +56,18 @@
                 <th>Project Number</th>
                 <th>Workpackage Number</th>
                 <th>Description</th>
+                <th>Project</th>
             </tr>
         </thead>
 
         <!-- THIS HAS TO BE CHANGED TO WORKPACKAGES-->
         <tbody>
-            <tr *ngFor="let employee of employees">
-                <td>{{employee.employeeNumber}}</td>
-                <td>{{employee.firstName}}</td>
-                <td>{{employee.lastName}}</td>
-                <td>{{employee.grade}}</td>
-                <td>{{employee.supervisorNumber}}</td>
+            <tr *ngFor="let workpackage of workpackages">
+                <td>{{workpackage.projectNumber}}</td>
+                <td>{{workpackage.workPackageNumber}}</td>
+                <td>{{workpackage.description}}</td>
+                <td>{{workpackage.project}}</td>
+                <td>{{workpackage.timesheetRows}}</td>
             </tr>
             <tr></tr>
         </tbody>
