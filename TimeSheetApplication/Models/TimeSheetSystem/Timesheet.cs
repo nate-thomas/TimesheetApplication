@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace TimeSheetApplication.Models.TimeSheetSystem
 {
-    public class Timesheets
+    public class Timesheet
     {
 
         [Required]
         public string EmployeeNumber { get; set; }
+
         [DataType(DataType.Date)]
         [Required]
         public DateTime EndDate { get; set; }
 
         [ForeignKey("EmployeeNumber")]
-        public Employees Employee { get; set; }
-        public ICollection<TimesheetRows> TimesheetRows { get; set; }
+        public Employee Employee { get; set; }
+
+        public ICollection<TimesheetRow> TimesheetRows { get; set; }
     }
 }

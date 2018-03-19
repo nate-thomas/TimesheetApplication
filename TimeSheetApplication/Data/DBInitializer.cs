@@ -3,181 +3,229 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TimeSheetApplication.Models;
 using TimeSheetApplication.Models.TimeSheetSystem;
 
 namespace TimeSheetApplication.Data
 {
     public class DBInitializer
     {
-        public static void Initialize(ApplicationDbContext context) {
+        public static async Task Initialize(ApplicationDbContext context, 
+                                      UserManager<ApplicationUser> userManager, 
+                                      RoleManager<IdentityRole> roleManager)
+        {
             context.Database.EnsureCreated();
-
-
+            
             Debug.WriteLine("In Initializer");
-            List<AuthorizationCodes> AuthorizationCodes = new List<AuthorizationCodes>() {
-                new AuthorizationCodes {AuthCode = "HumanResources"},
-                new AuthorizationCodes {AuthCode = "SuperAdmin"},
-                new AuthorizationCodes {AuthCode = "Developer"},
-            };
 
-            context.AuthorizationCodes.AddRange(AuthorizationCodes);
-            context.SaveChanges();
+            //// Look for any employees.
+            //if (context.Employees.Any())
+            //{
+            //    Debug.WriteLine("DB has been seeded");
+            //    return;   // DB has been seeded
+            //}
 
-            List<LaborGrades> LaborGrades = new List<LaborGrades>() {
-                new LaborGrades {Grade = "P1", PayAmount = 10},
-                new LaborGrades {Grade = "P2", PayAmount = 20},
-                new LaborGrades {Grade = "P3", PayAmount = 30},
-                new LaborGrades {Grade = "P4", PayAmount = 40},
-                new LaborGrades {Grade = "P5", PayAmount = 50},
-                new LaborGrades {Grade = "P6", PayAmount = 60},
-                new LaborGrades {Grade = "D1", PayAmount = 70},
-                new LaborGrades {Grade = "D2", PayAmount = 80},
-            };
+            if (!context.LaborGrades.Any())
+            {
+                List<LaborGrade> LaborGrades = new List<LaborGrade>()
+                {
+                    new LaborGrade {Grade = "P1", PayAmount = 10},
+                    new LaborGrade {Grade = "P2", PayAmount = 20},
+                    new LaborGrade {Grade = "P3", PayAmount = 30},
+                    new LaborGrade {Grade = "P4", PayAmount = 40},
+                    new LaborGrade {Grade = "P5", PayAmount = 50},
+                    new LaborGrade {Grade = "P6", PayAmount = 60},
+                    new LaborGrade {Grade = "D1", PayAmount = 70},
+                    new LaborGrade {Grade = "D2", PayAmount = 80},
+                };
 
-            context.LaborGrades.AddRange(LaborGrades);
-            context.SaveChanges();
+                context.LaborGrades.AddRange(LaborGrades);
+                context.SaveChanges();
+            }
 
-            List<Employees> Employees = new List<Employees>() {
-                new Employees {EmployeeNumber = "1000001", FirstName = "Wyatt", LastName = "Ariss", Grade = "P1", EmployeeIntials = "WAA", AuthCode = "SuperAdmin"},
-                new Employees {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000005", FirstName = "John", LastName = "Park", Grade = "P2", EmployeeIntials = "JP", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000006", FirstName = "Shely", LastName = "Lin", Grade = "P2", EmployeeIntials = "SL", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000007", FirstName = "Rei", LastName = "Ruiz", Grade = "P2", EmployeeIntials = "RR", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000008", FirstName = "Raymond", LastName = "Gollinger", Grade = "P2", EmployeeIntials = "RG", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000009", FirstName = "Victor", LastName = "Starzynski", Grade = "P2", EmployeeIntials = "VS", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN", AuthCode = "HumanResources"},
-                new Employees {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW", AuthCode = "HumanResources"},
-            };
+            if (!context.Employees.Any())
+            {
+                List<Employee> Employees = new List<Employee>()
+                {
+                    new Employee {EmployeeNumber = "1000001", FirstName = "Wyatt", LastName = "Ariss", Grade = "P1", EmployeeIntials = "WAA"},
+                    new Employee {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT"},
+                    new Employee {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR"},
+                    new Employee {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS"},
+                    new Employee {EmployeeNumber = "1000005", FirstName = "John", LastName = "Park", Grade = "P2", EmployeeIntials = "JP"},
+                    new Employee {EmployeeNumber = "1000006", FirstName = "Shely", LastName = "Lin", Grade = "P2", EmployeeIntials = "SL"},
+                    new Employee {EmployeeNumber = "1000007", FirstName = "Rei", LastName = "Ruiz", Grade = "P2", EmployeeIntials = "RR"},
+                    new Employee {EmployeeNumber = "1000008", FirstName = "Raymond", LastName = "Gollinger", Grade = "P2", EmployeeIntials = "RG"},
+                    new Employee {EmployeeNumber = "1000009", FirstName = "Victor", LastName = "Starzynski", Grade = "P2", EmployeeIntials = "VS"},
+                    new Employee {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC"},
+                    new Employee {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN"},
+                    new Employee {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW"},
+                };
 
-            context.Employees.AddRange(Employees);
-            context.SaveChanges();
+                context.Employees.AddRange(Employees);
+                context.SaveChanges();
+            }
 
-            List<Projects> Projects = new List<Projects>() {
-                new Projects {ProjectNumber = "12345", Description = "This is project 12345"},
-                new Projects {ProjectNumber = "09876", Description = "This is project 09876"},
-            };
+            string email = "a@a.a";
+            string password = "P@$$w0rd";
+            string role = "Administrator";
+            string employeeNumber = "1000010";
 
-            context.Projects.AddRange(Projects);
-            context.SaveChanges();
+            if (await userManager.FindByNameAsync(email) == null)
+            {
+                if (await roleManager.FindByNameAsync(role) == null)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+                var user = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                    EmployeeNumber = employeeNumber
+                };
+                var result = await userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    await userManager.AddPasswordAsync(user, password);
+                    await userManager.AddToRoleAsync(user, role);
+                }
+            }
 
-            List<WorkPackages> WorkPackages = new List<WorkPackages>() {
-                new WorkPackages {ProjectNumber = "12345", WorkPackageNumber = "B0000", Description = "This is project 12345"},
-                new WorkPackages {ProjectNumber = "12345", WorkPackageNumber = "A0000",Description = "This is project 09876"},
-                new WorkPackages {ProjectNumber = "09876", WorkPackageNumber = "A0000", Description = "This is project 12345"},
-                new WorkPackages {ProjectNumber = "09876", WorkPackageNumber = "B0000",Description = "This is project 09876"},
-            };
+            if (!context.Projects.Any())
+            {
+                List<Project> Projects = new List<Project>()
+                {
+                    new Project {ProjectNumber = "12345", Description = "This is project 12345"},
+                    new Project {ProjectNumber = "09876", Description = "This is project 09876"},
+                };
 
-            context.WorkPackages.AddRange(WorkPackages);
-            context.SaveChanges();
+                context.Projects.AddRange(Projects);
+                context.SaveChanges();
+            }
 
-            List<Timesheets> Timesheets = new List<Timesheets>() {
-                new Timesheets {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02)},
-                new Timesheets {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02)},
+            if (!context.WorkPackages.Any())
+            {
+                List<WorkPackage> WorkPackages = new List<WorkPackage>()
+                {
+                    new WorkPackage {ProjectNumber = "12345", WorkPackageNumber = "B0000", Description = "This is project 12345"},
+                    new WorkPackage {ProjectNumber = "12345", WorkPackageNumber = "A0000",Description = "This is project 09876"},
+                    new WorkPackage {ProjectNumber = "09876", WorkPackageNumber = "A0000", Description = "This is project 12345"},
+                    new WorkPackage {ProjectNumber = "09876", WorkPackageNumber = "B0000",Description = "This is project 09876"},
+                };
 
-                new Timesheets {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02)},
-                new Timesheets {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02)},
+                context.WorkPackages.AddRange(WorkPackages);
+                context.SaveChanges();
+            }
 
-                new Timesheets {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02)},
-                new Timesheets {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02)},
+            if (!context.Timesheets.Any())
+            {
+                List<Timesheet> Timesheets = new List<Timesheet>()
+                {
+                    new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02)},
 
-                new Timesheets {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02)},
-                new Timesheets {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02)},
 
-                new Timesheets {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02)},
-                new Timesheets {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02)},
 
-                new Timesheets {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02)},
-                new Timesheets {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09)},
-                new Timesheets {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02)},
-            };
+                    new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02)},
 
-            context.Timesheets.AddRange(Timesheets);
-            context.SaveChanges();
+                    new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02)},
 
+                    new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02)},
+                    new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09)},
+                    new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02)},
+                };
 
-            List<TimesheetRows> TimesheetRows = new List<TimesheetRows>() {
-                new TimesheetRows {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                context.Timesheets.AddRange(Timesheets);
+                context.SaveChanges();
+            }
+            
+            if (!context.TimesheetRows.Any())
+            {
+                List<TimesheetRow> TimesheetRows = new List<TimesheetRow>()
+                {
+                    new TimesheetRow {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "12345", WorkPackageNumber = "B0000"},
 
-                new TimesheetRows {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
-                new TimesheetRows {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                    new TimesheetRow {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02), ProjectNumber = "09876", WorkPackageNumber = "B0000"},
+                };
 
-
-
-
-            };
-
-            context.TimesheetRows.AddRange(TimesheetRows);
-            context.SaveChanges();
+                context.TimesheetRows.AddRange(TimesheetRows);
+                context.SaveChanges();
+            }
+            
         }
     }
 }
