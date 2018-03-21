@@ -7,16 +7,11 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]="['/home']">TimeSheetApplication</a>
+            <a class='navbar-brand' [routerLink]="['/timesheets']">TimeSheetApplication</a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/login']">
-                        <span class='glyphicon glyphicon-log-in'></span> Login
-                    </a>
-                </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/timesheets']">
                         <span class='glyphicon glyphicon-time'></span> Timesheets
@@ -40,6 +35,11 @@
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/user']">
                         <span class='glyphicon glyphicon-user'></span> User
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/login']">
+                        <span class='glyphicon glyphicon-log-out'></span> Logout
                     </a>
                 </li>
             </ul>

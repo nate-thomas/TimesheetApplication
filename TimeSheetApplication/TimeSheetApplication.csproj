@@ -21,7 +21,39 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="Views\AuthorizationCodes\**" />
+    <Compile Remove="Views\Employees\**" />
+    <Compile Remove="Views\LaborGrades\**" />
+    <Compile Remove="Views\Login\**" />
+    <Compile Remove="Views\Projects\**" />
+    <Compile Remove="Views\TimesheetRows\**" />
+    <Compile Remove="Views\Timesheets\**" />
+    <Compile Remove="Views\WorkPackages\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="Views\AuthorizationCodes\**" />
+    <Content Remove="Views\Employees\**" />
+    <Content Remove="Views\LaborGrades\**" />
+    <Content Remove="Views\Login\**" />
+    <Content Remove="Views\Projects\**" />
+    <Content Remove="Views\TimesheetRows\**" />
+    <Content Remove="Views\Timesheets\**" />
+    <Content Remove="Views\WorkPackages\**" />
+    <EmbeddedResource Remove="Views\AuthorizationCodes\**" />
+    <EmbeddedResource Remove="Views\Employees\**" />
+    <EmbeddedResource Remove="Views\LaborGrades\**" />
+    <EmbeddedResource Remove="Views\Login\**" />
+    <EmbeddedResource Remove="Views\Projects\**" />
+    <EmbeddedResource Remove="Views\TimesheetRows\**" />
+    <EmbeddedResource Remove="Views\Timesheets\**" />
+    <EmbeddedResource Remove="Views\WorkPackages\**" />
+    <None Remove="Views\AuthorizationCodes\**" />
+    <None Remove="Views\Employees\**" />
+    <None Remove="Views\LaborGrades\**" />
+    <None Remove="Views\Login\**" />
+    <None Remove="Views\Projects\**" />
+    <None Remove="Views\TimesheetRows\**" />
+    <None Remove="Views\Timesheets\**" />
+    <None Remove="Views\WorkPackages\**" />
   </ItemGroup>
 
   <ItemGroup>

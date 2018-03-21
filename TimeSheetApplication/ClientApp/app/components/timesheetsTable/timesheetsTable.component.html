@@ -2,18 +2,18 @@
 
     <!-- Temporary Input and Button to load a Timesheet -->
     <table>
-        <tr>
+        <tr class="input-row">
             <td>Employee Number:</td>
-            <td><input type="text" #employeeNumber /><br /></td>
+            <td><input class="input-top" type="text" #employeeNumber /><br /></td>
             <td rowspan="2">
                 <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
                     <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
                 </button>
             </td>
         </tr>
-        <tr>
+        <tr class="input-row">
             <td>End Date (YYYY-MM-DD):</td>
-            <td><input type="text" #endDate /><br /></td>
+            <td><input class="input-top" type="text" #endDate /><br /></td>
         </tr>
         <tr>
             <!--<td><button disabled (click)="addTimesheet(employeeNumber.value, endDate.value)">Create Timesheet</button></td>-->
