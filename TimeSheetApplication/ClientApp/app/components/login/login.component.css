@@ -1,11 +1,13 @@
-﻿.backdrop {
-    background-color: #24303c;
-    padding: 5px 5px 5px 5px;
-    margin: 30px 10px 10px 10px;
-
+﻿.body {
+    /*background-color: #24303c;*/
+    background-color: #3e3e3e;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
 }
 
-.body {
+.content {
     margin: 25%;
 }
 
@@ -24,9 +26,11 @@ input {
 }
 
 .login {
-    color: white;
+    /*color: #161e26;*/
+    color: #3e3e3e;
     font-weight: bold;
-    background-color: #1ab188;
+    /*background-color: #1ab188;*/
+    background-color: #6ac48d;
     border: none;
     height: 50px;
 
@@ -37,7 +41,8 @@ input {
     height: 35px;
     padding: 0px 5px 0px 5px;
     outline: 1px solid #5d6c73;
-    background-color: #24303c;
+    /*background-color: #24303c;*/
+    background-color: #3e3e3e;
     color: white;
     font-size: medium;
 }
