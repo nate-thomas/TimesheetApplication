@@ -6,6 +6,15 @@
     margin: 5%;
 }
 
+.input-top {
+    width: 100%;
+    padding: 0px 5px 0px 5px;
+    outline: 1px solid #6ac48d;
+    box-shadow: none;
+    background-color: #eaeaea;
+}
+
+
 .img-icon {
     height: 15px;
     width: 15px;
@@ -13,10 +22,11 @@
 
 .tableHeader {
     /*background-color: #436252;*/
-    background-color: #3EB55F;s
-    opacity: .8;
+    /*background-color: #3EB55F;*/
+    /*background-color: #1ab188;*/
+    background-color: #6ac48d;
     padding: 10px;
-    color: white;
+    color: #173c00;
 }
 
 .btn-icon {
