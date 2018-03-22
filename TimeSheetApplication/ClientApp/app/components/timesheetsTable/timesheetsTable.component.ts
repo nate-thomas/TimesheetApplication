@@ -9,6 +9,7 @@ import { TimesheetRow } from './timesheetRows'
 
 @Component({
     selector: 'timesheetsTable',
+    styleUrls: ['./timesheetsTable.component.css'],
     templateUrl: './timesheetsTable.component.html'
 })
 export class TimesheetsTableComponent {
@@ -24,14 +25,19 @@ export class TimesheetsTableComponent {
         this.timesheet = new Array();
     }
 
+    /* Temporary method to display the Timesheet object in the browser console */
+
     printProperties() {
         console.log(JSON.stringify(this.timesheet));
     }
 
     /* Utility methods */
 
-    addTimesheetRow() {
-        this.timesheet.push(new TimesheetRow());
+    addTimesheetRow(employeeNumber: string, endDate: string) {
+        let row = new TimesheetRow();
+        row.employeeNumber = employeeNumber;
+        row.endDate = endDate;
+        this.timesheet.push(row);
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
@@ -49,6 +55,7 @@ export class TimesheetsTableComponent {
     removeTimesheet(employeeNumber: string, endDate: string) {
         this.deleteTimesheetRows(employeeNumber, endDate)
             .subscribe(res => console.log("Response: " + res));
+        this.clearProperties();
     }
 
     addTimesheet(employeeNumber: string, endDate: string) {
