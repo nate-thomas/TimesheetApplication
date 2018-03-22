@@ -5,32 +5,29 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
-import { Employee } from './employees';
+import { Router } from '@angular/router';
+import { Employee } from '../employees';
 
 @Component({
-    selector: 'employees',
-    styleUrls: ['./employees.component.css'],
-    templateUrl: './employees.component.html'
+    selector: 'AddEmployee',
+    styleUrls: ['./addEmployee.component.css'],
+    templateUrl: './addEmployee.component.html'
 })
-export class EmployeesComponent {
+export class AddEmployeeComponent {
     url: string = "http://localhost:58911";
 
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private router: Router) { }
 
     /* Temporary method to clear the properties in the component */
 
     clearProperties() {
         this.employees = new Array();
         this.employee = new Employee();
-    }
 
-    /* Functions to be called when component is loaded */
-
-    ngOnInit() {
-        this.loadEmployees();
+        this.router.navigateByUrl('/employees');
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
