@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace TimeSheetApplication.Models.TimeSheetSystem
 {
-    public class WorkPackages
+    public class WorkPackage
     {
         public string ProjectNumber { get; set; }
         public string WorkPackageNumber { get; set; }
         public string Description { get; set; }
 
         [ForeignKey("ProjectNumber")]
-        public Projects Project { get; set; }
-        public ICollection<TimesheetRows> TimesheetRows { get; set; }
+        public Project Project { get; set; }
+        public ICollection<TimesheetRow> TimesheetRows { get; set; }
     }
 }

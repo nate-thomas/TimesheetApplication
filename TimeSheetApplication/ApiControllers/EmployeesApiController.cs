@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheetApplication.Data;
@@ -10,19 +13,21 @@ using TimeSheetApplication.Models.TimeSheetSystem;
 namespace TimeSheetApplication.Controllers
 {
     [Produces("application/json")]
-    [Route("api/EmployeesAPI")]
-    public class EmployeesAPIController : Controller
+    [Route("api/Employees")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [EnableCors("CorsPolicy")]
+    public class EmployeesApiController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EmployeesAPIController(ApplicationDbContext context)
+        public EmployeesApiController(ApplicationDbContext context)
         {
             _context = context;
 
         }
 
         [HttpGet]
-        public IEnumerable<Employees> GetAll()
+        public IEnumerable<Employee> GetAll()
         {
             return _context.Employees.ToList();
         }
@@ -41,7 +46,7 @@ namespace TimeSheetApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee([FromBody] Employees item)
+        public IActionResult CreateEmployee([FromBody] Employee item)
         {
 
             if (!ModelState.IsValid)
@@ -56,7 +61,7 @@ namespace TimeSheetApplication.Controllers
         }
 
         [HttpPut("{empNumber}")]
-        public IActionResult Update(long empNumber, [FromBody] Employees item)
+        public IActionResult Update(long empNumber, [FromBody] Employee item)
         {
             string empNumberStr = empNumber.ToString();
             if (!ModelState.IsValid || !String.Equals(item.EmployeeNumber, empNumberStr))
@@ -104,16 +109,6 @@ namespace TimeSheetApplication.Controllers
             if (item.SupervisorNumber != null)
             {
                 employee.SupervisorNumber = item.SupervisorNumber;
-            }
-            //Set AuthCode if asked to
-            if (item.AuthCode != null)
-            {
-                employee.AuthCode = item.AuthCode;
-            }
-            //Set AuthorizationCode if asked to
-            if (item.AuthorizationCode != null)
-            {
-                employee.AuthorizationCode = item.AuthorizationCode;
             }
             //Set Timesheets if asked to
             if (item.Timesheets != null)

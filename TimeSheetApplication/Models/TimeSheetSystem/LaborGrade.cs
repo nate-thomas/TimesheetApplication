@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace TimeSheetApplication.Models.TimeSheetSystem
 {
-    public class LaborGrades
+    public class LaborGrade
     {
         [Key]
         public string Grade { get; set; }
         public double PayAmount { get; set; }
 
-        public ICollection<Employees> Employees { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

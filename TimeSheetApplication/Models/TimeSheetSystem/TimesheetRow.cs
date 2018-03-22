@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace TimeSheetApplication.Models.TimeSheetSystem
 {
-    public class TimesheetRows
+    public class TimesheetRow
     {
-        public String TimesheetRowsId { get; set; }
+        //public String TimesheetRowsId { get; set; }
         
         [Required]
         public string EmployeeNumber { get; set; }
@@ -28,8 +28,8 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public double Thursday { get; set; }
         public double Friday { get; set; }
 
-        public WorkPackages WorkPackage { get; set; }
-        public Timesheets Timesheet { get; set; }
+        public WorkPackage WorkPackage { get; set; }
+        public Timesheet Timesheet { get; set; }
 
 
     }

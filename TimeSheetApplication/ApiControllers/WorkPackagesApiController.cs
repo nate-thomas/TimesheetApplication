@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,33 +15,35 @@ namespace TimeSheetApplication.ApiControllers
 {
     [Produces("application/json")]
     [Route("api/WorkPackages")]
-    public class WorkPackagesController : Controller
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [EnableCors("CorsPolicy")]
+    public class WorkPackagesApiController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public WorkPackagesController(ApplicationDbContext context)
+        public WorkPackagesApiController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: api/WorkPackages
         [HttpGet]
-        public IEnumerable<WorkPackages> GetWorkPackages()
+        public IEnumerable<WorkPackage> GetWorkPackages()
         {
             return _context.WorkPackages.ToList();
         }
 
         // GET: api/WorkPackages/09876%2fA0000
         [HttpGet("{projectNumber}/{workPackageNumber}")]
-        public IEnumerable<WorkPackages> GetWorkPackage([FromRoute] string projectNumber, [FromRoute] string workPackageNumber)
+        public IEnumerable<WorkPackage> GetWorkPackage([FromRoute] string projectNumber, [FromRoute] string workPackageNumber)
         {
 
-            return _context.WorkPackages.Where(r => r.WorkPackageNumber == workPackageNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WorkPackages>;
+            return _context.WorkPackages.Where(r => r.WorkPackageNumber == workPackageNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WorkPackage>;
         }
 
         // PUT: api/WorkPackages/09876%2fA0000
         [HttpPut("{projectNumber}/{workPackageNumber}")]
-        public async Task<IActionResult> PutWorkPackages([FromRoute] string projectNumber, [FromRoute] string workPackageNumber , [FromBody] WorkPackages workPackages)
+        public async Task<IActionResult> PutWorkPackages([FromRoute] string projectNumber, [FromRoute] string workPackageNumber , [FromBody] WorkPackage workPackages)
         {
             if (!ModelState.IsValid)
             {
@@ -73,7 +78,7 @@ namespace TimeSheetApplication.ApiControllers
 
         // POST: api/WorkPackages
         [HttpPost]
-        public async Task<IActionResult> PostWorkPackages([FromBody] WorkPackages workPackages)
+        public async Task<IActionResult> PostWorkPackages([FromBody] WorkPackage workPackages)
         {
             if (!ModelState.IsValid)
             {

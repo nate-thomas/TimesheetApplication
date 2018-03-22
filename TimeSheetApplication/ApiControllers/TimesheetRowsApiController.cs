@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,18 +15,20 @@ namespace TimeSheetApplication.ApiControllers
 {
     [Produces("application/json")]
     [Route("api/TimesheetRows")]
-    public class TimesheetRowsController : Controller
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [EnableCors("CorsPolicy")]
+    public class TimesheetRowsApiController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TimesheetRowsController(ApplicationDbContext context)
+        public TimesheetRowsApiController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: api/TimesheetRows/1234567/2018-02-28
         [HttpGet("{employeeNumber}/{endDate}")]
-        public IEnumerable<TimesheetRows> GetTimesheetRowsByEmployeeAndDate([FromRoute] string employeeNumber,
+        public IEnumerable<TimesheetRow> GetTimesheetRowsByEmployeeAndDate([FromRoute] string employeeNumber,
                                                                             [FromRoute] DateTime endDate)
         {
             return _context.TimesheetRows.Where(r => r.EmployeeNumber == employeeNumber && r.EndDate == endDate).ToList();
@@ -33,14 +38,14 @@ namespace TimeSheetApplication.ApiControllers
         [HttpPost("{employeeNumber}/{endDate}")]
         public async Task<IActionResult> PostTimesheetRows([FromRoute] string employeeNumber,
                                                            [FromRoute] DateTime endDate,
-                                                           [FromBody] List<TimesheetRows> timesheetRows)
+                                                           [FromBody] List<TimesheetRow> timesheetRows)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            foreach (TimesheetRows row in timesheetRows)
+            foreach (TimesheetRow row in timesheetRows)
             {
                 if (row.EmployeeNumber != employeeNumber || row.EndDate != endDate)
                 {
@@ -48,7 +53,7 @@ namespace TimeSheetApplication.ApiControllers
                 }
             }
 
-            Timesheets timesheet = new Timesheets { EmployeeNumber = employeeNumber, EndDate = endDate };
+            Timesheet timesheet = new Timesheet { EmployeeNumber = employeeNumber, EndDate = endDate };
             _context.Timesheets.Add(timesheet);
             try
             {
@@ -71,7 +76,7 @@ namespace TimeSheetApplication.ApiControllers
             }
             catch (DbUpdateException)
             {
-                foreach (TimesheetRows row in timesheetRows)
+                foreach (TimesheetRow row in timesheetRows)
                 {
                     if (TimesheetRowsExists(row.EmployeeNumber, row.EndDate, row.ProjectNumber, row.WorkPackageNumber))
                     {
@@ -88,14 +93,14 @@ namespace TimeSheetApplication.ApiControllers
         [HttpPut("{employeeNumber}/{endDate}")]
         public async Task<IActionResult> UpdateTimesheetRows([FromRoute] string employeeNumber,
                                                              [FromRoute] DateTime endDate,
-                                                             [FromBody] List<TimesheetRows> timesheetRows)
+                                                             [FromBody] List<TimesheetRow> timesheetRows)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            foreach (TimesheetRows row in timesheetRows)
+            foreach (TimesheetRow row in timesheetRows)
             {
                 if (row.EmployeeNumber != employeeNumber || row.EndDate != endDate)
                 {
@@ -133,7 +138,7 @@ namespace TimeSheetApplication.ApiControllers
                 return NotFound();
             }
 
-            foreach (TimesheetRows row in timesheetRows)
+            foreach (TimesheetRow row in timesheetRows)
             {
                 _context.TimesheetRows.Remove(row);
             }
