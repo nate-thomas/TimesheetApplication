@@ -1,4 +1,4 @@
-﻿import { Timesheet } from '../timesheetsTable/timesheets'
+﻿import { Timesheet } from '../timesheets/timesheetsTable/timesheets'
 
 export class Employee {
     employeeNumber: string;

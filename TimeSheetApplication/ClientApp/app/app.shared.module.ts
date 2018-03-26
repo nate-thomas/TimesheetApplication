@@ -12,7 +12,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { AdmintasksComponent } from './components/admintasks/admintasks.component';
 import { UserComponent } from './components/user/user.component';
-import { TimesheetsTableComponent } from './components/timesheetsTable/timesheetsTable.component';
+import { TimesheetsTableComponent } from './components/timesheets/timesheetsTable/timesheetsTable.component';
 import { AddEmployeeComponent } from './components/employees/addEmployee/AddEmployee.component';
 import { ProjectsTableComponent } from './components/projects/projectsTable/projectsTable.component';
 import { AddProjectComponent } from './components/projects/addProject/addProject.component';
