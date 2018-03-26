@@ -14,6 +14,8 @@ import { AdmintasksComponent } from './components/admintasks/admintasks.componen
 import { UserComponent } from './components/user/user.component';
 import { TimesheetsTableComponent } from './components/timesheetsTable/timesheetsTable.component';
 import { AddEmployeeComponent } from './components/employees/addEmployee/AddEmployee.component';
+import { ProjectsTableComponent } from './components/projects/projectsTable/projectsTable.component';
+import { AddProjectComponent } from './components/projects/addProject/addProject.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import { AddEmployeeComponent } from './components/employees/addEmployee/AddEmpl
         UserComponent,
 		LoginComponent,
         TimesheetsTableComponent,
+        ProjectsTableComponent,
+        AddProjectComponent
 
     ],
     imports: [
@@ -41,6 +45,8 @@ import { AddEmployeeComponent } from './components/employees/addEmployee/AddEmpl
             { path: 'employees', component: EmployeesComponent },
             { path: 'addEmployee', component: AddEmployeeComponent },
             { path: 'admintasks', component: AdmintasksComponent },
+            { path: 'addTimesheet', component: TimesheetsTableComponent },
+            { path: 'addProject', component: AddProjectComponent },
             { path: 'user', component: UserComponent },
             { path: '**', redirectTo: 'login' }
         ])

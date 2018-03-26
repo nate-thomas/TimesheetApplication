@@ -3,9 +3,9 @@
     <!-- Temporary Input and Button to load a Timesheet -->
     <table>
         <tr class="input-row">
-            <td>Employee Number:</td>
-            <td><input class="input-top" type="text" #employeeNumber /><br /></td>
-            <td rowspan="2">
+            <td style="padding-bottom: 10px">Employee Number:</td>
+            <td><input class="input-top" type="text" #employeeNumber /></td>
+            <td style="padding-left:10px" rowspan="2">
                 <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
                     <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
                 </button>
@@ -23,17 +23,13 @@
         </tr>
     </table>
     <br />
+
     <!-- Table Header -->
     <div class="tableHeader">
         <!-- xs, sm view -->
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
-                <div class="row">
-                    <div class="row">
-                        <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
-                    </div>
-                </div>
-
+                <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
             </div>
             <div class="col-xs-12 text-center">
                 <h1>Timesheet</h1>
@@ -59,72 +55,77 @@
 
 
     <!-- Table Body -->
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Project #</th>
-                <th>WP #</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Notes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let timesheetRow of timesheet">
-                <td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
-                <td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
-                <td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" /></td>
-                <td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" /></td>
-                <td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" /></td>
-                <td><input type="text" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" /></td>
-                <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" /></td>
-                <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" /></td>
-                <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" /></td>
-                <td><input type="text" name="notes" value="" style="width: 125px;" disabled /></td>
-                <td><input type="text" name="total" value="" style="width: 125px;" disabled /></td>
-            </tr>
-            <tr></tr>
-            <tr>
-                <td colspan="11"><button class="btn-block" (click)="addTimesheetRow(employeeNumber.value, endDate.value)">+</button></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Flextime:</td>
-                <td></td>
-            </tr>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Project #</th>
+                    <th>WP #</th>
+                    <th>Total</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let timesheetRow of timesheet">
+                    <td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
+                    <td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
+                    <td><input type="text" name="total" [(ngModel)]="timesheetRow.total" style="width: 75px;" /></td>
+                    <td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" /></td>
+                    <td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" /></td>
+                    <td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" /></td>
+                    <td><input type="text" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" /></td>
+                    <td><input type="text" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" /></td>
+                    <td><input type="text" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" /></td>
+                    <td><input type="text" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" /></td>
+                    <td><input type="text" name="notes" value="" style="width: 125px;" disabled /></td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <!--<td colspan="11"></td>-->
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bold">Flextime:</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Overtime:</td>
-                <td></td>
+                    <td></td>
+                </tr>
 
-            </tr>
-        </tbody>
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bold">Overtime:</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-    </table>
+                </tr>
+            </tbody>
 
+        </table>
+    </div>
+    <br />
+    <button class="btn-newRow" (click)="addTimesheetRow(employeeNumber.value, endDate.value)">Add New Row</button>
     <button class="pull-right" (click)="clearProperties()">Reset</button>
     <button class="pull-right" (click)="updateTimesheet(employeeNumber.value, endDate.value)">Update</button>
-    <button (click)="printProperties()">Print to Console</button>
+    <!--<button (click)="printProperties()">Print to Console</button>-->
     <br />
     <hr />
     <!-- Table Footer -->

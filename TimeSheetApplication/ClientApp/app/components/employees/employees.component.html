@@ -5,76 +5,73 @@
                 <nav-menu></nav-menu>
             </div>
             <div class='col-sm-9 body-content'>
-                <!-- Temporary Input and Button to load an employee -->
-                <table>
-                    <tr>
-                        <td>Employee Number:</td>
-                        <td><input type="text" #employeeNumber /><br /></td>
-                        <td rowspan="2">
-                            <!-- change this to load employee info-->
-                            <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
-                                <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-                <br />
-                <!-- Table Header -->
-                <div class="tableHeader">
-                    <!-- xs, sm view -->
-                    <div class="row visible-xs visible-sm">
-                        <div class="col-xs-12">
-                            <div class="row">
-                                <div class="row">
-                                    <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-xs-12 text-center">
-                            <h1>Employees</h1>
-                        </div>
-                    </div>
-
-                    <!--  md, lg, xl views -->
-                    <div class="row hidden-xs hidden-sm">
-                        <div class="col-md-4">
-                            <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <h1>Employees</h1>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Table Body -->
-                <table class="table table-hover">
-                    <thead>
+                <div class="component-content">
+                    <!-- Temporary Input and Button to load an employee -->
+                    <table>
                         <tr>
-                            <th>Employee ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Labour Grade</th>
-                            <th>Supervisor</th>
-                            <th></th>
+                            <td>Employee Number:</td>
+                            <td><input type="text" #employeeNumber /><br /></td>
+                            <td style="padding-left:10px" rowspan="2">
+                                <!-- change this to load employee info-->
+                                <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
+                                    <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let employee of employees">
-                            <td>{{employee.employeeNumber}}</td>
-                            <td>{{employee.firstName}}</td>
-                            <td>{{employee.lastName}}</td>
-                            <td>{{employee.grade}}</td>
-                            <td>{{employee.supervisorNumber}}</td>
-                        </tr>
-                        <tr></tr>
-                    </tbody>
+                    </table>
+                    <br />
+                    <!-- Table Header -->
+                    <div class="tableHeader">
+                        <!-- xs, sm view -->
+                        <div class="row visible-xs visible-sm">
+                            <div class="col-xs-12">
+                                <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
+                            </div>
+                            <div class="col-xs-12 text-center">
+                                <h1>Employees</h1>
+                            </div>
+                        </div>
 
-                </table>
-                <button [routerLink]="['/addEmployee']">New Employee</button>
-                <br />
-                <button (click)="printProperties()">Print to Console</button>
+                        <!--  md, lg, xl views -->
+                        <div class="row hidden-xs hidden-sm">
+                            <div class="col-md-4">
+                                <button class="btn-icon"><img class="img-icon" src="../../assets/images/icon-archive.png" alt="Archive" /></button>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h1>Employees</h1>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Table Body -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Labour Grade</th>
+                                <th>Supervisor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let employee of employees">
+                                <td>{{employee.employeeNumber}}</td>
+                                <td>{{employee.firstName}}</td>
+                                <td>{{employee.lastName}}</td>
+                                <td>{{employee.grade}}</td>
+                                <td>{{employee.supervisorNumber}}</td>
+                            </tr>
+                            <tr></tr>
+                        </tbody>
+
+                    </table>
+                    <button [routerLink]="['/addEmployee']">New Employee</button>
+                    <br />
+                    <!--<button (click)="printProperties()">Print to Console</button>-->
+                </div>
             </div>
         </div>
     </div>
