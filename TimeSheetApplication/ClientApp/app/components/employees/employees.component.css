@@ -22,14 +22,6 @@
     width: 15px;
 }
 
-.tableHeader {
-    /*background-color: #436252;*/
-    background-color: #3EB55F;
-    s opacity: .8;
-    padding: 10px;
-    color: white;
-}
-
 .btn-icon {
     border: none;
     text-align: center;
@@ -60,12 +52,4 @@
     background-color: #6ac48d;
     padding: 10px;
     color: #173c00;
-}
-
-.btn-icon {
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
 }
