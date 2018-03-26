@@ -65,6 +65,7 @@
     <None Remove="ClientApp\app\components\employees\addEmployee\AddEmployee.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.ts" />
+    <None Remove="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
@@ -79,13 +80,14 @@
     <TypeScriptCompile Include="ClientApp\app\components\employees\addEmployee\AddEmployee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\timesheetsTable\timesheetRows.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\timesheetsTable\timesheets.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
   </ItemGroup>
 
   <ItemGroup>

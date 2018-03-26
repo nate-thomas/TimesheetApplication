@@ -16,6 +16,7 @@ import { TimesheetsTableComponent } from './components/timesheets/timesheetsTabl
 import { AddEmployeeComponent } from './components/employees/addEmployee/AddEmployee.component';
 import { ProjectsTableComponent } from './components/projects/projectsTable/projectsTable.component';
 import { AddProjectComponent } from './components/projects/addProject/addProject.component';
+import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { AddProjectComponent } from './components/projects/addProject/addProject
         TimesheetsComponent,
         ProjectsComponent,
         EmployeesComponent,
+        EmployeesTableComponent,
         AddEmployeeComponent,
         AdmintasksComponent,
         UserComponent,
