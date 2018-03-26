@@ -1,0 +1,105 @@
+﻿<div class="body">
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col-sm-3'>
+                <nav-menu></nav-menu>
+            </div>
+            <div class='col-sm-9 body-content'>
+                <!-- component -->
+
+                <div class="component-content">
+                    <div class="title" align="center">
+                        <h2>Creating New Project</h2>
+                    </div>
+                    <div>
+                        <form (ngSubmit)="addEmployee()">
+                            <!-- xs, sm -->
+                            <div class="visible-xs visible-sm">
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        Project Number
+                                        <br />
+                                        <input type="text" name="projectNumber" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        Manager Number
+                                        <br />
+                                        <input type="text" name="employeeNumber" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        First Name
+                                        <br />
+                                        <input type="text" name="firstName" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        Last Name
+                                        <br />
+                                        <input type="text" name="lastName" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        Description
+                                        <br />
+                                        <input type="text" name="description" />
+                                    </div>
+                                </div>
+                                <br />
+                                <button>Add Project</button>
+                                <button (click)="clearProperties()">Cancel</button>
+                            </div>
+
+                            <!-- md, lg, xl-->
+                            <div class="hidden-xs hidden-sm">
+                                <div class="row inputBox">
+                                    <div class="col-md-6" align="center">
+                                        Project Number
+                                        <br />
+                                        <input type="text" name="projectNumber" />
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        Manager Number
+                                        <br />
+                                        <input type="text" name="employeeNumber" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-md-6" align="center">
+                                        First Name
+                                        <br />
+                                        <input type="text" name="firstName" />
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        Last Name
+                                        <br />
+                                        <input type="text" name="lastName" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-md-12" align="center">
+                                        Description
+                                        <br />
+                                        <input type="text" name="description" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="buttons" align="center">
+                                    <button align="center">Add Project</button>
+                                    <button [routerLink]="['/projects']">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
