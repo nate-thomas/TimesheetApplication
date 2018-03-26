@@ -1,10 +1,21 @@
-﻿.tableHeader {
+﻿
+.tableHeader {
     padding-top: 30px;
 }
 
-.body {
+.component-content {
     margin: 5%;
 }
+
+
+.body {
+    background-color: #f7f7f7;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    left: 0;
+}
+
 
 .img-icon {
     height: 15px;
@@ -17,6 +28,38 @@
     s opacity: .8;
     padding: 10px;
     color: white;
+}
+
+.btn-icon {
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+.input-top {
+    width: 100%;
+    padding: 0px 5px 0px 5px;
+    outline: 1px solid #6ac48d;
+    box-shadow: none;
+    background-color: #eaeaea;
+}
+
+
+.img-icon {
+    height: 15px;
+    width: 15px;
+}
+
+.tableHeader {
+    /*background-color: #436252;*/
+    /*background-color: #3EB55F;*/
+    /*background-color: #1ab188;*/
+    background-color: #6ac48d;
+    padding: 10px;
+    color: #173c00;
 }
 
 .btn-icon {
