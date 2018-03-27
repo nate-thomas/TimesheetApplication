@@ -4,3 +4,12 @@
         padding-top: 50px;
     }
 }
+
+.component-content {
+    margin: 5%;
+}
+
+
+.inputBox {
+    padding: 15px;
+}

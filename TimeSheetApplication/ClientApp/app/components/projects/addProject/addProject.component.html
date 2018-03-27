@@ -1,10 +1,7 @@
 ﻿<div class="body">
     <div class='container-fluid'>
         <div class='row'>
-            <div class='col-sm-3'>
-                <nav-menu></nav-menu>
-            </div>
-            <div class='col-sm-9 body-content'>
+            <div class='body-content'>
                 <!-- component -->
 
                 <div class="component-content">
@@ -91,7 +88,8 @@
                                 <br />
                                 <div class="buttons" align="center">
                                     <button align="center">Add Project</button>
-                                    <button [routerLink]="['/projects']">Cancel</button>
+                                    <button data-dismiss="modal">Close</button>
+                                    <!--<button [routerLink]="['/projects']">Cancel</button>-->
                                 </div>
                             </div>
                         </form>

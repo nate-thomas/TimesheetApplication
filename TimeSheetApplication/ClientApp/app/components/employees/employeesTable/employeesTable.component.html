@@ -65,5 +65,16 @@
         <br />
         <!--<button (click)="printProperties()">Print to Console</button>-->
     </div>
-    <button [routerLink]="['/addEmployee']">New Employee</button>
+
+
+    <button type="button" class="newEmployee" data-toggle="modal" data-target=".bs-example-modal-lg">New Employee</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <AddEmployee></AddEmployee>
+            </div>
+        </div>
+    </div>
+
 </div>
