@@ -45,10 +45,10 @@ import { EmployeesTableComponent } from './components/employees/employeesTable/e
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
-            { path: 'addEmployee', component: AddEmployeeComponent },
             { path: 'admintasks', component: AdmintasksComponent },
-            { path: 'addTimesheet', component: TimesheetsTableComponent },
-            { path: 'addProject', component: AddProjectComponent },
+            //{ path: 'addTimesheet', component: TimesheetsTableComponent },
+            //{ path: 'addEmployee', component: AddEmployeeComponent },
+            //{ path: 'addProject', component: AddProjectComponent },
             { path: 'user', component: UserComponent },
             { path: '**', redirectTo: 'login' }
         ])

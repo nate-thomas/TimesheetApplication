@@ -3,7 +3,7 @@
     <!-- Temporary Input and Button to load a Timesheet -->
     <table>
         <tr class="input-row">
-            <td style="padding-bottom: 10px">Project Number:</td>
+            <td style="padding-right: 10px;">Project Number:</td>
             <td><input class="input-top" type="text" #employeeNumber /></td>
             <td style="padding-left:10px" rowspan="2">
                 <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
@@ -96,7 +96,20 @@
         </table>
     </div>
     <br />
-    <button class="btn-newRow" [routerLink]="['/addProject']" >New Project</button>
+
+    <!-- Modal START -->
+    <button type="button" class="newProject" data-toggle="modal" data-target=".bs-example-modal-lg">New Project</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <addProject></addProject>
+            </div>
+        </div>
+    </div>
+    <!-- Modal END -->
+
+    <!--<button class="btn-newRow" [routerLink]="['/addProject']">New Project</button>-->
     <button class="pull-right">Manage</button>
     <button class="pull-right">Statistics</button>
     <!--<button (click)="printProperties()">Print to Console</button>-->

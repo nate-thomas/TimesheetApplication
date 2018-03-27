@@ -2,7 +2,7 @@
     <!-- Temporary Input and Button to load an employee -->
     <table>
         <tr>
-            <td>Employee Number:</td>
+            <td style="padding-right: 10px;">Employee Number:</td>
             <td><input type="text" #employeeNumber /><br /></td>
             <td style="padding-left:10px" rowspan="2">
                 <!-- change this to load employee info-->
@@ -38,30 +38,43 @@
 
 
     <!-- Table Body -->
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Employee ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Labour Grade</th>
-                <th>Supervisor</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let employee of employees">
-                <td>{{employee.employeeNumber}}</td>
-                <td>{{employee.firstName}}</td>
-                <td>{{employee.lastName}}</td>
-                <td>{{employee.grade}}</td>
-                <td>{{employee.supervisorNumber}}</td>
-            </tr>
-            <tr></tr>
-        </tbody>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Labour Grade</th>
+                    <th>Supervisor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees">
+                    <td>{{employee.employeeNumber}}</td>
+                    <td>{{employee.firstName}}</td>
+                    <td>{{employee.lastName}}</td>
+                    <td>{{employee.grade}}</td>
+                    <td>{{employee.supervisorNumber}}</td>
+                </tr>
+                <tr></tr>
+            </tbody>
 
-    </table>
-    <button [routerLink]="['/addEmployee']">New Employee</button>
-    <br />
-    <!--<button (click)="printProperties()">Print to Console</button>-->
+        </table>
+        <br />
+        <!--<button (click)="printProperties()">Print to Console</button>-->
+    </div>
+
+
+    <button type="button" class="newEmployee" data-toggle="modal" data-target=".bs-example-modal-lg">New Employee</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <AddEmployee></AddEmployee>
+            </div>
+        </div>
+    </div>
+
 </div>

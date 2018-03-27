@@ -30,22 +30,20 @@
     </ul>
 </div>-->
 
-
 <div class="body">
     <div class='container-fluid'>
         <div class='row'>
-            <div class='col-sm-3'>
-                <nav-menu></nav-menu>
-            </div>
-            <div class='col-sm-9 body-content'>
+            <div class='body-content'>
 
 
                 <div class="component-content">
-                    <div class="title" align="center">
+
+                    <div align="center">
                         <h2>Creating New Employee</h2>
                     </div>
-                    <div>
+                   
 
+                    <div>
                         <form (ngSubmit)="addEmployee()">
                             <!-- xs, sm -->
                             <div class="visible-xs visible-sm">
@@ -135,12 +133,13 @@
                                         <input type="text" name="authCode" [(ngModel)]="employee.authCode" />
                                     </div>
                                 </div>
+                                <div class="buttons" align="center">
+                                    <button align="center">Add Employee</button>
+                                    <button data-dismiss="modal">Close</button>
+                                    <!--<button (click)="clearProperties()">Cancel</button>-->
+                                </div>
                             </div>
                             <br />
-                            <div class="buttons" align="center">
-                                <button align="center">Add Employee</button>
-                                <button (click)="clearProperties()">Cancel</button>
-                            </div>
                         </form>
                     </div>
                 </div>
