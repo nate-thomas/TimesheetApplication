@@ -52,7 +52,7 @@
                                 </div>
                                 <br />
                                 <button>Add Project</button>
-                                <button (click)="clearProperties()">Cancel</button>
+                                <button [routerLink]="['/projects']">Cancel</button>
                             </div>
 
                             <!-- md, lg, xl-->
@@ -96,8 +96,6 @@
                             </div>
                         </form>
                     </div>
-
-                    <router-outlet></router-outlet>
                 </div>
             </div>
         </div>

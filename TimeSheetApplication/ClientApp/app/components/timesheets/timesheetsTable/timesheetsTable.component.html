@@ -2,8 +2,8 @@
 
     <!-- Temporary Input and Button to load a Timesheet -->
     <table>
-        <tr class="input-row">
-            <td style="padding-bottom: 10px">Employee Number:</td>
+        <tr style="padding-bottom:10px;" class="input-row">
+            <td style="padding-right: 10px;">Employee Number:</td>
             <td><input class="input-top" type="text" #employeeNumber /></td>
             <td style="padding-left:10px" rowspan="2">
                 <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
@@ -12,7 +12,7 @@
             </td>
         </tr>
         <tr class="input-row">
-            <td>End Date (YYYY-MM-DD):</td>
+            <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
             <td><input class="input-top" type="text" #endDate /><br /></td>
         </tr>
         <tr>
