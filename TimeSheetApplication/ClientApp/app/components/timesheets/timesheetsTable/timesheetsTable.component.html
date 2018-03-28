@@ -53,7 +53,6 @@
         </div>
     </div>
 
-
     <!-- Table Body -->
     <div class="table-responsive">
         <table class="table table-hover">
@@ -76,7 +75,7 @@
                 <tr *ngFor="let timesheetRow of timesheet">
                     <td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
                     <td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
-                    <td><input type="text" name="total" [(ngModel)]="timesheetRow.total" style="width: 75px;" /></td>
+                    <td><input disabled type="text" name="total" [(ngModel)]="timesheetRow.total" style="width: 75px;" /></td>
                     <td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" /></td>
                     <td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" /></td>
                     <td><input type="text" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" /></td>
@@ -155,6 +154,3 @@
     </div>
 
 </div>
-
-
-<!-- Table Footer -->
