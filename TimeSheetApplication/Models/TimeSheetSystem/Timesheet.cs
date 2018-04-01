@@ -20,6 +20,9 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         [ForeignKey("EmployeeNumber")]
         public Employee Employee { get; set; }
 
+        [ForeignKey("StatusId")]
+        public TimesheetStatus Status { get; set; }
+
         public ICollection<TimesheetRow> TimesheetRows { get; set; }
     }
 }

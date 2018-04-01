@@ -19,6 +19,7 @@ namespace TimeSheetApplication.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<LaborGrade> LaborGrades { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<TimesheetStatus> TimeSheetStatus { get; set; }
         public DbSet<TimesheetRow> TimesheetRows { get; set; }
         public DbSet<Timesheet> Timesheets { get; set; }
         public DbSet<WorkPackage> WorkPackages { get; set; }
@@ -29,7 +30,11 @@ namespace TimeSheetApplication.Data
 
             modelBuilder.Entity<Employee>().ToTable("Employees");
             modelBuilder.Entity<LaborGrade>().ToTable("LaborGrades");
+
+            modelBuilder.Entity<ProjectStatus>().ToTable("ProjectStatus");
             modelBuilder.Entity<Project>().ToTable("Projects");
+            modelBuilder.Entity<TimesheetStatus>().ToTable("TimesheetStatus");
+
             modelBuilder.Entity<TimesheetRow>().ToTable("TimesheetRows").HasKey(c => new { c.EmployeeNumber, c.EndDate, c.ProjectNumber, c.WorkPackageNumber });
             modelBuilder.Entity<Timesheet>().ToTable("Timesheets").HasKey(c => new { c.EmployeeNumber, c.EndDate });
             modelBuilder.Entity<WorkPackage>().ToTable("WorkPackages").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber });
