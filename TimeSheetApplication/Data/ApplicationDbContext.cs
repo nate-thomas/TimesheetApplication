@@ -18,8 +18,9 @@ namespace TimeSheetApplication.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<LaborGrade> LaborGrades { get; set; }
+        public DbSet<ProjectStatus> ProjectStatus { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<TimesheetStatus> TimeSheetStatus { get; set; }
+        public DbSet<TimesheetStatus> TimesheetStatus { get; set; }
         public DbSet<TimesheetRow> TimesheetRows { get; set; }
         public DbSet<Timesheet> Timesheets { get; set; }
         public DbSet<WorkPackage> WorkPackages { get; set; }

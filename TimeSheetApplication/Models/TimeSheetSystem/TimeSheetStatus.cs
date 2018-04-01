@@ -9,8 +9,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
     public class TimesheetStatus
     {
         [Key]
-        public int StatusId { get; set; }
-        public string Name { get; set; }
+        public string StatusName { get; set; }
         public string Description { get; set; }
 
 

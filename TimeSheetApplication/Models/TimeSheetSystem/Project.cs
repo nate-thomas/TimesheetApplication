@@ -12,10 +12,12 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         [Key]
         public string ProjectNumber { get; set; }
 
+       // public string StatusName { get; set; }
+
         public string Description { get; set; }
 
-        [ForeignKey("StatusId")]
-        public ProjectStatus Status { get; set; }
+       // [ForeignKey("StatusName")]
+      //  public ProjectStatus Status { get; set; }
 
         public ICollection<WorkPackage> WorkPackages { get; set; }
     }
