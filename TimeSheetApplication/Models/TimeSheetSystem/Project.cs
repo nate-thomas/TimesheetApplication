@@ -20,5 +20,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
       //  public ProjectStatus Status { get; set; }
 
         public ICollection<WorkPackage> WorkPackages { get; set; }
+
+        public ICollection<ProjectTeam> ProjectTeams { get; set; }
     }
 }

@@ -406,6 +406,26 @@ namespace TimeSheetApplication.Data {
                 context.TimesheetRows.AddRange(TimesheetRows);
                 context.SaveChanges();
             }
+
+
+
+            // Initializing Projects
+            if (!context.ProjectTeams.Any()) {
+                List<ProjectTeam> ProjectTeams = new List<ProjectTeam>()
+                {
+                    new ProjectTeam {ProjectNumber = "12345", EmployeeNumber = "1000001"},
+                    new ProjectTeam {ProjectNumber = "12345", EmployeeNumber = "1000002"},
+                    new ProjectTeam {ProjectNumber = "12345", EmployeeNumber = "1000003"},
+
+                    new ProjectTeam {ProjectNumber = "09876", EmployeeNumber = "1000001"},
+                    new ProjectTeam {ProjectNumber = "09876", EmployeeNumber = "1000004"},
+                    new ProjectTeam {ProjectNumber = "09876", EmployeeNumber = "1000005"},
+                };
+
+                context.ProjectTeams.AddRange(ProjectTeams);
+                context.SaveChanges();
+            }
+
         }
     }
 }
