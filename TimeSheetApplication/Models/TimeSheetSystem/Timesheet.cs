@@ -13,12 +13,17 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         [Required]
         public string EmployeeNumber { get; set; }
 
+        public string StatusName { get; set; }
+
         [DataType(DataType.Date)]
         [Required]
         public DateTime EndDate { get; set; }
 
         [ForeignKey("EmployeeNumber")]
         public Employee Employee { get; set; }
+
+        [ForeignKey("StatusName")]
+        public TimesheetStatus Status { get; set; }
 
         public ICollection<TimesheetRow> TimesheetRows { get; set; }
     }
