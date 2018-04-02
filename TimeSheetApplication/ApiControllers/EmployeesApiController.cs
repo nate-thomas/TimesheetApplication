@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheetApplication.Data;
-using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models.TimeSheetSystem;
 
 namespace TimeSheetApplication.Controllers
@@ -19,9 +18,9 @@ namespace TimeSheetApplication.Controllers
     [EnableCors("CorsPolicy")]
     public class EmployeesApiController : Controller
     {
-        private readonly IDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EmployeesApiController(IDbContext context)
+        public EmployeesApiController(ApplicationDbContext context)
         {
             _context = context;
 
