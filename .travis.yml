@@ -8,6 +8,7 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
+  - nuget restore TimeSheetApplication.sln
   - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
 
 
