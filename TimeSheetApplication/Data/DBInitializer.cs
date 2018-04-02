@@ -409,7 +409,7 @@ namespace TimeSheetApplication.Data {
 
 
 
-            // Initializing Projects
+            // Initializing Project Teams
             if (!context.ProjectTeams.Any()) {
                 List<ProjectTeam> ProjectTeams = new List<ProjectTeam>()
                 {
@@ -423,6 +423,23 @@ namespace TimeSheetApplication.Data {
                 };
 
                 context.ProjectTeams.AddRange(ProjectTeams);
+                context.SaveChanges();
+            }
+
+            // Initializing ResponsibleEngineerBudget
+            if (!context.ResponsibleEngineerBudgets.Any()) {
+                List<ResponsibleEngineerBudget> ResponsibleEngineerBudgets = new List<ResponsibleEngineerBudget>()
+                {
+                    new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16)},
+
+                    new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16)},
+                };
+
+                context.ResponsibleEngineerBudgets.AddRange(ResponsibleEngineerBudgets);
                 context.SaveChanges();
             }
 
