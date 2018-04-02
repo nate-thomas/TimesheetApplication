@@ -16,7 +16,7 @@ namespace XUnitTestProject1
         //public void PassTest()
         //{
         //    int val1 = 3;
-        //    int val2 = 45;
+        //    int val2 = 55;
 
         //    Assert.Equal(48, Add(val1, val2));
         //}
