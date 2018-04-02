@@ -46,7 +46,8 @@ before_install:
 
 deploy:
   provider: azure_web_apps
-  on: master
+  on: 
+    branch: master
   username: username       # If AZURE_WA_USERNAME isn't set
   password: password
   site: TimesheetApplication

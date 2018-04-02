@@ -6,9 +6,22 @@ li .glyphicon {
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
-    background-color: #4189C7;
-    color: white;
+    /*background-color: #1ab188;*/
+    background-color: #6ac48d;
+    color: #173c00;
+    font-weight: bold;
 }
+
+/* Background color */
+.navbar-inverse {
+    /*background-color: #161e26;*/
+    background-color: #3e3e3e;
+}
+
+.navbar-nav {
+    margin: -6px;
+}
+
 
 /* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
@@ -47,7 +60,7 @@ li.link-active a:focus {
     }
     .navbar li a {
         padding: 10px 16px;
-        border-radius: 4px;
+        border-radius: 0px;
     }
     .navbar a {
         /* If a menu item's text is too long, truncate it */

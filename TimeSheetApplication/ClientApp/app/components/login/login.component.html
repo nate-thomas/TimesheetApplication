@@ -1,8 +1,22 @@
-﻿<h4>Login</h4>
+﻿<div class="body">
+    <div class='container-fluid'>
+        <div class="content">
+            <div class="heading">
+                <h1>LOGIN</h1>
+            </div>
+            <div class="row">
+                <input type="text" placeholder="Username" [(ngModel)]="username" />
+            </div>
+            <br />
 
-Username: <input type="text" [(ngModel)]="username" />
-Password: <input type="password" [(ngModel)]="password" />
+            <div class="row">
+                <input type="password" placeholder="Password" [(ngModel)]="password" />
+            </div>
+            <br />
 
-<br />
-
-<button (click)="login()">Login</button>
+            <div class="row">
+                <button class="btn-block login" [routerLink]="['/timesheets']">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
