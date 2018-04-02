@@ -37,7 +37,6 @@ namespace XUnitTestProject1
             var resultList = controller.GetAll().ToList();
 
             Assert.Equal(5, resultList.Count);
-
         }
 
         List<Employee> testEmployees = new List<Employee>()
