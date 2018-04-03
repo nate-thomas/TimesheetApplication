@@ -1,15 +1,38 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace SeleniumTests
 {
     [TestClass]
-    public class UnitTest1
+    public class Tests
     {
+        //Login Helper Function
+        public void Login(IWebDriver driver)
+        {
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("a");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$W0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+        }
+
+        [TestMethod]
+        public void LoginTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl("http://localhost:58122/login");
+            Login(driver);
+
+            //Add an assert to see if login worked or not
+
+
+        }
+
+        
+
         [TestMethod]
         public void GoogleSearchTest()
         {
@@ -30,6 +53,6 @@ namespace SeleniumTests
             Assert.IsNotNull(driver.FindElement(By.XPath("//div[@id='resultStats']")));
             driver.Close();
         }
-     
+
     }
 }
