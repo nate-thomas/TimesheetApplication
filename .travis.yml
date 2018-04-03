@@ -4,14 +4,14 @@ dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
 
-before-script: 
+before_script: 
   - nuget restore TimesheetApplication.sln
   - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
 
 script:
  - dotnet restore
 
-after-script: 
+after_script: 
    - dotnet test XUnitTestProject/XUnitTestProject.csproj
 
 notifications:
