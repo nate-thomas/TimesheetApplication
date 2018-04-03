@@ -77,7 +77,6 @@ export class TimesheetsTableComponent {
     }
 
     updateTimesheet() {
-        this.printProperties();
         this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
             .subscribe(res => console.log("Response: " + res));
     }

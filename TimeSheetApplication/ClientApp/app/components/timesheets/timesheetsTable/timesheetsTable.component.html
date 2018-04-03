@@ -11,7 +11,7 @@
                     </button>
                 </td>
             </tr>
-        </table> 
+        </table>
     </form>
     <br />
     <!-- Table Header -->
@@ -41,7 +41,6 @@
             </div>
         </div>
     </div>
-
     <!-- Table Body -->
     <div class="table-responsive">
         <table class="table table-hover">
@@ -64,7 +63,7 @@
                 <tr *ngFor="let timesheetRow of timesheet; let i = index">
                     <td><input id="{{'projectNumberInput' + i}}" type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
                     <td><input id="{{'workPackageNumberInput' + i}}" type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
-                    <td><input id="{{'totalInput' + i}}" type="text" name="total" [(ngModel)]="timesheetRow.total" style="width: 75px;" value="{{timesheetRow.saturday + timesheetRow.sunday + timesheetRow.monday + timesheetRow.tuesday+ timesheetRow.wednesday + timesheetRow.thursday + timesheetRow.friday}}" disabled /></td>
+                    <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{timesheetRow.saturday + timesheetRow.sunday + timesheetRow.monday + timesheetRow.tuesday+ timesheetRow.wednesday + timesheetRow.thursday + timesheetRow.friday}}" disabled /></td>
                     <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" /></td>
                     <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" /></td>
                     <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" /></td>
@@ -107,7 +106,8 @@
     </div>
     <br />
     <button id="addTimesheetRowButton" class="btn-newRow" (click)="addTimesheetRow()">Add New Row</button>
-    <button id="clearTimesheetPropertiesButton" class="pull-right" (click)="clearProperties()">Reset</button>
+    <!--<button id="clearTimesheetPropertiesButton" class="pull-right" (click)="clearProperties()">Reset</button-->
+    <button id="createTimesheetButton" class="pull-right" (click)="addTimesheet()">Create</button>
     <button id="updateTimesheetButton" class="pull-right" (click)="updateTimesheet()">Update</button>
     <!--<button id="printTimesheetPropertiesButton" (click)="printProperties()">Print to Console</button>-->
     <br />
