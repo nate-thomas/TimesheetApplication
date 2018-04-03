@@ -45,10 +45,7 @@ export class TimesheetsTableComponent {
     loadTimesheet(employeeNumber: string, endDate: string) {
         this.getTimesheetRows(employeeNumber, endDate)
             .subscribe(
-                timesheet => this.timesheet = timesheet,
-                errors => {
-                    console.log(errors)
-                }
+                timesheet => this.timesheet = timesheet
             );
     }
 
@@ -71,32 +68,50 @@ export class TimesheetsTableComponent {
     /* CRUD methods to make RESTful calls to the API */
 
     getTimesheetRows(employeeNumber: string, endDate: string): Observable<TimesheetRow[]> {
-        return this.http.get(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate)
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 
     deleteTimesheetRows(employeeNumber: string, endDate: string): Observable<TimesheetRow[]> {
-        return this.http.delete(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate)
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.delete(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 
     postTimesheetRows(employeeNumber: string, endDate: string, timesheet: TimesheetRow[]): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 
     putTimesheetRows(employeeNumber: string, endDate: string, timesheet: TimesheetRow[]): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
         return this.http.put(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 }
