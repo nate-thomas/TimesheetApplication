@@ -13,6 +13,7 @@ install:
   - npm install 
   - npm install -g webpack 
   - dotnet restore
+  - npm update 
 
 
 before-script: 
