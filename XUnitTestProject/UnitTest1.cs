@@ -23,18 +23,19 @@ namespace XUnitTestProject1
             Assert.Equal(110, Add(val1, val2));
         }
 
-        //         [Fact]
-        //         public void FailTest()
-        //         {
-        //             int x = 3000;
-        //             int y = 6001;
-
-        //             Assert.Equal(9000, Add(x, y));
-        //         }
-
         int Add(int num1, int num2)
         {
             return num1 + num2;
         }
+
+        [Fact]
+        public void PassTest3()
+        {
+            int val1 = 150;
+            int val2 = 1000;
+
+            Assert.Equal(1150, Add(val1, val2));
+        }
+
     }
 }
