@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app/app.component'
 
 @Component({
     selector: 'login',
@@ -13,8 +14,6 @@ import { Router } from '@angular/router';
     templateUrl: './login.component.html'
 })
 export class LoginComponent {
-    url: string = "http://localhost:58911";
-
     username: string;
     password: string;
 
@@ -39,7 +38,7 @@ export class LoginComponent {
         let body = "username=" + this.username + "&password=" + this.password + "&grant_type=password";
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.url + "/connect/token/", body, options)
+        return this.http.post(AppComponent.url + "/connect/token/", body, options)
             .map((response: Response) => {
                 if (response.json().access_token) {
                     localStorage.setItem("username", this.username);
