@@ -1,34 +1,57 @@
-﻿<div class="component-content">
-
-    <div class="top-side row">
-        <div class="col-md-2">
-            Project Number
-        </div>
-        <div class="col-md-10">
-            <div class="info col-md-1 bg-warning">
-                <div class="info">Info</div>
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+<div class="component-content">
+   <div class="card-deck">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="hidden-xs hidden-sm project-number card-title">Project Number</h2>
+                <h5 class="visible-xs visible-sm project-number card-title">Project Number</h5>
             </div>
-            <div class="col-md-6 bg-success">
-                <div class="row descr">Description</div>
-                <div class="row estim">Estimates</div>
-            </div>
-            <div class="col-md-5 bg-warning">
-                <div class="row status">Status</div>
-                <div class="row etc">ETC</div>
-            </div>
-        </div>     
-    </div>
-
-    <div class="row bottom-side bg-info">
-        <div class="col-md-2 bg-primary">
-            Work Packages
         </div>
-        <div class="col-md-4 bg-success">
-            Available Employees
-        </div>
-        <div class="col-md-6 bg-warning">
-            Current Team
+        <div class="card" style="flex: 4">
+            <div class="card-body">
+                <h5 class="card-title">Project Details</h5>
+                <div class="card-text">
+                    <p><span style="font-weight:500;"># of WPs:</span> 12</p>
+                    <p><span style="font-weight:500;">Description</span> 12</p>
+                    <p><span style="font-weight:500;">Status:</span> Active</p>
+                    <p><span style="font-weight:500;">Progress</span> somebar</p>
+                </div>
+                <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+            </div>
         </div>
     </div>
 
+    <br class="hidden-xs" />
+    <br class="hidden-xs" />
+    <div class="card-deck">
+        <div class="card">
+
+            <div class="card-header">
+                Work Packages
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">qwer1234</li>
+                <li class="list-group-item">qwer1235</li>
+                <li class="list-group-item">qwer1236</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Team Involved
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Employee A</li>
+                <li class="list-group-item">Employee B</li>
+                <li class="list-group-item">Employee C</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Package Details</h5>
+                <p class="card-text"></p>
+            </div>
+        </div>
+    </div>
 </div>
+
