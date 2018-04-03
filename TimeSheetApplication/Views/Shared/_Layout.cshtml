@@ -6,11 +6,20 @@
     <title>@ViewData["Title"] - TimeSheetApplication</title>
     <base href="~/" />
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #3e3e3e #6ac48d
+        }
+    </style>
 </head>
 <body>
+
     @RenderBody()
 
     @RenderSection("scripts", required: false)
+    
 </body>
 </html>
