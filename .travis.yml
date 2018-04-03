@@ -4,11 +4,16 @@ dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
 
+before_install: 
+  - npm install -g webpack
+  - npm link webpack
+
 before-script: 
   - nuget restore TimesheetApplication.sln
   - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
-  - dotnet restore
+
 script:
+ - dotnet restore
  - dotnet test XUnitTestProject/XUnitTestProject.csproj
  
 addons:
