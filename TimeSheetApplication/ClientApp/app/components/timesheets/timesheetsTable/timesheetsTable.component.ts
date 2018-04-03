@@ -15,6 +15,9 @@ import { AppComponent } from '../../app/app.component'
 })
 export class TimesheetsTableComponent {
     timesheet: TimesheetRow[] = new Array();
+    employeeNumber: string = localStorage.getItem("username") || "";
+    endDate: string = (new Date()).getFullYear() + "-" + ((new Date()).getMonth() + 1) + "-" + (new Date()).getDate();
+    weekNumber: number = this.getWeekNumber(this.endDate);
 
     constructor(private http: Http) { }
 
@@ -30,37 +33,52 @@ export class TimesheetsTableComponent {
         console.log(JSON.stringify(this.timesheet));
     }
 
+    /* Functions to be called when component is loaded */
+
+    ngOnInit() {
+        this.loadTimesheet();
+    }
+
     /* Utility methods */
 
-    addTimesheetRow(employeeNumber: string, endDate: string) {
+    addTimesheetRow() {
         let row = new TimesheetRow();
-        row.employeeNumber = employeeNumber;
-        row.endDate = endDate;
+        row.employeeNumber = this.employeeNumber;
+        row.endDate = this.endDate;
         this.timesheet.push(row);
+    }
+
+    getWeekNumber(endDate: string) {
+        var onejan = new Date((new Date).getFullYear(), 0, 1);
+        var today = new Date(endDate);
+        var dayOfYear = ((today.getTime() - onejan.getTime() + 1) / 86400000);
+        return Math.ceil(dayOfYear / 7);
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
 
-    loadTimesheet(employeeNumber: string, endDate: string) {
-        this.getTimesheetRows(employeeNumber, endDate)
+    loadTimesheet() {
+        this.getTimesheetRows(this.employeeNumber, this.endDate)
             .subscribe(
                 timesheet => this.timesheet = timesheet
-            );
+        );
+        this.weekNumber = this.getWeekNumber(this.endDate);
     }
 
-    removeTimesheet(employeeNumber: string, endDate: string) {
-        this.deleteTimesheetRows(employeeNumber, endDate)
+    removeTimesheet() {
+        this.deleteTimesheetRows(this.employeeNumber, this.endDate)
             .subscribe(res => console.log("Response: " + res));
         this.clearProperties();
     }
 
-    addTimesheet(employeeNumber: string, endDate: string) {
-        this.postTimesheetRows(employeeNumber, endDate, this.timesheet)
+    addTimesheet() {
+        this.postTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
             .subscribe(res => console.log("Response: " + res));
     }
 
     updateTimesheet() {
-        this.putTimesheetRows(this.timesheet[0].employeeNumber, this.timesheet[0].endDate, this.timesheet)
+        this.printProperties();
+        this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
             .subscribe(res => console.log("Response: " + res));
     }
 
