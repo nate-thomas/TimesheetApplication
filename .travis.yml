@@ -1,5 +1,6 @@
 language: csharp
 mono: none
+sudo: true
 dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
