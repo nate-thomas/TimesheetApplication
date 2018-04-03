@@ -263,8 +263,9 @@ namespace TimeSheetApplication.Data {
             if (!context.Projects.Any()) {
                 List<Project> Projects = new List<Project>()
                 {
-                    new Project {ProjectNumber = "12345", Description = "This is project 12345"},
-                    new Project {ProjectNumber = "09876", Description = "This is project 09876"},
+                    new Project {ProjectNumber = "12345", Description = "This is project 12345", StatusName="Current"},
+                    new Project {ProjectNumber = "09876", Description = "This is project 09876", StatusName="Current"},
+                    new Project {ProjectNumber = "12121", Description = "This is project 12121", StatusName="Archived"},
                 };
 
                 context.Projects.AddRange(Projects);
