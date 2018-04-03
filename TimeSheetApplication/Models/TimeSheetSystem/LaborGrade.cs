@@ -14,5 +14,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public double PayAmount { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
+        public ICollection<REBbyGrade> REBbyGrades { get; set; }
     }
 }
