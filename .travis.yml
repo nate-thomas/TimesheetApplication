@@ -13,9 +13,7 @@ before-script:
 
 script:
  - dotnet restore
-
-after_script: 
-   - dotnet test XUnitTestProject/XUnitTestProject.csproj
+ - dotnet test XUnitTestProject/XUnitTestProject.csproj
 
 notifications:
   slack:
