@@ -48,7 +48,7 @@ import { ManageProjectsComponent } from './components/projects/manageProjects/ma
             { path: 'login', component: LoginComponent },
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
-            { path: 'manageProjects', component: ManageProjectsComponent },
+            { path: 'manage-projects', component: ManageProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
             { path: 'admintasks', component: AdmintasksComponent },
             //{ path: 'addTimesheet', component: TimesheetsTableComponent },
