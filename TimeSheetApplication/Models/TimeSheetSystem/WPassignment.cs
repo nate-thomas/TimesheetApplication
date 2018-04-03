@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TimeSheetApplication.Models.TimeSheetSystem
 {
-    public class ResponsibleEngineerBudget
+    public class WPassignment
     {
         [Required]
         public string ProjectNumber { get; set; }
         [Required]
         public string WorkPackageNumber { get; set; }
         [Required]
-        public DateTime EndDate { get; set; }
+        public string EmployeeNumber { get; set; }
 
-        public int EstimatedBudget { get; set; }
-        public int ActualBudget { get; set; }
-
-
+        public ProjectTeam ProjectTeam { get; set; }
         public WorkPackage WorkPackage { get; set; }
-
-        public ICollection<REBbyGrade> REBbyGrade { get; set; }
     }
 }
