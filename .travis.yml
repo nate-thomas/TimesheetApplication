@@ -4,8 +4,14 @@ dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
 
+cache:
+  directories:
+    - node_modules
+
 before_install: 
   - npm install -g webpack 
+  - npm install -g webpack 
+
 
 before-script: 
   - nuget restore TimesheetApplication.sln
