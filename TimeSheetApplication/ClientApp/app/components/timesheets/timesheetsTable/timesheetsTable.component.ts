@@ -48,6 +48,10 @@ export class TimesheetsTableComponent {
         this.timesheet.push(row);
     }
 
+    deleteTimesheetRow(index: number) {
+        this.timesheet.splice(index, 1);
+    }
+
     getWeekNumber(endDate: string) {
         var onejan = new Date((new Date).getFullYear(), 0, 1);
         var today = new Date(endDate);
@@ -73,12 +77,12 @@ export class TimesheetsTableComponent {
 
     addTimesheet() {
         this.postTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-            .subscribe(res => console.log("Response: " + res));
+            .subscribe(res => { alert("Creation successful") });
     }
 
     updateTimesheet() {
         this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-            .subscribe(res => console.log("Response: " + res));
+            .subscribe(res => { alert("Update successful") });
     }
 
     /* CRUD methods to make RESTful calls to the API */

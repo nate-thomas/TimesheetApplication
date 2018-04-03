@@ -72,6 +72,7 @@
                     <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" /></td>
                     <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" /></td>
                     <td><input id="{{'notesInput' + i}}" type="text" min="0" max="24" name="notes" value="" style="width: 125px;" /></td>
+                    <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" style="text-align: center;">x</button></td>
                 </tr>
                 <tr></tr>
                 <tr>
