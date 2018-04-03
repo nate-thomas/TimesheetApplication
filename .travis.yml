@@ -6,7 +6,6 @@ solution: TimesheetApplication.sln
 
 before_install: 
   - npm install webpack
-  - npm link webpack
 
 before-script: 
   - nuget restore TimesheetApplication.sln
