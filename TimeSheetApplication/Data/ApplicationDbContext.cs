@@ -26,6 +26,7 @@ namespace TimeSheetApplication.Data
         public DbSet<WorkPackage> WorkPackages { get; set; }
 
         public DbSet<ResponsibleEngineerBudget> ResponsibleEngineerBudgets { get; set; }
+        public DbSet<REBbyGrade> REBbyGrades { get; set; }
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,6 +46,7 @@ namespace TimeSheetApplication.Data
 
             modelBuilder.Entity<ProjectTeam>().ToTable("ProjectTeams").HasKey(c => new { c.EmployeeNumber, c.ProjectNumber });
             modelBuilder.Entity<ResponsibleEngineerBudget>().ToTable("ResponsibleEngineerBudgets").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber, c.EndDate });
+            modelBuilder.Entity<REBbyGrade>().ToTable("REBbyGrades").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber, c.EndDate, c.Grade });
         }
     }
 }

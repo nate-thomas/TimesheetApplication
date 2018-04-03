@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,5 +21,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 
 
         public WorkPackage WorkPackage { get; set; }
+
+        public ICollection<REBbyGrade> REBbyGrade { get; set; }
     }
 }

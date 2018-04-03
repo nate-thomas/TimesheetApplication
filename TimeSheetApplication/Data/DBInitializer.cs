@@ -434,12 +434,50 @@ namespace TimeSheetApplication.Data {
                     new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09)},
                     new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16)},
 
+                    new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 02)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 09)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "12345", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 16)},
+
+
+
                     new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02)},
                     new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09)},
                     new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16)},
+
+                    new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 02)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 09)},
+                    new ResponsibleEngineerBudget {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 16)},
                 };
 
                 context.ResponsibleEngineerBudgets.AddRange(ResponsibleEngineerBudgets);
+                context.SaveChanges();
+            }
+
+
+            // Initializing REBbyGrade
+            if (!context.REBbyGrades.Any()) {
+                List<REBbyGrade> REBbyGrades = new List<REBbyGrade>()
+                {
+                    new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02), Grade = "P1"},
+                    new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09), Grade = "P1"},
+                    new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16), Grade = "P1"},
+
+                    new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02), Grade = "P2"},
+                    new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09), Grade = "P2"},
+                    new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16), Grade = "P2"},
+
+
+
+                    new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02), Grade = "P1"},
+                    new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09), Grade = "P1"},
+                    new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16), Grade = "P1"},
+
+                    new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 02), Grade = "P2"},
+                    new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 09), Grade = "P2"},
+                    new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 16), Grade = "P2"},
+                };
+
+                context.REBbyGrades.AddRange(REBbyGrades);
                 context.SaveChanges();
             }
 
