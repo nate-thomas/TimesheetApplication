@@ -5,7 +5,7 @@ dist: trusty
 solution: TimesheetApplication.sln
 
 before_install: 
-  - npm install -g webpack
+  - npm install webpack
   - npm link webpack
 
 before-script: 
