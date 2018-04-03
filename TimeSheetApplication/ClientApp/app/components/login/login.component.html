@@ -4,17 +4,19 @@
             <div class="heading">
                 <h1>LOGIN</h1>
             </div>
-            <div class="row">
-                <input id="username" type="text" placeholder="Username" [(ngModel)]="username" />
-            </div>
-            <br />
-            <div class="row">
-                <input id="password" type="password" placeholder="Password" [(ngModel)]="password" />
-            </div>
-            <br />
-            <div class="row">
-                <button id="login" type="submit" class="btn-block login" (click)="login()">Login</button>
-            </div>
+            <form (ngSubmit)="login()">
+                <div class="row">
+                    <input id="username" type="text" placeholder="Username" name="username" [(ngModel)]="username" />
+                </div>
+                <br />
+                <div class="row">
+                    <input id="password" type="password" placeholder="Password" name="password" [(ngModel)]="password" />
+                </div>
+                <br />
+                <div class="row">
+                    <button id="login" type="submit" class="btn-block login">Login</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
 import { TimesheetRow } from './timesheetRows'
+import { AppComponent } from '../../app/app.component'
 
 @Component({
     selector: 'timesheetsTable',
@@ -13,8 +14,6 @@ import { TimesheetRow } from './timesheetRows'
     templateUrl: './timesheetsTable.component.html'
 })
 export class TimesheetsTableComponent {
-    url: string = "http://localhost:58911";
-
     timesheet: TimesheetRow[] = new Array();
 
     constructor(private http: Http) { }
@@ -71,7 +70,7 @@ export class TimesheetsTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
+        return this.http.get(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
@@ -83,7 +82,7 @@ export class TimesheetsTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.delete(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
+        return this.http.delete(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
@@ -95,7 +94,7 @@ export class TimesheetsTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
+        return this.http.post(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
@@ -107,7 +106,7 @@ export class TimesheetsTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(this.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
+        return this.http.put(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);

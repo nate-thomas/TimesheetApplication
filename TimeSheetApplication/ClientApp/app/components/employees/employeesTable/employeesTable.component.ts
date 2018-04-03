@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
 import { Employee } from '../employees';
+import { AppComponent } from '../../app/app.component'
 
 @Component({
     selector: 'employeesTable',
@@ -12,8 +13,6 @@ import { Employee } from '../employees';
     templateUrl: './employeesTable.component.html'
 })
 export class EmployeesTableComponent {
-    url: string = "http://localhost:58911";
-
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
@@ -69,7 +68,7 @@ export class EmployeesTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.url + "/api/Employees/", options)
+        return this.http.get(AppComponent.url + "/api/Employees/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
@@ -81,7 +80,7 @@ export class EmployeesTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.url + "/api/Employees/" + employeeNumber, options)
+        return this.http.get(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
@@ -93,7 +92,7 @@ export class EmployeesTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.delete(this.url + "/api/Employees/" + employeeNumber, options)
+        return this.http.delete(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
@@ -105,7 +104,7 @@ export class EmployeesTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.url + "/api/EmployeesI/", this.employee, options)
+        return this.http.post(AppComponent.url + "/api/EmployeesI/", this.employee, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
@@ -117,7 +116,7 @@ export class EmployeesTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(this.url + "/api/Employees/" + employeeNumber, this.employee, options)
+        return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
