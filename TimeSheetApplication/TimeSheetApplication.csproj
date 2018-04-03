@@ -95,8 +95,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Migrations\" />
     <Folder Include="ClientApp\app\assets\images\" />
 
   </ItemGroup>
