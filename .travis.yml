@@ -7,6 +7,7 @@ solution: TimesheetApplication.sln
 before-script: 
   - nuget restore TimesheetApplication.sln
   - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
+  - npm install -g webpack 
 
 script:
  - dotnet restore

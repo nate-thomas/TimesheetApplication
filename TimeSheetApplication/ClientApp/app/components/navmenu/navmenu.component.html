@@ -7,38 +7,39 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]="['/timesheets']">TimeSheetApplication</a>
+            <div class='navbar-brand' [routerLink]="['/timesheets']">TimeSheetApplication</div>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/timesheets']">
+                    <a id="timesheetsLink" [routerLink]="['/timesheets']">
                         <span class='glyphicon glyphicon-time'></span> Timesheets
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/projects']">
+
+                    <a id="projectsLink" [routerLink]="['/projects']">
                         <span class='glyphicon glyphicon-th-list'></span> Projects
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/employees']">
+                    <a id="employeesLink" [routerLink]="['/employees']">
                         <span class='glyphicon glyphicon-th-list'></span> Employees
                     </a>
                 </li>
                 <!--<li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/admintasks']">
+                    <a id="admintasksLink" [routerLink]="['/admintasks']">
                         <span class='glyphicon glyphicon-cog'></span> Admin Tasks
                     </a>
                 </li>-->
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/user']">
+                    <a id="userLink" [routerLink]="['/user']">
                         <span class='glyphicon glyphicon-user'></span> User
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/login']">
+                    <a id="logoutLink" [routerLink]="['/login']">
                         <span class='glyphicon glyphicon-log-out'></span> Logout
                     </a>
                 </li>

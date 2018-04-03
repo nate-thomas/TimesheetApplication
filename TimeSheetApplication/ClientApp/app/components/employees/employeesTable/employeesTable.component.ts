@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
 import { Employee } from '../employees';
+import { AppComponent } from '../../app/app.component'
 
 @Component({
     selector: 'employeesTable',
@@ -12,8 +13,6 @@ import { Employee } from '../employees';
     templateUrl: './employeesTable.component.html'
 })
 export class EmployeesTableComponent {
-    url: string = "http://localhost:58911";
-
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
@@ -37,20 +36,14 @@ export class EmployeesTableComponent {
     loadEmployees() {
         this.getEmployees()
             .subscribe(
-            employees => this.employees = employees,
-            errors => {
-                console.log(errors)
-            }
+                employees => this.employees = employees
             );
     }
 
     loadEmployee(employeeNumber: string) {
         this.getEmployee(employeeNumber)
             .subscribe(
-            employee => this.employee = employee,
-            errors => {
-                console.log(errors)
-            }
+                employee => this.employee = employee
             );
     }
 
@@ -72,38 +65,62 @@ export class EmployeesTableComponent {
     /* CRUD methods to make RESTful calls to the API */
 
     getEmployees(): Observable<Employee[]> {
-        return this.http.get(this.url + "/api/Employees/")
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Employees/", options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 
     getEmployee(employeeNumber: string): Observable<Employee> {
-        return this.http.get(this.url + "/api/Employees/" + employeeNumber)
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 
     deleteEmployee(employeeNumber: string): Observable<Employee> {
-        return this.http.delete(this.url + "/api/Employees/" + employeeNumber)
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.delete(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 
     postEmployee(employee: Employee): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.url + "/api/EmployeesI/", this.employee, options)
+        return this.http.post(AppComponent.url + "/api/EmployeesI/", this.employee, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 
     putEmployee(employeeNumber: string, employee: Employee): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(this.url + "/api/Employees/" + employeeNumber, this.employee, options)
+        return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
 }
