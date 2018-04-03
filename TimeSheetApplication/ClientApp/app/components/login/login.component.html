@@ -5,17 +5,15 @@
                 <h1>LOGIN</h1>
             </div>
             <div class="row">
-                <input type="text" placeholder="Username" [(ngModel)]="username" />
+                <input id="username" type="text" placeholder="Username" [(ngModel)]="username" />
             </div>
             <br />
-
             <div class="row">
-                <input type="password" placeholder="Password" [(ngModel)]="password" />
+                <input id="password" type="password" placeholder="Password" [(ngModel)]="password" />
             </div>
             <br />
-
             <div class="row">
-                <button class="btn-block login" [routerLink]="['/timesheets']">Login</button>
+                <button id="login" type="submit" class="btn-block login" (click)="login()">Login</button>
             </div>
         </div>
     </div>

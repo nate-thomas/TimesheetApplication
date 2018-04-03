@@ -13,44 +13,47 @@ import { Router } from '@angular/router';
     templateUrl: './login.component.html'
 })
 export class LoginComponent {
+    url: string = "http://localhost:58911";
+
     username: string;
     password: string;
 
-    constructor(private http: Http, private router: Router) {}
+    constructor(private http: Http, private router: Router) { }
+
+    ngOnInit() {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("access_token");
+    }
 
     login() {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let body = { username: this.username, password: this.password };
-        let options = new RequestOptions({ headers: headers });
-
-        // Make a POST request to /api/login/ with username and password contained in an object
-        return this.http.post("http://localhost:54255/api/login", body, options)
-            .map(response => {
-                // JSONify the response object
-                let user = response.json();
-
-                // If response object contains a non-null object ...
-                if (user.employeeId && user.token) {
-                    // Store currentUser and currentToken to localStorage
-                    localStorage.setItem('currentUser', user.employeeId);
-                    localStorage.setItem('currentToken', user.token);
-
-                    // Navigate to home page
-                    this.router.navigateByUrl('/home');
-                } else {
-                    // Insert here an alert that login has failed in UI
+        this.authenticate()
+            .subscribe(authenticated => {
+                if (authenticated === true) {
+                    this.router.navigate(['/timesheets/']);
                 }
             });
     }
 
-    logout() {
-        this.username = "";
-        this.password = "";
+    authenticate() {
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let body = "username=" + this.username + "&password=" + this.password + "&grant_type=password";
+        let options = new RequestOptions({ headers: headers });
 
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('currentToken');
+        return this.http.post(this.url + "/connect/token/", body, options)
+            .map((response: Response) => {
+                if (response.json().access_token) {
+                    localStorage.setItem("username", this.username);
+                    localStorage.setItem("access_token", response.json().access_token);
 
-        this.router.navigateByUrl('/login');
+                    return true;
+                } else {
+                    alert("Authentication failed.")
+
+                    return false;
+                }
+            }).catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
     }
-
 }
