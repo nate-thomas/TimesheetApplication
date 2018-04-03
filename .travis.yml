@@ -7,6 +7,7 @@ solution: TimesheetApplication.sln
 before-script: 
   - nuget restore TimesheetApplication.sln
   - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
+  - dotnet add package Moq --version 4.8.2
 
 script:
  - dotnet restore
