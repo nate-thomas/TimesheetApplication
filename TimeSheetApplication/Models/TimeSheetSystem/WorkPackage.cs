@@ -12,6 +12,9 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public string ProjectNumber { get; set; }
         public string WorkPackageNumber { get; set; }
         public string Description { get; set; }
+        public int Budget { get; set; }
+        
+        
 
         [ForeignKey("ProjectNumber")]
         public Project Project { get; set; }
