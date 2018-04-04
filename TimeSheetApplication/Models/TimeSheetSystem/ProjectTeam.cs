@@ -19,6 +19,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public Employee Employee { get; set; }
 
 
-        //public ICollection<WPassignment> TeamWPassignment { get; set; }
+        public ICollection<WPassignment> WPassignment { get; set; }
     }
 }

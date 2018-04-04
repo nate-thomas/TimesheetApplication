@@ -9,11 +9,11 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
     public class WPassignment
     {
         [Required]
+        public string EmployeeNumber { get; set; }
+        [Required]
         public string ProjectNumber { get; set; }
         [Required]
         public string WorkPackageNumber { get; set; }
-        [Required]
-        public string EmployeeNumber { get; set; }
 
         public ProjectTeam ProjectTeam { get; set; }
         public WorkPackage WorkPackage { get; set; }
