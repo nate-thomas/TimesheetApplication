@@ -1,18 +1,14 @@
 ﻿﻿<div class="component-content">
     <!-- Temporary Input and Button to load a Timesheet -->
     <table>
-        <tr style="padding-bottom:10px;" class="input-row">
-            <td style="padding-right: 10px;">Employee Number:</td>
-            <td><input id="employeeNumberInput" class="input-top" type="text" #employeeNumber /></td>
-            <td style="padding-left:10px" rowspan="2">
+        <tr class="input-row">
+            <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
+            <td><input id="endDateInput" class="input-top" type="text" #endDate /><br /></td>
+            <td style="padding-left:10px">
                 <button id="loadTimesheetButton" class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
                     <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
                 </button>
             </td>
-        </tr>
-        <tr class="input-row">
-            <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
-            <td><input id="endDateInput" class="input-top" type="text" #endDate /><br /></td>
         </tr>
         <tr>
             <!--<td><button id="addTimesheetButton" disabled (click)="addTimesheet(employeeNumber.value, endDate.value)">Create Timesheet</button></td>-->
@@ -124,10 +120,10 @@
     <!-- xs, sm view -->
     <div class="row visible-xs visible-sm">
         <br />
-        <div class="row">
+        <div class="col-sm-12">
             <p id="approvalStatusSmall">Approval Status: <strong>Not Approved</strong></p>
         </div>
-        <div class="row">
+        <div class="col-sm-12">
             <button id="signTimesheetButton">Sign Timesheet</button>
         </div>
     </div>
