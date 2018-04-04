@@ -1,28 +1,14 @@
-﻿.tableHeader {
-    padding-top: 30px;
+﻿.body {
+    background-color: #f7f7f7;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    left: 0;
 }
 
-.wrapper {
-    margin: 5%;
-}
-
-.img-icon {
-    height: 15px;
-    width: 15px;
-}
-
-.tableHeader {
-    /*background-color: #436252;*/
-    background-color: #3EB55F;
-    s opacity: .8;
-    padding: 10px;
-    color: white;
-}
-
-.btn-icon {
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+@media (max-width: 767px) {
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    .body-content {
+        padding-top: 50px;
+    }
 }

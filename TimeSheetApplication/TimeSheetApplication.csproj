@@ -12,6 +12,10 @@
     <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0-*" />
+    <PackageReference Include="OpenIddict" Version="2.0.0-*" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-*" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0-*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +25,39 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="Views\AuthorizationCodes\**" />
+    <Compile Remove="Views\Employees\**" />
+    <Compile Remove="Views\LaborGrades\**" />
+    <Compile Remove="Views\Login\**" />
+    <Compile Remove="Views\Projects\**" />
+    <Compile Remove="Views\TimesheetRows\**" />
+    <Compile Remove="Views\Timesheets\**" />
+    <Compile Remove="Views\WorkPackages\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="Views\AuthorizationCodes\**" />
+    <Content Remove="Views\Employees\**" />
+    <Content Remove="Views\LaborGrades\**" />
+    <Content Remove="Views\Login\**" />
+    <Content Remove="Views\Projects\**" />
+    <Content Remove="Views\TimesheetRows\**" />
+    <Content Remove="Views\Timesheets\**" />
+    <Content Remove="Views\WorkPackages\**" />
+    <EmbeddedResource Remove="Views\AuthorizationCodes\**" />
+    <EmbeddedResource Remove="Views\Employees\**" />
+    <EmbeddedResource Remove="Views\LaborGrades\**" />
+    <EmbeddedResource Remove="Views\Login\**" />
+    <EmbeddedResource Remove="Views\Projects\**" />
+    <EmbeddedResource Remove="Views\TimesheetRows\**" />
+    <EmbeddedResource Remove="Views\Timesheets\**" />
+    <EmbeddedResource Remove="Views\WorkPackages\**" />
+    <None Remove="Views\AuthorizationCodes\**" />
+    <None Remove="Views\Employees\**" />
+    <None Remove="Views\LaborGrades\**" />
+    <None Remove="Views\Login\**" />
+    <None Remove="Views\Projects\**" />
+    <None Remove="Views\TimesheetRows\**" />
+    <None Remove="Views\Timesheets\**" />
+    <None Remove="Views\WorkPackages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,11 +65,16 @@
     <None Remove="ClientApp\app\components\employees\addEmployee\AddEmployee.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.ts" />
+    <None Remove="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
+    <None Remove="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
+    <None Remove="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheetRows.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
+    <None Remove="ClientApp\app\components\workpackages\workpackages.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,15 +82,21 @@
     <TypeScriptCompile Include="ClientApp\app\components\employees\addEmployee\AddEmployee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\timesheetsTable\timesheetRows.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\timesheetsTable\timesheets.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\workpackages.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
+
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

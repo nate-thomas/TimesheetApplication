@@ -1,0 +1,2 @@
+﻿EntityFrameworkCore\Add-Migration "Initial"
+EntityFrameworkCore\Update-Database 

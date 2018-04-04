@@ -12,9 +12,13 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { AdmintasksComponent } from './components/admintasks/admintasks.component';
 import { UserComponent } from './components/user/user.component';
-import { TimesheetsTableComponent } from './components/timesheetsTable/timesheetsTable.component';
+import { TimesheetsTableComponent } from './components/timesheets/timesheetsTable/timesheetsTable.component';
 import { AddEmployeeComponent } from './components/employees/addEmployee/AddEmployee.component';
-import { WorkpackageComponent } from './components/workpackage/workpackage.component';
+import { ProjectsTableComponent } from './components/projects/projectsTable/projectsTable.component';
+import { AddProjectComponent } from './components/projects/addProject/addProject.component';
+import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
+import { WorkPackagesComponent } from './components/workpackages/workpackages.component';
+import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
 
 @NgModule({
     declarations: [
@@ -23,12 +27,16 @@ import { WorkpackageComponent } from './components/workpackage/workpackage.compo
         TimesheetsComponent,
         ProjectsComponent,
         EmployeesComponent,
+        EmployeesTableComponent,
         AddEmployeeComponent,
         AdmintasksComponent,
         UserComponent,
 		LoginComponent,
         TimesheetsTableComponent,
-        WorkpackageComponent,
+        ProjectsTableComponent,
+        AddProjectComponent,
+        ManageProjectsComponent,
+        WorkPackagesComponent
 
     ],
     imports: [
@@ -40,11 +48,13 @@ import { WorkpackageComponent } from './components/workpackage/workpackage.compo
             { path: 'login', component: LoginComponent },
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
+            { path: 'manage-projects', component: ManageProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
-            { path: 'addEmployee', component: AddEmployeeComponent },
             { path: 'admintasks', component: AdmintasksComponent },
+            //{ path: 'addTimesheet', component: TimesheetsTableComponent },
+            //{ path: 'addEmployee', component: AddEmployeeComponent },
+            //{ path: 'addProject', component: AddProjectComponent },
             { path: 'user', component: UserComponent },
-            { path: 'workpackage', component: WorkpackageComponent },
             { path: '**', redirectTo: 'login' }
         ])
     ]

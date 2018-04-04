@@ -1,0 +1,138 @@
+﻿﻿<div class="component-content">
+    <!-- Temporary Input and Button to load a Timesheet -->
+    <form (ngSubmit)="loadTimesheet()">
+        <table>
+            <tr style="padding-bottom:10px;" class="input-row">
+                <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
+                <td><input id="endDateInput" class="input-top" type="text" name="endDate" [(ngModel)]="endDate" value="{{endDate}}" /><br /></td>
+                <td style="padding-left:10px" rowspan="2">
+                    <button id="loadTimesheetButton" class="btn-icon">
+                        <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <!-- Table Header -->
+    <div class="tableHeader">
+        <!-- xs, sm view -->
+        <div class="row visible-xs visible-sm">
+            <div class="col-xs-12">
+                <button id="timesheetArchiveButtonSmall" class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+            </div>
+            <div class="col-xs-12 text-center">
+                <h1>Timesheet</h1>
+            </div>
+            <div class="col-xs-12">
+                <h4 class="pull-right">Week No. {{weekNumber}}</h4>
+            </div>
+        </div>
+        <!--  md, lg, xl views -->
+        <div class="row hidden-xs hidden-sm">
+            <div class="col-md-4">
+                <button id="timesheetArchiveButtonLarge" class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+            </div>
+            <div class="col-md-4 text-center">
+                <h1>Timesheet</h1>
+            </div>
+            <div class="col-md-4">
+                <h4 class="pull-right">Week No. {{weekNumber}}</h4>
+            </div>
+        </div>
+    </div>
+    <!-- Table Body -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Project #</th>
+                    <th>WP #</th>
+                    <th>Total</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let timesheetRow of timesheet; let i = index">
+                    <td><input id="{{'projectNumberInput' + i}}" type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
+                    <td><input id="{{'workPackageNumberInput' + i}}" type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
+                    <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{timesheetRow.saturday + timesheetRow.sunday + timesheetRow.monday + timesheetRow.tuesday+ timesheetRow.wednesday + timesheetRow.thursday + timesheetRow.friday}}" disabled /></td>
+                    <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.saturday)"/></td>
+                    <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.sunday)"/></td>
+                    <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.monday)"/></td>
+                    <td><input id="{{'tuesdayInput' + i}}" type="number" min="0" max="24" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.tuesday)"/></td>
+                    <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.wednesday)"/></td>
+                    <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.thursday)"/></td>
+                    <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.friday)"/></td>
+                    <td><input id="{{'notesInput' + i}}" type="text" min="0" max="24" name="notes" value="" style="width: 125px;" /></td>
+                    <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" style="text-align: center;">x</button></td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <!--<td colspan="11"></td>-->
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bold">Flextime:</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bold">Overtime:</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <button id="addTimesheetRowButton" class="btn-newRow" (click)="addTimesheetRow()">Add New Row</button>
+    <!--<button id="clearTimesheetPropertiesButton" class="pull-right" (click)="clearProperties()">Reset</button-->
+    <button id="createTimesheetButton" class="pull-right" (click)="addTimesheet()">Create</button>
+    <button id="updateTimesheetButton" class="pull-right" (click)="updateTimesheet()">Update</button>
+    <!--<button id="printTimesheetPropertiesButton" (click)="printProperties()">Print to Console</button>-->
+    <br />
+    <hr />
+    <!-- Table Footer -->
+    <!-- xs, sm view -->
+    <div class="row visible-xs visible-sm">
+        <br />
+        <div class="row">
+            <p id="approvalStatusSmall">Approval Status: <strong>Not Approved</strong></p>
+        </div>
+        <div class="row">
+            <button id="signTimesheetButton">Sign Timesheet</button>
+        </div>
+    </div>
+    <!-- md, lg, xl view -->
+    <div class="row hidden-xs hidden-sm">
+        <div class="col-md-6">
+            <p id="approvalStatusLarge">Approval Status: <strong>Not Approved</strong></p>
+        </div>
+        <div class="col-md-6 ">
+            <button id="signTimesheetButton" class="pull-right">Sign Timesheet</button>
+        </div>
+    </div>
+</div>
+
+<!-- Table Footer -->
