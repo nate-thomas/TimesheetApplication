@@ -482,6 +482,22 @@ namespace TimeSheetApplication.Data {
                 context.SaveChanges();
             }
 
+
+
+            // Initializing Work Packages assignments for the teams
+            if (!context.WPassignments.Any()) {
+                List<WPassignment> WPassignments = new List<WPassignment>()
+                {
+                    new WPassignment {ProjectNumber = "12345", EmployeeNumber = "1000001", WorkPackageNumber = "A0000"},
+                    new WPassignment {ProjectNumber = "12345", EmployeeNumber = "1000001", WorkPackageNumber = "B0000"},
+                    new WPassignment {ProjectNumber = "12345", EmployeeNumber = "1000002", WorkPackageNumber = "A0000"},
+                    new WPassignment {ProjectNumber = "12345", EmployeeNumber = "1000002", WorkPackageNumber = "B0000"},
+                };
+
+                context.WPassignments.AddRange(WPassignments);
+                context.SaveChanges();
+            }
+
         }
     }
 }

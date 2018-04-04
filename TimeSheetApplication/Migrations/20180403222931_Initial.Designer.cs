@@ -11,7 +11,7 @@ using TimeSheetApplication.Data;
 namespace TimeSheetApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180403123106_Initial")]
+    [Migration("20180403222931_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -365,11 +365,11 @@ namespace TimeSheetApplication.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("ProjectStatusStatusName");
+                    b.Property<string>("StatusName");
 
                     b.HasKey("ProjectNumber");
 
-                    b.HasIndex("ProjectStatusStatusName");
+                    b.HasIndex("StatusName");
 
                     b.ToTable("Projects");
                 });
@@ -397,6 +397,25 @@ namespace TimeSheetApplication.Migrations
                     b.HasIndex("ProjectNumber");
 
                     b.ToTable("ProjectTeams");
+                });
+
+            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.REBbyGrade", b =>
+                {
+                    b.Property<string>("ProjectNumber");
+
+                    b.Property<string>("WorkPackageNumber");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("Grade");
+
+                    b.Property<int>("EstimatedManHours");
+
+                    b.HasKey("ProjectNumber", "WorkPackageNumber", "EndDate", "Grade");
+
+                    b.HasIndex("Grade");
+
+                    b.ToTable("REBbyGrades");
                 });
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.ResponsibleEngineerBudget", b =>
@@ -570,9 +589,9 @@ namespace TimeSheetApplication.Migrations
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.Project", b =>
                 {
-                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectStatus")
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectStatus", "Status")
                         .WithMany("Projects")
-                        .HasForeignKey("ProjectStatusStatusName");
+                        .HasForeignKey("StatusName");
                 });
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.ProjectTeam", b =>
@@ -585,6 +604,19 @@ namespace TimeSheetApplication.Migrations
                     b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Project", "Project")
                         .WithMany("ProjectTeams")
                         .HasForeignKey("ProjectNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.REBbyGrade", b =>
+                {
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.LaborGrade", "LaborGrade")
+                        .WithMany("REBbyGrades")
+                        .HasForeignKey("Grade")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ResponsibleEngineerBudget", "ResponsibleEngineerBudget")
+                        .WithMany("REBbyGrade")
+                        .HasForeignKey("ProjectNumber", "WorkPackageNumber", "EndDate")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

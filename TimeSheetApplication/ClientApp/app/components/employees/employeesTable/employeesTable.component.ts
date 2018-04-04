@@ -43,23 +43,23 @@ export class EmployeesTableComponent {
     loadEmployee(employeeNumber: string) {
         this.getEmployee(employeeNumber)
             .subscribe(
-                employee => this.employee = employee
+                employee => this.employees = [employee]
             );
     }
 
     removeEmployee(employeeNumber: string) {
         this.deleteEmployee(employeeNumber)
-            .subscribe(res => console.log("Response: " + res));
+            .subscribe(res => console.log("Response: " + JSON.stringify(res)));
     }
 
     addEmployee() {
         this.postEmployee(this.employee)
-            .subscribe(res => console.log("Response: " + res));
+            .subscribe(res => console.log("Response: " + JSON.stringify(res)));
     }
 
     updateEmployee() {
         this.putEmployee(this.employee.employeeNumber, this.employee)
-            .subscribe(res => console.log("Response: " + res));
+            .subscribe(res => console.log("Response: " + JSON.stringify(res)));
     }
 
     /* CRUD methods to make RESTful calls to the API */
