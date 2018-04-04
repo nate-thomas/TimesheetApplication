@@ -59,6 +59,14 @@ export class TimesheetsTableComponent {
         return Math.ceil(dayOfYear / 7);
     }
 
+    validateHour(hour: number) {
+        if (hour < 0 || hour > 24) {
+            return 'invalid-hour';
+        } else {
+            return '';
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
@@ -71,7 +79,7 @@ export class TimesheetsTableComponent {
 
     removeTimesheet() {
         this.deleteTimesheetRows(this.employeeNumber, this.endDate)
-            .subscribe(res => console.log("Response: " + res));
+            .subscribe(res => { alert("Deletion successful") });
         this.clearProperties();
     }
 
