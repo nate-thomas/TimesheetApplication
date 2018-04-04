@@ -22,5 +22,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         //TODO: Determine if there should be a column to indicate if the individual can be a supervisor
         public ICollection<Timesheet> Timesheets { get; set; }
         public ICollection<ProjectTeam> ProjectTeams { get; set; }
+        public ICollection<WorkPackage> WorkPackages { get; set; }
+
     }
 }
