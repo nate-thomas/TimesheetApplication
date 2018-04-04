@@ -43,7 +43,7 @@ export class EmployeesTableComponent {
     loadEmployee(employeeNumber: string) {
         this.getEmployee(employeeNumber)
             .subscribe(
-                employee => this.employee = employee
+                employee => this.employees = [employee]
             );
     }
 
