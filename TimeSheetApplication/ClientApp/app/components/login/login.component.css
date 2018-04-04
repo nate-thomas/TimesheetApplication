@@ -1,0 +1,48 @@
+﻿.body {
+    /*background-color: #24303c;*/
+    background-color: #3e3e3e;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+}
+
+.content {
+    margin: 25%;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    height: 60px;
+}
+
+input::placeholder {
+    color: lightgrey;
+}
+
+input {
+    border: 0;
+}
+
+.login {
+    /*color: #161e26;*/
+    color: #3e3e3e;
+    font-weight: bold;
+    /*background-color: #1ab188;*/
+    background-color: #6ac48d;
+    border: none;
+    height: 50px;
+
+}
+
+input {
+    width: 100%;
+    height: 35px;
+    padding: 0px 5px 0px 5px;
+    outline: 1px solid #5d6c73;
+    /*background-color: #24303c;*/
+    background-color: #3e3e3e;
+    color: white;
+    font-size: medium;
+}
