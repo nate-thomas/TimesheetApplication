@@ -64,14 +64,14 @@
                     <td><input id="{{'projectNumberInput' + i}}" type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
                     <td><input id="{{'workPackageNumberInput' + i}}" type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
                     <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{timesheetRow.saturday + timesheetRow.sunday + timesheetRow.monday + timesheetRow.tuesday+ timesheetRow.wednesday + timesheetRow.thursday + timesheetRow.friday}}" disabled /></td>
-                    <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.saturday)"/></td>
-                    <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.sunday)"/></td>
-                    <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.monday)"/></td>
-                    <td><input id="{{'tuesdayInput' + i}}" type="number" min="0" max="24" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.tuesday)"/></td>
-                    <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.wednesday)"/></td>
-                    <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.thursday)"/></td>
-                    <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.friday)"/></td>
-                    <td><input id="{{'notesInput' + i}}" type="text" min="0" max="24" name="notes" value="" style="width: 125px;" /></td>
+                    <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.saturday)"/></td>
+                    <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" step="0.25" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.sunday)"/></td>
+                    <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" step="0.25" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.monday)"/></td>
+                    <td><input id="{{'tuesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.tuesday)"/></td>
+                    <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" step="0.25"  name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.wednesday)"/></td>
+                    <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" step="0.25"  name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.thursday)"/></td>
+                    <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" step="0.25" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" [ngClass]="validateHour(timesheetRow.friday)"/></td>
+                    <td><input id="{{'notesInput' + i}}" type="text" min="0" max="24" step="0.25" name="notes" value="" style="width: 125px;" /></td>
                     <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" style="text-align: center;">x</button></td>
                 </tr>
                 <tr></tr>
@@ -81,7 +81,7 @@
                 <tr>
                     <td></td>
                     <td style="font-weight: bold">Flextime:</td>
-                    <td></td>
+                    <td><input disabled value="{{flextime}}" style="width: 75px;"/></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -93,7 +93,7 @@
                 <tr>
                     <td></td>
                     <td style="font-weight: bold">Overtime:</td>
-                    <td></td>
+                    <td><input disabled value="{{overtime}}" style="width: 75px;"/></td>
                     <td></td>
                     <td></td>
                     <td></td>

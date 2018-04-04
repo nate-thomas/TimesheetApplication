@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../employees';
+import { LaborGrade } from '../laborGrades'
 import { AppComponent } from '../../app/app.component'
 
 @Component({
@@ -17,6 +18,7 @@ import { AppComponent } from '../../app/app.component'
 export class AddEmployeeComponent {
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
+    laborGrades: LaborGrade[] = new Array();
 
     constructor(private http: Http, private router: Router) { }
 
@@ -29,62 +31,37 @@ export class AddEmployeeComponent {
         this.router.navigateByUrl('/employees');
     }
 
+    /* Functions to be called when component is loaded */
+
+    ngOnInit() {
+        this.loadLaborGrades();
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
-
-    loadEmployees() {
-        this.getEmployees()
-            .subscribe(
-                employees => this.employees = employees
-            );
-    }
-
-    loadEmployee(employeeNumber: string) {
-        this.getEmployee(employeeNumber)
-            .subscribe(
-                employee => this.employee = employee
-            );
-    }
 
     removeEmployee(employeeNumber: string) {
         this.deleteEmployee(employeeNumber)
-            .subscribe(res => console.log("Response: " + JSON.stringify(res)));
+            .subscribe(res => alert("Removal successful!"));
     }
 
     addEmployee() {
         this.postEmployee(this.employee)
-            .subscribe(res => console.log("Response: " + JSON.stringify(res)));
+            .subscribe(res => alert("Employee added!"));
     }
 
     updateEmployee() {
         this.putEmployee(this.employee.employeeNumber, this.employee)
-            .subscribe(res => console.log("Response: " + JSON.stringify(res)));
+            .subscribe(res => alert("Employee updated!"));
+    }
+
+    loadLaborGrades() {
+        this.getLaborGrades()
+            .subscribe(
+                (laborGrades: any) => { this.laborGrades = laborGrades; console.log(JSON.stringify(this.laborGrades)); }
+            );
     }
 
     /* CRUD methods to make RESTful calls to the API */
-
-    getEmployees(): Observable<Employee[]> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(AppComponent.url + "/api/Employees/", options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
-            });
-    }
-
-    getEmployee(employeeNumber: string): Observable<Employee> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(AppComponent.url + "/api/Employees/" + employeeNumber, options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
-            });
-    }
 
     deleteEmployee(employeeNumber: string): Observable<Employee> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
@@ -115,6 +92,18 @@ export class AddEmployeeComponent {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                alert(err.json().error_description);
+                return Observable.throw(new Error(err.json().error));
+            });
+    }
+
+    getLaborGrades(): Observable<Response> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/LaborGrades/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json().error_description);
