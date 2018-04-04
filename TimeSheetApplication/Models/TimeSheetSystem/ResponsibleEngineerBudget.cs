@@ -16,10 +16,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         [Required]
         public DateTime EndDate { get; set; }
 
-        public int EstimatedBudget { get; set; }
-        public int ActualBudget { get; set; }
-
-
+        
         public WorkPackage WorkPackage { get; set; }
 
         public ICollection<REBbyGrade> REBbyGrade { get; set; }
