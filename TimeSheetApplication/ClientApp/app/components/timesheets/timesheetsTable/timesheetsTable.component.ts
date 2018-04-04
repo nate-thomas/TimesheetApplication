@@ -18,6 +18,8 @@ export class TimesheetsTableComponent {
     employeeNumber: string = localStorage.getItem("username") || "";
     endDate: string = (new Date()).getFullYear() + "-" + ((new Date()).getMonth() + 1) + "-" + (new Date()).getDate();
     weekNumber: number = this.getWeekNumber(this.endDate);
+    flextime: number = 0;
+    overtime: number = 0;
 
     constructor(private http: Http) { }
 
@@ -67,6 +69,25 @@ export class TimesheetsTableComponent {
         }
     }
 
+    validateHours() {
+        let totalHours = 0;
+        let requiredHours = 40;
+        for (let timesheetRow of this.timesheet) {
+            totalHours += timesheetRow.saturday +
+                timesheetRow.sunday +
+                timesheetRow.monday +
+                timesheetRow.tuesday +
+                timesheetRow.wednesday +
+                timesheetRow.thursday +
+                timesheetRow.friday;
+        }
+        if (totalHours == requiredHours) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
@@ -84,13 +105,21 @@ export class TimesheetsTableComponent {
     }
 
     addTimesheet() {
-        this.postTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-            .subscribe(res => { alert("Creation successful") });
+        if (this.validateHours()) {
+            this.postTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
+                .subscribe(res => { alert("Creation successful") });
+        } else {
+            alert("Total timesheet hours must add up to 40.");
+        }
     }
 
     updateTimesheet() {
-        this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-            .subscribe(res => { alert("Update successful") });
+        if (this.validateHours()) {
+            this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
+                .subscribe(res => { alert("Update successful") });
+        } else {
+            alert("Total timesheet hours must add up to 40.");
+        }
     }
 
     /* CRUD methods to make RESTful calls to the API */
