@@ -68,11 +68,13 @@
     <None Remove="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
+    <None Remove="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
     <None Remove="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheetRows.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
+    <None Remove="ClientApp\app\components\workpackages\workpackages.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -83,16 +85,16 @@
     <TypeScriptCompile Include="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\workpackages.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Migrations\" />
     <Folder Include="ClientApp\app\assets\images\" />
 
   </ItemGroup>

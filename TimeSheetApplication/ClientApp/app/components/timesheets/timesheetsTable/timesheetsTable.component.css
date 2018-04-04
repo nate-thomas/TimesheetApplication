@@ -36,3 +36,7 @@
     display: inline-block;
     font-size: 16px;
 }
+
+.invalid-hour {
+    border: 2px solid red;
+}
