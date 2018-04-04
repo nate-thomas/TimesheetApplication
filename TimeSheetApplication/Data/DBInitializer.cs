@@ -39,18 +39,18 @@ namespace TimeSheetApplication.Data {
             if (!context.Employees.Any()) {
                 List<Employee> Employees = new List<Employee>()
                 {
-                    new Employee {EmployeeNumber = "1000001", FirstName = "Wyatt", LastName = "Ariss", Grade = "P1", EmployeeIntials = "WAA"},
-                    new Employee {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT"},
-                    new Employee {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR"},
-                    new Employee {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS"},
-                    new Employee {EmployeeNumber = "1000005", FirstName = "John", LastName = "Park", Grade = "P2", EmployeeIntials = "JP"},
-                    new Employee {EmployeeNumber = "1000006", FirstName = "Shely", LastName = "Lin", Grade = "P2", EmployeeIntials = "SL"},
-                    new Employee {EmployeeNumber = "1000007", FirstName = "Rei", LastName = "Ruiz", Grade = "P2", EmployeeIntials = "RR"},
-                    new Employee {EmployeeNumber = "1000008", FirstName = "Raymond", LastName = "Gollinger", Grade = "P2", EmployeeIntials = "RG"},
-                    new Employee {EmployeeNumber = "1000009", FirstName = "Victor", LastName = "Starzynski", Grade = "P2", EmployeeIntials = "VS"},
-                    new Employee {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC"},
-                    new Employee {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN"},
-                    new Employee {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW"},
+                    new Employee {EmployeeNumber = "1000001", FirstName = "Wyatt", LastName = "Ariss", Grade = "P5", EmployeeIntials = "WAA"},
+                    new Employee {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000005", FirstName = "John", LastName = "Park", Grade = "P2", EmployeeIntials = "JP", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000006", FirstName = "Shely", LastName = "Lin", Grade = "P2", EmployeeIntials = "SL", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000007", FirstName = "Rei", LastName = "Ruiz", Grade = "P2", EmployeeIntials = "RR", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000008", FirstName = "Raymond", LastName = "Gollinger", Grade = "P2", EmployeeIntials = "RG", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000009", FirstName = "Victor", LastName = "Starzynski", Grade = "P2", EmployeeIntials = "VS", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW", SupervisorNumber = "1000001"},
                 };
 
                 context.Employees.AddRange(Employees);
