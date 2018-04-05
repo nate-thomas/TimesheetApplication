@@ -6,9 +6,12 @@ using AspNet.Security.OAuth.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheetApplication.Data;
+using TimeSheetApplication.Models;
 using TimeSheetApplication.Models.TimeSheetSystem;
+using TimeSheetApplication.ViewModels;
 
 namespace TimeSheetApplication.Controllers
 {
@@ -19,10 +22,12 @@ namespace TimeSheetApplication.Controllers
     public class EmployeesApiController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EmployeesApiController(ApplicationDbContext context)
+        public EmployeesApiController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
 
         }
 
@@ -46,18 +51,49 @@ namespace TimeSheetApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee([FromBody] Employee item)
+        public async Task<IActionResult> CreateEmployee([FromBody] EmployeeViewModel item)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Employees.Add(item);
-            _context.SaveChanges();
+            if(!item.Password.Equals(item.ConfirmPassword))
+            {
+                return BadRequest("Passwords don't match");
+            }
 
-            return CreatedAtRoute("GetByEmployeeNumber", new { empNumber = item.EmployeeNumber }, item);
+            if (await _userManager.FindByNameAsync(item.EmployeeNumber) == null)
+            {
+
+                Employee newEmployee = new Employee
+                {
+                    EmployeeNumber = item.EmployeeNumber,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Grade = item.Grade,
+                    EmployeeIntials = item.EmployeeIntials
+                };
+
+                _context.Employees.Add(newEmployee);
+                await _context.SaveChangesAsync();
+
+                var user = new ApplicationUser
+                {
+                    UserName = item.EmployeeNumber,
+                    EmployeeNumber = item.EmployeeNumber
+                };
+                var result = await _userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddPasswordAsync(user, item.Password);
+                    await _userManager.AddToRoleAsync(user, item.Role);
+                }
+
+                return CreatedAtRoute("GetByEmployeeNumber", new { empNumber = item.EmployeeNumber }, item);
+            }
+
+            return BadRequest("Employee already exists");
         }
 
         [HttpPut("{empNumber}")]
@@ -76,7 +112,7 @@ namespace TimeSheetApplication.Controllers
             }
 
             //Set First Name if asked to
-            if(item.FirstName != null)
+            if (item.FirstName != null)
             {
                 employee.FirstName = item.FirstName;
             }
@@ -126,7 +162,6 @@ namespace TimeSheetApplication.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
         }
 
         [HttpDelete("{empNumber}")]
