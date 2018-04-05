@@ -14,7 +14,7 @@ namespace XUnitTestProject1
     public class EmployeesApiControllerTests
     {
         [Fact]
-        public void GetListOfAllEmployees()
+        public void GetListOfAllEmployeesTest()
         {
             var dbContext = new Mock<IDbContext>();
             var mockList = MockDbSet(testEmployees);
@@ -30,7 +30,7 @@ namespace XUnitTestProject1
         [InlineData(1000021)]
         [InlineData(1000023)]
         [InlineData(1000025)]
-        public void GetEmployeeByEmployeeNumber(long empNumber)
+        public void GetEmployeeWithExistingEmployeeNumberTest(long empNumber)
         {
             var dbContext = new Mock<IDbContext>();
             var mockList = MockDbSet(testEmployees);
@@ -38,10 +38,56 @@ namespace XUnitTestProject1
 
             var controller = new EmployeesApiController(dbContext.Object);
             var result = controller.GetByEmployeeNumber(empNumber);
-            var okResult = result as ObjectResult;
 
-            Assert.NotNull(okResult);
-           
+            Assert.NotNull(result);
+            Assert.IsType<ObjectResult>(result);
+            //add assert to check employee number matches?
+        }
+
+        [Fact]
+        public void EmployeeNotFoundTest()
+        {
+            long empNumber = 1000026;
+            var dbContext = new Mock<IDbContext>();
+            var mockList = MockDbSet(testEmployees);
+            dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+
+            var controller = new EmployeesApiController(dbContext.Object);
+            var result = controller.GetByEmployeeNumber(empNumber);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact(Skip ="exception")]
+        public void CreateEmployeeTest()
+        {
+            Employee emp = testEmployees[0];
+            var dbContext = new Mock<IDbContext>();
+            //var mockList = MockDbSet(testEmployees);
+            //dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+
+            var controller = new EmployeesApiController(dbContext.Object);
+            //Problem: NullReferenceException when the call to CreateEmployee
+            var result = controller.CreateEmployee(emp);
+
+            Assert.NotNull(result);
+            Assert.IsType<CreatedAtRouteResult>(result);
+        }
+
+        [Fact]
+        public void CreateEmployeeWhenModelStateIsInvalid()
+        {
+            Employee emp = testEmployees[0];
+            var dbContext = new Mock<IDbContext>();
+            var controller = new EmployeesApiController(dbContext.Object);
+            //Add error to ModelState error count
+            controller.ModelState.AddModelError("key", "error message");
+            var ms = controller.ModelState;
+
+            var result = controller.CreateEmployee(emp);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<SerializableError>(badRequestResult.Value);
         }
 
         /* Helper methods and sample data */
