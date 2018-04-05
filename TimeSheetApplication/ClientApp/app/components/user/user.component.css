@@ -1,14 +1,27 @@
-﻿@media (max-width: 767px) {
+﻿.component-content {
+    margin: 5%;
+}
+
+.inputBox {
+    padding: 15px;
+}
+
+.xs-input {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-    .body-content {
+    .body {
         padding-top: 50px;
     }
 }
 
-.body {
-    background-color: #f7f7f7;
-    width: 100%;
-    position: absolute;
-    height: 100%;
-    left: 0;
+.employee-dropdown {
+    height: 28px;
+    width: 160px
+}
+
+.invalid-input {
+    border: 2px solid red;
 }

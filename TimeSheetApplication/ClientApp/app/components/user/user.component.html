@@ -5,7 +5,135 @@
                 <nav-menu></nav-menu>
             </div>
             <div class='col-sm-9 body-content'>
-                <h1>Welcome USER.FIRSTNAME</h1>
+                <div align="center">
+                    <h2>Update Employee Information</h2>
+                </div>
+
+                <div>
+                    <form (ngSubmit)="updateEmployee()">
+                        <!-- xs, sm -->
+                        <div class="visible-xs visible-sm">
+                            <div class="row inputBox center">
+                                <div class="col-xs-12">
+                                    Employee Number
+                                    <br />
+                                    <input id="employeeNumberInputSmall" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-xs-12">
+                                    First Name
+                                    <br />
+                                    <input id="firstNameInputSmall" type="text" name="firstName" [(ngModel)]="employee.firstName" [ngClass]="validateInput(employee.firstName)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-xs-12">
+                                    Last Name
+                                    <br />
+                                    <input id="lastNameInputSmall" type="text" name="lastName" [(ngModel)]="employee.lastName" [ngClass]="validateInput(employee.lastName)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-xs-12">
+                                    Initials
+                                    <br />
+                                    <input id="initialsInputSmall" type="text" name="employeeIntials" [(ngModel)]="employee.employeeIntials" [ngClass]="validateInput(employee.employeeIntials)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-xs-12">
+                                    Labor Grade
+                                    <br />
+                                    <select class="employee-dropdown" name="grade" [(ngModel)]="employee.grade" [ngClass]="validateInput(employee.grade)">
+                                        <option *ngFor="let laborGrade of laborGrades" [value]="laborGrade.grade">{{laborGrade.grade}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-xs-12">
+                                    Role DROPDOWN
+                                    <br />
+                                    <input id="roleInputSmall" type="text" name="authCode" [(ngModel)]="employee.role" [ngClass]="validateInput(employee.role)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-xs-12">
+                                    Password
+                                    <br />
+                                    <input id="passwordInputSmall" type="password" name="password" [(ngModel)]="employee.password" [ngClass]="validateInput(employee.password)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-xs-12">
+                                    Confirm Password
+                                    <br />
+                                    <input id="confirmPasswordInputSmall" type="password" name="confirmPassword" [(ngModel)]="employee.confirmPassword" [ngClass]="validateInput(employee.confirmPassword)" />
+                                </div>
+                            </div>
+                            <br />
+                            <button id="addEmployeeButtonSmall">Add Employee</button>
+                            <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+                        </div>
+                        <!-- md, lg, xl-->
+                        <div class="hidden-xs hidden-sm">
+                            <div class="row inputBox">
+                                <div class="col-md-6" align="center">
+                                    Employee Number
+                                    <br />
+                                    <input id="employeeNumberInputLarge" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)" />
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    Initials
+                                    <br />
+                                    <input id="initialsInputLarge" type="text" name="employeeIntials" [(ngModel)]="employee.employeeIntials" [ngClass]="validateInput(employee.employeeIntials)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-md-6" align="center">
+                                    First Name
+                                    <br />
+                                    <input id="firstNameInputLarge" type="text" name="firstName" [(ngModel)]="employee.firstName" [ngClass]="validateInput(employee.firstName)" />
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    Last Name
+                                    <br />
+                                    <input id="lastNameInputLarge" type="text" name="lastName" [(ngModel)]="employee.lastName" [ngClass]="validateInput(employee.lastName)" />
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-md-6" align="center">
+                                    Role DROPDOWN
+                                    <br />
+                                    <input id="roleInputLarge" type="text" name="role" [(ngModel)]="employee.role" [ngClass]="validateInput(employee.role)" />
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    Labor Grade
+                                    <br />
+                                    <select class="employee-dropdown" name="grade" [(ngModel)]="employee.grade" [ngClass]="validateInput(employee.grade)">
+                                        <option *ngFor="let laborGrade of laborGrades" [value]="laborGrade.grade">{{laborGrade.grade}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row inputBox">
+                                <div class="col-md-6" align="center">
+                                    Password
+                                    <br />
+                                    <input id="passwordInputLarge" type="password" name="passsword" [(ngModel)]="employee.password" [ngClass]="validateInput(employee.password)" />
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    Confirm Password
+                                    <br />
+                                    <input id="confirmPasswordInputLarge" type="password" name="confirmPassword" [(ngModel)]="employee.confirmPassword" [ngClass]="validateInput(employee.confirmPassword)"/>
+                                </div>
+                            </div>
+                            <div class="buttons" align="center">
+                                <button id="updateEmployeeButtonLarge" align="center">Update Employee</button>
+                            </div>
+                        </div>
+                        <br />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
