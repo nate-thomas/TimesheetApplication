@@ -54,11 +54,10 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var timesheet = await _context.Timesheets.SingleOrDefaultAsync(m => m.EmployeeNumber == employeeNumber && m.EndDate == endDate);
-
-            _context.Entry(timesheet).Collection(t => t.TimesheetRows).Load();
-
-
+            var timesheet = await _context.Timesheets
+                .Include(m => m.TimesheetRows)
+                .SingleOrDefaultAsync(m => m.EmployeeNumber == employeeNumber && m.EndDate == endDate);
+            
             if (timesheet == null)
             {
                 return NotFound();
@@ -81,11 +80,19 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest();
             }
 
-            var timesheetRows = timesheet.TimesheetRows;
+            var existingTimesheetRows = await _context.TimesheetRows.Where(r => r.EmployeeNumber == employeeNumber && r.EndDate == endDate).ToListAsync();
 
             _context.Entry(timesheet).State = TimesheetExists(employeeNumber, endDate) ?
                                               EntityState.Modified :
                                               EntityState.Added;
+
+            if (existingTimesheetRows != null)
+            {
+                _context.TimesheetRows.RemoveRange(existingTimesheetRows);
+            }
+            
+
+            _context.TimesheetRows.AddRange(timesheet.TimesheetRows);
 
             try
             {
