@@ -53,6 +53,11 @@ namespace TimeSheetApplication.ApiControllers
             {
                 return BadRequest(ModelState);
             }
+            
+            if (endDate.DayOfWeek != DayOfWeek.Friday)
+            {
+                return BadRequest("InsertOrUpdateTimesheet: end date is not a Friday");
+            }
 
             var timesheet = await _context.Timesheets
                 .Include(m => m.TimesheetRows)
@@ -75,25 +80,54 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest(ModelState);
             }
 
+            if (endDate.DayOfWeek != DayOfWeek.Friday)
+            {
+                return BadRequest("InsertOrUpdateTimesheet: end date is not a Friday");
+            }
+
             if (employeeNumber != timesheet.EmployeeNumber || endDate != timesheet.EndDate)
             {
-                return BadRequest();
+                return BadRequest("InsertOrUpdateTimesheet: inconsistent timesheet employee number and/or end date");
             }
 
-            var existingTimesheetRows = await _context.TimesheetRows.Where(r => r.EmployeeNumber == employeeNumber && r.EndDate == endDate).ToListAsync();
+            // TODO: If any timesheet row's employee number and end date is inconsistent, return bad request
 
-            _context.Entry(timesheet).State = TimesheetExists(employeeNumber, endDate) ?
-                                              EntityState.Modified :
-                                              EntityState.Added;
+            var existingTimesheet = await _context.Timesheets
+                .Include(t => t.TimesheetRows)
+                .FirstOrDefaultAsync(t => t.EmployeeNumber == employeeNumber && t.EndDate == endDate);
 
-            if (existingTimesheetRows != null)
+            if (existingTimesheet == null)
             {
-                _context.TimesheetRows.RemoveRange(existingTimesheetRows);
+                _context.Add(timesheet);
+            }
+            else
+            {
+                _context.Entry(existingTimesheet).CurrentValues.SetValues(timesheet);
+                foreach (var timesheetRow in timesheet.TimesheetRows)
+                {
+                    if (employeeNumber != timesheetRow.EmployeeNumber || endDate != timesheetRow.EndDate)
+                    {
+                        return BadRequest("InsertOrUpdateTimesheet: inconsistent timesheet.timesheetRows - employee number and/or end date");
+                    }
+
+                    var existingTimesheetRow = existingTimesheet.TimesheetRows
+                        .FirstOrDefault(r => r.EmployeeNumber == timesheetRow.EmployeeNumber
+                                          && r.EndDate == timesheetRow.EndDate
+                                          && r.ProjectNumber == timesheetRow.ProjectNumber
+                                          && r.WorkPackageNumber == timesheetRow.WorkPackageNumber
+                        );
+                    
+                    if (existingTimesheetRow == null)
+                    {
+                        existingTimesheet.TimesheetRows.Add(timesheetRow);
+                    }
+                    else
+                    {
+                        _context.Entry(existingTimesheetRow).CurrentValues.SetValues(timesheetRow);
+                    }
+                }
             }
             
-
-            _context.TimesheetRows.AddRange(timesheet.TimesheetRows);
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -124,55 +158,26 @@ namespace TimeSheetApplication.ApiControllers
             return NoContent();
         }
 
-        //// POST: api/TimesheetsApi
-        //[HttpPost]
-        //public async Task<IActionResult> PostTimesheet([FromBody] Timesheet timesheet)
+        //// DELETE: api/TimesheetsApi/1000010/2018-02-09
+        //[HttpDelete("{employeeNumber}/{endDate}")]
+        //public async Task<IActionResult> DeleteTimesheet([FromRoute] string employeeNumber, DateTime endDate)
         //{
         //    if (!ModelState.IsValid)
         //    {
         //        return BadRequest(ModelState);
         //    }
 
-        //    _context.Timesheets.Add(timesheet);
-        //    try
+        //    var timesheet = await _context.Timesheets.SingleOrDefaultAsync(m => m.EmployeeNumber == employeeNumber && m.EndDate == endDate);
+        //    if (timesheet == null)
         //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (TimesheetExists(timesheet.EmployeeNumber))
-        //        {
-        //            return new StatusCodeResult(StatusCodes.Status409Conflict);
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
+        //        return NotFound();
         //    }
 
-        //    return CreatedAtAction("GetTimesheet", new { id = timesheet.EmployeeNumber }, timesheet);
+        //    _context.Timesheets.Remove(timesheet);
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok(timesheet);
         //}
-
-        // DELETE: api/TimesheetsApi/1000010/2018-02-09
-        [HttpDelete("{employeeNumber}/{endDate}")]
-        public async Task<IActionResult> DeleteTimesheet([FromRoute] string employeeNumber, DateTime endDate)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var timesheet = await _context.Timesheets.SingleOrDefaultAsync(m => m.EmployeeNumber == employeeNumber && m.EndDate == endDate);
-            if (timesheet == null)
-            {
-                return NotFound();
-            }
-
-            _context.Timesheets.Remove(timesheet);
-            await _context.SaveChangesAsync();
-
-            return Ok(timesheet);
-        }
 
         private bool TimesheetExists(string employeeNumber, DateTime endDate)
         {
