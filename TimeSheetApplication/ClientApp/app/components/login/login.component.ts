@@ -55,4 +55,8 @@ export class LoginComponent {
                 return Observable.throw(new Error(err.json().error));
             });
     }
+
+    getValue = (item: string) => {
+        console.log(item);
+    }
 }

@@ -11,35 +11,29 @@
                     <div class="card-deck">
                         <div class="card">
                             <div class="card-body">
-                                <h2 class="hidden-xs hidden-sm project-number card-title">Project Number</h2>
-                                <h5 class="visible-xs visible-sm project-number card-title">Project Number</h5>
+                                <h2 id="test" class="hidden-xs hidden-sm project-number card-title">{{workpackage.projectNumber}}</h2>
+                                <h5 id="test" class="visible-xs visible-sm project-number card-title"> {{workpackage.projectNumber}} </h5>
                             </div>
                         </div>
                         <div class="card" style="flex: 4">
                             <div class="card-body">
                                 <h5 class="card-title">Project Details</h5>
                                 <div class="card-text">
-                                    <p><span style="font-weight:500;"># of WPs:</span> 12</p>
-                                    <p><span style="font-weight:500;">Description</span> 12</p>
-                                    <p><span style="font-weight:500;">Status:</span> Active</p>
-                                    <p><span style="font-weight:500;">Progress</span> somebar</p>
+                                    {{workpackage.description}}
                                 </div>
                                 <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
                             </div>
                         </div>
                     </div>
-
                     <br class="hidden-xs" />
                     <br class="hidden-xs" />
                     <div class="card-deck">
                         <div class="card">
-
                             <div class="card-header">
                                 Work Packages
                             </div>
-
                             <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages; let i = index">
-                                <li class="list-group-item" *ngIf="i<10">
+                                <li class="list-group-item" *ngIf="i<10" (click)="getSelected(workpackage)">
                                     <p> {{workpackage.projectNumber}} </p>
                                     <p> {{workpackage.workPackageNumber}} </p>
                                 </li>

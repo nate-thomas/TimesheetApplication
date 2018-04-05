@@ -26,7 +26,8 @@ export class WorkpackageComponent {
 
     /* Functions to be called when component is loaded */
     ngOnInit() {
-        this.loadWorkpackages();
+        this.loadWorkpackages()
+        this.workpackage.projectNumber = "Work Package";
     }
 
 
@@ -101,5 +102,9 @@ export class WorkpackageComponent {
         return this.http.put(this.url + "/api/workpackages/" + workPackageNumber, this.workpackage, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+    }
+
+    getSelected = (item: Workpackage) => {
+        this.workpackage = item;
     }
 }
