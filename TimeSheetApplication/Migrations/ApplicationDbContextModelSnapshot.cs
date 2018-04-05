@@ -505,6 +505,21 @@ namespace TimeSheetApplication.Migrations
                     b.ToTable("WorkPackages");
                 });
 
+            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
+                {
+                    b.Property<string>("ProjectNumber");
+
+                    b.Property<string>("WorkPackageNumber");
+
+                    b.Property<string>("EmployeeNumber");
+
+                    b.HasKey("ProjectNumber", "WorkPackageNumber", "EmployeeNumber");
+
+                    b.HasIndex("EmployeeNumber", "ProjectNumber");
+
+                    b.ToTable("WPassignments");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -657,6 +672,18 @@ namespace TimeSheetApplication.Migrations
                     b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Project", "Project")
                         .WithMany("WorkPackages")
                         .HasForeignKey("ProjectNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
+                {
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectTeam", "ProjectTeam")
+                        .WithMany("WPassignment")
+                        .HasForeignKey("EmployeeNumber", "ProjectNumber");
+
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.WorkPackage", "WorkPackage")
+                        .WithMany("WPassignment")
+                        .HasForeignKey("ProjectNumber", "WorkPackageNumber")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

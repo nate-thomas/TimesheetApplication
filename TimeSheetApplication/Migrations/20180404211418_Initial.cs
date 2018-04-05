@@ -464,6 +464,31 @@ namespace TimeSheetApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WPassignments",
+                columns: table => new
+                {
+                    ProjectNumber = table.Column<string>(nullable: false),
+                    WorkPackageNumber = table.Column<string>(nullable: false),
+                    EmployeeNumber = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WPassignments", x => new { x.ProjectNumber, x.WorkPackageNumber, x.EmployeeNumber });
+                    table.ForeignKey(
+                        name: "FK_WPassignments_ProjectTeams_EmployeeNumber_ProjectNumber",
+                        columns: x => new { x.EmployeeNumber, x.ProjectNumber },
+                        principalTable: "ProjectTeams",
+                        principalColumns: new[] { "EmployeeNumber", "ProjectNumber" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WPassignments_WorkPackages_ProjectNumber_WorkPackageNumber",
+                        columns: x => new { x.ProjectNumber, x.WorkPackageNumber },
+                        principalTable: "WorkPackages",
+                        principalColumns: new[] { "ProjectNumber", "WorkPackageNumber" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "REBbyGrades",
                 columns: table => new
                 {
@@ -602,6 +627,11 @@ namespace TimeSheetApplication.Migrations
                 name: "IX_Timesheets_StatusName",
                 table: "Timesheets",
                 column: "StatusName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WPassignments_EmployeeNumber_ProjectNumber",
+                table: "WPassignments",
+                columns: new[] { "EmployeeNumber", "ProjectNumber" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -628,13 +658,13 @@ namespace TimeSheetApplication.Migrations
                 name: "OpenIddictTokens");
 
             migrationBuilder.DropTable(
-                name: "ProjectTeams");
-
-            migrationBuilder.DropTable(
                 name: "REBbyGrades");
 
             migrationBuilder.DropTable(
                 name: "TimesheetRows");
+
+            migrationBuilder.DropTable(
+                name: "WPassignments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -652,16 +682,19 @@ namespace TimeSheetApplication.Migrations
                 name: "Timesheets");
 
             migrationBuilder.DropTable(
+                name: "ProjectTeams");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
 
             migrationBuilder.DropTable(
                 name: "WorkPackages");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "TimesheetStatus");
 
             migrationBuilder.DropTable(
-                name: "TimesheetStatus");
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Projects");

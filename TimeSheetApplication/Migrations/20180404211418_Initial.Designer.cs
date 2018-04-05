@@ -11,7 +11,7 @@ using TimeSheetApplication.Data;
 namespace TimeSheetApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180403222931_Initial")]
+    [Migration("20180404211418_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -506,6 +506,21 @@ namespace TimeSheetApplication.Migrations
                     b.ToTable("WorkPackages");
                 });
 
+            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
+                {
+                    b.Property<string>("ProjectNumber");
+
+                    b.Property<string>("WorkPackageNumber");
+
+                    b.Property<string>("EmployeeNumber");
+
+                    b.HasKey("ProjectNumber", "WorkPackageNumber", "EmployeeNumber");
+
+                    b.HasIndex("EmployeeNumber", "ProjectNumber");
+
+                    b.ToTable("WPassignments");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -658,6 +673,18 @@ namespace TimeSheetApplication.Migrations
                     b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Project", "Project")
                         .WithMany("WorkPackages")
                         .HasForeignKey("ProjectNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
+                {
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectTeam", "ProjectTeam")
+                        .WithMany("WPassignment")
+                        .HasForeignKey("EmployeeNumber", "ProjectNumber");
+
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.WorkPackage", "WorkPackage")
+                        .WithMany("WPassignment")
+                        .HasForeignKey("ProjectNumber", "WorkPackageNumber")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
