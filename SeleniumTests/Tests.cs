@@ -11,7 +11,7 @@ namespace SeleniumTests
         //Login Helper Function
         public void Login(IWebDriver driver)
         {
-            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("a");
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000001");
             driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$W0rd");
             driver.FindElement(By.XPath("//button")).Submit();
         }
