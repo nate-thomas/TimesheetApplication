@@ -162,7 +162,6 @@ namespace TimeSheetApplication.Controllers
             {
                 return BadRequest(ModelState);
             }
-
         }
 
         [HttpDelete("{empNumber}")]
