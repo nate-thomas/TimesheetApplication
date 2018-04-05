@@ -39,18 +39,18 @@ namespace TimeSheetApplication.Data {
             if (!context.Employees.Any()) {
                 List<Employee> Employees = new List<Employee>()
                 {
-                    new Employee {EmployeeNumber = "1000001", FirstName = "Wyatt", LastName = "Ariss", Grade = "P1", EmployeeIntials = "WAA"},
-                    new Employee {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT"},
-                    new Employee {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR"},
-                    new Employee {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS"},
+                    new Employee {EmployeeNumber = "1000001", FirstName = "Wyatt", LastName = "Ariss", Grade = "P5", EmployeeIntials = "WAA"},
+                    new Employee {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS", SupervisorNumber = "1000001"},
                     new Employee {EmployeeNumber = "1000005", FirstName = "John", LastName = "Park", Grade = "P2", EmployeeIntials = "JP"},
-                    new Employee {EmployeeNumber = "1000006", FirstName = "Shely", LastName = "Lin", Grade = "P2", EmployeeIntials = "SL"},
-                    new Employee {EmployeeNumber = "1000007", FirstName = "Rei", LastName = "Ruiz", Grade = "P2", EmployeeIntials = "RR"},
-                    new Employee {EmployeeNumber = "1000008", FirstName = "Raymond", LastName = "Gollinger", Grade = "P2", EmployeeIntials = "RG"},
-                    new Employee {EmployeeNumber = "1000009", FirstName = "Victor", LastName = "Starzynski", Grade = "P2", EmployeeIntials = "VS"},
-                    new Employee {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC"},
-                    new Employee {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN"},
-                    new Employee {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW"},
+                    new Employee {EmployeeNumber = "1000006", FirstName = "Shely", LastName = "Lin", Grade = "P2", EmployeeIntials = "SL", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000007", FirstName = "Rei", LastName = "Ruiz", Grade = "P2", EmployeeIntials = "RR", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000008", FirstName = "Raymond", LastName = "Gollinger", Grade = "P2", EmployeeIntials = "RG", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000009", FirstName = "Victor", LastName = "Starzynski", Grade = "P2", EmployeeIntials = "VS", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW", SupervisorNumber = "1000001"},
                 };
 
                 context.Employees.AddRange(Employees);
@@ -204,7 +204,7 @@ namespace TimeSheetApplication.Data {
                 var result = await userManager.CreateAsync(user);
                 if (result.Succeeded) {
                     await userManager.AddPasswordAsync(user, password);
-                    await userManager.AddToRoleAsync(user, "Developer");
+                    await userManager.AddToRoleAsync(user, "Responsible Engineer");
                 }
             }
 
@@ -263,9 +263,15 @@ namespace TimeSheetApplication.Data {
             if (!context.Projects.Any()) {
                 List<Project> Projects = new List<Project>()
                 {
-                    new Project {ProjectNumber = "12345", Description = "This is project 12345", StatusName="Current"},
-                    new Project {ProjectNumber = "09876", Description = "This is project 09876", StatusName="Current"},
-                    new Project {ProjectNumber = "12121", Description = "This is project 12121", StatusName="Archived"},
+                    new Project {ProjectNumber = "WebPrj128", Description = "[Current] Web project for BC Hydro (Prj02)", StatusName="Current", Budget = 15000},
+                    new Project {ProjectNumber = "WebPrj098", Description = "[Current] Web project for Burnaby Publc Library", StatusName="Current", Budget = 13000},
+                    new Project {ProjectNumber = "WebPrj2018", Description = "[Archieved] Web project for Oranj Fitness", StatusName="Archived", Budget = 50000},
+                    new Project {ProjectNumber = "WebPrj127", Description = "[Current] Web project for BC Hydro (Prj01)", StatusName="Current", Budget = 75000},
+                    new Project {ProjectNumber = "SW789", Description = "[Current] Software project for Lululemon", StatusName="Current", Budget = 5000},
+                    new Project {ProjectNumber = "SW8985", Description = "[Archived] Software project for Dairy Farmers of Canada", StatusName="Archived", Budget = 22000},
+                    new Project {ProjectNumber = "SW999", Description = "[Current] Software project for The Vancouver Sun", StatusName="Current", Budget = 88000},
+                    new Project {ProjectNumber = "SW090", Description = "[Current] Software project for Merck", StatusName="Current", Budget = 30000},
+                    new Project {ProjectNumber = "Cloud001", Description = "[Current] Cloud Computing project for BCAA", StatusName="Current", Budget = 150000},
                 };
 
                 context.Projects.AddRange(Projects);
@@ -274,13 +280,7 @@ namespace TimeSheetApplication.Data {
 
             // Initializing Work Packages
             if (!context.WorkPackages.Any()) {
-                List<WorkPackage> WorkPackages = new List<WorkPackage>()
-                {
-                    new WorkPackage {ProjectNumber = "12345", WorkPackageNumber = "B0000", Description = "This is project 12345"},
-                    new WorkPackage {ProjectNumber = "12345", WorkPackageNumber = "A0000",Description = "This is project 09876"},
-                    new WorkPackage {ProjectNumber = "09876", WorkPackageNumber = "A0000", Description = "This is project 12345"},
-                    new WorkPackage {ProjectNumber = "09876", WorkPackageNumber = "B0000",Description = "This is project 09876"},
-                };
+                List<WorkPackage> WorkPackages = getWorkPackageData(); //Method located at the bottom of this class
 
                 context.WorkPackages.AddRange(WorkPackages);
                 context.SaveChanges();
@@ -302,44 +302,13 @@ namespace TimeSheetApplication.Data {
             }
 
             if (!context.Timesheets.Any()) {
-                List<Timesheet> Timesheets = new List<Timesheet>()
-                {
-                    new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09), StatusName = "Draft"},
-                    new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02), StatusName = "Submitted"},
-                    new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
-                    new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02), StatusName = "Rejected"},
-
-                    new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09), StatusName = "Draft"},
-                    new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02), StatusName = "Submitted"},
-                    new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
-                    new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02), StatusName = "Rejected"},
-
-                    new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09), StatusName = "Draft"},
-                    new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02), StatusName = "Submitted"},
-                    new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
-                    new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02), StatusName = "Rejected"},
-
-                    new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09), StatusName = "Draft"},
-                    new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02), StatusName = "Submitted"},
-                    new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
-                    new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02), StatusName = "Rejected"},
-
-                    new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09), StatusName = "Draft"},
-                    new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02), StatusName = "Submitted"},
-                    new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
-                    new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02), StatusName = "Rejected"},
-
-                    new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09), StatusName = "Draft"},
-                    new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02), StatusName = "Submitted"},
-                    new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
-                    new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02), StatusName = "Rejected"},
-                };
+                List<Timesheet> Timesheets = getTimesheets();
 
                 context.Timesheets.AddRange(Timesheets);
                 context.SaveChanges();
             }
 
-            // Initializing Timesheet Rows
+            /*// Initializing Timesheet Rows
             if (!context.TimesheetRows.Any()) {
                 List<TimesheetRow> TimesheetRows = new List<TimesheetRow>()
                 {
@@ -407,10 +376,10 @@ namespace TimeSheetApplication.Data {
                 context.TimesheetRows.AddRange(TimesheetRows);
                 context.SaveChanges();
             }
+*/
 
 
-
-            // Initializing Project Teams
+           /* // Initializing Project Teams
             if (!context.ProjectTeams.Any()) {
                 List<ProjectTeam> ProjectTeams = new List<ProjectTeam>()
                 {
@@ -425,9 +394,9 @@ namespace TimeSheetApplication.Data {
 
                 context.ProjectTeams.AddRange(ProjectTeams);
                 context.SaveChanges();
-            }
+            }*/
 
-            // Initializing ResponsibleEngineerBudget
+           /* // Initializing ResponsibleEngineerBudget
             if (!context.ResponsibleEngineerBudgets.Any()) {
                 List<ResponsibleEngineerBudget> ResponsibleEngineerBudgets = new List<ResponsibleEngineerBudget>()
                 {
@@ -496,8 +465,302 @@ namespace TimeSheetApplication.Data {
 
                 context.WPassignments.AddRange(WPassignments);
                 context.SaveChanges();
-            }
+            }*/
 
+        }
+
+        private static List<WorkPackage> getWorkPackageData() {
+            List<WorkPackage> WorkPackages = new List<WorkPackage>()
+            {
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A", Description = "Project#:WebPrj128 WorkingPackage#:A", Budget=6000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A1", Description = "Project#:WebPrj128 WorkingPackage#:A1", Budget=1500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A2", Description = "Project#:WebPrj128 WorkingPackage#:A2", Budget=1500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A4", Description = "Project#:WebPrj128 WorkingPackage#:A4", Budget=750,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "AA", Description = "Project#:WebPrj128 WorkingPackage#:AA", Budget=2250,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A12", Description = "Project#:WebPrj128 WorkingPackage#:A12", Budget=1050,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A11", Description = "Project#:WebPrj128 WorkingPackage#:A11", Budget=300,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A13", Description = "Project#:WebPrj128 WorkingPackage#:A13", Budget=150,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "A125", Description = "Project#:WebPrj128 WorkingPackage#:A125", Budget=600,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "B", Description = "Project#:WebPrj128 WorkingPackage#:B", Budget=9000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "B3", Description = "Project#:WebPrj128 WorkingPackage#:B3", Budget=3750,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "B6", Description = "Project#:WebPrj128 WorkingPackage#:B6", Budget=2250,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "BA", Description = "Project#:WebPrj128 WorkingPackage#:BA", Budget=3000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "BAA", Description = "Project#:WebPrj128 WorkingPackage#:BAA", Budget=1500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "BA6", Description = "Project#:WebPrj128 WorkingPackage#:BA6", Budget=900,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "BA7", Description = "Project#:WebPrj128 WorkingPackage#:BA7", Budget=300,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "B33", Description = "Project#:WebPrj128 WorkingPackage#:B33", Budget=1500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "B36", Description = "Project#:WebPrj128 WorkingPackage#:B36", Budget=1500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj128", WorkPackageNumber = "B333", Description = "Project#:WebPrj128 WorkingPackage#:B333", Budget=450,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A", Description = "Project#:WebPrj098 WorkingPackage#:A", Budget=5200,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A1", Description = "Project#:WebPrj098 WorkingPackage#:A1", Budget=1300,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A2", Description = "Project#:WebPrj098 WorkingPackage#:A2", Budget=1300,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A4", Description = "Project#:WebPrj098 WorkingPackage#:A4", Budget=650,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "AA", Description = "Project#:WebPrj098 WorkingPackage#:AA", Budget=1950,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A12", Description = "Project#:WebPrj098 WorkingPackage#:A12", Budget=910,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A11", Description = "Project#:WebPrj098 WorkingPackage#:A11", Budget=260,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A13", Description = "Project#:WebPrj098 WorkingPackage#:A13", Budget=130,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "A125", Description = "Project#:WebPrj098 WorkingPackage#:A125", Budget=520,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "B", Description = "Project#:WebPrj098 WorkingPackage#:B", Budget=7800,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "B3", Description = "Project#:WebPrj098 WorkingPackage#:B3", Budget=3250,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "B6", Description = "Project#:WebPrj098 WorkingPackage#:B6", Budget=1950,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "BA", Description = "Project#:WebPrj098 WorkingPackage#:BA", Budget=2600,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "BAA", Description = "Project#:WebPrj098 WorkingPackage#:BAA", Budget=1300,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "BA6", Description = "Project#:WebPrj098 WorkingPackage#:BA6", Budget=780,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "BA7", Description = "Project#:WebPrj098 WorkingPackage#:BA7", Budget=260,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "B33", Description = "Project#:WebPrj098 WorkingPackage#:B33", Budget=1300,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "B36", Description = "Project#:WebPrj098 WorkingPackage#:B36", Budget=1300,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj098", WorkPackageNumber = "B333", Description = "Project#:WebPrj098 WorkingPackage#:B333", Budget=390,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A", Description = "Project#:WebPrj2018 WorkingPackage#:A", Budget=20000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A1", Description = "Project#:WebPrj2018 WorkingPackage#:A1", Budget=5000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A2", Description = "Project#:WebPrj2018 WorkingPackage#:A2", Budget=5000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A4", Description = "Project#:WebPrj2018 WorkingPackage#:A4", Budget=2500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "AA", Description = "Project#:WebPrj2018 WorkingPackage#:AA", Budget=7500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A12", Description = "Project#:WebPrj2018 WorkingPackage#:A12", Budget=3500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A11", Description = "Project#:WebPrj2018 WorkingPackage#:A11", Budget=1000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A13", Description = "Project#:WebPrj2018 WorkingPackage#:A13", Budget=500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "A125", Description = "Project#:WebPrj2018 WorkingPackage#:A125", Budget=2000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "B", Description = "Project#:WebPrj2018 WorkingPackage#:B", Budget=30000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "B3", Description = "Project#:WebPrj2018 WorkingPackage#:B3", Budget=12500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "B6", Description = "Project#:WebPrj2018 WorkingPackage#:B6", Budget=7500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "BA", Description = "Project#:WebPrj2018 WorkingPackage#:BA", Budget=10000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "BAA", Description = "Project#:WebPrj2018 WorkingPackage#:BAA", Budget=5000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "BA6", Description = "Project#:WebPrj2018 WorkingPackage#:BA6", Budget=3000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "BA7", Description = "Project#:WebPrj2018 WorkingPackage#:BA7", Budget=1000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "B33", Description = "Project#:WebPrj2018 WorkingPackage#:B33", Budget=5000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "B36", Description = "Project#:WebPrj2018 WorkingPackage#:B36", Budget=5000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj2018", WorkPackageNumber = "B333", Description = "Project#:WebPrj2018 WorkingPackage#:B333", Budget=1500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A", Description = "Project#:WebPrj127 WorkingPackage#:A", Budget=30000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A1", Description = "Project#:WebPrj127 WorkingPackage#:A1", Budget=7500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A2", Description = "Project#:WebPrj127 WorkingPackage#:A2", Budget=7500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A4", Description = "Project#:WebPrj127 WorkingPackage#:A4", Budget=3750,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "AA", Description = "Project#:WebPrj127 WorkingPackage#:AA", Budget=11250,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A12", Description = "Project#:WebPrj127 WorkingPackage#:A12", Budget=5250,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A11", Description = "Project#:WebPrj127 WorkingPackage#:A11", Budget=1500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A13", Description = "Project#:WebPrj127 WorkingPackage#:A13", Budget=750,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "A125", Description = "Project#:WebPrj127 WorkingPackage#:A125", Budget=3000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "B", Description = "Project#:WebPrj127 WorkingPackage#:B", Budget=45000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "B3", Description = "Project#:WebPrj127 WorkingPackage#:B3", Budget=18750,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "B6", Description = "Project#:WebPrj127 WorkingPackage#:B6", Budget=11250,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "BA", Description = "Project#:WebPrj127 WorkingPackage#:BA", Budget=15000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "BAA", Description = "Project#:WebPrj127 WorkingPackage#:BAA", Budget=7500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "BA6", Description = "Project#:WebPrj127 WorkingPackage#:BA6", Budget=4500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "BA7", Description = "Project#:WebPrj127 WorkingPackage#:BA7", Budget=1500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "B33", Description = "Project#:WebPrj127 WorkingPackage#:B33", Budget=7500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "B36", Description = "Project#:WebPrj127 WorkingPackage#:B36", Budget=7500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "WebPrj127", WorkPackageNumber = "B333", Description = "Project#:WebPrj127 WorkingPackage#:B333", Budget=2250,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A", Description = "Project#:SW789 WorkingPackage#:A", Budget=2000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A1", Description = "Project#:SW789 WorkingPackage#:A1", Budget=500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A2", Description = "Project#:SW789 WorkingPackage#:A2", Budget=500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A4", Description = "Project#:SW789 WorkingPackage#:A4", Budget=250,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "AA", Description = "Project#:SW789 WorkingPackage#:AA", Budget=750,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A12", Description = "Project#:SW789 WorkingPackage#:A12", Budget=350,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A11", Description = "Project#:SW789 WorkingPackage#:A11", Budget=100,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A13", Description = "Project#:SW789 WorkingPackage#:A13", Budget=50,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "A125", Description = "Project#:SW789 WorkingPackage#:A125", Budget=200,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "B", Description = "Project#:SW789 WorkingPackage#:B", Budget=3000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "B3", Description = "Project#:SW789 WorkingPackage#:B3", Budget=1250,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "B6", Description = "Project#:SW789 WorkingPackage#:B6", Budget=750,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "BA", Description = "Project#:SW789 WorkingPackage#:BA", Budget=1000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "BAA", Description = "Project#:SW789 WorkingPackage#:BAA", Budget=500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "BA6", Description = "Project#:SW789 WorkingPackage#:BA6", Budget=300,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "BA7", Description = "Project#:SW789 WorkingPackage#:BA7", Budget=100,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "B33", Description = "Project#:SW789 WorkingPackage#:B33", Budget=500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "B36", Description = "Project#:SW789 WorkingPackage#:B36", Budget=500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW789", WorkPackageNumber = "B333", Description = "Project#:SW789 WorkingPackage#:B333", Budget=150,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A", Description = "Project#:SW8985 WorkingPackage#:A", Budget=8800,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A1", Description = "Project#:SW8985 WorkingPackage#:A1", Budget=2200,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A2", Description = "Project#:SW8985 WorkingPackage#:A2", Budget=2200,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A4", Description = "Project#:SW8985 WorkingPackage#:A4", Budget=1100,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "AA", Description = "Project#:SW8985 WorkingPackage#:AA", Budget=3300,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A12", Description = "Project#:SW8985 WorkingPackage#:A12", Budget=1540,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A11", Description = "Project#:SW8985 WorkingPackage#:A11", Budget=440,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A13", Description = "Project#:SW8985 WorkingPackage#:A13", Budget=220,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "A125", Description = "Project#:SW8985 WorkingPackage#:A125", Budget=880,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "B", Description = "Project#:SW8985 WorkingPackage#:B", Budget=13200,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "B3", Description = "Project#:SW8985 WorkingPackage#:B3", Budget=5500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "B6", Description = "Project#:SW8985 WorkingPackage#:B6", Budget=3300,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "BA", Description = "Project#:SW8985 WorkingPackage#:BA", Budget=4400,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "BAA", Description = "Project#:SW8985 WorkingPackage#:BAA", Budget=2200,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "BA6", Description = "Project#:SW8985 WorkingPackage#:BA6", Budget=1320,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "BA7", Description = "Project#:SW8985 WorkingPackage#:BA7", Budget=440,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "B33", Description = "Project#:SW8985 WorkingPackage#:B33", Budget=2200,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "B36", Description = "Project#:SW8985 WorkingPackage#:B36", Budget=2200,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW8985", WorkPackageNumber = "B333", Description = "Project#:SW8985 WorkingPackage#:B333", Budget=660,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A", Description = "Project#:SW999 WorkingPackage#:A", Budget=35200,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A1", Description = "Project#:SW999 WorkingPackage#:A1", Budget=8800,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A2", Description = "Project#:SW999 WorkingPackage#:A2", Budget=8800,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A4", Description = "Project#:SW999 WorkingPackage#:A4", Budget=4400,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "AA", Description = "Project#:SW999 WorkingPackage#:AA", Budget=13200,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A12", Description = "Project#:SW999 WorkingPackage#:A12", Budget=6160,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A11", Description = "Project#:SW999 WorkingPackage#:A11", Budget=1760,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A13", Description = "Project#:SW999 WorkingPackage#:A13", Budget=880,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "A125", Description = "Project#:SW999 WorkingPackage#:A125", Budget=3520,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "B", Description = "Project#:SW999 WorkingPackage#:B", Budget=52800,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "B3", Description = "Project#:SW999 WorkingPackage#:B3", Budget=22000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "B6", Description = "Project#:SW999 WorkingPackage#:B6", Budget=13200,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "BA", Description = "Project#:SW999 WorkingPackage#:BA", Budget=17600,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "BAA", Description = "Project#:SW999 WorkingPackage#:BAA", Budget=8800,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "BA6", Description = "Project#:SW999 WorkingPackage#:BA6", Budget=5280,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "BA7", Description = "Project#:SW999 WorkingPackage#:BA7", Budget=1760,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "B33", Description = "Project#:SW999 WorkingPackage#:B33", Budget=8800,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "B36", Description = "Project#:SW999 WorkingPackage#:B36", Budget=8800,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW999", WorkPackageNumber = "B333", Description = "Project#:SW999 WorkingPackage#:B333", Budget=2640,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A", Description = "Project#:SW090 WorkingPackage#:A", Budget=12000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A1", Description = "Project#:SW090 WorkingPackage#:A1", Budget=3000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A2", Description = "Project#:SW090 WorkingPackage#:A2", Budget=3000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A4", Description = "Project#:SW090 WorkingPackage#:A4", Budget=1500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "AA", Description = "Project#:SW090 WorkingPackage#:AA", Budget=4500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A12", Description = "Project#:SW090 WorkingPackage#:A12", Budget=2100,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A11", Description = "Project#:SW090 WorkingPackage#:A11", Budget=600,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A13", Description = "Project#:SW090 WorkingPackage#:A13", Budget=300,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "A125", Description = "Project#:SW090 WorkingPackage#:A125", Budget=1200,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "B", Description = "Project#:SW090 WorkingPackage#:B", Budget=18000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "B3", Description = "Project#:SW090 WorkingPackage#:B3", Budget=7500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "B6", Description = "Project#:SW090 WorkingPackage#:B6", Budget=4500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "BA", Description = "Project#:SW090 WorkingPackage#:BA", Budget=6000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "BAA", Description = "Project#:SW090 WorkingPackage#:BAA", Budget=3000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "BA6", Description = "Project#:SW090 WorkingPackage#:BA6", Budget=1800,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "BA7", Description = "Project#:SW090 WorkingPackage#:BA7", Budget=600,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "B33", Description = "Project#:SW090 WorkingPackage#:B33", Budget=3000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "B36", Description = "Project#:SW090 WorkingPackage#:B36", Budget=3000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "SW090", WorkPackageNumber = "B333", Description = "Project#:SW090 WorkingPackage#:B333", Budget=900,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A", Description = "Project#:Cloud001 WorkingPackage#:A", Budget=60000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A1", Description = "Project#:Cloud001 WorkingPackage#:A1", Budget=15000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A2", Description = "Project#:Cloud001 WorkingPackage#:A2", Budget=15000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A4", Description = "Project#:Cloud001 WorkingPackage#:A4", Budget=7500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "AA", Description = "Project#:Cloud001 WorkingPackage#:AA", Budget=22500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A12", Description = "Project#:Cloud001 WorkingPackage#:A12", Budget=10500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A11", Description = "Project#:Cloud001 WorkingPackage#:A11", Budget=3000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A13", Description = "Project#:Cloud001 WorkingPackage#:A13", Budget=1500,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "A125", Description = "Project#:Cloud001 WorkingPackage#:A125", Budget=6000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "B", Description = "Project#:Cloud001 WorkingPackage#:B", Budget=90000,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "B3", Description = "Project#:Cloud001 WorkingPackage#:B3", Budget=37500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "B6", Description = "Project#:Cloud001 WorkingPackage#:B6", Budget=22500,ResponsibleEngineerNumber = "1000009"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "BA", Description = "Project#:Cloud001 WorkingPackage#:BA", Budget=30000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "BAA", Description = "Project#:Cloud001 WorkingPackage#:BAA", Budget=15000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "BA6", Description = "Project#:Cloud001 WorkingPackage#:BA6", Budget=9000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "BA7", Description = "Project#:Cloud001 WorkingPackage#:BA7", Budget=3000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "B33", Description = "Project#:Cloud001 WorkingPackage#:B33", Budget=15000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "B36", Description = "Project#:Cloud001 WorkingPackage#:B36", Budget=15000,ResponsibleEngineerNumber = "1000004"},
+                new WorkPackage {ProjectNumber = "Cloud001", WorkPackageNumber = "B333", Description = "Project#:Cloud001 WorkingPackage#:B333", Budget=4500,ResponsibleEngineerNumber = "1000004"},
+
+            };
+            return WorkPackages;
+        }
+
+        private static List<Timesheet> getTimesheets() {
+            List<Timesheet> Timesheets = new List<Timesheet>() {
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 03, 23), StatusName = "Rejected"},
+                new Timesheet {EmployeeNumber = "1000001", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 03, 23), StatusName = "Rejected"},
+                new Timesheet {EmployeeNumber = "1000002", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 03, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000003", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 03, 23), StatusName = "Submitted"},
+                new Timesheet {EmployeeNumber = "1000004", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 03, 23), StatusName = "Submitted"},
+                new Timesheet {EmployeeNumber = "1000005", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 03, 23), StatusName = "Rejected"},
+                new Timesheet {EmployeeNumber = "1000006", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 03, 23), StatusName = "Rejected"},
+                new Timesheet {EmployeeNumber = "1000007", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 03, 23), StatusName = "Submitted"},
+                new Timesheet {EmployeeNumber = "1000008", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 03, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000009", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 03, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000010", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 03, 23), StatusName = "Submitted"},
+                new Timesheet {EmployeeNumber = "1000011", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 02, 23), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 03, 02), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 03, 09), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 03, 16), StatusName = "Approved"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 03, 23), StatusName = "Rejected"},
+                new Timesheet {EmployeeNumber = "1000012", EndDate = new DateTime(2018, 03, 30), StatusName = "Draft"},
+
+            };
+            return Timesheets;
         }
     }
 }

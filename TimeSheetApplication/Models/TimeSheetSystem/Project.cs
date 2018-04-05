@@ -16,6 +16,8 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 
         public string Description { get; set; }
 
+        public int Budget { get; set; }
+
         
         public ProjectStatus Status { get; set; }
 

@@ -28,6 +28,8 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public double Thursday { get; set; }
         public double Friday { get; set; }
 
+        public string Notes { get; set; }
+
         public WorkPackage WorkPackage { get; set; }
         public Timesheet Timesheet { get; set; }
 
