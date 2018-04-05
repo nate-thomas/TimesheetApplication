@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheetApplication.Data;
+using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models.TimeSheetSystem;
 
 namespace TimeSheetApplication.ApiControllers
@@ -16,9 +17,9 @@ namespace TimeSheetApplication.ApiControllers
     [EnableCors("CorsPolicy")]
     public class LaborGradesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
 
-        public LaborGradesController(ApplicationDbContext context)
+        public LaborGradesController(IDbContext context)
         {
             _context = context;
         }

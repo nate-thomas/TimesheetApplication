@@ -7,25 +7,12 @@ using TimeSheetApplication.Models.TimeSheetSystem;
 using Xunit;
 using System.Linq;
 using TimeSheetApplication.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace XUnitTestProject1
 {
-    public class UnitTests
+    public class EmployeesApiControllerTests
     {
-        //[Fact]
-        //public void PassTest()
-        //{
-        //    int val1 = 3;
-        //    int val2 = 45;
-
-        //    Assert.Equal(48, Add(val1, val2));
-        //}
-
-        //int Add(int num1, int num2)
-        //{
-        //    return num1 + num2;
-        //}
-
         [Fact]
         public void GetListOfAllEmployees()
         {
@@ -37,9 +24,28 @@ namespace XUnitTestProject1
             var resultList = controller.GetAll().ToList();
 
             Assert.Equal(5, resultList.Count);
-
         }
 
+        [Theory]
+        [InlineData(1000021)]
+        [InlineData(1000023)]
+        [InlineData(1000025)]
+        public void GetEmployeeByEmployeeNumber(long empNumber)
+        {
+            var dbContext = new Mock<IDbContext>();
+            var mockList = MockDbSet(testEmployees);
+            dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+
+            var controller = new EmployeesApiController(dbContext.Object);
+            var result = controller.GetByEmployeeNumber(empNumber);
+            var okResult = result as ObjectResult;
+
+            Assert.NotNull(okResult);
+           
+            
+        }
+
+        /* Helper methods and sample data */
         List<Employee> testEmployees = new List<Employee>()
         {
             new Employee {EmployeeNumber = "1000021", FirstName = "Ken", LastName = "McCarthy", Grade = "P1", EmployeeIntials = "KEN"},
