@@ -42,7 +42,6 @@ namespace XUnitTestProject1
 
             Assert.NotNull(okResult);
            
-            
         }
 
         /* Helper methods and sample data */
