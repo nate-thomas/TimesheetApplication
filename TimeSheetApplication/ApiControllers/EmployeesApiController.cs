@@ -58,6 +58,11 @@ namespace TimeSheetApplication.Controllers
                 return BadRequest(ModelState);
             }
 
+            if(!item.Password.Equals(item.ConfirmPassword))
+            {
+                return BadRequest("Passwords don't match");
+            }
+
             if (await _userManager.FindByNameAsync(item.EmployeeNumber) == null)
             {
 
