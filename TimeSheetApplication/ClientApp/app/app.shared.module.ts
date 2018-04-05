@@ -17,7 +17,7 @@ import { AddEmployeeComponent } from './components/employees/addEmployee/addEmpl
 import { ProjectsTableComponent } from './components/projects/projectsTable/projectsTable.component';
 import { AddProjectComponent } from './components/projects/addProject/addProject.component';
 import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
-import { WorkPackagesComponent } from './components/workpackages/workpackages.component';
+import { WorkpackageComponent } from './components/workpackages/workpackages.component';
 import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
 
 @NgModule({
@@ -36,7 +36,7 @@ import { ManageProjectsComponent } from './components/projects/manageProjects/ma
         ProjectsTableComponent,
         AddProjectComponent,
         ManageProjectsComponent,
-        WorkPackagesComponent
+        WorkpackageComponent
 
     ],
     imports: [
@@ -51,6 +51,7 @@ import { ManageProjectsComponent } from './components/projects/manageProjects/ma
             { path: 'manage-projects', component: ManageProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
             { path: 'admintasks', component: AdmintasksComponent },
+            { path: 'workpackages', component: WorkpackageComponent },
             //{ path: 'addTimesheet', component: TimesheetsTableComponent },
             //{ path: 'addEmployee', component: AddEmployeeComponent },
             //{ path: 'addProject', component: AddProjectComponent },
