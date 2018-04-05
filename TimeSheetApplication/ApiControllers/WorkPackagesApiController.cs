@@ -15,7 +15,7 @@ namespace TimeSheetApplication.ApiControllers
 {
     [Produces("application/json")]
     [Route("api/WorkPackages")]
-    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+   // [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [EnableCors("CorsPolicy")]
     public class WorkPackagesApiController : Controller
     {
@@ -31,6 +31,13 @@ namespace TimeSheetApplication.ApiControllers
         public IEnumerable<WorkPackage> GetWorkPackages()
         {
             return _context.WorkPackages.ToList();
+        }
+        // GET: api/WorkPackages/09876
+        [HttpGet("{projectNumber}")]
+        public IEnumerable<WorkPackage> GetWorkPackageByProjectNumber([FromRoute] string projectNumber)
+        {
+
+            return _context.WorkPackages.Where(r => r.ProjectNumber == projectNumber).ToList() as IEnumerable<WorkPackage>;
         }
 
         // GET: api/WorkPackages/09876%2fA0000
