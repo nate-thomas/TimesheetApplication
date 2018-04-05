@@ -29,7 +29,7 @@ namespace TimeSheetApplication.Data
         public DbSet<ResponsibleEngineerBudget> ResponsibleEngineerBudgets { get; set; }
         public DbSet<REBbyGrade> REBbyGrades { get; set; }
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
-        //public DbSet<WPassignment> WPassignments { get; set; }
+        public DbSet<WPassignment> WPassignments { get; set; }
 
 
 
@@ -53,7 +53,20 @@ namespace TimeSheetApplication.Data
             modelBuilder.Entity<ResponsibleEngineerBudget>().ToTable("ResponsibleEngineerBudgets").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber, c.EndDate });
             modelBuilder.Entity<REBbyGrade>().ToTable("REBbyGrades").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber, c.EndDate, c.Grade });
 
-            //modelBuilder.Entity<WPassignment>().ToTable("WPassignments").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber, c.EmployeeNumber});
+            modelBuilder.Entity<WPassignment>(entity => {
+                entity.HasKey(e => new { e.ProjectNumber, e.WorkPackageNumber, e.EmployeeNumber });
+
+                entity.ToTable("WPassignments");
+
+                entity.HasOne(d => d.ProjectTeam)
+                    .WithMany(p => p.WPassignment)
+                    .HasForeignKey(d => new { d.EmployeeNumber, d.ProjectNumber })
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.WorkPackage)
+                    .WithMany(p => p.WPassignment)
+                    .HasForeignKey(d => new { d.ProjectNumber, d.WorkPackageNumber });
+            });
         }
     }
 }
