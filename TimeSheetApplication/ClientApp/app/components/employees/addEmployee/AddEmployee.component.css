@@ -21,3 +21,7 @@
     height: 28px;
     width: 160px
 }
+
+.invalid-input {
+    border: 2px solid red;
+}

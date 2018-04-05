@@ -16,7 +16,6 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './addEmployee.component.html'
 })
 export class AddEmployeeComponent {
-    employees: Employee[] = new Array();
     employee: Employee = new Employee();
     laborGrades: LaborGrade[] = new Array();
 
@@ -25,7 +24,6 @@ export class AddEmployeeComponent {
     /* Temporary method to clear the properties in the component */
 
     clearProperties() {
-        this.employees = new Array();
         this.employee = new Employee();
 
         this.router.navigateByUrl('/employees');
@@ -34,7 +32,18 @@ export class AddEmployeeComponent {
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
+        this.employee = new Employee();
         this.loadLaborGrades();
+    }
+
+    /* Utility methods */
+
+    validateInput(input: string) {
+        if (input == undefined || input == null || input == "") {
+            return 'invalid-input';
+        } else {
+            return '';
+        }
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
@@ -45,8 +54,23 @@ export class AddEmployeeComponent {
     }
 
     addEmployee() {
-        this.postEmployee(this.employee)
-            .subscribe(res => alert("Employee added!"));
+        this.employee.password = "P@$$w0rd";
+        this.employee.confirmPassword = "P@$$w0rd";
+
+        if (this.employee.employeeNumber &&
+            this.employee.firstName &&
+            this.employee.lastName &&
+            this.employee.supervisorNumber &&
+            this.employee.employeeIntials &&
+            this.employee.grade &&
+            this.employee.role) {
+
+            this.postEmployee(this.employee)
+                .subscribe(res => alert("Employee added!"));
+        } else {
+            alert("All fields are required!");
+        }
+        
     }
 
     updateEmployee() {
@@ -57,7 +81,7 @@ export class AddEmployeeComponent {
     loadLaborGrades() {
         this.getLaborGrades()
             .subscribe(
-                (laborGrades: any) => { this.laborGrades = laborGrades; console.log(JSON.stringify(this.laborGrades)); }
+                (laborGrades: any) =>  this.laborGrades = laborGrades
             );
     }
 
@@ -70,7 +94,7 @@ export class AddEmployeeComponent {
         return this.http.delete(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
+                alert(err.json());
                 return Observable.throw(new Error(err.json().error));
             });
     }
@@ -82,7 +106,7 @@ export class AddEmployeeComponent {
         return this.http.post(AppComponent.url + "/api/Employees/", this.employee, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
+                alert(err.json());
                 return Observable.throw(new Error(err.json().error));
             });
     }
@@ -94,7 +118,7 @@ export class AddEmployeeComponent {
         return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
+                alert(err.json());
                 return Observable.throw(new Error(err.json().error));
             });
     }
@@ -106,7 +130,7 @@ export class AddEmployeeComponent {
         return this.http.get(AppComponent.url + "/api/LaborGrades/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
+                alert(err.json());
                 return Observable.throw(new Error(err.json().error));
             });
     }
