@@ -136,7 +136,7 @@ namespace TimeSheetApplication.Controllers
 
         /* Update Basic Employee Information -Not password or Role- */
         [HttpPut("{empNumber}")]
-        public async Task<IActionResult> Update(long empNumber, [FromBody] Employee item)
+        public async Task<IActionResult> UpdateEmployeeRole(long empNumber, [FromBody] Employee item)
         {
             string empNumberStr = empNumber.ToString();
             if (!ModelState.IsValid || !String.Equals(item.EmployeeNumber, empNumberStr))
