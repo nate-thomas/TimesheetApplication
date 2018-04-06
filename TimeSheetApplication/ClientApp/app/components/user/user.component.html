@@ -16,7 +16,7 @@
                                 <div class="col-xs-12">
                                     Employee Number
                                     <br />
-                                    <input id="employeeNumberInputSmall" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" />
+                                    <input id="employeeNumberInputSmall" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" disabled/>
                                 </div>
                             </div>
                             <div class="row inputBox">
@@ -49,7 +49,7 @@
                                 <div class="col-md-6" align="center">
                                     Employee Number
                                     <br />
-                                    <input id="employeeNumberInputLarge" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" />
+                                    <input id="employeeNumberInputLarge" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" disabled/>
                                 </div>
                                 <div class="col-md-6" align="center">
                                     Initials
@@ -99,6 +99,7 @@
                                     <input id="confirmPasswordInputSmall" type="text" name="confirmPassword" [(ngModel)]="employee.confirmPassword" [ngClass]="validateInput(employee.confirmPassword)" />
                                 </div>
                             </div>
+                            <br />
                             <button id="updatePasswordButtonSmall" align="center">Update Password</button>
                         </div>
                     </form>
@@ -118,6 +119,7 @@
                                     <input id="confirmPasswordInputLarge" type="password" name="confirmPassword" [(ngModel)]="employee.confirmPassword" [ngClass]="validateInput(employee.confirmPassword)" />
                                 </div>
                             </div>
+                            <br />
                             <div class="buttons" align="center">
                                 <button id="updatePasswordButtonLarge" align="center">Update Password</button>
                             </div>

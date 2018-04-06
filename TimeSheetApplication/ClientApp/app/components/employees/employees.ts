@@ -3,6 +3,7 @@ import { LaborGrade } from './laborGrades'
 
 export class Employee {
     employeeNumber: string;
+    employeeName: string;
     firstName: string;
     lastName: string;
     grade: string;

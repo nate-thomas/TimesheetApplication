@@ -86,9 +86,11 @@
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-xs-12">
-                                        Supervisor Dropdown
+                                        Supervisor
                                         <br />
-                                        <input id="supervisorNumberInputSmall" type="text" name="supervisor" [(ngModel)]="employee.supervisorNumber" [ngClass]="validateInput(employee.supervisorNumber)"/>
+                                        <select class="employee-dropdown" name="supervisor" [(ngModel)]="employee.supervisor" [ngClass]="validateInput(employee.supervisor)">
+                                            <option *ngFor="let supervisor of supervisors" [value]="supervisor.employeeNumber">{{supervisor.employeeName}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row inputBox">
@@ -112,9 +114,11 @@
                                         <input id="employeeNumberInputLarge" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)"/>
                                     </div>
                                     <div class="col-md-6" align="center">
-                                        Supervisor DROPDOWN
+                                        Supervisor
                                         <br />
-                                        <input id="supervisorNumberInputLarge" type="text" name="supervisorNumber" [(ngModel)]="employee.supervisorNumber" [ngClass]="validateInput(employee.supervisorNumber)"/>
+                                        <select class="employee-dropdown" name="supervisor" [(ngModel)]="employee.supervisor" [ngClass]="validateInput(employee.supervisor)">
+                                            <option *ngFor="let supervisor of supervisors" [value]="supervisor.employeeNumber">{{supervisor.employeeName}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row inputBox">

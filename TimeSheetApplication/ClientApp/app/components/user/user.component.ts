@@ -24,11 +24,18 @@ export class UserComponent {
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
-        this.employee = new Employee();
+        this.setEmployee();
         this.loadLaborGrades();
     }
 
     /* Utility methods */
+
+    setEmployee() {
+        this.employee.employeeNumber = localStorage.getItem("employeeNumber") || "";
+        this.employee.firstName = localStorage.getItem("firstName") || "";
+        this.employee.lastName = localStorage.getItem("lastName") || "";
+        this.employee.employeeIntials = localStorage.getItem("employeeIntials") || "";
+    }
 
     validateInput(input: string) {
         if (input == undefined || input == null || input == "") {
