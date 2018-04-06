@@ -72,15 +72,28 @@ export class TimesheetsTableComponent {
     validateHours() {
         let totalHours = 0;
         let requiredHours = 40;
+        
         for (let timesheetRow of this.timesheet) {
+            if (timesheetRow.saturday < 0 || timesheetRow.saturday > 24 ||
+                timesheetRow.sunday < 0 || timesheetRow.sunday > 24 ||
+                timesheetRow.monday < 0 || timesheetRow.monday > 24 ||
+                timesheetRow.tuesday < 0 || timesheetRow.tuesday > 24 ||
+                timesheetRow.wednesday < 0 || timesheetRow.wednesday > 24 ||
+                timesheetRow.thursday < 0 || timesheetRow.thursday > 24 ||
+                timesheetRow.friday < 0 || timesheetRow.friday > 24) {
+
+                return false;
+            }
+
             totalHours += timesheetRow.saturday +
-                timesheetRow.sunday +
-                timesheetRow.monday +
-                timesheetRow.tuesday +
-                timesheetRow.wednesday +
-                timesheetRow.thursday +
-                timesheetRow.friday;
+                          timesheetRow.sunday +
+                          timesheetRow.monday +
+                          timesheetRow.tuesday +
+                          timesheetRow.wednesday +
+                          timesheetRow.thursday +
+                          timesheetRow.friday;
         }
+        
         if (totalHours == requiredHours) {
             return true;
         } else {
@@ -100,25 +113,25 @@ export class TimesheetsTableComponent {
 
     removeTimesheet() {
         this.deleteTimesheetRows(this.employeeNumber, this.endDate)
-            .subscribe(res => { alert("Deletion successful") });
+            .subscribe(res => { alert("Deletion successful!") });
         this.clearProperties();
     }
 
     addTimesheet() {
         if (this.validateHours()) {
             this.postTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-                .subscribe(res => { alert("Creation successful") });
+                .subscribe(res => { alert("Creation successful!") });
         } else {
-            alert("Total timesheet hours must add up to 40.");
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
         }
     }
 
     updateTimesheet() {
         if (this.validateHours()) {
             this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-                .subscribe(res => { alert("Update successful") });
+                .subscribe(res => { alert("Update successful!") });
         } else {
-            alert("Total timesheet hours must add up to 40.");
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
         }
     }
 
