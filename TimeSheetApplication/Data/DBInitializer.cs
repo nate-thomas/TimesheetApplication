@@ -351,6 +351,24 @@ namespace TimeSheetApplication.Data {
              if (!context.REBbyGrades.Any()) {
                  List<REBbyGrade> REBbyGrades = new List<REBbyGrade>()
                  {
+                     /*new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02), Grade = "P1"},
+                     new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09), Grade = "P1"},
+                     new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16), Grade = "P1"},
+
+                     new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02), Grade = "P2"},
+                     new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09), Grade = "P2"},
+                     new REBbyGrade {ProjectNumber = "12345", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16), Grade = "P2"},
+
+
+
+                     new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 02), Grade = "P1"},
+                     new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 09), Grade = "P1"},
+                     new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "A0000", EndDate = new DateTime(2018, 02, 16), Grade = "P1"},
+
+                     new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 02), Grade = "P2"},
+                     new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 09), Grade = "P2"},
+                     new REBbyGrade {ProjectNumber = "09876", WorkPackageNumber = "B0000", EndDate = new DateTime(2018, 02, 16), Grade = "P2"},*/
+
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A2",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 20, Grade = "P2"},
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A4",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 30, Grade = "P2"},
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "AA",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 50, Grade = "P2"},
@@ -362,14 +380,14 @@ namespace TimeSheetApplication.Data {
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "BA6",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 11, Grade = "P2"},
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "BA7",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 2, Grade = "P2"},
 
-                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A2",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 80, Grade = "P1"},
-                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A4",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 50, Grade = "P1"},
-                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "AA",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 9, Grade = "P1"},
-                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A11",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 15, Grade = "P1"},
-                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A13",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 8, Grade = "P1"},
+                    new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A2",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 80, Grade = "P5"},
+                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A4",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 50, Grade = "P5"},
+                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "AA",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 9, Grade = "P5"},
+                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A11",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 15, Grade = "P5"},
+                     /**/new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A13",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 8, Grade = "P1"},
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "A125", EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 25, Grade = "P1"},
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "B6",   EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 40, Grade = "P1"},
-                     new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "BAA",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 5, Grade = "P1"},
+                     /**/new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "BAA",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 5, Grade = "P1"},
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "BA6",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 1, Grade = "P1"},
                      new REBbyGrade {ProjectNumber = "WebPrj128", WorkPackageNumber = "BA7",  EndDate = new DateTime(2018, 03, 30),EstimatedManHours = 7, Grade = "P1"},
                  };
