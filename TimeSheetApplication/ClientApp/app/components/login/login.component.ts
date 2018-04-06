@@ -60,7 +60,7 @@ export class LoginComponent {
                 }
             }).catch((err: Response) => {
                 alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -71,8 +71,8 @@ export class LoginComponent {
         return this.http.get(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 }

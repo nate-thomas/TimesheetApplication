@@ -101,8 +101,8 @@ export class UserComponent {
         return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json());
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -115,7 +115,7 @@ export class UserComponent {
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert("Password change failed!");
-                return Observable.throw(new Error(err.json().error));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -126,8 +126,8 @@ export class UserComponent {
         return this.http.get(AppComponent.url + "/api/LaborGrades/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json());
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 }
