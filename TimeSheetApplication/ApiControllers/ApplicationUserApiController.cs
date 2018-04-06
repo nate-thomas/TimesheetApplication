@@ -17,7 +17,7 @@ namespace TimeSheetApplication.ApiControllers
 
 
     [Produces("application/json")]
-    [Route("api/ApplicationUser")]
+    [Route("api/ApplicationUsers")]
     [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [EnableCors("CorsPolicy")]
     public class ApplicationUserApiController : Controller
