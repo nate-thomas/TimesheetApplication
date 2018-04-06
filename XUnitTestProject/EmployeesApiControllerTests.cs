@@ -68,6 +68,7 @@ namespace XUnitTestProject1
 
             var controller = new EmployeesApiController(dbContext.Object);
             //Problem: NullReferenceException when the call to CreateEmployee
+            //Possible Solution: in dbContext.Setup, make the method calls inside CreateEmployee be successful
             var result = controller.CreateEmployee(emp);
 
             Assert.NotNull(result);
