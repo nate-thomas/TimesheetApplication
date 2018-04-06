@@ -72,7 +72,9 @@
                                     <div class="col-xs-12">
                                         Labor Grade
                                         <br />
-                                        <input id="gradeInputSmall" type="text" name="grade" [(ngModel)]="employee.grade" />
+                                        <select class="employee-dropdown" name="grade" [(ngModel)]="employee.grade">
+                                            <option *ngFor="let laborGrade of laborGrades" [value]="laborGrade.grade">{{laborGrade.grade}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row inputBox">
@@ -123,9 +125,11 @@
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-md-6" align="center">
-                                        Labor Grade DROPDOWN
+                                        Labor Grade
                                         <br />
-                                        <input id="gradeInputLarge" type="text" name="grade" [(ngModel)]="employee.grade" />
+                                        <select class="employee-dropdown" name="grade" [(ngModel)]="employee.grade">
+                                            <option *ngFor="let laborGrade of laborGrades" [value]="laborGrade.grade">{{laborGrade.grade}}</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-6" align="center">
                                         Authorization Code DROPDOWN
