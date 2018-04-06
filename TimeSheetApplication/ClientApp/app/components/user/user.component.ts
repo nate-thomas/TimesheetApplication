@@ -40,7 +40,12 @@ export class UserComponent {
 
     validatePasswords(password: string, confirmPassword: string) {
         if (password == confirmPassword) {
-            return true;
+            if (password == "") {
+                alert("Password cannot be empty!");
+                return false;
+            } else {
+                return true;
+            }
         } else {
             alert("Passwords do not match!");
             return false;
@@ -50,13 +55,27 @@ export class UserComponent {
     /* Subscription methods to bind the response to a property (if applicable) */
 
     updateEmployee() {
+        if (this.employee.firstName == "") {
+            delete this.employee.firstName;
+        }
+
+        if (this.employee.lastName == "") {
+            delete this.employee.lastName;
+        }
+
+        if (this.employee.employeeIntials == "") {
+            delete this.employee.employeeIntials;
+        }
+
         this.putEmployee(this.employee.employeeNumber, this.employee)
-            .subscribe(res => {
-                if (this.validatePasswords(this.employee.password, this.employee.confirmPassword)) {
-                    this.postPassword(this.employee.employeeNumber, this.employee.password, this.employee.confirmPassword)
-                        .subscribe(res => alert("Employee updated!"));
-                }
-            });        
+            .subscribe(res => alert("Employee updated!"));        
+    }
+
+    updatePassword() {
+        if (this.validatePasswords(this.employee.password, this.employee.confirmPassword)) {
+            this.postPassword(this.employee.employeeNumber, this.employee.password, this.employee.confirmPassword)
+                .subscribe(res => alert("Password changed!"));
+        }
     }
 
     loadLaborGrades() {
