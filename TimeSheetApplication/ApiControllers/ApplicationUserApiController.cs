@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Validation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +17,9 @@ namespace TimeSheetApplication.ApiControllers
 
 
     [Produces("application/json")]
-    [Route("api/ApplicationUserApi")]
+    [Route("api/ApplicationUsers")]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [EnableCors("CorsPolicy")]
     public class ApplicationUserApiController : Controller
     {
         private readonly ApplicationDbContext _context;
