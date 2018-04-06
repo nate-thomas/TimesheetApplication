@@ -32,7 +32,7 @@ namespace TimeSheetApplication.ApiControllers
 
         // GET: api/UsersInRoles/Supervisor
         [HttpGet("{roleName}")]
-        public async Task<IActionResult> GetUsersInRole([FromRoute] string roleName)
+        public async Task<IActionResult> GetEmployeesInRole([FromRoute] string roleName)
         {
             if (!ModelState.IsValid)
             {
