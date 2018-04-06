@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TimeSheetApplication.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
