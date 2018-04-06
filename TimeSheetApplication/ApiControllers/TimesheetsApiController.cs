@@ -26,7 +26,7 @@ namespace TimeSheetApplication.ApiControllers
             _context = context;
         }
 
-        // GET: api/TimesheetsApi/1000010
+        // GET: api/Timesheets/1000010
         [HttpGet("{employeeNumber}")]
         public async Task<IActionResult> GetTimesheetsByEmployeeNumber([FromRoute] string employeeNumber)
         {
@@ -45,7 +45,7 @@ namespace TimeSheetApplication.ApiControllers
             return Ok(timesheets);
         }
 
-        // GET: api/TimesheetsApi/1000010/2018-02-09
+        // GET: api/Timesheets/1000010/2018-02-09
         [HttpGet("{employeeNumber}/{endDate}")]
         public async Task<IActionResult> GetTimesheetByEmployeeNumberAndEndDate([FromRoute] string employeeNumber, DateTime endDate)
         {
@@ -71,7 +71,7 @@ namespace TimeSheetApplication.ApiControllers
             return Ok(timesheet);
         }
 
-        // PUT: api/TimesheetsApi/1000010/2018-02-09
+        // PUT: api/Timesheets/1000010/2018-02-09
         [HttpPut("{employeeNumber}/{endDate}")]
         public async Task<IActionResult> InsertOrUpdateTimesheet([FromRoute] string employeeNumber, DateTime endDate, [FromBody] Timesheet timesheet)
         {
