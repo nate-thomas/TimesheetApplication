@@ -41,14 +41,21 @@ namespace TimeSheetApplication.ApiControllers
 
             var users = await _userManager.GetUsersInRoleAsync(roleName);
 
-            users.Select()
+            var employees = users.Join(_context.Employees, 
+                u => u.EmployeeNumber, 
+                e => e.EmployeeNumber, 
+                (u, e) => new {
+                    EmployeeNumber = e.EmployeeNumber,
+                    EmployeeName = e.FirstName + ' ' + e.LastName
+                })
+                .OrderBy(e => e.EmployeeNumber);
 
-            if (users == null)
+            if (!employees.Any())
             {
                 return NotFound();
             }
 
-            return Ok(users);
+            return Ok(employees);
         }
     }
 }
