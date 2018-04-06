@@ -50,22 +50,13 @@ export class UserComponent {
     /* Subscription methods to bind the response to a property (if applicable) */
 
     updateEmployee() {
-        if (this.employee.employeeNumber &&
-            this.employee.firstName &&
-            this.employee.lastName &&
-            this.employee.employeeIntials &&
-            this.employee.grade &&
-            this.employee.role) {
-            if (this.validatePasswords) {
-                this.putEmployee(this.employee.employeeNumber, this.employee)
-                    .subscribe(res => alert("Employee updated!"));
-            } else {
-                alert("Passwords do not match!");
-            }
-        } else {
-            alert("All fields are required!");
-        }
-        
+        this.putEmployee(this.employee.employeeNumber, this.employee)
+            .subscribe(res => {
+                if (this.validatePasswords(this.employee.password, this.employee.confirmPassword)) {
+                    this.postPassword(this.employee.employeeNumber, this.employee.password, this.employee.confirmPassword)
+                        .subscribe(res => alert("Employee updated!"));
+                }
+            });        
     }
 
     loadLaborGrades() {
@@ -85,6 +76,19 @@ export class UserComponent {
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert(err.json());
+                return Observable.throw(new Error(err.json().error));
+            });
+    }
+
+    postPassword(employeeNumber: string, password: string, confirmPassword: string) {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let body = { "password": password, "confirmPassword": confirmPassword };
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.put(AppComponent.url + "/api/ApplicationUserApi/" + employeeNumber, body, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                alert("Password change failed!");
                 return Observable.throw(new Error(err.json().error));
             });
     }

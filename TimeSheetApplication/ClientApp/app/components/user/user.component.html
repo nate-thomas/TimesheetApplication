@@ -8,7 +8,6 @@
                 <div align="center">
                     <h2>Update Employee Information</h2>
                 </div>
-
                 <div>
                     <form (ngSubmit)="updateEmployee()">
                         <!-- xs, sm -->
@@ -72,7 +71,7 @@
                                 </div>
                             </div>
                             <br />
-                            <button id="addEmployeeButtonSmall">Add Employee</button>
+                            <button id="eudateEmployeeButtonSmall">Update Employee</button>
                             <button id="closeButtonLarge" data-dismiss="modal">Close</button>
                         </div>
                         <!-- md, lg, xl-->
@@ -124,7 +123,7 @@
                                 <div class="col-md-6" align="center">
                                     Confirm Password
                                     <br />
-                                    <input id="confirmPasswordInputLarge" type="password" name="confirmPassword" [(ngModel)]="employee.confirmPassword" [ngClass]="validateInput(employee.confirmPassword)"/>
+                                    <input id="confirmPasswordInputLarge" type="password" name="confirmPassword" [(ngModel)]="employee.confirmPassword" [ngClass]="validateInput(employee.confirmPassword)" />
                                 </div>
                             </div>
                             <div class="buttons" align="center">
@@ -134,6 +133,30 @@
                         <br />
                     </form>
                 </div>
+
+                <!--<div align="center">
+                    <h2>Update Password</h2>
+                </div>
+                
+                <div>
+                    <form (ngSubmit)="updatePassword()">
+                        <div class="row inputBox">
+                            <div class="col-md-6" align="center">
+                                Password
+                                <br />
+                                <input id="passwordInputLarge" type="password" name="passsword" [(ngModel)]="employee.password" [ngClass]="validateInput(employee.password)" />
+                            </div>
+                            <div class="col-md-6" align="center">
+                                Confirm Password
+                                <br />
+                                <input id="confirmPasswordInputLarge" type="password" name="confirmPassword" [(ngModel)]="employee.confirmPassword" [ngClass]="validateInput(employee.confirmPassword)" />
+                            </div>
+                        </div>
+                        <div class="buttons" align="center">
+                            <button id="updatePasswordButtonLarge" align="center">Update Password</button>
+                        </div>
+                    </form>
+                </div>-->
             </div>
         </div>
     </div>
