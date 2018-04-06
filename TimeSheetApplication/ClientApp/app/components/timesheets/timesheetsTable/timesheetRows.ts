@@ -13,8 +13,6 @@ export class TimesheetRow {
     wednesday: number = 0;
     thursday: number = 0;
     friday: number = 0;
-    workPackage: Object;
-    timesheet: Timesheet;
 
     constructor() { }
 }

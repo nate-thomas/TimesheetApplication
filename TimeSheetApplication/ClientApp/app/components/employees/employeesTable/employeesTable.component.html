@@ -1,11 +1,9 @@
 ﻿<div class="component-content">
-    <!-- Temporary Input and Button to load an employee -->
     <table>
         <tr>
             <td style="padding-right: 10px;">Employee Number:</td>
             <td><input id="employeeNumberInput" type="text" #employeeNumber /><br /></td>
             <td style="padding-left:10px" rowspan="2">
-                <!-- change this to load employee info-->
                 <button id="loadEmployeeInfoButton" class="btn-icon" (click)="loadEmployee(employeeNumber.value)">
                     <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
                 </button>
@@ -35,7 +33,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Table Body -->
     <div class="table-responsive">
@@ -67,7 +64,6 @@
 
         </table>
         <br />
-        <!--<button (click)="printProperties()">Print to Console</button>-->
     </div>
 
 
@@ -81,5 +77,4 @@
             </div>
         </div>
     </div>
-
 </div>

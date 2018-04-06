@@ -14,37 +14,28 @@
                                     <div class="col-xs-12">
                                         Employee Number
                                         <br />
-                                        <input id="employeeNumberInputSmall" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)"/>
+                                        <input id="employeeNumberInputSmall" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)" />
                                     </div>
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-xs-12">
                                         First Name
                                         <br />
-                                        <input id="firstNameInputSmall" type="text" name="firstName" [(ngModel)]="employee.firstName" [ngClass]="validateInput(employee.firstName)"/>
+                                        <input id="firstNameInputSmall" type="text" name="firstName" [(ngModel)]="employee.firstName" [ngClass]="validateInput(employee.firstName)" />
                                     </div>
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-xs-12">
                                         Last Name
                                         <br />
-                                        <input id="lastNameInputSmall" type="text" name="lastName" [(ngModel)]="employee.lastName" [ngClass]="validateInput(employee.lastName)"/>
+                                        <input id="lastNameInputSmall" type="text" name="lastName" [(ngModel)]="employee.lastName" [ngClass]="validateInput(employee.lastName)" />
                                     </div>
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-xs-12">
                                         Initials
                                         <br />
-                                        <input id="initialsInputSmall" type="text" name="employeeIntials" [(ngModel)]="employee.employeeIntials" [ngClass]="validateInput(employee.employeeIntials)"/>
-                                    </div>
-                                </div>
-                                <div class="row inputBox">
-                                    <div class="col-xs-12">
-                                        Labor Grade
-                                        <br />
-                                        <select class="employee-dropdown" name="grade" [(ngModel)]="employee.grade" [ngClass]="validateInput(employee.grade)">
-                                            <option *ngFor="let laborGrade of laborGrades" [value]="laborGrade.grade">{{laborGrade.grade}}</option>
-                                        </select>
+                                        <input id="initialsInputSmall" type="text" name="employeeIntials" [(ngModel)]="employee.employeeIntials" [ngClass]="validateInput(employee.employeeIntials)" />
                                     </div>
                                 </div>
                                 <div class="row inputBox">
@@ -62,6 +53,15 @@
                                         <br />
                                         <select class="employee-dropdown" name="role" [(ngModel)]="employee.role" [ngClass]="validateInput(employee.role)">
                                             <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        Labor Grade
+                                        <br />
+                                        <select class="employee-dropdown" name="grade" [(ngModel)]="employee.grade" [ngClass]="validateInput(employee.grade)">
+                                            <option *ngFor="let grade of grades" [value]="grade.grade">{{grade.grade}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                         Labor Grade
                                         <br />
                                         <select class="employee-dropdown" name="grade" [(ngModel)]="employee.grade" [ngClass]="validateInput(employee.grade)">
-                                            <option *ngFor="let laborGrade of laborGrades" [value]="laborGrade.grade">{{laborGrade.grade}}</option>
+                                            <option *ngFor="let grade of grades" [value]="grade.grade">{{grade.grade}}</option>
                                         </select>
                                     </div>
                                 </div>

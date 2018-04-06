@@ -22,19 +22,6 @@ export class TimesheetsTableComponent {
     overtime: number = 0;
 
     constructor(private http: Http) { }
-
-    /* Temporary method to clear the properties in the component */
-
-    clearProperties() {
-        this.timesheet = new Array();
-    }
-
-    /* Temporary method to display the Timesheet object in the browser console */
-
-    printProperties() {
-        console.log(JSON.stringify(this.timesheet));
-    }
-
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
@@ -114,7 +101,6 @@ export class TimesheetsTableComponent {
     removeTimesheet() {
         this.deleteTimesheetRows(this.employeeNumber, this.endDate)
             .subscribe(res => { alert("Deletion successful!") });
-        this.clearProperties();
     }
 
     addTimesheet() {
