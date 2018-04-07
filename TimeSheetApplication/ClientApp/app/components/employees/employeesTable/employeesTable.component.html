@@ -7,7 +7,7 @@
             <td><input class="input-top" id="employeeNumberInput" type="text" #employeeNumber /><br /></td>
             <td style="padding-left:10px">
                 <!-- change this to load employee info-->
-                <button id="loadEmployeeInfoButton" class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
+                <button id="loadEmployeeInfoButton" class="btn-icon" (click)="loadEmployee(employeeNumber.value)">
                     <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
                 </button>
             </td>
@@ -69,6 +69,7 @@
 
 
     <button id="newEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".bs-example-modal-lg">New Employee</button>
+    <button id="viewEmployeesButton" type="button" class="viewEmployees" (click)="loadEmployees()">View All</button>
 
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">

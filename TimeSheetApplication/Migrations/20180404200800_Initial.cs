@@ -177,14 +177,14 @@ namespace TimeSheetApplication.Migrations
                 {
                     ProjectNumber = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    ProjectStatusStatusName = table.Column<string>(nullable: true)
+                    StatusName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.ProjectNumber);
                     table.ForeignKey(
-                        name: "FK_Projects_ProjectStatus_ProjectStatusStatusName",
-                        column: x => x.ProjectStatusStatusName,
+                        name: "FK_Projects_ProjectStatus_StatusName",
+                        column: x => x.StatusName,
                         principalTable: "ProjectStatus",
                         principalColumn: "StatusName",
                         onDelete: ReferentialAction.Restrict);
@@ -463,6 +463,58 @@ namespace TimeSheetApplication.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WPassignments",
+                columns: table => new
+                {
+                    ProjectNumber = table.Column<string>(nullable: false),
+                    WorkPackageNumber = table.Column<string>(nullable: false),
+                    EmployeeNumber = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WPassignments", x => new { x.ProjectNumber, x.WorkPackageNumber, x.EmployeeNumber });
+                    table.ForeignKey(
+                        name: "FK_WPassignments_ProjectTeams_EmployeeNumber_ProjectNumber",
+                        columns: x => new { x.EmployeeNumber, x.ProjectNumber },
+                        principalTable: "ProjectTeams",
+                        principalColumns: new[] { "EmployeeNumber", "ProjectNumber" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WPassignments_WorkPackages_ProjectNumber_WorkPackageNumber",
+                        columns: x => new { x.ProjectNumber, x.WorkPackageNumber },
+                        principalTable: "WorkPackages",
+                        principalColumns: new[] { "ProjectNumber", "WorkPackageNumber" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "REBbyGrades",
+                columns: table => new
+                {
+                    ProjectNumber = table.Column<string>(nullable: false),
+                    WorkPackageNumber = table.Column<string>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Grade = table.Column<string>(nullable: false),
+                    EstimatedManHours = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_REBbyGrades", x => new { x.ProjectNumber, x.WorkPackageNumber, x.EndDate, x.Grade });
+                    table.ForeignKey(
+                        name: "FK_REBbyGrades_LaborGrades_Grade",
+                        column: x => x.Grade,
+                        principalTable: "LaborGrades",
+                        principalColumn: "Grade",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_REBbyGrades_ResponsibleEngineerBudgets_ProjectNumber_WorkPackageNumber_EndDate",
+                        columns: x => new { x.ProjectNumber, x.WorkPackageNumber, x.EndDate },
+                        principalTable: "ResponsibleEngineerBudgets",
+                        principalColumns: new[] { "ProjectNumber", "WorkPackageNumber", "EndDate" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -552,14 +604,19 @@ namespace TimeSheetApplication.Migrations
                 filter: "[ReferenceId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_ProjectStatusStatusName",
+                name: "IX_Projects_StatusName",
                 table: "Projects",
-                column: "ProjectStatusStatusName");
+                column: "StatusName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectTeams_ProjectNumber",
                 table: "ProjectTeams",
                 column: "ProjectNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_REBbyGrades_Grade",
+                table: "REBbyGrades",
+                column: "Grade");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TimesheetRows_ProjectNumber_WorkPackageNumber",
@@ -570,6 +627,11 @@ namespace TimeSheetApplication.Migrations
                 name: "IX_Timesheets_StatusName",
                 table: "Timesheets",
                 column: "StatusName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WPassignments_EmployeeNumber_ProjectNumber",
+                table: "WPassignments",
+                columns: new[] { "EmployeeNumber", "ProjectNumber" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -596,13 +658,13 @@ namespace TimeSheetApplication.Migrations
                 name: "OpenIddictTokens");
 
             migrationBuilder.DropTable(
-                name: "ProjectTeams");
-
-            migrationBuilder.DropTable(
-                name: "ResponsibleEngineerBudgets");
+                name: "REBbyGrades");
 
             migrationBuilder.DropTable(
                 name: "TimesheetRows");
+
+            migrationBuilder.DropTable(
+                name: "WPassignments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -614,19 +676,25 @@ namespace TimeSheetApplication.Migrations
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
+                name: "ResponsibleEngineerBudgets");
+
+            migrationBuilder.DropTable(
                 name: "Timesheets");
 
             migrationBuilder.DropTable(
-                name: "WorkPackages");
+                name: "ProjectTeams");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "WorkPackages");
 
             migrationBuilder.DropTable(
                 name: "TimesheetStatus");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Projects");

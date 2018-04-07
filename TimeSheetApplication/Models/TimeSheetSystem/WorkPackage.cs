@@ -19,6 +19,6 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 
         public ICollection<TimesheetRow> TimesheetRows { get; set; }
         public ICollection<ResponsibleEngineerBudget> ResponsibleEngineerBudgets { get; set; }
-        //public ICollection<WPassignment> TeamWPassignment { get; set; }
+        public ICollection<WPassignment> WPassignment { get; set; }
     }
 }
