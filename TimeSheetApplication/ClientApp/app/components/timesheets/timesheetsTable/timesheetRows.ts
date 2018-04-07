@@ -1,8 +1,7 @@
 ﻿import { Timesheet } from './timesheets'
 
 export class TimesheetRow {
-    timesheetRowsId: string;
-    employeeNumber: string;
+    employeeNumber: string = localStorage.getItem("employeeNumber") || "";
     endDate: string;
     projectNumber: string;
     workPackageNumber: string;
