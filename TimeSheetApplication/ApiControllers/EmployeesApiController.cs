@@ -22,11 +22,11 @@ namespace TimeSheetApplication.Controllers
     [EnableCors("CorsPolicy")]
     public class EmployeesApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public EmployeesApiController(ApplicationDbContext context,
+        public EmployeesApiController(IDbContext context,
                                       UserManager<ApplicationUser> userManager,
                                       RoleManager<IdentityRole> roleManager)
         {
