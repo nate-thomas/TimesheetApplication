@@ -18,7 +18,7 @@
         <!-- xs, sm view -->
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
-                <button id="timesheetArchiveButtonSmall" class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+                <button id="timesheetArchiveButtonSmall" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /> View Timesheets</button>
             </div>
             <div class="col-xs-12 text-center">
                 <h1>Timesheet</h1>
@@ -30,7 +30,7 @@
         <!--  md, lg, xl views -->
         <div class="row hidden-xs hidden-sm">
             <div class="col-md-4">
-                <button id="timesheetArchiveButtonLarge" class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+                <button id="timesheetArchiveButtonLarge" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /> View Timesheets</button>
             </div>
             <div class="col-md-4 text-center">
                 <h1>Timesheet</h1>
@@ -55,22 +55,28 @@
                     <th>Wednesday</th>
                     <th>Thursday</th>
                     <th>Friday</th>
-                    <!--<th>Notes</th>-->
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let timesheetRow of timesheet.timesheetRows; let i = index">
-                    <td><input id="{{'projectNumberInput' + i}}" type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 75px;" /></td>
-                    <td><input id="{{'workPackageNumberInput' + i}}" type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 75px;" /></td>
+                    <td>
+                        <select name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)">
+                            <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" [ngClass]="validateInput(timesheetRow.workPackageNumber)">
+                            <option *ngFor="let workPackage of workPackages" [value]="workPackage.workPackageNumber">{{workPackage.workPackageNumber}}</option>
+                        </select>
+                    </td>
                     <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{timesheetRow.saturday + timesheetRow.sunday + timesheetRow.monday + timesheetRow.tuesday+ timesheetRow.wednesday + timesheetRow.thursday + timesheetRow.friday}}" disabled /></td>
-                    <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 75px;" [ngClass]="validateDailyHours(timesheetRow.saturday)" /></td>
-                    <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" step="0.25" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 75px;" [ngClass]="validateDailyHours(timesheetRow.sunday)" /></td>
-                    <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" step="0.25" name="monday" [(ngModel)]="timesheetRow.monday" style="width: 75px;" [ngClass]="validateDailyHours(timesheetRow.monday)" /></td>
-                    <td><input id="{{'tuesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="tuesday" [(ngModel)]="timesheetRow.tuesday" style="width: 75px;" [ngClass]="validateDailyHours(timesheetRow.tuesday)" /></td>
-                    <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="wednesday" [(ngModel)]="timesheetRow.wednesday" style="width: 75px;" [ngClass]="validateDailyHours(timesheetRow.wednesday)" /></td>
-                    <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="thursday" [(ngModel)]="timesheetRow.thursday" style="width: 75px;" [ngClass]="validateDailyHours(timesheetRow.thursday)" /></td>
-                    <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" step="0.25" name="friday" [(ngModel)]="timesheetRow.friday" style="width: 75px;" [ngClass]="validateDailyHours(timesheetRow.friday)" /></td>
-                    <!--<td><input id="{{'notesInput' + i}}" type="text" name="notes" value="" style="width: 125px;" /></td>-->
+                    <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="saturday" [(ngModel)]="timesheetRow.saturday" [ngClass]="validateDailyHours(timesheetRow.saturday)" /></td>
+                    <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" step="0.25" name="sunday" [(ngModel)]="timesheetRow.sunday" [ngClass]="validateDailyHours(timesheetRow.sunday)" /></td>
+                    <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" step="0.25" name="monday" [(ngModel)]="timesheetRow.monday" [ngClass]="validateDailyHours(timesheetRow.monday)" /></td>
+                    <td><input id="{{'tuesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="tuesday" [(ngModel)]="timesheetRow.tuesday" [ngClass]="validateDailyHours(timesheetRow.tuesday)" /></td>
+                    <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="wednesday" [(ngModel)]="timesheetRow.wednesday" [ngClass]="validateDailyHours(timesheetRow.wednesday)" /></td>
+                    <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="thursday" [(ngModel)]="timesheetRow.thursday" [ngClass]="validateDailyHours(timesheetRow.thursday)" /></td>
+                    <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" step="0.25" name="friday" [(ngModel)]="timesheetRow.friday" [ngClass]="validateDailyHours(timesheetRow.friday)" /></td>
                     <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" *ngIf="validateStatus()" style="text-align: center;">x</button></td>
                 </tr>
                 <tr></tr>
@@ -130,6 +136,14 @@
         </div>
         <div class="col-md-6 ">
             <button id="signTimesheetButton" class="pull-right">Sign Timesheet</button>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <viewTimesheets></viewTimesheets>
+            </div>
         </div>
     </div>
 </div>

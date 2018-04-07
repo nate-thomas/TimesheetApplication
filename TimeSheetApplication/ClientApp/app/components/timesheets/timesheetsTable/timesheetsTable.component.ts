@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
 import { Component } from '@angular/core';
 import { Timesheet } from './timesheets'
 import { TimesheetRow } from './timesheetRows'
+import { Project } from '../../projects/projects'
+import { WorkPackage } from '../../projects/workPackages'
 import { AppComponent } from '../../app/app.component'
 
 @Component({
@@ -18,6 +20,8 @@ export class TimesheetsTableComponent {
     timesheet: Timesheet = new Timesheet();
     endDate: string = this.formatDate();
     weekNumber: number = this.getWeekNumber(this.endDate);
+    projects: Project[] = new Array();
+    workPackages: WorkPackage[] = new Array();
     flextime: number = 0;
     overtime: number = 0;
 
@@ -27,6 +31,8 @@ export class TimesheetsTableComponent {
 
     ngOnInit() {
         this.loadTimesheet();
+        this.loadProjects();
+        this.loadWorkPackages();
     }
 
     /* Utility methods */
@@ -59,9 +65,9 @@ export class TimesheetsTableComponent {
 
     validateDailyHours(hour: number) {
         if (hour < 0 || hour > 24) {
-            return 'invalid-hour';
+            return 'timesheet-input invalid-input';
         } else {
-            return '';
+            return 'timesheet-input';
         }
     }
 
@@ -105,9 +111,18 @@ export class TimesheetsTableComponent {
         }
     }
 
+    validateInput(input: string) {
+        if (input == undefined || input == null || input == "") {
+            return 'timesheet-input invalid-input';
+        } else {
+            return 'timesheet-input';
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
+        this.workPackages = new Array();
         this.getTimesheet(localStorage.getItem("employeeNumber") || "", this.endDate)
             .subscribe(
                 timesheet => this.timesheet = timesheet
@@ -143,6 +158,20 @@ export class TimesheetsTableComponent {
         }
     }
 
+    loadProjects() {
+        this.getProjects()
+            .subscribe(
+                projects => this.projects = projects
+            );
+    }
+
+    loadWorkPackages() {
+        this.getWorkPackages()
+            .subscribe(
+                workPackages => this.workPackages = workPackages
+            );
+    }
+
     /* CRUD methods to make RESTful calls to the API */
 
     getTimesheet(employeeNumber: string, endDate: string): Observable<Timesheet> {
@@ -171,5 +200,31 @@ export class TimesheetsTableComponent {
                 console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
+    }
+
+    getProjects(): Observable<Project[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Projects/", options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+
+    }
+
+    getWorkPackages(): Observable<WorkPackage[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/WorkPackages/", options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+
     }
 }

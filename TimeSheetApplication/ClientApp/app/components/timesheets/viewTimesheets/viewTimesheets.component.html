@@ -1,0 +1,22 @@
+﻿<div class="component-content">
+    <!-- Table Body -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>End Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let timesheet of timesheets; let i = index">
+                    <td id="{{'timesheetEndDate' + i}}">{{timesheet.endDate}}</td>
+                    <td id="{{'timesheetStatus' + i}}">{{timesheet.statusName}}</td>
+                </tr>
+                <tr></tr>
+            </tbody>
+        </table>
+        <br />
+        <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+    </div>
+</div>
