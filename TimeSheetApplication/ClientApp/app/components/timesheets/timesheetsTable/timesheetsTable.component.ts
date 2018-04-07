@@ -144,8 +144,8 @@ export class TimesheetsTableComponent {
         return this.http.get(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -156,8 +156,8 @@ export class TimesheetsTableComponent {
         return this.http.delete(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -168,8 +168,8 @@ export class TimesheetsTableComponent {
         return this.http.post(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -180,8 +180,8 @@ export class TimesheetsTableComponent {
         return this.http.put(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 }
