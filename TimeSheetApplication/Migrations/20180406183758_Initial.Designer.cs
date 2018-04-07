@@ -11,9 +11,10 @@ using TimeSheetApplication.Data;
 namespace TimeSheetApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180406183758_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -681,18 +682,6 @@ namespace TimeSheetApplication.Migrations
                     b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Employee", "ResponsibleEngineer")
                         .WithMany("WorkPackages")
                         .HasForeignKey("ResponsibleEngineerNumber");
-                });
-
-            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
-                {
-                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectTeam", "ProjectTeam")
-                        .WithMany("WPassignment")
-                        .HasForeignKey("EmployeeNumber", "ProjectNumber");
-
-                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.WorkPackage", "WorkPackage")
-                        .WithMany("WPassignment")
-                        .HasForeignKey("ProjectNumber", "WorkPackageNumber")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
