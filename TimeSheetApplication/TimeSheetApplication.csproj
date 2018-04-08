@@ -66,7 +66,6 @@
     <None Remove="ClientApp\app\components\employees\employees.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.ts" />
     <None Remove="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
-    <None Remove="ClientApp\app\components\employees\laborGrades.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <None Remove="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
@@ -84,7 +83,6 @@
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employeesTable\employeesTable.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\employees\laborGrades.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />

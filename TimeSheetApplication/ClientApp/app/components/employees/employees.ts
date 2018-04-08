@@ -1,5 +1,4 @@
 ﻿import { Timesheet } from '../timesheets/timesheetsTable/timesheets'
-import { LaborGrade } from './laborGrades'
 
 export class Employee {
     employeeNumber: string;

@@ -20,8 +20,10 @@ export class LoginComponent {
     constructor(private http: Http, private router: Router) { }
 
     ngOnInit() {
-        localStorage.removeItem("username");
-        localStorage.removeItem("access_token");
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem("username");
+            localStorage.removeItem("access_token");
+        }
     }
 
     login() {

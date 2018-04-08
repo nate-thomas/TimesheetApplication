@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../employees/employees';
-import { LaborGrade } from '../employees/laborGrades'
 import { AppComponent } from '../app/app.component'
 
 @Component({
@@ -17,7 +16,6 @@ import { AppComponent } from '../app/app.component'
 })
 export class UserComponent {
     employee: Employee = new Employee();
-    laborGrades: LaborGrade[] = new Array();
 
     constructor(private http: Http, private router: Router) { }
 
@@ -25,7 +23,6 @@ export class UserComponent {
 
     ngOnInit() {
         this.setEmployee();
-        this.loadLaborGrades();
     }
 
     /* Utility methods */
@@ -85,13 +82,6 @@ export class UserComponent {
         }
     }
 
-    loadLaborGrades() {
-        this.getLaborGrades()
-            .subscribe(
-            (laborGrades: any) => this.laborGrades = laborGrades
-            );
-    }
-
     /* CRUD methods to make RESTful calls to the API */
 
     putEmployee(employeeNumber: string, employee: Employee): Observable<Response> {
@@ -115,18 +105,6 @@ export class UserComponent {
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert("Password change failed!");
-                return Observable.throw(new Error(JSON.stringify(err)));
-            });
-    }
-
-    getLaborGrades(): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(AppComponent.url + "/api/LaborGrades/", options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
     }

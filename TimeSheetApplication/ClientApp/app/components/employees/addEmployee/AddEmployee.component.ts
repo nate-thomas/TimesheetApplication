@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from '../employees';
-import { LaborGrade } from '../laborGrades'
 import { AppComponent } from '../../app/app.component'
 
 @Component({
@@ -17,26 +16,18 @@ import { AppComponent } from '../../app/app.component'
 })
 export class AddEmployeeComponent {
     employee: Employee = new Employee();
-    laborGrades: LaborGrade[] = new Array();
     supervisors: Employee[] = new Array();
+    grades: Object[] = new Array();
     roles: String[] = new Array();
 
     constructor(private http: Http, private router: Router) { }
-
-    /* Temporary method to clear the properties in the component */
-
-    clearProperties() {
-        this.employee = new Employee();
-
-        this.router.navigateByUrl('/employees');
-    }
 
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
         this.employee = new Employee();
-        this.loadLaborGrades();
         this.loadSupervisors();
+        this.loadGrades();
         this.loadRoles();
     }
 
@@ -51,11 +42,6 @@ export class AddEmployeeComponent {
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
-
-    removeEmployee(employeeNumber: string) {
-        this.deleteEmployee(employeeNumber)
-            .subscribe(res => alert("Removal successful!"));
-    }
 
     addEmployee() {
         this.employee.password = "P@$$w0rd";
@@ -87,10 +73,10 @@ export class AddEmployeeComponent {
             });
     }
 
-    loadLaborGrades() {
-        this.getLaborGrades()
+    loadGrades() {
+        this.getGrades()
             .subscribe(
-                (laborGrades: any) => this.laborGrades = laborGrades
+                (grades: any) => this.grades = grades
             );
     }
 
@@ -109,18 +95,6 @@ export class AddEmployeeComponent {
     }
 
     /* CRUD methods to make RESTful calls to the API */
-
-    deleteEmployee(employeeNumber: string): Observable<Employee> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.delete(AppComponent.url + "/api/Employees/" + employeeNumber, options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                console.log(JSON.stringify(err));
-                return Observable.throw(new Error(JSON.stringify(err)));
-            });
-    }
 
     postEmployee(employee: Employee): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
@@ -146,7 +120,7 @@ export class AddEmployeeComponent {
             });
     }
 
-    getLaborGrades(): Observable<Response> {
+    getGrades(): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
