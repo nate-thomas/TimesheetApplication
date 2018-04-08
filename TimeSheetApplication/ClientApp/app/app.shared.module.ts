@@ -19,6 +19,7 @@ import { AddProjectComponent } from './components/projects/addProject/addProject
 import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
 import { WorkpackageComponent } from './components/workpackages/workpackages.component';
 import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
+import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
 import { AddWorkpackageComponent } from './components/workpackages/addWorkPackage/addWorkpackage.component';
 
 @NgModule({
@@ -37,6 +38,9 @@ import { AddWorkpackageComponent } from './components/workpackages/addWorkPackag
         ProjectsTableComponent,
         AddProjectComponent,
         ManageProjectsComponent,
+        WorkPackagesComponent,
+        ViewTimesheetsComponent
+
         WorkpackageComponent,
         AddWorkpackageComponent
     ],

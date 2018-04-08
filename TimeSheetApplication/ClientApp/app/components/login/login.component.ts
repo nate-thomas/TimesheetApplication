@@ -20,15 +20,28 @@ export class LoginComponent {
     constructor(private http: Http, private router: Router) { }
 
     ngOnInit() {
-        localStorage.removeItem("username");
-        localStorage.removeItem("access_token");
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem("username");
+            localStorage.removeItem("access_token");
+        }
     }
 
     login() {
         this.authenticate()
             .subscribe(authenticated => {
                 if (authenticated === true) {
-                    this.router.navigate(['/timesheets/']);
+                    this.authorize(this.username)
+                        .subscribe(employee => {
+                            localStorage.setItem("employeeNumber", employee.employeeNumber);
+                            localStorage.setItem("firstName", employee.firstName);
+                            localStorage.setItem("lastName", employee.lastName);
+                            localStorage.setItem("grade", employee.grade);
+                            localStorage.setItem("employeeIntials", employee.employeeIntials);
+                            localStorage.setItem("role", employee.role);
+                            localStorage.setItem("supervisorNumber", employee.supervisorNumber);
+
+                            this.router.navigate(['/timesheets/']);
+                        });
                 }
             });
     }
@@ -41,18 +54,27 @@ export class LoginComponent {
         return this.http.post(AppComponent.url + "/connect/token/", body, options)
             .map((response: Response) => {
                 if (response.json().access_token) {
-                    localStorage.setItem("username", this.username);
                     localStorage.setItem("access_token", response.json().access_token);
-
                     return true;
                 } else {
-                    alert("Authentication failed.")
-
+                    alert("Authentication failed.");
                     return false;
                 }
             }).catch((err: Response) => {
                 alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
+    authorize(employeeNumber: any) {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Employees/" + employeeNumber, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 }

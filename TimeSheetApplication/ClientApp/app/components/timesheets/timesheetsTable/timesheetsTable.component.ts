@@ -5,7 +5,10 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
+import { Timesheet } from './timesheets'
 import { TimesheetRow } from './timesheetRows'
+import { Project } from '../../projects/projects'
+import { WorkPackage } from '../../workpackages/workPackages'
 import { AppComponent } from '../../app/app.component'
 
 @Component({
@@ -14,44 +17,36 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './timesheetsTable.component.html'
 })
 export class TimesheetsTableComponent {
-    timesheet: TimesheetRow[] = new Array();
-    employeeNumber: string = localStorage.getItem("username") || "";
-    endDate: string = (new Date()).getFullYear() + "-" + ((new Date()).getMonth() + 1) + "-" + (new Date()).getDate();
+    timesheet: Timesheet = new Timesheet();
+    endDate: string = this.formatDate();
     weekNumber: number = this.getWeekNumber(this.endDate);
-    flextime: number = 0;
-    overtime: number = 0;
+    projects: Project[] = new Array();
+    workPackages: WorkPackage[] = new Array();
+    employeeNumber: string = localStorage.getItem("employeeNumber") || "";
 
     constructor(private http: Http) { }
-
-    /* Temporary method to clear the properties in the component */
-
-    clearProperties() {
-        this.timesheet = new Array();
-    }
-
-    /* Temporary method to display the Timesheet object in the browser console */
-
-    printProperties() {
-        console.log(JSON.stringify(this.timesheet));
-    }
 
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
         this.loadTimesheet();
+        this.loadProjects();
+        this.loadWorkPackages();
     }
 
     /* Utility methods */
 
     addTimesheetRow() {
         let row = new TimesheetRow();
-        row.employeeNumber = this.employeeNumber;
+
         row.endDate = this.endDate;
-        this.timesheet.push(row);
+        this.timesheet.endDate = this.endDate;
+
+        this.timesheet.timesheetRows.push(row);
     }
 
     deleteTimesheetRow(index: number) {
-        this.timesheet.splice(index, 1);
+        this.timesheet.timesheetRows.splice(index, 1);
     }
 
     getWeekNumber(endDate: string) {
@@ -61,26 +56,45 @@ export class TimesheetsTableComponent {
         return Math.ceil(dayOfYear / 7);
     }
 
-    validateHour(hour: number) {
+    formatDate() {
+        let currentDate = new Date();
+
+        return currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate();
+    }
+
+    validateDailyHours(hour: number) {
         if (hour < 0 || hour > 24) {
-            return 'invalid-hour';
+            return 'timesheet-input invalid-input';
         } else {
-            return '';
+            return 'timesheet-input';
         }
     }
 
-    validateHours() {
+    validateTotalHours() {
         let totalHours = 0;
         let requiredHours = 40;
-        for (let timesheetRow of this.timesheet) {
+        
+        for (let timesheetRow of this.timesheet.timesheetRows) {
+            if (timesheetRow.saturday < 0 || timesheetRow.saturday > 24 ||
+                timesheetRow.sunday < 0 || timesheetRow.sunday > 24 ||
+                timesheetRow.monday < 0 || timesheetRow.monday > 24 ||
+                timesheetRow.tuesday < 0 || timesheetRow.tuesday > 24 ||
+                timesheetRow.wednesday < 0 || timesheetRow.wednesday > 24 ||
+                timesheetRow.thursday < 0 || timesheetRow.thursday > 24 ||
+                timesheetRow.friday < 0 || timesheetRow.friday > 24) {
+
+                return false;
+            }
+
             totalHours += timesheetRow.saturday +
-                timesheetRow.sunday +
-                timesheetRow.monday +
-                timesheetRow.tuesday +
-                timesheetRow.wednesday +
-                timesheetRow.thursday +
-                timesheetRow.friday;
+                          timesheetRow.sunday +
+                          timesheetRow.monday +
+                          timesheetRow.tuesday +
+                          timesheetRow.wednesday +
+                          timesheetRow.thursday +
+                          timesheetRow.friday;
         }
+        
         if (totalHours == requiredHours) {
             return true;
         } else {
@@ -88,87 +102,206 @@ export class TimesheetsTableComponent {
         }
     }
 
+    validateStatus() {
+        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateInput(input: string) {
+        if (input == undefined || input == null || input == "") {
+            return 'timesheet-input invalid-input';
+        } else {
+            return 'timesheet-input';
+        }
+    }
+
+    checkSupervisorRole() {
+        if (localStorage.getItem("role") == "Supervisor") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    checkSupervisorAndEmployeeId() {
+        if (localStorage.getItem("role") == "Supervisor" && this.timesheet.employeeNumber != localStorage.getItem("employeeNumber")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    calculateTimesheetHours(timesheetRow: TimesheetRow) {
+        return timesheetRow.saturday +
+               timesheetRow.sunday +
+               timesheetRow.monday +
+               timesheetRow.tuesday +
+               timesheetRow.wednesday +
+               timesheetRow.thursday +
+               timesheetRow.friday;
+    }
+
+    calculateTotalHours() {
+        let totalHours = 0;
+        for (let i = 0; i < this.timesheet.timesheetRows.length; i++) {
+            totalHours += Number((document.getElementById("totalInput" + i) as HTMLInputElement).value);
+        }
+        return totalHours;
+    }
+    
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
-        this.getTimesheetRows(this.employeeNumber, this.endDate)
-            .subscribe(
+        if (localStorage.getItem("role") == "Supervisor") {
+            this.getTimesheet(this.employeeNumber, this.endDate)
+                .subscribe(
                 timesheet => this.timesheet = timesheet
-        );
+                );
+        } else {
+            this.getTimesheet(localStorage.getItem("employeeNumber") || "", this.endDate)
+                .subscribe(
+                timesheet => this.timesheet = timesheet
+                );
+        }
         this.weekNumber = this.getWeekNumber(this.endDate);
     }
 
-    removeTimesheet() {
-        this.deleteTimesheetRows(this.employeeNumber, this.endDate)
-            .subscribe(res => { alert("Deletion successful") });
-        this.clearProperties();
-    }
-
-    addTimesheet() {
-        if (this.validateHours()) {
-            this.postTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-                .subscribe(res => { alert("Creation successful") });
+    saveTimesheet() {
+        if (this.validateTotalHours()) {
+            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
+                alert("You can only submit or save a timesheet on a Friday!");
+            } else {
+                this.timesheet.statusName = "Draft";
+                this.putTimesheetRows(localStorage.getItem("employeeNumber") || "", this.endDate, this.timesheet)
+                    .subscribe(res => { alert("Timesheet saved!") });
+            }
         } else {
-            alert("Total timesheet hours must add up to 40.");
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
         }
     }
 
-    updateTimesheet() {
-        if (this.validateHours()) {
-            this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
-                .subscribe(res => { alert("Update successful") });
+    submitTimesheet() {
+        if (this.validateTotalHours()) {
+            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
+                alert("You can only submit or save a timesheet on a Friday!");
+            } else {
+                this.timesheet.statusName = "Submitted";
+                this.putTimesheetRows(localStorage.getItem("employeeNumber") || "", this.endDate, this.timesheet)
+                    .subscribe(res => { alert("Timesheet submitted!") });
+            }
         } else {
-            alert("Total timesheet hours must add up to 40.");
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
         }
+    }
+
+    approveTimesheet() {
+        if (this.validateTotalHours()) {
+            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
+                alert("You can only submit or save a timesheet on a Friday!");
+            } else {
+                this.timesheet.statusName = "Approved";
+                this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
+                    .subscribe(res => {
+                        this.employeeNumber = localStorage.getItem("employeeNumber") || "";
+                        this.endDate = this.formatDate();
+                        this.loadTimesheet();
+                        alert("Timesheet approved!");
+                    });
+            }
+        } else {
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
+        }
+    }
+
+    rejectTimesheet() {
+        if (this.validateTotalHours()) {
+            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
+                alert("You can only submit or save a timesheet on a Friday!");
+            } else {
+                this.timesheet.statusName = "Rejected";
+                this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
+                    .subscribe(res => {
+                        this.employeeNumber = localStorage.getItem("employeeNumber") || "";
+                        this.endDate = this.formatDate();
+                        this.loadTimesheet();
+                        alert("Timesheet rejected!");
+                    });
+            }
+        } else {
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
+        }
+    }
+
+    loadProjects() {
+        this.getProjects()
+            .subscribe(
+                projects => this.projects = projects
+            );
+    }
+
+    loadWorkPackages() {
+        this.getWorkPackages()
+            .subscribe(
+                workPackages => this.workPackages = workPackages
+            );
     }
 
     /* CRUD methods to make RESTful calls to the API */
 
-    getTimesheetRows(employeeNumber: string, endDate: string): Observable<TimesheetRow[]> {
+    getTimesheet(employeeNumber: string, endDate: string): Observable<Timesheet> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
+        return this.http.get(AppComponent.url + "/api/Timesheets/" + employeeNumber + "/" + endDate, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                this.timesheet = new Timesheet();
+                this.addTimesheetRow();
+
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
-    deleteTimesheetRows(employeeNumber: string, endDate: string): Observable<TimesheetRow[]> {
+    putTimesheetRows(employeeNumber: string, endDate: string, timesheet: Timesheet): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.delete(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, options)
+        console.log(JSON.stringify(this.timesheet));
+
+        return this.http.put(AppComponent.url + "/api/Timesheets/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
-    postTimesheetRows(employeeNumber: string, endDate: string, timesheet: TimesheetRow[]): Observable<Response> {
+    getProjects(): Observable<Project[]> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
+        return this.http.get(AppComponent.url + "/api/Projects/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
+
     }
 
-    putTimesheetRows(employeeNumber: string, endDate: string, timesheet: TimesheetRow[]): Observable<Response> {
+    getWorkPackages(): Observable<WorkPackage[]> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(AppComponent.url + "/api/TimesheetRows/" + employeeNumber + "/" + endDate, this.timesheet, options)
+        return this.http.get(AppComponent.url + "/api/WorkPackages/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
+
     }
 }
