@@ -15,7 +15,7 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './viewTimesheets.component.html'
 })
 export class ViewTimesheetsComponent {
-    timesheets: Timesheet[] = new Array();
+    timesheets: Object[] = new Array();
 
     constructor(private http: Http, private router: Router) { }
 
@@ -32,6 +32,16 @@ export class ViewTimesheetsComponent {
             return true;
         } else {
             return false;
+        }
+    }
+
+    applyStatusStyling(statusName: string) {
+        if (statusName == "Submitted") {
+            return "submitted-styling";
+        } else if (statusName == "Approved") {
+            return "approved-styling";
+        } else if (statusName == "Rejected") {
+            return "rejected-styling";
         }
     }
 
@@ -69,7 +79,7 @@ export class ViewTimesheetsComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(AppComponent.url + "/api/Timesheets/" + localStorage.getItem("employeeNumber"), options)
+        return this.http.get(AppComponent.url + "/api/Timesheets/Supervisor/" + localStorage.getItem("employeeNumber"), options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 console.log(JSON.stringify(err));

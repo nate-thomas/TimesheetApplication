@@ -1,11 +1,11 @@
-﻿import { WorkPackage } from './workPackages'
+﻿import { WorkPackage } from '../workpackages/workPackages'
 
 export class Project {
     projectNumber: string;
     statusName: string;
     description: string;
     budget: number;
-    workPackages: WorkPackage[] = new Array();
+    workPackages: string[];
 
     constructor() { }
 }

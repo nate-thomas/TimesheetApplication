@@ -16,3 +16,15 @@
         padding-top: 50px;
     }
 }
+
+.submitted-styling {
+    color: cornflowerblue;
+}
+
+.approved-styling {
+    color: green;
+}
+
+.rejected-styling {
+    color: red;
+}

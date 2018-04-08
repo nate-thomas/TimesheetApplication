@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 import { Timesheet } from './timesheets'
 import { TimesheetRow } from './timesheetRows'
 import { Project } from '../../projects/projects'
-import { WorkPackage } from '../../projects/workPackages'
+import { WorkPackage } from '../../workpackages/workPackages'
 import { AppComponent } from '../../app/app.component'
 
 @Component({
@@ -23,8 +23,6 @@ export class TimesheetsTableComponent {
     projects: Project[] = new Array();
     workPackages: WorkPackage[] = new Array();
     employeeNumber: string = localStorage.getItem("employeeNumber") || "";
-    flextime: number = 0;
-    overtime: number = 0;
 
     constructor(private http: Http) { }
 
@@ -136,6 +134,24 @@ export class TimesheetsTableComponent {
         }
     }
 
+    calculateTimesheetHours(timesheetRow: TimesheetRow) {
+        return timesheetRow.saturday +
+               timesheetRow.sunday +
+               timesheetRow.monday +
+               timesheetRow.tuesday +
+               timesheetRow.wednesday +
+               timesheetRow.thursday +
+               timesheetRow.friday;
+    }
+
+    calculateTotalHours() {
+        let totalHours = 0;
+        for (let i = 0; i < this.timesheet.timesheetRows.length; i++) {
+            totalHours += Number((document.getElementById("totalInput" + i) as HTMLInputElement).value);
+        }
+        return totalHours;
+    }
+    
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
@@ -175,6 +191,44 @@ export class TimesheetsTableComponent {
                 this.timesheet.statusName = "Submitted";
                 this.putTimesheetRows(localStorage.getItem("employeeNumber") || "", this.endDate, this.timesheet)
                     .subscribe(res => { alert("Timesheet submitted!") });
+            }
+        } else {
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
+        }
+    }
+
+    approveTimesheet() {
+        if (this.validateTotalHours()) {
+            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
+                alert("You can only submit or save a timesheet on a Friday!");
+            } else {
+                this.timesheet.statusName = "Approved";
+                this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
+                    .subscribe(res => {
+                        this.employeeNumber = localStorage.getItem("employeeNumber") || "";
+                        this.endDate = this.formatDate();
+                        this.loadTimesheet();
+                        alert("Timesheet approved!");
+                    });
+            }
+        } else {
+            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
+        }
+    }
+
+    rejectTimesheet() {
+        if (this.validateTotalHours()) {
+            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
+                alert("You can only submit or save a timesheet on a Friday!");
+            } else {
+                this.timesheet.statusName = "Rejected";
+                this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
+                    .subscribe(res => {
+                        this.employeeNumber = localStorage.getItem("employeeNumber") || "";
+                        this.endDate = this.formatDate();
+                        this.loadTimesheet();
+                        alert("Timesheet rejected!");
+                    });
             }
         } else {
             alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");

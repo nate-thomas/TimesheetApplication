@@ -51,7 +51,7 @@
                 <tr>
                     <th>Project #</th>
                     <th>WP #</th>
-                    <th>Total</th>
+                    <th>Daily Hours</th>
                     <th>Saturday</th>
                     <th>Sunday</th>
                     <th>Monday</th>
@@ -74,7 +74,7 @@
                             <option *ngFor="let workPackage of workPackages" [value]="workPackage.workPackageNumber">{{workPackage.workPackageNumber}}</option>
                         </select>
                     </td>
-                    <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{timesheetRow.saturday + timesheetRow.sunday + timesheetRow.monday + timesheetRow.tuesday+ timesheetRow.wednesday + timesheetRow.thursday + timesheetRow.friday}}" disabled /></td>
+                    <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{calculateTimesheetHours(timesheetRow)}}" disabled /></td>
                     <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="saturday" [(ngModel)]="timesheetRow.saturday" [ngClass]="validateDailyHours(timesheetRow.saturday)" /></td>
                     <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" step="0.25" name="sunday" [(ngModel)]="timesheetRow.sunday" [ngClass]="validateDailyHours(timesheetRow.sunday)" /></td>
                     <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" step="0.25" name="monday" [(ngModel)]="timesheetRow.monday" [ngClass]="validateDailyHours(timesheetRow.monday)" /></td>
@@ -90,20 +90,8 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td style="font-weight: bold">Flextime:</td>
-                    <td><input disabled value="{{flextime}}" style="width: 75px;" /></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td style="font-weight: bold">Overtime:</td>
-                    <td><input disabled value="{{overtime}}" style="width: 75px;" /></td>
+                    <td style="font-weight: bold">Timesheet Hours:</td>
+                    <td><input value="{{calculateTotalHours()}}" style="width: 75px;" disabled/></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -128,21 +116,21 @@
     <div class="row visible-xs visible-sm">
         <br />
         <div class="row">
-            <p id="approvalStatusSmall">Approval Status: <strong>{{timesheet.statusName}}</strong></p>
+            <p id="approvalStatusSmall">Timesheet Status: <strong>{{timesheet.statusName}}</strong></p>
         </div>
         <div class="row" *ngIf="checkSupervisorAndEmployeeId()">
-            <button id="rejectTimesheetButtonLarge">Reject</button>
-            <button id="approveTimesheetButtonSmall">Approve</button>
+            <button id="rejectTimesheetButtonLarge" (click)="rejectTimesheet()">Reject</button>
+            <button id="approveTimesheetButtonSmall" (click)="approveTimesheet()">Approve</button>
         </div>
     </div>
     <!-- md, lg, xl view -->
     <div class="row hidden-xs hidden-sm">
         <div class="col-md-6">
-            <p id="approvalStatusLarge">Approval Status: <strong>{{timesheet.statusName}}</strong></p>
+            <p id="approvalStatusLarge">Timesheet Status: <strong>{{timesheet.statusName}}</strong></p>
         </div>
         <div class="col-md-6" *ngIf="checkSupervisorAndEmployeeId()">
-            <button id="rejectTimesheetButtonLarge" class="pull-right">Reject</button>
-            <button id="approveTimesheetButtonSmall" class="pull-right">Approve</button>
+            <button id="rejectTimesheetButtonLarge" class="pull-right" (click)="rejectTimesheet()">Reject</button>
+            <button id="approveTimesheetButtonSmall" class="pull-right" (click)="approveTimesheet()">Approve</button>
         </div>
     </div>
 
