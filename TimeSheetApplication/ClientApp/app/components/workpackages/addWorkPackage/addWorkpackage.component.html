@@ -1,0 +1,87 @@
+﻿
+<div class="body">
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='body-content'>
+
+
+                <div class="component-content">
+
+                    <div align="center">
+                        <h2>Creating New Workpackage</h2>
+                    </div>
+
+
+                    <div>
+                        <form (ngSubmit)="addWorkpackage()">
+                            <!-- xs, sm -->
+                            <div class="visible-xs visible-sm">
+                                <div class="row inputBox center">
+                                    <div class="col-xs-12">
+                                        projectNumber
+                                        <br />
+                                        <select name="projectNumber" [(ngModel)]="workpackageSubmission.projectNumber">
+                                            <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        workpackageNumber
+                                        <br />
+                                        <input id="firstNameInputSmall" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.workpackageNumber" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        description
+                                        <br />
+                                        <input id="lastNameInputSmall" type="text" name="decription" [(ngModel)]="workpackageSubmission.description" />
+                                    </div>
+                                </div>
+
+                                <br />
+                                <button id="addEmployeeButtonSmall">Add Employee</button>
+                                <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+                            </div>
+
+                            <!-- md, lg, xl-->
+                            <div class="hidden-xs hidden-sm">
+                                <div class="row inputBox">
+                                    <div class="col-md-6" align="center">
+                                        projectNumber
+                                        <br />
+                                        <select name="projectNumber" [(ngModel)]="workpackageSubmission.projectNumber">
+                                            <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        work package
+                                        <br />
+                                        <input id="supervisorNumberInputLarge" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.workpackageNumber" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-md-6" align="center">
+                                        Description
+                                        <br />
+                                        <input id="firstNameInputLarge" type="text" name="decription" [(ngModel)]="workpackageSubmission.description" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+
+                                </div>
+                                <div class="buttons" align="center">
+                                    <button id="addEmployeeButtonLarge" align="center" ng-click="()">Add Employee</button>
+                                    <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+                                    <!--<button id="clearEmployeePropertiesLarge" (click)="clearProperties()">Cancel</button>-->
+                                </div>
+                            </div>
+                            <br />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,6 +19,7 @@ import { AddProjectComponent } from './components/projects/addProject/addProject
 import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
 import { WorkpackageComponent } from './components/workpackages/workpackages.component';
 import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
+import { AddWorkpackageComponent } from './components/workpackages/addWorkPackage/addWorkpackage.component';
 
 @NgModule({
     declarations: [
@@ -36,8 +37,8 @@ import { ManageProjectsComponent } from './components/projects/manageProjects/ma
         ProjectsTableComponent,
         AddProjectComponent,
         ManageProjectsComponent,
-        WorkpackageComponent
-
+        WorkpackageComponent,
+        AddWorkpackageComponent
     ],
     imports: [
         CommonModule,
