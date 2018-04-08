@@ -2,9 +2,13 @@
     <form (ngSubmit)="loadTimesheet()">
         <table>
             <tr style="padding-bottom:10px;" class="input-row">
+                <td style="padding-right: 10px;" *ngIf="checkSupervisorRole()">Employee Number:</td>
+                <td><input id="employeeNumberInput" class="input-top" type="text" name="employeeNumber" [(ngModel)]="employeeNumber" value="{{employeeNumber}}" *ngIf="checkSupervisorRole()"/></td>
+            </tr>
+            <tr style="padding-bottom:10px;" class="input-row">
                 <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
                 <td><input id="endDateInput" class="input-top" type="text" name="endDate" [(ngModel)]="endDate" value="{{endDate}}" /><br /></td>
-                <td style="padding-left:10px" rowspan="2">
+                <td style="padding-left:10px" rowspan="2" colspan="2">
                     <button id="loadTimesheetButton" class="btn-icon">
                         <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
                     </button>
@@ -55,6 +59,7 @@
                     <th>Wednesday</th>
                     <th>Thursday</th>
                     <th>Friday</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -123,10 +128,11 @@
     <div class="row visible-xs visible-sm">
         <br />
         <div class="row">
-            <p id="approvalStatusSmall">Approval Status: <strong>Not Approved</strong></p>
+            <p id="approvalStatusSmall">Approval Status: <strong>{{timesheet.statusName}}</strong></p>
         </div>
-        <div class="row">
-            <button id="signTimesheetButton">Sign Timesheet</button>
+        <div class="row" *ngIf="checkSupervisorAndEmployeeId()">
+            <button id="rejectTimesheetButtonLarge">Reject</button>
+            <button id="approveTimesheetButtonSmall">Approve</button>
         </div>
     </div>
     <!-- md, lg, xl view -->
@@ -134,8 +140,9 @@
         <div class="col-md-6">
             <p id="approvalStatusLarge">Approval Status: <strong>{{timesheet.statusName}}</strong></p>
         </div>
-        <div class="col-md-6 ">
-            <button id="signTimesheetButton" class="pull-right">Sign Timesheet</button>
+        <div class="col-md-6" *ngIf="checkSupervisorAndEmployeeId()">
+            <button id="rejectTimesheetButtonLarge" class="pull-right">Reject</button>
+            <button id="approveTimesheetButtonSmall" class="pull-right">Approve</button>
         </div>
     </div>
 

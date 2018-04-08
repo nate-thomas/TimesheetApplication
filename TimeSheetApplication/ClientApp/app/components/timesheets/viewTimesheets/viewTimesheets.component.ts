@@ -25,6 +25,16 @@ export class ViewTimesheetsComponent {
         this.loadTimesheets();
     }
 
+    /* Utiilty methods */
+
+    validateSupervisorRole() {
+        if (localStorage.getItem("role") == "Supervisor") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheets() {
@@ -34,9 +44,28 @@ export class ViewTimesheetsComponent {
             );
     }
 
+    loadSupervisorTimesheets() {
+        this.getSupervisorTimesheets()
+            .subscribe(
+                (timesheets: any) => this.timesheets = timesheets
+            );
+    }
+
     /* CRUD methods to make RESTful calls to the API */
 
     getTimesheets() {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Timesheets/" + localStorage.getItem("employeeNumber"), options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
+    getSupervisorTimesheets() {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 

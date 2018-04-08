@@ -1,6 +1,11 @@
 ﻿<div class="component-content">
     <!-- Table Body -->
     <div class="table-responsive">
+        <div class="buttons" *ngIf="validateSupervisorRole()">
+            <button (click)="loadTimesheets()">View Own Timesheets</button>
+            <button (click)="loadSupervisorTimesheets()">View Timesheets Needing Approval</button>
+        </div>
+        <br />
         <table class="table table-hover">
             <thead>
                 <tr>

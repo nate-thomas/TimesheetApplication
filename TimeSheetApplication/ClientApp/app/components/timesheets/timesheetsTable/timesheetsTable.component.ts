@@ -22,6 +22,7 @@ export class TimesheetsTableComponent {
     weekNumber: number = this.getWeekNumber(this.endDate);
     projects: Project[] = new Array();
     workPackages: WorkPackage[] = new Array();
+    employeeNumber: string = localStorage.getItem("employeeNumber") || "";
     flextime: number = 0;
     overtime: number = 0;
 
@@ -104,7 +105,7 @@ export class TimesheetsTableComponent {
     }
 
     validateStatus() {
-        if (this.timesheet.statusName == "Draft") {
+        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
             return true;
         } else {
             return false;
@@ -119,14 +120,36 @@ export class TimesheetsTableComponent {
         }
     }
 
+    checkSupervisorRole() {
+        if (localStorage.getItem("role") == "Supervisor") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    checkSupervisorAndEmployeeId() {
+        if (localStorage.getItem("role") == "Supervisor" && this.timesheet.employeeNumber != localStorage.getItem("employeeNumber")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
-        this.workPackages = new Array();
-        this.getTimesheet(localStorage.getItem("employeeNumber") || "", this.endDate)
-            .subscribe(
+        if (localStorage.getItem("role") == "Supervisor") {
+            this.getTimesheet(this.employeeNumber, this.endDate)
+                .subscribe(
                 timesheet => this.timesheet = timesheet
-        );
+                );
+        } else {
+            this.getTimesheet(localStorage.getItem("employeeNumber") || "", this.endDate)
+                .subscribe(
+                timesheet => this.timesheet = timesheet
+                );
+        }
         this.weekNumber = this.getWeekNumber(this.endDate);
     }
 
