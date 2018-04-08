@@ -7,7 +7,7 @@
             </tr>
             <tr style="padding-bottom:10px;" class="input-row">
                 <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
-                <td><input id="endDateInput" class="input-top" type="text" name="endDate" [(ngModel)]="endDate" value="{{endDate}}" /><br /></td>
+                <td><input id="endDateInput" class="input-top" type="text" name="endDate" [(ngModel)]="endDate" value="{{endDate}}"/><br /></td>
                 <td style="padding-left:10px" rowspan="2" colspan="2">
                     <button id="loadTimesheetButton" class="btn-icon">
                         <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
@@ -65,13 +65,13 @@
             <tbody>
                 <tr *ngFor="let timesheetRow of timesheet.timesheetRows; let i = index">
                     <td>
-                        <select name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)">
+                        <select id="{{'projectNumberSelect' + i}}" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)">
                             <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
                         </select>
                     </td>
                     <td>
-                        <select name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" [ngClass]="validateInput(timesheetRow.workPackageNumber)">
-                            <option *ngFor="let workPackage of workPackages" [value]="workPackage.workPackageNumber">{{workPackage.workPackageNumber}}</option>
+                        <select id="{{'workPackageNumberSelect' + i}}" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" [ngClass]="validateInput(timesheetRow.workPackageNumber)">
+                            <option *ngFor="let workPackageNumber of projectWorkPackageMap[timesheetRow.projectNumber]" [value]="workPackageNumber">{{workPackageNumber}}</option>
                         </select>
                     </td>
                     <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{calculateTimesheetHours(timesheetRow)}}" disabled /></td>
@@ -82,7 +82,7 @@
                     <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="wednesday" [(ngModel)]="timesheetRow.wednesday" [ngClass]="validateDailyHours(timesheetRow.wednesday)" /></td>
                     <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="thursday" [(ngModel)]="timesheetRow.thursday" [ngClass]="validateDailyHours(timesheetRow.thursday)" /></td>
                     <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" step="0.25" name="friday" [(ngModel)]="timesheetRow.friday" [ngClass]="validateDailyHours(timesheetRow.friday)" /></td>
-                    <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" *ngIf="validateStatus()" style="text-align: center;">x</button></td>
+                    <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" *ngIf="checkStatus()" style="text-align: center;">x</button></td>
                 </tr>
                 <tr></tr>
                 <tr>
@@ -104,7 +104,7 @@
         </table>
     </div>
     <br />
-    <div *ngIf="validateStatus()">
+    <div *ngIf="checkStatus()">
         <button id="addTimesheetRowButton" class="btn-newRow" (click)="addTimesheetRow()">Add New Row</button>
         <button id="submitTimesheetButton" class="pull-right" (click)="submitTimesheet()">Submit</button>
         <button id="saveTimesheetButton" class="pull-right" (click)="saveTimesheet()">Save</button>

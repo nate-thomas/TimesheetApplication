@@ -45,6 +45,10 @@ export class ViewTimesheetsComponent {
         }
     }
 
+    formatDate(endDate: string) {
+        return endDate.substring(0, 10);
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheets() {

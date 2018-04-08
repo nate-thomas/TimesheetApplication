@@ -17,7 +17,7 @@
             <tbody>
                 <tr *ngFor="let timesheet of timesheets; let i = index">
                     <td id="{{'timesheetNumber' + i}}">{{timesheet.employeeNumber}}</td>
-                    <td id="{{'timesheetEndDate' + i}}">{{timesheet.endDate}}</td>
+                    <td id="{{'timesheetEndDate' + i}}">{{formatDate(timesheet.endDate)}}</td>
                     <td id="{{'timesheetStatus' + i}}" [ngClass]="applyStatusStyling(timesheet.statusName)">{{timesheet.statusName}}</td>
                 </tr>
                 <tr></tr>
