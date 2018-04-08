@@ -123,8 +123,6 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest("InsertOrUpdateTimesheet: inconsistent timesheet employee number and/or end date");
             }
 
-            // TODO: If any timesheet row's employee number and end date is inconsistent, return bad request
-
             var existingTimesheet = await _context.Timesheets
                 .Include(t => t.TimesheetRows)
                 .FirstOrDefaultAsync(t => t.EmployeeNumber == employeeNumber && t.EndDate == endDate);
