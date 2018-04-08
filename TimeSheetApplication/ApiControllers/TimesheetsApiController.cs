@@ -71,6 +71,39 @@ namespace TimeSheetApplication.ApiControllers
             return Ok(timesheet);
         }
 
+
+        // GET: api/Timeseets/Supervisor/1000005
+        [HttpGet("Supervisor/{employeeNumber}")]
+        public async Task<IActionResult> GetSupervisorTimesheetsByEmployeeNumber([FromRoute] string employeeNumber)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var timesheets = _context.Employees
+                .Where(e => e.SupervisorNumber == employeeNumber)
+                .Join(_context.Timesheets,
+                    e => e.EmployeeNumber,
+                    t => t.EmployeeNumber,
+                    (e, t) => new
+                    {
+                        t.EmployeeNumber,
+                        t.StatusName,
+                        t.EndDate
+                })
+                .Where(t => t.StatusName == "Submitted" || t.StatusName == "Approved")
+                .OrderByDescending(t => t.StatusName)
+                .ThenByDescending(t => t.EndDate);
+
+            if (timesheets == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(timesheets);
+        }
+
         // PUT: api/Timesheets/1000010/2018-02-09
         [HttpPut("{employeeNumber}/{endDate}")]
         public async Task<IActionResult> InsertOrUpdateTimesheet([FromRoute] string employeeNumber, DateTime endDate, [FromBody] Timesheet timesheet)
@@ -89,8 +122,6 @@ namespace TimeSheetApplication.ApiControllers
             {
                 return BadRequest("InsertOrUpdateTimesheet: inconsistent timesheet employee number and/or end date");
             }
-
-            // TODO: If any timesheet row's employee number and end date is inconsistent, return bad request
 
             var existingTimesheet = await _context.Timesheets
                 .Include(t => t.TimesheetRows)

@@ -1,11 +1,9 @@
 ﻿<div class="component-content">
-    <!-- Temporary Input and Button to load an employee -->
     <table>
         <tr>
             <td style="padding-right: 10px;">Employee Number:</td>
             <td><input id="employeeNumberInput" type="text" #employeeNumber /><br /></td>
             <td style="padding-left:10px" rowspan="2">
-                <!-- change this to load employee info-->
                 <button id="loadEmployeeInfoButton" class="btn-icon" (click)="loadEmployee(employeeNumber.value)">
                     <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
                 </button>
@@ -36,7 +34,6 @@
         </div>
     </div>
 
-
     <!-- Table Body -->
     <div class="table-responsive">
         <table class="table table-hover">
@@ -45,6 +42,8 @@
                     <th>Employee ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Initials</th>
+                    <th>Role</th>
                     <th>Labour Grade</th>
                     <th>Supervisor</th>
                     <th></th>
@@ -55,6 +54,8 @@
                     <td id="{{'eployeeNumberOutput' + i}}">{{employee.employeeNumber}}</td>
                     <td id="{{'firstNameOutput' + i}}">{{employee.firstName}}</td>
                     <td id="{{'lastNameOutput' + i}}">{{employee.lastName}}</td>
+                    <td id="{{'employeeIntialsOutput' + i}}">{{employee.employeeIntials}}</td>
+                    <td id="{{'roleOutput' + i}}">{{employee.role}}</td>
                     <td id="{{'gradeOutput' + i}}">{{employee.grade}}</td>
                     <td id="{{'supervisorNumberOutput' + i}}">{{employee.supervisorNumber}}</td>
                 </tr>
@@ -63,7 +64,6 @@
 
         </table>
         <br />
-        <!--<button (click)="printProperties()">Print to Console</button>-->
     </div>
 
 
@@ -77,5 +77,4 @@
             </div>
         </div>
     </div>
-
 </div>

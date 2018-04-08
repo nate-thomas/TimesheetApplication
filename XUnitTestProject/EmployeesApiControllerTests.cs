@@ -21,14 +21,27 @@ namespace XUnitTestProject1
         [Fact]
         public void GetListOfAllEmployeesTest()
         {
+            IList<string> roles = new List<string>() { "role1" };
+            var employees = testEmployees;
+
             var dbContext = new Mock<IDbContext>();
             var mockList = MockDbSet(testEmployees);
             dbContext.Setup(c => c.Employees).Returns(mockList.Object);
 
-            var controller = new EmployeesApiController(dbContext.Object, null, null);
-            var resultList = controller.GetAll().ToList();
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            for (int i = 0; i < employees.Count; i++)
+            {
+                var user = GetApplicationUser();
+                userManager.Setup(x => x.FindByNameAsync(employees[i].EmployeeNumber)).Returns(Task.FromResult(user));
+                userManager.Setup(y => y.GetRolesAsync(user)).Returns(Task.FromResult(roles));
+            }
 
-            Assert.Equal(5, resultList.Count);
+            var controller = new EmployeesApiController(dbContext.Object, userManager.Object, null);
+            var result = controller.GetAll();
+
+            Assert.NotNull(result);
+            Assert.IsType<ObjectResult>(result.Result);
         }
 
         [Theory]
@@ -80,7 +93,7 @@ namespace XUnitTestProject1
             Assert.IsType<NotFoundResult>(result.Result);
         }
 
-        [Fact(Skip = "Cannot mock method call using a local variable as an argument")]
+        [Fact(Skip = "Mock issue")]
         public void CreateEmployee_SuccessfulTest()
         {
             EmployeeViewModel emp = new EmployeeViewModel
@@ -94,20 +107,20 @@ namespace XUnitTestProject1
                 Password = "x",
                 ConfirmPassword = "x"
             };
-            ApplicationUser user1 = null;
-            ApplicationUser user2 = new ApplicationUser();
+            ApplicationUser user2 = null;
+            ApplicationUser user = new ApplicationUser() { UserName = emp.EmployeeNumber };
             IdentityRole role = new IdentityRole();
             ApplicationUser supervisor = new ApplicationUser();
             IdentityResult iResult = IdentityResult.Success;
 
             var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
             var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
-            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user1));
+            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user2));
             userManager.Setup(z => z.FindByNameAsync(emp.supervisorNumber)).Returns(Task.FromResult(supervisor));
-            //Line 125 in the controller; can't mock the CreateAsync call with a local parameter
-            userManager.Setup(p => p.CreateAsync(new ApplicationUser())).Returns(Task.FromResult(iResult));
-            userManager.Setup(j => j.AddPasswordAsync(user1, emp.Password)).Returns(Task.FromResult(IdentityResult.Success));
-            userManager.Setup(n => n.AddToRoleAsync(user1, role.Name)).Returns(Task.FromResult(IdentityResult.Success));
+            //Line 147 in the controller; can't mock the CreateAsync call with a local parameter
+            userManager.Setup(p => p.CreateAsync(user)).Returns(Task.FromResult(iResult));
+            userManager.Setup(j => j.AddPasswordAsync(user, emp.Password)).Returns(Task.FromResult(IdentityResult.Success));
+            userManager.Setup(n => n.AddToRoleAsync(user, role.Name)).Returns(Task.FromResult(IdentityResult.Success));
 
             var mockRoleStore = new Mock<IRoleStore<IdentityRole>>();
             var roleManager = new Mock<RoleManager<IdentityRole>>(mockRoleStore.Object, null, null, null, null);
@@ -358,6 +371,11 @@ namespace XUnitTestProject1
             dbSetMock.As<IQueryable<T>>().Setup(x => x.GetEnumerator()).Returns(() => queryableList.GetEnumerator());
 
             return dbSetMock;
+        }
+
+        private ApplicationUser GetApplicationUser()
+        {
+            return new ApplicationUser();
         }
     }
 }

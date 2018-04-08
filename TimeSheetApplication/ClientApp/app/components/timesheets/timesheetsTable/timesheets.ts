@@ -1,14 +1,11 @@
 ﻿import { Employee } from '../../employees/employees'
 import { TimesheetRow } from './timesheetRows'
-import { TimesheetStatus } from './timesheetStatus'
 
 export class Timesheet {
-    employeeNumber: string;
-    statusName: string;
+    employeeNumber: string = localStorage.getItem("employeeNumber") || "";;
+    statusName: string = "Draft";
     endDate: string;
-    employee: Employee;
-    timesheetStatus: TimesheetStatus;
-    timesheetRows: TimesheetRow[];
+    timesheetRows: TimesheetRow[] = new Array();
 
     constructor() { }
 }

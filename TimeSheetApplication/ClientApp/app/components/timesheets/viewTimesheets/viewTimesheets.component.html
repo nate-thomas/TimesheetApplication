@@ -1,0 +1,29 @@
+﻿<div class="component-content">
+    <!-- Table Body -->
+    <div class="table-responsive">
+        <div class="buttons" *ngIf="validateSupervisorRole()">
+            <button (click)="loadTimesheets()">View Own Timesheets</button>
+            <button (click)="loadSupervisorTimesheets()">View Timesheets Needing Approval</button>
+        </div>
+        <br />
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Employee Number</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let timesheet of timesheets; let i = index">
+                    <td id="{{'timesheetNumber' + i}}">{{timesheet.employeeNumber}}</td>
+                    <td id="{{'timesheetEndDate' + i}}">{{formatDate(timesheet.endDate)}}</td>
+                    <td id="{{'timesheetStatus' + i}}" [ngClass]="applyStatusStyling(timesheet.statusName)">{{timesheet.statusName}}</td>
+                </tr>
+                <tr></tr>
+            </tbody>
+        </table>
+        <br />
+        <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+    </div>
+</div>
