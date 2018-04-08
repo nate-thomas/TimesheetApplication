@@ -12,6 +12,7 @@ using TimeSheetApplication.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.System.Collections.Sequences;
 using TimeSheetApplication.ViewModels;
+using System;
 
 namespace XUnitTestProject1
 {
@@ -79,22 +80,50 @@ namespace XUnitTestProject1
             Assert.IsType<NotFoundResult>(result.Result);
         }
 
-        //[Fact(Skip ="exception")]
-        //public void CreateEmployeeTest()
-        //{
-        //    Employee emp = testEmployees[0];
-        //    var dbContext = new Mock<IDbContext>();
-        //    //var mockList = MockDbSet(testEmployees);
-        //    //dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+        [Fact(Skip = "Cannot mock method call using a local variable as an argument")]
+        public void CreateEmployee_SuccessfulTest()
+        {
+            EmployeeViewModel emp = new EmployeeViewModel
+            {
+                EmployeeNumber = "1000",
+                FirstName = "Henrik",
+                LastName = "Sedin",
+                Grade = "P1",
+                EmployeeIntials = "HS",
+                supervisorNumber = "10000",
+                Password = "x",
+                ConfirmPassword = "x"
+            };
+            ApplicationUser user1 = null;
+            ApplicationUser user2 = new ApplicationUser();
+            IdentityRole role = new IdentityRole();
+            ApplicationUser supervisor = new ApplicationUser();
+            IdentityResult iResult = IdentityResult.Success;
 
-        //    var controller = new EmployeesApiController(dbContext.Object);
-        //    //Problem: NullReferenceException when the call to CreateEmployee
-        //    //Possible Solution: in dbContext.Setup, make the method calls inside CreateEmployee be successful
-        //    var result = controller.CreateEmployee(emp);
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user1));
+            userManager.Setup(z => z.FindByNameAsync(emp.supervisorNumber)).Returns(Task.FromResult(supervisor));
+            //Line 125 in the controller; can't mock the CreateAsync call with a local parameter
+            userManager.Setup(p => p.CreateAsync(user2)).Returns(Task.FromResult(iResult));
+            userManager.Setup(j => j.AddPasswordAsync(user1, emp.Password)).Returns(Task.FromResult(IdentityResult.Success));
+            userManager.Setup(n => n.AddToRoleAsync(user1, role.Name)).Returns(Task.FromResult(IdentityResult.Success));
 
-        //    Assert.NotNull(result);
-        //    Assert.IsType<CreatedAtRouteResult>(result);
-        //}
+            var mockRoleStore = new Mock<IRoleStore<IdentityRole>>();
+            var roleManager = new Mock<RoleManager<IdentityRole>>(mockRoleStore.Object, null, null, null, null);
+            roleManager.Setup(y => y.FindByNameAsync(emp.Role)).Returns(Task.FromResult(role));
+
+            var dbContext = new Mock<IDbContext>();
+            var mockList = MockDbSet(testEmployees);
+            dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+
+            var controller = new EmployeesApiController(dbContext.Object, userManager.Object, roleManager.Object);
+
+            var result = controller.CreateEmployee(emp);
+
+            Assert.NotNull(result);
+            Assert.IsType<CreatedAtRouteResult>(result.Result);
+        }
 
         [Fact]
         public void CreateEmployee_WhenModelStateIsInvalid()
@@ -118,6 +147,197 @@ namespace XUnitTestProject1
             var controller = new EmployeesApiController(null, null, null);
 
             var result = controller.CreateEmployee(emp);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.Equal(expected, badRequestResult.Value);
+        }
+
+        [Fact]
+        public void CreateEmployee_WhenSupervisorNumberIsInvalid()
+        {
+            string expected = "Invalid Supervisor Number";
+            EmployeeViewModel emp = new EmployeeViewModel { supervisorNumber = "invalid", Password = "x", ConfirmPassword = "x" };
+            ApplicationUser user = new ApplicationUser();
+            IdentityRole role = new IdentityRole();
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user));
+
+            var mockRoleStore = new Mock<IRoleStore<IdentityRole>>();
+            var roleManager = new Mock<RoleManager<IdentityRole>>(mockRoleStore.Object, null, null, null, null);
+            roleManager.Setup(y => y.FindByNameAsync(emp.Role)).Returns(Task.FromResult(role));
+
+            var controller = new EmployeesApiController(null, userManager.Object, roleManager.Object);
+            var result = controller.CreateEmployee(emp);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.Equal(expected, badRequestResult.Value);
+        }
+
+        [Fact]
+        public void CreateEmployee_WhenRoleIsInvalid()
+        {
+            string expected = "Invalid Role";
+            EmployeeViewModel emp = new EmployeeViewModel { Password = "x", ConfirmPassword = "x" };
+            ApplicationUser user = null;
+            IdentityRole role = null;
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user));
+
+            var mockRoleStore = new Mock<IRoleStore<IdentityRole>>();
+            var roleManager = new Mock<RoleManager<IdentityRole>>(mockRoleStore.Object, null, null, null, null);
+            roleManager.Setup(y => y.FindByNameAsync(emp.Role)).Returns(Task.FromResult(role));
+
+            var controller = new EmployeesApiController(null, userManager.Object, roleManager.Object);
+            var result = controller.CreateEmployee(emp);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.Equal(expected, badRequestResult.Value);
+        }
+
+        [Fact]
+        public void CreateEmployee_WhenEmployeeAlreadyExists()
+        {
+            string expected = "Employee already exists";
+            EmployeeViewModel emp = new EmployeeViewModel { Password = "x", ConfirmPassword = "x" };
+            ApplicationUser user = new ApplicationUser();
+            IdentityRole role = new IdentityRole();
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user));
+
+            var mockRoleStore = new Mock<IRoleStore<IdentityRole>>();
+            var roleManager = new Mock<RoleManager<IdentityRole>>(mockRoleStore.Object, null, null, null, null);
+            roleManager.Setup(y => y.FindByNameAsync(emp.Role)).Returns(Task.FromResult(role));
+
+            var controller = new EmployeesApiController(null, userManager.Object, roleManager.Object);
+            var result = controller.CreateEmployee(emp);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.Equal(expected, badRequestResult.Value);
+        }
+
+        [Fact]
+        public void UpdateEmployeeRole_WhenModelStateIsInvalid()
+        {
+            long empNumber = 1000001;
+            var controller = new EmployeesApiController(null, null, null);
+            //Add error to ModelState error count
+            controller.ModelState.AddModelError("key", "error message");
+
+            var result = controller.UpdateEmployeeRole(empNumber, null);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.IsType<SerializableError>(badRequestResult.Value);
+        }
+
+        [Fact]
+        public void UpdateEmployeeRole_WhenEmployeeNumbersDoNotMatch()
+        {
+            long empNumber = 1000001;
+            Employee emp = new Employee { EmployeeNumber = "1000002" };
+            var controller = new EmployeesApiController(null, null, null);
+
+            var result = controller.UpdateEmployeeRole(empNumber, emp);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.IsType<SerializableError>(badRequestResult.Value);
+        }
+
+        [Fact]
+        public void UpdateEmployeeRole_WhenEmployeeNotFound()
+        {
+            Employee emp = new Employee { EmployeeNumber = "1000001" };
+            long empNumber = 1000001;
+            ApplicationUser user = new ApplicationUser();
+
+            var dbContext = new Mock<IDbContext>();
+            var mockList = MockDbSet(testEmployees);
+            dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user));
+
+            var controller = new EmployeesApiController(dbContext.Object, userManager.Object, null);
+
+            var result = controller.UpdateEmployeeRole(empNumber, emp);
+
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
+
+        [Fact(Skip = "Cannot mock FirstOrDefault (i.e. any extension method)")]
+        public void UpdateEmployeeRole_Successful()
+        {
+            Employee emp = new Employee {
+                //FirstName = "Daniel",
+                //LastName = "Sedin",
+                //LaborGrade = new LaborGrade(),
+                //Grade = "P1",
+                //EmployeeIntials
+            };
+            long empNumber = 1000021;
+            ApplicationUser user = new ApplicationUser();
+
+            var dbContext = new Mock<IDbContext>();
+            var mockList = MockDbSet(testEmployees);
+            dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+            dbContext.Setup(c => c.Employees.FirstOrDefault(x => String.Equals(emp.EmployeeNumber, empNumber.ToString()))).Returns(emp);
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user));
+
+            var controller = new EmployeesApiController(dbContext.Object, userManager.Object, null);
+
+            var result = controller.UpdateEmployeeRole(empNumber, emp);
+
+            Assert.IsType<NoContentResult>(result.Result);
+        }
+
+        [Fact]
+        public void Update_WhenModelStateIsInvalid()
+        {
+            long empNumber = 1000001;
+            string empRole = "role";
+
+            var controller = new EmployeesApiController(null, null, null);
+            controller.ModelState.AddModelError("key", "error message");
+
+            var result = controller.Update(empNumber, empRole);
+
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.IsType<SerializableError>(badRequestResult.Value);
+        }
+
+        [Fact]
+        public void Update_WhenEmployeeNotFound()
+        {
+            long empNumber = 1000001;
+            string empRole = "role";
+            ApplicationUser user = new ApplicationUser();
+            IdentityRole role = new IdentityRole();
+            string expected = "Employee not found";
+
+            var dbContext = new Mock<IDbContext>();
+            var mockList = MockDbSet(testEmployees);
+            dbContext.Setup(c => c.Employees).Returns(mockList.Object);
+
+            var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
+            var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManager.Setup(x => x.FindByNameAsync(empNumber.ToString())).Returns(Task.FromResult(user));
+
+            var mockRoleStore = new Mock<IRoleStore<IdentityRole>>();
+            var roleManager = new Mock<RoleManager<IdentityRole>>(mockRoleStore.Object, null, null, null, null);
+            roleManager.Setup(y => y.FindByNameAsync(empRole)).Returns(Task.FromResult(role));
+
+            var controller = new EmployeesApiController(dbContext.Object, userManager.Object, roleManager.Object);
+
+            var result = controller.Update(empNumber, empRole);
 
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result.Result);
             Assert.Equal(expected, badRequestResult.Value);

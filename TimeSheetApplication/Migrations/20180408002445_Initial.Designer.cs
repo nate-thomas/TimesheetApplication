@@ -11,8 +11,8 @@ using TimeSheetApplication.Data;
 namespace TimeSheetApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180406071131_initDB")]
-    partial class initDB
+    [Migration("20180408002445_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
