@@ -28,11 +28,3 @@ addons:
     packages:
     - dotnet-hostfxr-1.0.1
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
-
-deploy:
-  provider: azure_web_apps
-  on: 
-    branch: master
-  username: username       # If AZURE_WA_USERNAME isn't set
-  password: password
-  site: TimesheetApplication
