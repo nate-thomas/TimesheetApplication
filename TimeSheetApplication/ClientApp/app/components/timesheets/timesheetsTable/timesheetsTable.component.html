@@ -65,12 +65,12 @@
             <tbody>
                 <tr *ngFor="let timesheetRow of timesheet.timesheetRows; let i = index">
                     <td>
-                        <select name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)">
+                        <select id="{{'projectNumberSelect' + i}}" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)">
                             <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
                         </select>
                     </td>
                     <td>
-                        <select name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" [ngClass]="validateInput(timesheetRow.workPackageNumber)">
+                        <select id="{{'workPackageNumberSelect' + i}}" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" [ngClass]="validateInput(timesheetRow.workPackageNumber)">
                             <option *ngFor="let workPackageNumber of projectWorkPackageMap[timesheetRow.projectNumber]" [value]="workPackageNumber">{{workPackageNumber}}</option>
                         </select>
                     </td>
