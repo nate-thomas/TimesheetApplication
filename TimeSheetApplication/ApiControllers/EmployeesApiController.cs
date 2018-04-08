@@ -35,9 +35,31 @@ namespace TimeSheetApplication.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Employee> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return _context.Employees.ToList();
+            List<EmployeeViewModel> employeesList = new List<EmployeeViewModel>();
+            var employee = _context.Employees.ToArray<Employee>();
+            foreach (Employee emp in employee)
+            {
+
+                var appUser = await _userManager.FindByNameAsync(emp.EmployeeNumber);
+                var userRole = await _userManager.GetRolesAsync(appUser);
+
+                EmployeeViewModel temp = new EmployeeViewModel
+                {
+                    EmployeeNumber = emp.EmployeeNumber,
+                    FirstName = emp.FirstName,
+                    LastName = emp.LastName,
+                    Grade = emp.Grade,
+                    EmployeeIntials = emp.EmployeeIntials,
+                    Password = "",
+                    ConfirmPassword = "",
+                    Role = userRole[0],
+                    supervisorNumber = emp.SupervisorNumber
+                };
+                employeesList.Add(temp);
+            }
+            return new ObjectResult(employeesList);
         }
 
         [HttpGet("{empNumber}", Name = "GetByEmployeeNumber")]
