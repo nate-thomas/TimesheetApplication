@@ -18,11 +18,12 @@ import { AppComponent } from '../../app/app.component'
 })
 export class TimesheetsTableComponent {
     timesheet: Timesheet = new Timesheet();
-    endDate: string = this.formatDate();
+    endDate: string = this.formatDate(new Date);
     weekNumber: number = this.getWeekNumber(this.endDate);
     projects: Project[] = new Array();
     workPackages: WorkPackage[] = new Array();
     employeeNumber: string = localStorage.getItem("employeeNumber") || "";
+    projectWorkPackageMap: { [index: string]: any } = {};
 
     constructor(private http: Http) { }
 
@@ -56,10 +57,15 @@ export class TimesheetsTableComponent {
         return Math.ceil(dayOfYear / 7);
     }
 
-    formatDate() {
-        let currentDate = new Date();
+    formatDate(date: Date) {
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    }
 
-        return currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate();
+    checkEndDate() {
+        var dayOfWeek = 5;
+        var currentDate = new Date(this.endDate);
+        currentDate.setDate(currentDate.getDate() + (dayOfWeek + 7 - currentDate.getDay()) % 7);
+        this.endDate = this.formatDate(currentDate);
     }
 
     validateDailyHours(hour: number) {
@@ -102,19 +108,19 @@ export class TimesheetsTableComponent {
         }
     }
 
-    validateStatus() {
-        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     validateInput(input: string) {
         if (input == undefined || input == null || input == "") {
             return 'timesheet-input invalid-input';
         } else {
             return 'timesheet-input';
+        }
+    }
+
+    checkStatus() {
+        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -152,9 +158,21 @@ export class TimesheetsTableComponent {
         return totalHours;
     }
 
+    generateProjectWorkPackageMap() {
+        for (let workPackage of this.workPackages) {
+            if (this.projectWorkPackageMap[workPackage.projectNumber]) {
+                this.projectWorkPackageMap[workPackage.projectNumber].push(workPackage.workPackageNumber);
+            } else {
+                this.projectWorkPackageMap[workPackage.projectNumber] = [];
+                this.projectWorkPackageMap[workPackage.projectNumber].push(workPackage.workPackageNumber);
+            }
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
+        this.checkEndDate();
         if (localStorage.getItem("role") == "Supervisor") {
             this.getTimesheet(this.employeeNumber, this.endDate)
                 .subscribe(
@@ -206,7 +224,7 @@ export class TimesheetsTableComponent {
                 this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
                     .subscribe(res => {
                         this.employeeNumber = localStorage.getItem("employeeNumber") || "";
-                        this.endDate = this.formatDate();
+                        this.endDate = this.formatDate(new Date);
                         this.loadTimesheet();
                         alert("Timesheet approved!");
                     });
@@ -225,7 +243,7 @@ export class TimesheetsTableComponent {
                 this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
                     .subscribe(res => {
                         this.employeeNumber = localStorage.getItem("employeeNumber") || "";
-                        this.endDate = this.formatDate();
+                        this.endDate = this.formatDate(new Date);
                         this.loadTimesheet();
                         alert("Timesheet rejected!");
                     });
@@ -245,7 +263,10 @@ export class TimesheetsTableComponent {
     loadWorkPackages() {
         this.getWorkPackages()
             .subscribe(
-                workPackages => this.workPackages = workPackages
+                workPackages => { 
+                    this.workPackages = workPackages;
+                    this.generateProjectWorkPackageMap();
+                }
             );
     }
 
