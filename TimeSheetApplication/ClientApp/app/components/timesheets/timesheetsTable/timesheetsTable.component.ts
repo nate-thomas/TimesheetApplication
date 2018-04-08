@@ -151,7 +151,7 @@ export class TimesheetsTableComponent {
         }
         return totalHours;
     }
-    
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     loadTimesheet() {
