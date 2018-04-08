@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { Employee } from '../../employees/employees';
 import { AppComponent } from '../../app/app.component'
 import { Workpackage } from '../workpackage';
-import { Project } from '../project';
+import { Project } from '../../projects/projects';
 
 
 @Component({

@@ -1,5 +1,4 @@
-﻿
-<div class="body">
+﻿<div class="body">
     <div class='container-fluid'>
         <div class='row'>
             <div class='body-content'>
@@ -18,7 +17,7 @@
                             <div class="visible-xs visible-sm">
                                 <div class="row inputBox center">
                                     <div class="col-xs-12">
-                                        projectNumber
+                                        Project Number
                                         <br />
                                         <select name="projectNumber" [(ngModel)]="workpackageSubmission.projectNumber">
                                             <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
@@ -27,14 +26,14 @@
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-xs-12">
-                                        workpackageNumber
+                                        Workpackage Name
                                         <br />
                                         <input id="firstNameInputSmall" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.workpackageNumber" />
                                     </div>
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-xs-12">
-                                        description
+                                        Description
                                         <br />
                                         <input id="lastNameInputSmall" type="text" name="decription" [(ngModel)]="workpackageSubmission.description" />
                                     </div>
@@ -49,14 +48,14 @@
                             <div class="hidden-xs hidden-sm">
                                 <div class="row inputBox">
                                     <div class="col-md-6" align="center">
-                                        projectNumber
+                                        Project Number
                                         <br />
                                         <select name="projectNumber" [(ngModel)]="workpackageSubmission.projectNumber">
                                             <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6" align="center">
-                                        work package
+                                        Work Package
                                         <br />
                                         <input id="supervisorNumberInputLarge" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.workpackageNumber" />
                                     </div>

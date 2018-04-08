@@ -1,5 +1,4 @@
-﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<div class="body">
+﻿<div class="body">
     <div class='container-fluid'>
         <div class='row'>
             <div class='col-sm-3'>
@@ -38,8 +37,8 @@
                                     <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
                                 </button>
                             </div>
-                            <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages">
-                                <li class="list-group-item" (click)="getSelected(workpackage)" >
+                            <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages; let i=index">
+                                <li class="list-group-item" *ngIf="i < 10" (click)="getSelected(workpackage)">
                                     <p> {{workpackage.projectNumber}} </p>
                                     <p> {{workpackage.workPackageNumber}} </p>
                                 </li>

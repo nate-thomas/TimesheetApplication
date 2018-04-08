@@ -38,10 +38,8 @@ import { AddWorkpackageComponent } from './components/workpackages/addWorkPackag
         ProjectsTableComponent,
         AddProjectComponent,
         ManageProjectsComponent,
-        WorkPackagesComponent,
-        ViewTimesheetsComponent
-
         WorkpackageComponent,
+        ViewTimesheetsComponent,
         AddWorkpackageComponent
     ],
     imports: [
