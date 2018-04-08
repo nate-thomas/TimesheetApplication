@@ -85,12 +85,12 @@ namespace XUnitTestProject1
         {
             EmployeeViewModel emp = new EmployeeViewModel
             {
-                EmployeeNumber = "1000",
+                EmployeeNumber = "1000026",
                 FirstName = "Henrik",
                 LastName = "Sedin",
                 Grade = "P1",
                 EmployeeIntials = "HS",
-                supervisorNumber = "10000",
+                supervisorNumber = "1000001",
                 Password = "x",
                 ConfirmPassword = "x"
             };
@@ -105,7 +105,7 @@ namespace XUnitTestProject1
             userManager.Setup(x => x.FindByNameAsync(emp.EmployeeNumber)).Returns(Task.FromResult(user1));
             userManager.Setup(z => z.FindByNameAsync(emp.supervisorNumber)).Returns(Task.FromResult(supervisor));
             //Line 125 in the controller; can't mock the CreateAsync call with a local parameter
-            userManager.Setup(p => p.CreateAsync(user2)).Returns(Task.FromResult(iResult));
+            userManager.Setup(p => p.CreateAsync(new ApplicationUser())).Returns(Task.FromResult(iResult));
             userManager.Setup(j => j.AddPasswordAsync(user1, emp.Password)).Returns(Task.FromResult(IdentityResult.Success));
             userManager.Setup(n => n.AddToRoleAsync(user1, role.Name)).Returns(Task.FromResult(IdentityResult.Success));
 
@@ -270,15 +270,11 @@ namespace XUnitTestProject1
             Assert.IsType<NotFoundResult>(result.Result);
         }
 
-        [Fact(Skip = "Cannot mock FirstOrDefault (i.e. any extension method)")]
+        [Fact]
         public void UpdateEmployeeRole_Successful()
         {
             Employee emp = new Employee {
-                //FirstName = "Daniel",
-                //LastName = "Sedin",
-                //LaborGrade = new LaborGrade(),
-                //Grade = "P1",
-                //EmployeeIntials
+                EmployeeNumber = "1000021"
             };
             long empNumber = 1000021;
             ApplicationUser user = new ApplicationUser();
@@ -286,7 +282,6 @@ namespace XUnitTestProject1
             var dbContext = new Mock<IDbContext>();
             var mockList = MockDbSet(testEmployees);
             dbContext.Setup(c => c.Employees).Returns(mockList.Object);
-            dbContext.Setup(c => c.Employees.FirstOrDefault(x => String.Equals(emp.EmployeeNumber, empNumber.ToString()))).Returns(emp);
 
             var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
             var userManager = new Mock<UserManager<ApplicationUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
