@@ -1,6 +1,7 @@
 ﻿import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
+import { Input, Output, EventEmitter } from '@angular/core'
 
 import 'rxjs/add/operator/map';
 
@@ -15,6 +16,11 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './viewTimesheets.component.html'
 })
 export class ViewTimesheetsComponent {
+    @Input()
+    timesheet: Timesheet;
+    @Output()
+    timesheetChange = new EventEmitter<Timesheet>();
+
     timesheets: Object[] = new Array();
 
     constructor(private http: Http, private router: Router) { }
@@ -51,6 +57,16 @@ export class ViewTimesheetsComponent {
 
     /* Subscription methods to bind the response to a property (if applicable) */
 
+    loadTimesheet(employeeNumber: string, endDate: string) {
+        this.getTimesheet(employeeNumber, this.formatDate(endDate))
+            .subscribe(
+                timesheet => {
+                    this.timesheet = timesheet;
+                    this.timesheetChange.emit(this.timesheet);
+                }
+            );
+    }
+
     loadTimesheets() {
         this.getTimesheets()
             .subscribe(
@@ -66,6 +82,17 @@ export class ViewTimesheetsComponent {
     }
 
     /* CRUD methods to make RESTful calls to the API */
+
+    getTimesheet(employeeNumber: string, endDate: string): Observable<Timesheet> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Timesheets/" + employeeNumber + "/" + endDate, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
 
     getTimesheets() {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })

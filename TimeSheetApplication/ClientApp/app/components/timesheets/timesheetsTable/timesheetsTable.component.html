@@ -3,7 +3,7 @@
         <table>
             <tr style="padding-bottom:10px;" class="input-row">
                 <td style="padding-right: 10px;" *ngIf="checkSupervisorRole()">Employee Number:</td>
-                <td><input id="employeeNumberInput" class="input-top" type="text" name="employeeNumber" [(ngModel)]="employeeNumber" value="{{employeeNumber}}" *ngIf="checkSupervisorRole()"/></td>
+                <td><input id="employeeNumberInput" class="input-top" type="text" name="employeeNumber" [(ngModel)]="employeeNumber" value="{{employeeNumber}}" *ngIf="checkSupervisorRole()" disabled/></td>
             </tr>
             <tr style="padding-bottom:10px;" class="input-row">
                 <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
@@ -137,7 +137,7 @@
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <viewTimesheets></viewTimesheets>
+                <viewTimesheets [timesheet]="timesheet" (timesheetChange)="setTimesheet($event)"></viewTimesheets>
             </div>
         </div>
     </div>

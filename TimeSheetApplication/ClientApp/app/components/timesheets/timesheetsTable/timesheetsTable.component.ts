@@ -37,6 +37,16 @@ export class TimesheetsTableComponent {
 
     /* Utility methods */
 
+    setTimesheet(timesheet: Timesheet) {
+        this.timesheet = timesheet;
+        this.endDate = timesheet.endDate.substring(0, 10);
+        this.weekNumber = this.getWeekNumber(this.endDate);
+
+        if (localStorage.getItem("role") == "Supervisor") {
+            this.employeeNumber = timesheet.employeeNumber;
+        }
+    }
+
     addTimesheetRow() {
         let row = new TimesheetRow();
 
