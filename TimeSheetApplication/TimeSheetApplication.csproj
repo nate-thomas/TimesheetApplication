@@ -75,6 +75,7 @@
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
     <None Remove="ClientApp\app\components\workpackages\addWorkPackage\addWorkpackage.component.ts" />
+    <None Remove="ClientApp\app\components\workpackages\deleteWorkPackage\deleteWorkpackage.component.ts" />
     <None Remove="ClientApp\app\components\workpackages\workpackages.component.ts" />
   </ItemGroup>
 
@@ -92,6 +93,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\deleteWorkPackage\deleteWorkpackage.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\workpackages\addWorkPackage\addWorkpackage.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\workpackages\workpackages.component.ts" />
   </ItemGroup>

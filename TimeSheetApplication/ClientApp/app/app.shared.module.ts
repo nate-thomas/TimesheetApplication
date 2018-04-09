@@ -21,6 +21,7 @@ import { WorkpackageComponent } from './components/workpackages/workpackages.com
 import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
 import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
 import { AddWorkpackageComponent } from './components/workpackages/addWorkPackage/addWorkpackage.component';
+import { DeleteWorkpackageComponent } from './components/workpackages/deleteWorkPackage/deleteWorkpackage.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { AddWorkpackageComponent } from './components/workpackages/addWorkPackag
         ManageProjectsComponent,
         WorkpackageComponent,
         ViewTimesheetsComponent,
-        AddWorkpackageComponent
+        AddWorkpackageComponent,
+        DeleteWorkpackageComponent
     ],
     imports: [
         CommonModule,

@@ -1,4 +1,4 @@
-﻿import { WorkPackage } from '../workpackages/workPackages'
+﻿import { Workpackage } from '../workpackages/workpackage'
 
 export class Project {
     projectNumber: string;

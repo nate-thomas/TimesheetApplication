@@ -13,11 +13,11 @@ import { Project } from '../../projects/projects';
 
 
 @Component({
-    selector: 'AddWorkpackage',
-    templateUrl: './addWorkpackage.component.html',
-    styleUrls: ['./addWorkpackage.component.css']
+    selector: 'DeleteWorkpackage',
+    templateUrl: './deleteWorkpackage.component.html',
+    styleUrls: ['./deleteWorkpackage.component.css']
 })
-export class AddWorkpackageComponent {
+export class DeleteWorkpackageComponent {
 
     workpackages: Workpackage[] = new Array();
     workpackage: Workpackage = new Workpackage();
@@ -70,6 +70,11 @@ export class AddWorkpackageComponent {
             );
     }
 
+    removeWorkpackage(workPackageNumber: Workpackage) {
+        this.deleteWorkpackage(workPackageNumber)
+            .subscribe(res => console.log("Response: " + res));
+    }
+
     addWorkpackage() {
         this.postWorkpackage(this.workpackageSubmission)
             .subscribe(res => console.log("Response: " + res));
@@ -78,6 +83,10 @@ export class AddWorkpackageComponent {
     updateWorkpackage() {
         this.putWorkpackage(this.workpackage.workpackageNumber, this.workpackage)
             .subscribe(res => console.log("Response: " + res));
+    }
+
+    updateWorkpackages() {
+        console.log("change");
     }
 
     /* CRUD methods to make RESTful calls to the API */
@@ -92,7 +101,6 @@ export class AddWorkpackageComponent {
                 console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
-
     }
 
 
@@ -106,6 +114,15 @@ export class AddWorkpackageComponent {
         return this.http.get(AppComponent.url + "/api/workpackages/" + workPackageNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
+    }
+
+    deleteWorkpackage(workPackageNumber: Workpackage): Observable<Workpackage> {
+
+        console.log(workPackageNumber);
+
+        return this.http.delete(AppComponent.url + "/api/workpackages/" + workPackageNumber.projectNumber + "/" + workPackageNumber.workpackageNumber)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error || "Server Error"));
     }
 
     postWorkpackage(workpackage: Workpackage): Observable<Response> {

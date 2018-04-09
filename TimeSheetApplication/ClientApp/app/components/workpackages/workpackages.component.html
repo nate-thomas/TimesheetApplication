@@ -5,15 +5,16 @@
                 <nav-menu></nav-menu>
             </div>
             <div class='col-sm-9 body-content'>
-
                 <div class="component-content">
                     <div class="card-deck">
+
                         <div class="card">
                             <div class="card-body">
                                 <h2 id="test" class="hidden-xs hidden-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h2>
                                 <h5 id="test" class="visible-xs visible-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h5>
                             </div>
                         </div>
+
                         <div class="card" style="flex: 4">
                             <div class="card-body">
                                 <h5 class="card-title">Project Details</h5>
@@ -23,10 +24,12 @@
                                 <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
                             </div>
                         </div>
+
                     </div>
                     <br class="hidden-xs" />
                     <br class="hidden-xs" />
                     <div class="card-deck">
+
                         <div class="card">
                             <div class="card-header">
                                 Work Packages
@@ -37,14 +40,15 @@
                                     <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
                                 </button>
                             </div>
-                            <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages; let i=index">
-                                <li class="list-group-item" *ngIf="i < 10" (click)="getSelected(workpackage)">
+                            <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages">
+                                <li class="list-group-item" *ngIf="workpackageNumber == workpackage.workpackageNumber" (click)="getSelected(workpackage)">
                                     <p> {{workpackage.projectNumber}} </p>
-                                    <p> {{workpackage.workPackageNumber}} </p>
+                                    <p> {{workpackage.workpackageNumber}} </p>
                                 </li>
                             </ul>
 
                         </div>
+
                         <div class="card">
                             <div class="card-header">
                                 Team Involved
@@ -55,25 +59,40 @@
                                 <li class="list-group-item">Employee C</li>
                             </ul>
                         </div>
+
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Package Details</h5>
                                 <p class="card-text"></p>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
-                <button id="newEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".bs-example-modal-lg">New Employee</button>
+                <button id="newWorkpackageButton" type="button" class="newWorkpackage" data-toggle="modal" data-target="#addWorkpackage">New Workpackage</button>
+                <button id="deleteWorkpackageButton" type="button" class="deleteWorkpackage" data-toggle="modal" data-target="#deleteWorkpackage">Delete Workpackage</button>
+
+                <br />
+                <br />
 
             </div>
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="addWorkpackage">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <AddWorkpackage></AddWorkpackage>
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade bs-example-modal-lg secondary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" id="deleteWorkpackage">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <DeleteWorkpackage></DeleteWorkpackage>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

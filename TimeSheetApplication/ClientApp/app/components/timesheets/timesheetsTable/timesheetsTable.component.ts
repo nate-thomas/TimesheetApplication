@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 import { Timesheet } from './timesheets'
 import { TimesheetRow } from './timesheetRows'
 import { Project } from '../../projects/projects'
-import { WorkPackage } from '../../workpackages/workPackages'
+import { Workpackage } from '../../workpackages/workpackage'
 import { AppComponent } from '../../app/app.component'
 
 @Component({
@@ -21,7 +21,7 @@ export class TimesheetsTableComponent {
     endDate: string = this.formatDate();
     weekNumber: number = this.getWeekNumber(this.endDate);
     projects: Project[] = new Array();
-    workPackages: WorkPackage[] = new Array();
+    workPackages: Workpackage[] = new Array();
     employeeNumber: string = localStorage.getItem("employeeNumber") || "";
 
     constructor(private http: Http) { }
@@ -289,10 +289,9 @@ export class TimesheetsTableComponent {
                 console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
-
     }
 
-    getWorkPackages(): Observable<WorkPackage[]> {
+    getWorkPackages(): Observable<Workpackage[]> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
