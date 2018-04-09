@@ -59,39 +59,27 @@
             <thead>
                 <tr>
                     <th>Project #</th>
+                    <th>Budget</th>
                     <th># of WP</th>
                     <th># of Employees</th>
                     <th>Managers</th>
-                    <th>Progress</th>
+                    <th>Description</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let timesheetRow of timesheet">
+                <tr *ngFor="">
                     <td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 100px;" /></td>
-                    <td><input type="text" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 100px;" /></td>
-                    <td><input type="text" name="total" [(ngModel)]="timesheetRow.total" style="width:100px;" /></td>
-                    <td><input type="text" name="saturday" [(ngModel)]="timesheetRow.saturday" style="width: 100px;" /></td>
-                    <td><input type="text" name="sunday" [(ngModel)]="timesheetRow.sunday" style="width: 100px;" /></td>
+                    <td><input type="text" name="numberOfWorkPackages" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 100px;" /></td>
+                    <td><input type="text" name="numberOfEmployees" [(ngModel)]="timesheetRow.total" style="width:100px;" /></td>
+                    <td><input type="text" name="managers" [(ngModel)]="timesheetRow.saturday" style="width: 100px;" /></td>
+                    <td><input type="text" name="description" [(ngModel)]="timesheetRow.sunday" style="width: 100px;" /></td>
+                    <td><input type="text" name="status" [(ngModel)]="timesheetRow.sunday" style="width: 100px;" /></td>
+
                 </tr>
                 <tr></tr>
-                <tr>
-                    <!--<td colspan="11"></td>-->
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+             
+              
             </tbody>
         </table>
     </div>
@@ -110,8 +98,8 @@
     <!-- Modal END -->
 
     <!--<button class="btn-newRow" [routerLink]="['/addProject']">New Project</button>-->
-    <button class="pull-right" [routerLink]="['/manage-projects']">Manage</button>
-    <button class="pull-right">Statistics</button>
+    <!--<button class="pull-right" [routerLink]="['/manage-projects']">Manage</button>
+    <button class="pull-right">Statistics</button>-->
     <!--<button (click)="printProperties()">Print to Console</button>-->
     <br />
     <hr />
