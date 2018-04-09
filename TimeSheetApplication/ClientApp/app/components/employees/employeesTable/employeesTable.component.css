@@ -35,3 +35,8 @@
     display: inline-block;
     font-size: 16px;
 }
+
+.employees-table {
+    height: 600px;
+    overflow-y: scroll;
+}

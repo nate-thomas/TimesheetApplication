@@ -1,6 +1,10 @@
 ﻿<div class="component-content">
     <!-- Table Body -->
     <div class="table-responsive">
+        <div align="center">
+            <h2>Timesheets</h2>
+        </div>
+        <br />
         <div class="buttons" *ngIf="validateSupervisorRole()">
             <button (click)="loadTimesheets()">View Own Timesheets</button>
             <button (click)="loadSupervisorTimesheets()">View Employee Timesheets</button>
@@ -28,6 +32,7 @@
             </table>
         </div>
         <br />
-        <button id="closeButtonLarge" data-dismiss="modal" style="float: right;">Close</button>
+        <div align="right">
+            <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+        </div>
     </div>
-</div>

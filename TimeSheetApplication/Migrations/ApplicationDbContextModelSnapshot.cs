@@ -694,18 +694,6 @@ namespace TimeSheetApplication.Migrations
                         .HasForeignKey("ProjectNumber", "WorkPackageNumber")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
-
-            modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
-                {
-                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectTeam", "ProjectTeam")
-                        .WithMany("WPassignment")
-                        .HasForeignKey("EmployeeNumber", "ProjectNumber");
-
-                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.WorkPackage", "WorkPackage")
-                        .WithMany("WPassignment")
-                        .HasForeignKey("ProjectNumber", "WorkPackageNumber")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
 #pragma warning restore 612, 618
         }
     }
