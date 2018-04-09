@@ -28,7 +28,15 @@ export class EmployeesTableComponent {
     /* Utility methods */
 
     validateHRRole() {
-        if (localStorage.getItem("role") == "Human Resources") {
+        if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateHRAndSupervisorRole() {
+        if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator" || localStorage.getItem("role") == "Supervisor") {
             return true;
         } else {
             return false;

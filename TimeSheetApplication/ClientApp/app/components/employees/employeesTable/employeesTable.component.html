@@ -1,4 +1,4 @@
-﻿<div class="component-content" *ngIf="validateHRRole()">
+﻿<div class="component-content" *ngIf="validateHRAndSupervisorRole()">
     <!-- Temporary Input and Button to load an employee -->
     <br />
     <table>
@@ -71,7 +71,7 @@
     </div>
 
     <br />
-    <button id="newEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".new-employee" (click)="initializeAddComponent()">New Employee</button>
+    <button id="newEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".new-employee" (click)="initializeAddComponent()" *ngIf="validateHRRole()">New Employee</button>
 
     <div class="modal fade new-employee" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">

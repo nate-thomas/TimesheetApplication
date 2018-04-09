@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
     constructor() { }
 
-    checkRole(role: string) {
+    checkHRAndSupervisorRole(role: string) {
         if (typeof window !== 'undefined') {
-            if (localStorage.getItem("role") == role) {
+            if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
                 return true;
             } else {
                 return false;
