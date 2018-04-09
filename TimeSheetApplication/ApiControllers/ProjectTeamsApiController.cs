@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheetApplication.Data;
 using TimeSheetApplication.Models;
+using TimeSheetApplication.Models.TimeSheetSystem;
+using TimeSheetApplication.ViewModels;
 
 namespace TimeSheetApplication.ApiControllers
 {
@@ -32,14 +34,58 @@ namespace TimeSheetApplication.ApiControllers
             _roleManager = roleManager;
         }
 
-        [HttpGet("{pmNumebr}", Name = "GetByEmployeeNumber")]
-        public async Task<IActionResult> GetByEmployeeNumber([FromRoute] pmNumebr)
+        [HttpGet("{projNum}")]
+        public async Task<IActionResult> GetEmployeeByProjectNumber([FromRoute] string projNum)
         {
-            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            return new ObjectResult(empToReturn);
+            List<string> employeesNumberList = new List<string>();
+
+            var projectTeams = _context.ProjectTeams.ToArray();
+            foreach (ProjectTeam pt in projectTeams)
+            {
+                if(pt.ProjectNumber.Equals(projNum))
+                {
+                    employeesNumberList.Add(pt.EmployeeNumber);
+                }
+            }
+
+            if(employeesNumberList.Count == 0)
+            {
+                return BadRequest("Project not found");
+            }
+            return new ObjectResult(employeesNumberList);
         }
 
+
+        [HttpGet("proj/{empNum}")]
+        public async Task<IActionResult> GetProjectByEmployeeNumber([FromRoute] string empNum)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            List<string> pojectsList = new List<string>();
+
+            var projectTeams = _context.ProjectTeams.ToArray();
+            foreach (ProjectTeam pt in projectTeams)
+            {
+                if (pt.EmployeeNumber.Equals(empNum))
+                {
+                    pojectsList.Add(pt.ProjectNumber);
+                }
+            }
+
+            if (pojectsList.Count == 0)
+            {
+                return BadRequest("Employee not found");
+            }
+            return new ObjectResult(pojectsList);
+        }
 
     }
 }
