@@ -27,6 +27,18 @@ export class EmployeesTableComponent {
 
     /* Utility methods */
 
+    checkSupervisorNumber(employee: Employee) {
+        if (localStorage.getItem("role") == "Supervisor") {
+            if (localStorage.getItem("employeeNumber") == employee.supervisorNumber) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
     validateHRRole() {
         if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator") {
             return true;

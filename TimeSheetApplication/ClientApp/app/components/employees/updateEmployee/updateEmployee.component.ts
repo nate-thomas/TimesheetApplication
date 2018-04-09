@@ -78,8 +78,9 @@ export class UpdateEmployeeComponent {
 
             this.putEmployee(this.employee.employeeNumber, this.employee)
                 .subscribe(res => {
+                    alert("Employee updated!");
                     this.putRole(this.employee.employeeNumber, this.employee.role)
-                        .subscribe(res => { alert("Employee updated!") });
+                        .subscribe(res => { console.log("Employee updated!") });
                 });
 
         } else {
