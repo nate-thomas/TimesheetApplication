@@ -27,6 +27,15 @@ namespace TimeSheetApplication.ApiControllers
         {
             return _context.WPassignments;
         }
+        //5 - Retrieve list of employees on a WP Assignment receiving a ProjNumber 
+        //and a WorkPackageNumber (WorkPackagesApiController)
+        //GET: api:WPassignments/Employees/PN/WP
+        [HttpGet("Employees/{projectNumber}/{wpNumber}")]
+        public IEnumerable<WPassignment> GetEmployeesFromWPandProjectAssignments([FromRoute] string projectNumber,
+            string wpNumber)
+        {
+            return _context.WPassignments.Where(r => r.WorkPackageNumber == wpNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WPassignment>;
+        }
 
         // GET: api/WPassignments/All/EN
         [HttpGet("All/{employeeNumber}")]
