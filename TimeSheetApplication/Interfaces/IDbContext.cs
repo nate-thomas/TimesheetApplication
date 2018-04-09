@@ -24,7 +24,7 @@ namespace TimeSheetApplication.Interfaces
         DbSet<ResponsibleEngineerBudget> ResponsibleEngineerBudgets { get; set; }
         DbSet<REBbyGrade> REBbyGrades { get; set; }
         DbSet<ProjectTeam> ProjectTeams { get; set; }
-        //DbSet<WPassignment> WPassignments { get; set; }
+        DbSet<WPassignment> WPassignments { get; set; }
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
