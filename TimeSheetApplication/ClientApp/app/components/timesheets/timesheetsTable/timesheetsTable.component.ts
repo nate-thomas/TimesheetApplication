@@ -206,8 +206,6 @@ export class TimesheetsTableComponent {
         this.weekNumber = this.getWeekNumber(this.endDate);
     }
 
-
-
     updateTimesheet(status: string) {
         if (this.validateTotalHours()) {
             if ((new Date(this.timesheet.endDate)).getDay() != 5) {

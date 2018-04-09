@@ -11,7 +11,7 @@ using TimeSheetApplication.Data;
 namespace TimeSheetApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180404200800_Initial")]
+    [Migration("20180409091933_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -333,15 +333,13 @@ namespace TimeSheetApplication.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("SupervisorEmployeeNumber");
-
                     b.Property<string>("SupervisorNumber");
 
                     b.HasKey("EmployeeNumber");
 
                     b.HasIndex("Grade");
 
-                    b.HasIndex("SupervisorEmployeeNumber");
+                    b.HasIndex("SupervisorNumber");
 
                     b.ToTable("Employees");
                 });
@@ -362,6 +360,8 @@ namespace TimeSheetApplication.Migrations
                 {
                     b.Property<string>("ProjectNumber")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Budget");
 
                     b.Property<string>("Description");
 
@@ -426,10 +426,6 @@ namespace TimeSheetApplication.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<int>("ActualBudget");
-
-                    b.Property<int>("EstimatedBudget");
-
                     b.HasKey("ProjectNumber", "WorkPackageNumber", "EndDate");
 
                     b.ToTable("ResponsibleEngineerBudgets");
@@ -463,6 +459,8 @@ namespace TimeSheetApplication.Migrations
                     b.Property<double>("Friday");
 
                     b.Property<double>("Monday");
+
+                    b.Property<string>("Notes");
 
                     b.Property<double>("Saturday");
 
@@ -499,9 +497,15 @@ namespace TimeSheetApplication.Migrations
 
                     b.Property<string>("WorkPackageNumber");
 
+                    b.Property<int>("Budget");
+
                     b.Property<string>("Description");
 
+                    b.Property<string>("ResponsibleEngineerNumber");
+
                     b.HasKey("ProjectNumber", "WorkPackageNumber");
+
+                    b.HasIndex("ResponsibleEngineerNumber");
 
                     b.ToTable("WorkPackages");
                 });
@@ -599,7 +603,7 @@ namespace TimeSheetApplication.Migrations
 
                     b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Employee", "Supervisor")
                         .WithMany()
-                        .HasForeignKey("SupervisorEmployeeNumber");
+                        .HasForeignKey("SupervisorNumber");
                 });
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.Project", b =>
@@ -674,6 +678,10 @@ namespace TimeSheetApplication.Migrations
                         .WithMany("WorkPackages")
                         .HasForeignKey("ProjectNumber")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Employee", "ResponsibleEngineer")
+                        .WithMany("WorkPackages")
+                        .HasForeignKey("ResponsibleEngineerNumber");
                 });
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.WPassignment", b =>
