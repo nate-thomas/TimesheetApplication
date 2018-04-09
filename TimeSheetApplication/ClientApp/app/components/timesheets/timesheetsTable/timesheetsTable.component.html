@@ -2,8 +2,8 @@
     <form (ngSubmit)="loadTimesheet()">
         <table>
             <tr style="padding-bottom:10px;" class="input-row">
-                <td style="padding-right: 10px;" *ngIf="checkSupervisorRole()">Employee Number:</td>
-                <td><input id="employeeNumberInput" class="input-top" type="text" name="employeeNumber" [(ngModel)]="employeeNumber" value="{{employeeNumber}}" *ngIf="checkSupervisorRole()" disabled/></td>
+                <td style="padding-right: 10px;">Employee Number:</td>
+                <td><input id="employeeNumberInput" class="input-top" type="text" name="employeeNumber" [(ngModel)]="employeeNumber" value="{{employeeNumber}}" disabled/></td>
             </tr>
             <tr style="padding-bottom:10px;" class="input-row">
                 <td style="padding-right: 10px;">End Date (YYYY-MM-DD):</td>
@@ -22,7 +22,7 @@
         <!-- xs, sm view -->
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
-                <button id="timesheetArchiveButtonSmall" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /> View Timesheets</button>
+                <button id="timesheetArchiveButtonSmall" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="loadTimesheets()"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive"/> View Timesheets</button>
             </div>
             <div class="col-xs-12 text-center">
                 <h1>Timesheet</h1>
@@ -34,7 +34,7 @@
         <!--  md, lg, xl views -->
         <div class="row hidden-xs hidden-sm">
             <div class="col-md-4">
-                <button id="timesheetArchiveButtonLarge" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /> View Timesheets</button>
+                <button id="timesheetArchiveButtonLarge" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="loadTimesheets()"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /> View Timesheets</button>
             </div>
             <div class="col-md-4 text-center">
                 <h1>Timesheet</h1>
@@ -82,7 +82,7 @@
                     <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="wednesday" [(ngModel)]="timesheetRow.wednesday" [ngClass]="validateDailyHours(timesheetRow.wednesday)" /></td>
                     <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="thursday" [(ngModel)]="timesheetRow.thursday" [ngClass]="validateDailyHours(timesheetRow.thursday)" /></td>
                     <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" step="0.25" name="friday" [(ngModel)]="timesheetRow.friday" [ngClass]="validateDailyHours(timesheetRow.friday)" /></td>
-                    <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" *ngIf="checkStatus()" style="text-align: center;">x</button></td>
+                    <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" *ngIf="checkTimesheetStatus()" style="text-align: center;">x</button></td>
                 </tr>
                 <tr></tr>
                 <tr>
@@ -104,10 +104,10 @@
         </table>
     </div>
     <br />
-    <div *ngIf="checkStatus()">
+    <div *ngIf="checkTimesheetStatus()">
         <button id="addTimesheetRowButton" class="btn-newRow" (click)="addTimesheetRow()">Add New Row</button>
-        <button id="submitTimesheetButton" class="pull-right" (click)="submitTimesheet()">Submit</button>
-        <button id="saveTimesheetButton" class="pull-right" (click)="saveTimesheet()">Save</button>
+        <button id="submitTimesheetButton" class="pull-right" (click)="updateTimesheet('Submitted')">Submit</button>
+        <button id="saveTimesheetButton" class="pull-right" (click)="updateTimesheet('Draft')">Save</button>
     </div>
     <br />
     <hr />
@@ -118,9 +118,9 @@
         <div class="row">
             <p id="approvalStatusSmall">Timesheet Status: <strong>{{timesheet.statusName}}</strong></p>
         </div>
-        <div class="row" *ngIf="checkSupervisorAndEmployeeId()">
-            <button id="rejectTimesheetButtonLarge" (click)="rejectTimesheet()">Reject</button>
-            <button id="approveTimesheetButtonSmall" (click)="approveTimesheet()">Approve</button>
+        <div class="row" *ngIf="checkStatusRoleAndNumber()">
+            <button id="rejectTimesheetButtonLarge" (click)="updateTimesheet('Rejected')">Reject</button>
+            <button id="approveTimesheetButtonSmall" (click)="updateTimesheet('Approved')">Approve</button>
         </div>
     </div>
     <!-- md, lg, xl view -->
@@ -128,16 +128,16 @@
         <div class="col-md-6">
             <p id="approvalStatusLarge">Timesheet Status: <strong>{{timesheet.statusName}}</strong></p>
         </div>
-        <div class="col-md-6" *ngIf="checkSupervisorAndEmployeeId()">
-            <button id="rejectTimesheetButtonLarge" class="pull-right" (click)="rejectTimesheet()">Reject</button>
-            <button id="approveTimesheetButtonSmall" class="pull-right" (click)="approveTimesheet()">Approve</button>
+        <div class="col-md-6" *ngIf="checkStatusRoleAndNumber()">
+            <button id="rejectTimesheetButtonLarge" class="pull-right" (click)="updateTimesheet('Rejected')">Reject</button>
+            <button id="approveTimesheetButtonSmall" class="pull-right" (click)="updateTimesheet('Approved')">Approve</button>
         </div>
     </div>
 
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <viewTimesheets [timesheet]="timesheet" (timesheetChange)="setTimesheet($event)"></viewTimesheets>
+                <viewTimesheets [timesheet]="timesheet" [timesheets]="timesheets" (timesheetChange)="setTimesheet($event)"></viewTimesheets>
             </div>
         </div>
     </div>

@@ -44,3 +44,8 @@
 .timesheet-input {
     width: 105px;
 }
+
+.disabled-input {
+    pointer-events: none;
+    background-color: #eaeaea;
+}

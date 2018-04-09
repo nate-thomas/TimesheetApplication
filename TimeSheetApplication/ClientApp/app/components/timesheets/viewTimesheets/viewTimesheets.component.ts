@@ -17,19 +17,13 @@ import { AppComponent } from '../../app/app.component'
 })
 export class ViewTimesheetsComponent {
     @Input()
+    timesheets: Timesheet[];
+    @Input()
     timesheet: Timesheet;
     @Output()
     timesheetChange = new EventEmitter<Timesheet>();
 
-    timesheets: Object[] = new Array();
-
     constructor(private http: Http, private router: Router) { }
-
-    /* Functions to be called when component is loaded */
-
-    ngOnInit() {
-        this.loadTimesheets();
-    }
 
     /* Utiilty methods */
 
