@@ -10,8 +10,8 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <h2 id="test" class="hidden-xs hidden-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h2>
-                                <h5 id="test" class="visible-xs visible-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h5>
+                                <h2 class="hidden-xs hidden-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h2>
+                                <h5 class="visible-xs visible-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h5>
                             </div>
                         </div>
 
@@ -35,15 +35,17 @@
                                 Work Packages
                             </div>
                             <div class="card-header">
+                                <input id="projectInput" type="text" #projectNumber />
                                 <input id="workpackageInput" type="text" #workpackageNumber />
-                                <button id="loadWorkpackageButton" class="btn-icon" (click)="loadWorkpackage(workpackageNumber.value)">
+
+                                <button id="loadWorkpackageButton" class="btn-icon" (click)="loadWorkpackage(projectNumber.value, workpackageNumber.value)">
                                     <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
                                 </button>
                             </div>
-                            <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages">
-                                <li class="list-group-item" *ngIf="workpackageNumber == workpackage.workpackageNumber" (click)="getSelected(workpackage)">
+                            <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages; let i = index">
+                                <li class="list-group-item" *ngIf="i < 10" (click)="getSelected(workpackage)">
                                     <p> {{workpackage.projectNumber}} </p>
-                                    <p> {{workpackage.workpackageNumber}} </p>
+                                    <p> {{workpackage.workPackageNumber}} </p>
                                 </li>
                             </ul>
 
@@ -63,7 +65,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Package Details</h5>
-                                <p class="card-text"></p>
+                                <p class="card-text">{{workpackage.description}}</p>
                             </div>
                         </div>
 
@@ -77,7 +79,7 @@
                 <br />
 
             </div>
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="addWorkpackage">
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" data-toggle="modal" id="addWorkpackage">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <AddWorkpackage></AddWorkpackage>
@@ -85,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="modal fade bs-example-modal-lg secondary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" id="deleteWorkpackage">
+            <div class="modal fade bs-example-modal-lg secondary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" data-toggle="modal" id="deleteWorkpackage">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <DeleteWorkpackage></DeleteWorkpackage>

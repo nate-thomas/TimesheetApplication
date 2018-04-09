@@ -45,16 +45,21 @@ export class WorkpackageComponent {
             );
     }
 
-    loadWorkpackage(workPackageNumber: string) {
+    loadWorkpackage(projectNumber: string, workPackageNumber: string) {
+        console.log("you are searching for: " + projectNumber);
         console.log("you are searching for: " + workPackageNumber);
 
-        this.getWorkpackage(workPackageNumber)
+        this.workpackages = new Array();
+
+        this.getWorkpackage(projectNumber, workPackageNumber)
             .subscribe(
-            workpackage => this.workpackage = workpackage,
+            workpackage => this.workpackages[0] = workpackage,
             errors => {
                 console.log(errors)
             }
-            );
+        );
+
+
     }
 
     /* CRUD methods to make RESTful calls to the API */
@@ -64,8 +69,8 @@ export class WorkpackageComponent {
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
 
-    getWorkpackage(workPackageNumber: string): Observable<Workpackage> {
-        return this.http.get(AppComponent.url + "/api/workpackages/" + workPackageNumber)
+    getWorkpackage(projectNumber: string, workPackageNumber: string): Observable<Workpackage> {
+        return this.http.get(AppComponent.url + "/api/workpackages/" + projectNumber + "/" + workPackageNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }

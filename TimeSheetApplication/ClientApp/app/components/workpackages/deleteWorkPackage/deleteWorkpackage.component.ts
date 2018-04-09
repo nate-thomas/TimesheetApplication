@@ -70,8 +70,8 @@ export class DeleteWorkpackageComponent {
             );
     }
 
-    removeWorkpackage(workPackageNumber: Workpackage) {
-        this.deleteWorkpackage(workPackageNumber)
+    removeWorkpackage() {
+        this.deleteWorkpackage(this.workpackageSubmission)
             .subscribe(res => console.log("Response: " + res));
     }
 

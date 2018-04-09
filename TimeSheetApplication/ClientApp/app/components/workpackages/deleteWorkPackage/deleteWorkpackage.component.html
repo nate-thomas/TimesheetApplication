@@ -12,7 +12,7 @@
 
 
                     <div>
-                        <form (ngSubmit)="removeWorkpackage(workpackageSubmission)">
+                        <form (ngSubmit)="removeWorkpackage()">
                             <!-- xs, sm -->
                             <div class="visible-xs visible-sm">
                                 <div class="row inputBox center">
@@ -50,7 +50,7 @@
                                     <div class="col-md-6" align="center">
                                         Project Number
                                         <br />
-                                        <select name="projectNumber" [(ngModel)]="workpackageSubmission.projectNumber" ng-change="updateWorkpackages()" >
+                                        <select name="projectNumber" [(ngModel)]="workpackageSubmission.projectNumber">
                                             <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
                                         </select>
                                     </div>
@@ -69,7 +69,7 @@
 
                                 </div>
                                 <div class="buttons" align="center">
-                                    <button id="deleteWorkpackageButtonLarge" align="center" ng-click="()">Delete Workpackage</button>
+                                    <button id="deleteWorkpackageButtonLarge" align="center">Delete Workpackage</button>
                                     <button id="closeButtonLarge" data-dismiss="modal">Close</button>
                                     <!--<button id="clearEmployeePropertiesLarge" (click)="clearProperties()">Cancel</button>-->
                                 </div>
