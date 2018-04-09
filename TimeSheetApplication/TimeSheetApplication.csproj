@@ -96,6 +96,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
+    <Folder Include="ClientApp\app\components\oki\" />
 
   </ItemGroup>
 
