@@ -99,6 +99,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
+    <Folder Include="Services\" />
 
   </ItemGroup>
 
