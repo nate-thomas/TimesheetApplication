@@ -10,7 +10,6 @@ import { LoginComponent } from './components/login/login.component';
 import { TimesheetsComponent } from './components/timesheets/timesheets.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { EmployeesComponent } from './components/employees/employees.component';
-import { AdmintasksComponent } from './components/admintasks/admintasks.component';
 import { UserComponent } from './components/user/user.component';
 import { TimesheetsTableComponent } from './components/timesheets/timesheetsTable/timesheetsTable.component';
 import { AddEmployeeComponent } from './components/employees/addEmployee/addEmployee.component';
@@ -22,6 +21,7 @@ import { ManageProjectsComponent } from './components/projects/manageProjects/ma
 import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
 import { AddWorkpackageComponent } from './components/workpackages/addWorkPackage/addWorkpackage.component';
 import { DeleteWorkpackageComponent } from './components/workpackages/deleteWorkPackage/deleteWorkpackage.component';
+import { UpdateEmployeeComponent } from './components/employees/updateEmployee/updateEmployee.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +32,7 @@ import { DeleteWorkpackageComponent } from './components/workpackages/deleteWork
         EmployeesComponent,
         EmployeesTableComponent,
         AddEmployeeComponent,
-        AdmintasksComponent,
+        UpdateEmployeeComponent,
         UserComponent,
 		LoginComponent,
         TimesheetsTableComponent,

@@ -17,19 +17,11 @@
     }
 }
 
-.submitted-styling {
-    color: cornflowerblue;
+.employee-dropdown {
+    height: 28px;
+    width: 160px
 }
 
-.approved-styling {
-    color: green;
-}
-
-.rejected-styling {
-    color: red;
-}
-
-.timesheet-table {
-    height: 500px;
-    overflow-y: scroll;
+.invalid-input {
+    border: 2px solid red;
 }

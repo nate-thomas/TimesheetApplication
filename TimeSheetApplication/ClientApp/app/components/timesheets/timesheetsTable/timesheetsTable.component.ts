@@ -17,12 +17,14 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './timesheetsTable.component.html'
 })
 export class TimesheetsTableComponent {
+    timesheets: Timesheet[] = new Array();
     timesheet: Timesheet = new Timesheet();
-    endDate: string = this.formatDate();
+    endDate: string = this.formatDate(new Date);
     weekNumber: number = this.getWeekNumber(this.endDate);
     projects: Project[] = new Array();
     workPackages: Workpackage[] = new Array();
     employeeNumber: string = localStorage.getItem("employeeNumber") || "";
+    projectWorkPackageMap: { [index: string]: any } = {};
 
     constructor(private http: Http) { }
 
@@ -35,6 +37,13 @@ export class TimesheetsTableComponent {
     }
 
     /* Utility methods */
+
+    setTimesheet(timesheet: Timesheet) {
+        this.timesheet = timesheet;
+        this.endDate = timesheet.endDate.substring(0, 10);
+        this.weekNumber = this.getWeekNumber(this.endDate);
+        this.employeeNumber = timesheet.employeeNumber;
+    }
 
     addTimesheetRow() {
         let row = new TimesheetRow();
@@ -56,17 +65,62 @@ export class TimesheetsTableComponent {
         return Math.ceil(dayOfYear / 7);
     }
 
-    formatDate() {
-        let currentDate = new Date();
+    formatDate(date: Date) {
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    }
 
-        return currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate();
+    checkEndDate() {
+        var dayOfWeek = 5;
+        var currentDate = new Date(this.endDate);
+
+        if (currentDate.toString() == "Invalid Date") {
+            currentDate = new Date();
+        }
+
+        currentDate.setDate(currentDate.getDate() + (dayOfWeek + 7 - currentDate.getDay()) % 7);
+        this.endDate = this.formatDate(currentDate);
+    }
+
+    checkTimesheetStatus() {
+        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    checkStatusRoleAndNumber() {
+        if (!this.checkTimesheetStatus() &&
+            localStorage.getItem("role") == "Supervisor" &&
+            this.timesheet.employeeNumber != localStorage.getItem("employeeNumber")) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateInput(input: string) {
+        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
+            if (input == undefined || input == null || input == "") {
+                return 'timesheet-input invalid-input';
+            } else {
+                return 'timesheet-input';
+            }
+        } else {
+            return 'timesheet-input disabled-input';
+        }
     }
 
     validateDailyHours(hour: number) {
-        if (hour < 0 || hour > 24) {
-            return 'timesheet-input invalid-input';
+        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
+            if (hour < 0 || hour > 24) {
+                return 'timesheet-input invalid-input';
+            } else {
+                return 'timesheet-input';
+            }
         } else {
-            return 'timesheet-input';
+            return 'timesheet-input disabled-input';
         }
     }
 
@@ -102,38 +156,6 @@ export class TimesheetsTableComponent {
         }
     }
 
-    validateStatus() {
-        if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    validateInput(input: string) {
-        if (input == undefined || input == null || input == "") {
-            return 'timesheet-input invalid-input';
-        } else {
-            return 'timesheet-input';
-        }
-    }
-
-    checkSupervisorRole() {
-        if (localStorage.getItem("role") == "Supervisor") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    checkSupervisorAndEmployeeId() {
-        if (localStorage.getItem("role") == "Supervisor" && this.timesheet.employeeNumber != localStorage.getItem("employeeNumber")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     calculateTimesheetHours(timesheetRow: TimesheetRow) {
         return timesheetRow.saturday +
                timesheetRow.sunday +
@@ -151,83 +173,73 @@ export class TimesheetsTableComponent {
         }
         return totalHours;
     }
-    
+
+    generateProjectWorkPackageMap() {
+        for (let workPackage of this.workPackages) {
+            if (this.projectWorkPackageMap[workPackage.projectNumber]) {
+                this.projectWorkPackageMap[workPackage.projectNumber].push(workPackage.workPackageNumber);
+            } else {
+                this.projectWorkPackageMap[workPackage.projectNumber] = [];
+                this.projectWorkPackageMap[workPackage.projectNumber].push(workPackage.workPackageNumber);
+            }
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
+    loadTimesheets() {
+        this.getTimesheets()
+            .subscribe(
+                (timesheets: any) => this.timesheets = timesheets
+            );
+    }
+
     loadTimesheet() {
-        if (localStorage.getItem("role") == "Supervisor") {
-            this.getTimesheet(this.employeeNumber, this.endDate)
-                .subscribe(
-                timesheet => this.timesheet = timesheet
-                );
-        } else {
-            this.getTimesheet(localStorage.getItem("employeeNumber") || "", this.endDate)
-                .subscribe(
-                timesheet => this.timesheet = timesheet
-                );
-        }
+        this.checkEndDate();
+        this.employeeNumber = localStorage.getItem("employeeNumber") || "";
+        this.getTimesheet(localStorage.getItem("employeeNumber") || "", this.endDate)
+            .subscribe(
+                timesheet => {
+                    this.timesheet = timesheet;
+                }
+            );
         this.weekNumber = this.getWeekNumber(this.endDate);
     }
 
-    saveTimesheet() {
+    updateTimesheet(status: string) {
         if (this.validateTotalHours()) {
             if ((new Date(this.timesheet.endDate)).getDay() != 5) {
-                alert("You can only submit or save a timesheet on a Friday!");
+                alert("You can only update a timesheet on a Friday!");
             } else {
-                this.timesheet.statusName = "Draft";
-                this.putTimesheetRows(localStorage.getItem("employeeNumber") || "", this.endDate, this.timesheet)
-                    .subscribe(res => { alert("Timesheet saved!") });
-            }
-        } else {
-            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
-        }
-    }
+                let alertMessage = "";
 
-    submitTimesheet() {
-        if (this.validateTotalHours()) {
-            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
-                alert("You can only submit or save a timesheet on a Friday!");
-            } else {
-                this.timesheet.statusName = "Submitted";
-                this.putTimesheetRows(localStorage.getItem("employeeNumber") || "", this.endDate, this.timesheet)
-                    .subscribe(res => { alert("Timesheet submitted!") });
-            }
-        } else {
-            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
-        }
-    }
+                switch (status) {
+                    case "Draft":
+                        alertMessage = "Timesheet saved!";
+                        break;
+                    case "Submitted":
+                        alertMessage = "Timesheet submitted!";
+                        break;
+                    case "Approved":
+                        alertMessage = "Timesheet approved!";
+                        break;
+                    case "Rejected":
+                        alertMessage = "Timesheet rejected!";
+                        break;
+                    default:
+                        alertMessage = "Timesheet updated!";
+                }
 
-    approveTimesheet() {
-        if (this.validateTotalHours()) {
-            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
-                alert("You can only submit or save a timesheet on a Friday!");
-            } else {
-                this.timesheet.statusName = "Approved";
-                this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
+                this.timesheet.statusName = status;
+
+                this.putTimesheetRows(this.employeeNumber, this.endDate, this.timesheet)
                     .subscribe(res => {
-                        this.employeeNumber = localStorage.getItem("employeeNumber") || "";
-                        this.endDate = this.formatDate();
-                        this.loadTimesheet();
-                        alert("Timesheet approved!");
-                    });
-            }
-        } else {
-            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
-        }
-    }
+                        if (status == "Approved" || status == "Rejected") {
+                            this.endDate = this.formatDate(new Date);
+                            this.loadTimesheet();
+                        }
 
-    rejectTimesheet() {
-        if (this.validateTotalHours()) {
-            if ((new Date(this.timesheet.endDate)).getDay() != 5) {
-                alert("You can only submit or save a timesheet on a Friday!");
-            } else {
-                this.timesheet.statusName = "Rejected";
-                this.putTimesheetRows(this.employeeNumber, this.timesheet.endDate, this.timesheet)
-                    .subscribe(res => {
-                        this.employeeNumber = localStorage.getItem("employeeNumber") || "";
-                        this.endDate = this.formatDate();
-                        this.loadTimesheet();
-                        alert("Timesheet rejected!");
+                        alert(alertMessage);
                     });
             }
         } else {
@@ -245,11 +257,26 @@ export class TimesheetsTableComponent {
     loadWorkPackages() {
         this.getWorkPackages()
             .subscribe(
-                workPackages => this.workPackages = workPackages
+                workPackages => { 
+                    this.workPackages = workPackages;
+                    this.generateProjectWorkPackageMap();
+                }
             );
     }
 
     /* CRUD methods to make RESTful calls to the API */
+
+    getTimesheets() {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Timesheets/" + localStorage.getItem("employeeNumber"), options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
 
     getTimesheet(employeeNumber: string, endDate: string): Observable<Timesheet> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
@@ -268,8 +295,6 @@ export class TimesheetsTableComponent {
     putTimesheetRows(employeeNumber: string, endDate: string, timesheet: Timesheet): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
-
-        console.log(JSON.stringify(this.timesheet));
 
         return this.http.put(AppComponent.url + "/api/Timesheets/" + employeeNumber + "/" + endDate, this.timesheet, options)
             .map((res: Response) => res.json())

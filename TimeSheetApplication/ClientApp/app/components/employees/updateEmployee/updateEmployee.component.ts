@@ -11,11 +11,11 @@ import { Employee } from '../employees';
 import { AppComponent } from '../../app/app.component'
 
 @Component({
-    selector: 'AddEmployee',
-    styleUrls: ['./addEmployee.component.css'],
-    templateUrl: './addEmployee.component.html'
+    selector: 'UpdateEmployee',
+    styleUrls: ['./updateEmployee.component.css'],
+    templateUrl: './updateEmployee.component.html'
 })
-export class AddEmployeeComponent {
+export class UpdateEmployeeComponent {
     @Input()
     employee: Employee;
     @Input()
@@ -52,17 +52,14 @@ export class AddEmployeeComponent {
     loadEmployees() {
         this.getEmployees()
             .subscribe(
-                employees => {
-                    this.employees = employees;
-                    this.employeesChange.emit(this.employees);
-                }
-        );
+            employees => {
+                this.employees = employees;
+                this.employeesChange.emit(this.employees);
+            }
+            );
     }
 
-    addEmployee() {
-        this.employee.password = "P@$$w0rd";
-        this.employee.confirmPassword = "P@$$w0rd";
-
+    updateEmployee() {
         if (this.employee.employeeNumber &&
             this.employee.firstName &&
             this.employee.lastName &&
@@ -71,35 +68,35 @@ export class AddEmployeeComponent {
             this.employee.grade &&
             this.employee.role) {
 
-            this.postEmployee(this.employee)
+            this.putEmployee(this.employee.employeeNumber, this.employee)
                 .subscribe(res => {
-                    alert("Employee added!");
+                    this.putRole(this.employee.employeeNumber, this.employee.role)
+                        .subscribe(res => { alert("Employee updated!") });
                 });
 
         } else {
             alert("All fields are required!");
         }
-        
     }
 
     loadGrades() {
         this.getGrades()
             .subscribe(
-                (grades: any) => this.grades = grades
+            (grades: any) => this.grades = grades
             );
     }
 
     loadSupervisors() {
         this.getSupervisors()
             .subscribe(
-                (supervisors: any) => this.supervisors = supervisors
+            (supervisors: any) => this.supervisors = supervisors
             );
     }
 
     loadRoles() {
         this.getRoles()
             .subscribe(
-                (roles: any) => this.roles = roles
+            (roles: any) => this.roles = roles
             );
     }
 
@@ -117,14 +114,14 @@ export class AddEmployeeComponent {
             });
     }
 
-    postEmployee(employee: Employee): Observable<Response> {
+    putEmployee(employeeNumber: string, employee: Employee): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(AppComponent.url + "/api/Employees/", this.employee, options)
+        return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
-            .catch((err: any) => {
-                alert(err._body);
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
@@ -168,6 +165,8 @@ export class AddEmployeeComponent {
     putRole(employeeNumber: string, role: string): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
+
+        console.log(localStorage.getItem("access_token"));
 
         let formattedRole = role.replace(" ", "-");
 
