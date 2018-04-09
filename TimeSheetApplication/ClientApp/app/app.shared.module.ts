@@ -20,6 +20,7 @@ import { EmployeesTableComponent } from './components/employees/employeesTable/e
 import { WorkPackagesComponent } from './components/workpackages/workpackages.component';
 import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
 import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
+import { UpdateEmployeeComponent } from './components/employees/updateEmployee/updateEmployee.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/
         EmployeesComponent,
         EmployeesTableComponent,
         AddEmployeeComponent,
+        UpdateEmployeeComponent,
         AdmintasksComponent,
         UserComponent,
 		LoginComponent,
