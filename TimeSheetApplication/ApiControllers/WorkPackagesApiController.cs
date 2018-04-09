@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Internal.System.Collections.Sequences;
 using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Data;
 using TimeSheetApplication.Models.TimeSheetSystem;
@@ -15,7 +17,7 @@ namespace TimeSheetApplication.ApiControllers
 {
     [Produces("application/json")]
     [Route("api/WorkPackages")]
-   // [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    // [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [EnableCors("CorsPolicy")]
     public class WorkPackagesApiController : Controller
     {
@@ -40,11 +42,18 @@ namespace TimeSheetApplication.ApiControllers
             return _context.WorkPackages.Where(r => r.ProjectNumber == projectNumber).ToList() as IEnumerable<WorkPackage>;
         }
 
+        // GET: api/WorkPackages/Leaves/09876
+        [HttpGet("Leaves/{ProjectNumber}")]
+        public IEnumerable<WorkPackage> GetWorkPackageLeavesByProjectNumber([FromRoute] string projectNumber)
+        {
+            return _context.WorkPackages.Where(r => r.ProjectNumber == projectNumber && r.ResponsibleEngineer != null).ToList() as IEnumerable<WorkPackage>;
+        }
+        
+
         // GET: api/WorkPackages/09876%2fA0000
         [HttpGet("{projectNumber}/{workPackageNumber}")]
         public IEnumerable<WorkPackage> GetWorkPackage([FromRoute] string projectNumber, [FromRoute] string workPackageNumber)
         {
-
             return _context.WorkPackages.Where(r => r.WorkPackageNumber == workPackageNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WorkPackage>;
         }
 
