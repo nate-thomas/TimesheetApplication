@@ -17,7 +17,6 @@ import { ProjectsTableComponent } from './components/projects/projectsTable/proj
 import { AddProjectComponent } from './components/projects/addProject/addProject.component';
 import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
 import { WorkPackagesComponent } from './components/workpackages/workpackages.component';
-import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
 import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
 import { UpdateEmployeeComponent } from './components/employees/updateEmployee/updateEmployee.component';
 
@@ -36,7 +35,6 @@ import { UpdateEmployeeComponent } from './components/employees/updateEmployee/u
         TimesheetsTableComponent,
         ProjectsTableComponent,
         AddProjectComponent,
-        ManageProjectsComponent,
         WorkPackagesComponent,
         ViewTimesheetsComponent
 
@@ -50,7 +48,6 @@ import { UpdateEmployeeComponent } from './components/employees/updateEmployee/u
             { path: 'login', component: LoginComponent },
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
-            { path: 'manage-projects', component: ManageProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
             { path: 'user', component: UserComponent },
             { path: '**', redirectTo: 'login' }
