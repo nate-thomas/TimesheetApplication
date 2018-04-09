@@ -171,26 +171,6 @@ namespace TimeSheetApplication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    ProjectNumber = table.Column<string>(nullable: false),
-                    Budget = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    StatusName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.ProjectNumber);
-                    table.ForeignKey(
-                        name: "FK_Projects_ProjectStatus_StatusName",
-                        column: x => x.StatusName,
-                        principalTable: "ProjectStatus",
-                        principalColumn: "StatusName",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -219,6 +199,33 @@ namespace TimeSheetApplication.Migrations
                         column: x => x.EmployeeNumber,
                         principalTable: "Employees",
                         principalColumn: "EmployeeNumber",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    ProjectNumber = table.Column<string>(nullable: false),
+                    Budget = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ProjectManager = table.Column<string>(nullable: true),
+                    StatusName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.ProjectNumber);
+                    table.ForeignKey(
+                        name: "FK_Projects_Employees_ProjectManager",
+                        column: x => x.ProjectManager,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeNumber",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Projects_ProjectStatus_StatusName",
+                        column: x => x.StatusName,
+                        principalTable: "ProjectStatus",
+                        principalColumn: "StatusName",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -278,57 +285,6 @@ namespace TimeSheetApplication.Migrations
                         column: x => x.AuthorizationId,
                         principalTable: "OpenIddictAuthorizations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjectTeams",
-                columns: table => new
-                {
-                    EmployeeNumber = table.Column<string>(nullable: false),
-                    ProjectNumber = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectTeams", x => new { x.EmployeeNumber, x.ProjectNumber });
-                    table.ForeignKey(
-                        name: "FK_ProjectTeams_Employees_EmployeeNumber",
-                        column: x => x.EmployeeNumber,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeNumber",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectTeams_Projects_ProjectNumber",
-                        column: x => x.ProjectNumber,
-                        principalTable: "Projects",
-                        principalColumn: "ProjectNumber",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WorkPackages",
-                columns: table => new
-                {
-                    ProjectNumber = table.Column<string>(nullable: false),
-                    WorkPackageNumber = table.Column<string>(nullable: false),
-                    Budget = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    ResponsibleEngineerNumber = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkPackages", x => new { x.ProjectNumber, x.WorkPackageNumber });
-                    table.ForeignKey(
-                        name: "FK_WorkPackages_Projects_ProjectNumber",
-                        column: x => x.ProjectNumber,
-                        principalTable: "Projects",
-                        principalColumn: "ProjectNumber",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_WorkPackages_Employees_ResponsibleEngineerNumber",
-                        column: x => x.ResponsibleEngineerNumber,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeNumber",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -415,6 +371,57 @@ namespace TimeSheetApplication.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectTeams",
+                columns: table => new
+                {
+                    EmployeeNumber = table.Column<string>(nullable: false),
+                    ProjectNumber = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectTeams", x => new { x.EmployeeNumber, x.ProjectNumber });
+                    table.ForeignKey(
+                        name: "FK_ProjectTeams_Employees_EmployeeNumber",
+                        column: x => x.EmployeeNumber,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeNumber",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectTeams_Projects_ProjectNumber",
+                        column: x => x.ProjectNumber,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectNumber",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkPackages",
+                columns: table => new
+                {
+                    ProjectNumber = table.Column<string>(nullable: false),
+                    WorkPackageNumber = table.Column<string>(nullable: false),
+                    Budget = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ResponsibleEngineerNumber = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkPackages", x => new { x.ProjectNumber, x.WorkPackageNumber });
+                    table.ForeignKey(
+                        name: "FK_WorkPackages_Projects_ProjectNumber",
+                        column: x => x.ProjectNumber,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectNumber",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WorkPackages_Employees_ResponsibleEngineerNumber",
+                        column: x => x.ResponsibleEngineerNumber,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeNumber",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -609,6 +616,11 @@ namespace TimeSheetApplication.Migrations
                 column: "ReferenceId",
                 unique: true,
                 filter: "[ReferenceId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_ProjectManager",
+                table: "Projects",
+                column: "ProjectManager");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_StatusName",
