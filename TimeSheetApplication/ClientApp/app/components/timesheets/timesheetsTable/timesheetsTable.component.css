@@ -37,6 +37,15 @@
     font-size: 16px;
 }
 
-.invalid-hour {
+.invalid-input {
     border: 2px solid red;
+}
+
+.timesheet-input {
+    width: 105px;
+}
+
+.disabled-input {
+    pointer-events: none;
+    background-color: #eaeaea;
 }

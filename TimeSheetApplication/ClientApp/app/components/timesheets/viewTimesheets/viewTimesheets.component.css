@@ -4,8 +4,8 @@
 
 .inputBox {
     padding: 15px;
-
 }
+
 .xs-input {
     width: 100%;
 }
@@ -17,11 +17,19 @@
     }
 }
 
-.employee-dropdown {
-    height: 28px;
-    width: 160px
+.submitted-styling {
+    color: cornflowerblue;
 }
 
-.invalid-input {
-    border: 2px solid red;
+.approved-styling {
+    color: green;
+}
+
+.rejected-styling {
+    color: red;
+}
+
+.timesheet-table {
+    height: 500px;
+    overflow-y: scroll;
 }
