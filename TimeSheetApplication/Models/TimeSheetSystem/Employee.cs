@@ -23,6 +23,7 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public ICollection<Timesheet> Timesheets { get; set; }
         public ICollection<ProjectTeam> ProjectTeams { get; set; }
         public ICollection<WorkPackage> WorkPackages { get; set; }
+        public ICollection<Project> Projects { get; set; }
 
     }
 }
