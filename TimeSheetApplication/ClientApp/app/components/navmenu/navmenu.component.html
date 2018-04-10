@@ -17,8 +17,7 @@
                         <span class='glyphicon glyphicon-time'></span> Timesheets
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
-
+                <li [routerLinkActive]="['link-active']" *ngIf="checkPMAndSupervisorRole()">
                     <a id="projectsLink" [routerLink]="['/projects']">
                         <span class='glyphicon glyphicon-folder-close'></span> Projects
                     </a>
