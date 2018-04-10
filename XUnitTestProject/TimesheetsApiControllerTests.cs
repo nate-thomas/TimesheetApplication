@@ -221,9 +221,9 @@ namespace XUnitTestProject
         [Fact]
         public async Task InsertOrUpdateTimesheet_WhenNoExistingTimesheetFound()
         {
-            string empNumber = "1000001";
+            string empNumber = "1000009";
             DateTime endDate = new DateTime(2018, 02, 02);
-            Timesheet timesheet = new Timesheet { EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02) };
+            Timesheet timesheet = new Timesheet { EmployeeNumber = "1000009", EndDate = new DateTime(2018, 02, 02) };
             var dbContext = new Mock<IDbContext>();
             var mockListTimesheets = Helpers.ToAsyncDbSetMock(testTimesheets);
             dbContext.Setup(x => x.Timesheets).Returns(mockListTimesheets.Object);
@@ -240,7 +240,7 @@ namespace XUnitTestProject
             string expected = "InsertOrUpdateTimesheet: inconsistent timesheet.timesheetRows - employee number and/or end date";
             string empNumber = "1000001";
             DateTime endDate = new DateTime(2018, 02, 02);
-            Timesheet timesheet = new Timesheet { EmployeeNumber = "1000001", EndDate = new DateTime(2018, 02, 02) };
+            Timesheet timesheet = new Timesheet { EmployeeNumber = "1000011", EndDate = new DateTime(2018, 02, 02) };
             var dbContext = new Mock<IDbContext>();
             var mockListTimesheets = Helpers.ToAsyncDbSetMock(testTimesheets);
             dbContext.Setup(x => x.Timesheets).Returns(mockListTimesheets.Object);
