@@ -155,7 +155,7 @@ namespace SeleniumTests
             driver.FindElement(By.XPath("//button")).Submit();
 
             driver.FindElement(By.XPath("//button[@id='timesheetArchiveButtonLarge']")).Submit();
-            driver.FindElement(By.XPath("//button[text()='View Employee Timesheets']")).Submit();
+            driver.FindElement(By.XPath("//button[text()='Pending Approval']")).Submit();
 
             int i = 0;
             IWebElement status;

@@ -80,6 +80,97 @@ namespace SeleniumTests
             Assert.IsNotNull(employeeButton);
         }
 
+        [TestMethod]
+        public void AdminEmployeeManagementAccessTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000002");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            IWebElement employeeButton = driver.FindElement(By.XPath("//a[@id='employeesLink']"));
+
+            Assert.IsNotNull(employeeButton);
+        }
+
+        [TestMethod]
+        public void SupervisorEmployeeManagementAccessTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000005");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            IWebElement employeeButton = driver.FindElement(By.XPath("//a[@id='employeesLink']"));
+
+            Assert.IsNotNull(employeeButton);
+        }
+
+
+        [TestMethod]
+        public void SupervisorProjectsManagementAccessTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000005");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            IWebElement employeeButton = driver.FindElement(By.XPath("//a[@id='projectsLink']"));
+
+            Assert.IsNotNull(employeeButton);
+        }
+
+        [TestMethod]
+        public void AdminProjectsManagementAccessTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000002");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            IWebElement employeeButton = driver.FindElement(By.XPath("//a[@id='projectsLink']"));
+
+            Assert.IsNotNull(employeeButton);
+        }
+
+        [TestMethod]
+        public void PMSupervisorProjectsManagementAccessTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000001");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            IWebElement employeeButton = driver.FindElement(By.XPath("//a[@id='projectsLink']"));
+
+            Assert.IsNotNull(employeeButton);
+        }
+
 
 
         [TestMethod]

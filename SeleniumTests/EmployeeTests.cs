@@ -53,8 +53,6 @@ namespace SeleniumTests
             driver.FindElement(By.XPath("//a[@id='employeesLink']")).Submit();
 
 
-
-
         }
 
 
