@@ -110,6 +110,8 @@ namespace SeleniumTests
 
             driver.Navigate().GoToUrl(loginUrl);
 
+            AdminLogin(driver);
+
             IWebElement input = driver.FindElement(By.XPath("//input[@id='saturdayInput0']"));
             input.SendKeys("25");
 
@@ -125,6 +127,8 @@ namespace SeleniumTests
 
             driver.Navigate().GoToUrl(loginUrl);
 
+            AdminLogin(driver);
+
             driver.FindElement(By.XPath("//input[@id='endDateInput']")).SendKeys("2000-03-16");
             driver.FindElement(By.XPath("//img[@alt='Load Timesheet']")).Submit();
 
@@ -136,5 +140,53 @@ namespace SeleniumTests
 
             Assert.IsNotNull(newRow);
         }
+
+        [TestMethod]
+        public void SupervisorApproveTimesheetTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000005");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            driver.FindElement(By.XPath("//button[@id='timesheetArchiveButtonLarge']")).Submit();
+            driver.FindElement(By.XPath("//button[text()='View Employee Timesheets']")).Submit();
+
+            int i = 0;
+            IWebElement status;
+            while (true)
+            {
+
+                try
+                {
+                    status = driver.FindElement(By.XPath("//td[@id='timesheetStatus" + i + "']"));
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                
+                if (status.GetAttribute("text").Equals("Submitted"))
+                {
+                    break;
+                }
+                i++;
+            }
+
+            driver.FindElement(By.XPath("//td[@id='timesheetViewButton" + i + "']")).Submit();
+            driver.FindElement(By.XPath("//button[text()='Approve']")).Submit();
+
+            driver.SwitchTo().Alert().Accept();
+
+            IWebElement approveBtn = driver.FindElement(By.XPath("//button[text()='Approve']"));
+            Assert.IsNull(approveBtn);
+        }
+
+
     }
 }

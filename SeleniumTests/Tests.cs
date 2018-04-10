@@ -62,6 +62,24 @@ namespace SeleniumTests
             Assert.IsTrue(IsAlertPresent(driver));
         }
 
+        [TestMethod]
+        public void HumanResourcesEmployeeManagementAccessTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000003");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            IWebElement employeeButton = driver.FindElement(By.XPath("//a[@id='employeesLink']"));
+
+            Assert.IsNotNull(employeeButton);
+        }
+
 
 
         [TestMethod]
