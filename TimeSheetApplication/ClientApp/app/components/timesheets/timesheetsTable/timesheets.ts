@@ -2,10 +2,10 @@
 import { TimesheetRow } from './timesheetRows'
 
 export class Timesheet {
-    employeeNumber: string;
+    employeeNumber: string = localStorage.getItem("employeeNumber") || "";;
+    statusName: string = "Draft";
     endDate: string;
-    employee: Employee;
-    timesheetRows: TimesheetRow[];
+    timesheetRows: TimesheetRow[] = new Array();
 
     constructor() { }
 }

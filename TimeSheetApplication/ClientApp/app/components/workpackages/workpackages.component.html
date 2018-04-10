@@ -1,0 +1,432 @@
+﻿<div class="component-content">
+    <!-- Temporary Input and Button to load a Timesheet -->
+    <div class="row">
+        <div class="col-md-6 wp">
+            <!--<table>
+                <tr class="input-row">
+                    <td style="padding-right: 10px;">Work Package Number:</td>
+                    <td>DROPDOWN HERE</td>
+                </tr>
+
+            </table>-->
+
+            <!-- Table Header -->
+            <div class="tableHeader">
+                <!-- xs, sm view -->
+                <div class="row visible-xs visible-sm">
+
+                    <div class="col-xs-12 text-center">
+                        <h3>Work Packages</h3>
+                    </div>
+
+                </div>
+
+                <!--  md, lg, xl views -->
+                <div class="row hidden-xs hidden-sm">
+
+                    <div class="col-md-12 text-center">
+                        <h3>Work Packages</h3>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Table Body -->
+            <div class="table-responsive table-body workpackages-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Budget</th>
+                            <th># of Employees</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let timesheetRow of timesheet">
+                            <td><input type="text" name="numberOfEmployees" [(ngModel)]="timesheetRow.projectNumber" style="width: 100px;" /></td>
+                            <td><input type="text" name="wpBudget" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 100px;" /></td>
+                            <td><input type="text" name="description" [(ngModel)]="timesheetRow.total" style="width:100px;" /></td>
+                            <td><input type="text" name="status" [(ngModel)]="timesheetRow.saturday" style="width: 100px;" /></td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <!--<td colspan="11"></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+
+            <!-- Modal START -->
+            <button type="button" class="splitWorkPackages">SPLIT WORK PACKAGE</button>
+
+            <!-- Modal END -->
+            <br />
+            <hr />
+        </div>
+        <div class="col-md-6 members-team">
+            <!-- Table Header -->
+            <div class="tableHeader">
+                <!-- xs, sm view -->
+                <div class="row visible-xs visible-sm">
+
+                    <div class="col-xs-12 text-center">
+                        <h3>Project Members</h3>
+                    </div>
+                </div>
+
+                <!--  md, lg, xl views -->
+                <div class="row hidden-xs hidden-sm">
+                    <div class="col-md-12 text-center">
+                        <h3>Project Members</h3>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Table Body -->
+            <div class="table-responsive table-body project-members-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Employee #</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- LOL START -->
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <!-- LOL END -->
+
+
+                        <tr></tr>
+                        <tr>
+                            <!--<td colspan="11"></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!-- WORK PACKAGES TABLE THINGY -->
+            <br />
+
+            <div class="tableHeader">
+                <!-- xs, sm view -->
+                <div class="row visible-xs visible-sm">
+
+                    <div class="col-xs-12 text-center">
+                        <h3>Work Package Team</h3>
+                    </div>
+                </div>
+
+                <!--  md, lg, xl views -->
+                <div class="row hidden-xs hidden-sm">
+                    <div class="col-md-12 text-center">
+                        <h3>Work Package Team</h3>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Table Body -->
+            <div class="table-responsive table-body project-members-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Employee #</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- LOL START -->
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <!-- LOL END -->
+
+
+                        <tr></tr>
+                        <tr>
+                            <!--<td colspan="11"></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- WORK PACKAGES TABLE THINGY END -->
+            </div>
+
+
+        </div>
+    </div>
+</div>

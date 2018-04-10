@@ -13,13 +13,17 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
         public string LastName { get; set; } 
         public string Grade { get; set; }
         public string EmployeeIntials { get; set; }
+        public string SupervisorNumber { get; set; }
 
         [ForeignKey("Grade")]
         public LaborGrade LaborGrade { get; set; }
+        [ForeignKey("SupervisorNumber")]
         public Employee Supervisor { get; set; }
-        public string SupervisorNumber { get; set; }
         //TODO: Determine if there should be a column to indicate if the individual can be a supervisor
         public ICollection<Timesheet> Timesheets { get; set; }
         public ICollection<ProjectTeam> ProjectTeams { get; set; }
+        public ICollection<WorkPackage> WorkPackages { get; set; }
+        public ICollection<Project> Projects { get; set; }
+
     }
 }

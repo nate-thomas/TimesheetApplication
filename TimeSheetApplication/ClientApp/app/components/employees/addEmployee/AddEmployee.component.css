@@ -6,10 +6,22 @@
     padding: 15px;
 
 }
+.xs-input {
+    width: 100%;
+}
 
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     .body {
         padding-top: 50px;
     }
+}
+
+.employee-dropdown {
+    height: 28px;
+    width: 160px
+}
+
+.invalid-input {
+    border: 2px solid red;
 }

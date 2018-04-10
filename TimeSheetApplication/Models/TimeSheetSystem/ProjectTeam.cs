@@ -17,5 +17,8 @@ namespace TimeSheetApplication.Models.TimeSheetSystem
 
         [ForeignKey("EmployeeNumber")]
         public Employee Employee { get; set; }
+
+
+        public ICollection<WPassignment> WPassignment { get; set; }
     }
 }
