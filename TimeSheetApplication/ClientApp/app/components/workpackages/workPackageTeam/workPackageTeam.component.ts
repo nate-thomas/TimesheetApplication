@@ -13,8 +13,8 @@ import { AppComponent } from '../../app/app.component';
     styleUrls: ['./workPackageTeam.component.css']
 })
 export class WorkPackageTeamComponent implements OnChanges {
-    @Input() inputProjectNumber: string = 'WebPrj128';
-    @Input() inputWorkPackageNumber: string = 'A2';
+    @Input() inputProjectNumber: string;
+    @Input() inputWorkPackageNumber: string;
     @Input() inputMember: Employee = new Employee();
     selected: Employee;
     workPackageMembers: Employee[];
@@ -81,6 +81,7 @@ export class WorkPackageTeamComponent implements OnChanges {
         }
         if (changes['selectedWorkPackageNumber'] !== undefined)
             this.inputWorkPackageNumber = changes['selectedWorkPackageNumber'].currentValue;
+
         if (this.inputProjectNumber !== undefined && this.inputProjectNumber != '' && this.inputWorkPackageNumber !== undefined && this.inputWorkPackageNumber != '') {
             console.log("hi im in wp team:" + this.inputProjectNumber + "." + this.inputWorkPackageNumber + ".");
             this.loadEmployees();

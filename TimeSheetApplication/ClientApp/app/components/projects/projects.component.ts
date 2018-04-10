@@ -9,19 +9,20 @@ import { Workpackage } from '../workpackages/workpackage';
     styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent {
-    selectedProject: string = 'WebPrj128';
-    selectedWorkPackage: string = 'A2';
+    selectedProject: string;
+    selectedWorkPackage: string;
     selectedMember: Employee;
     selectedWorkpackage: Workpackage;
 
     constructor() { }
 
     projectChange(event: any) {
-        this.selectedProject = event;
+        this.selectedProject = event.projectNumber;
     }
 
     workPackageChange(event: any) {
-        this.selectedWorkPackage = event;
+        this.selectedWorkPackage = event.workPackageNumber;
+        console.log("parent: " + this.selectedWorkPackage);
     }
 
     memberChange(event: any) {
@@ -36,7 +37,7 @@ export class ProjectsComponent {
         }
     }
 
-    workpackagesChange(workpackage: Workpackage) {
-        this.selectedWorkpackage = workpackage;
-    }
+    //workpackagesChange(workpackage: Workpackage) {
+    //    this.selectedWorkpackage = workpackage;
+    //}
 }

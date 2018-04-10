@@ -152,7 +152,7 @@ export class AddProjectComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        console.log(project);
+        //console.log(project);
 
         return this.http.post(AppComponent.url + "/api/Projects/", this.project, options)
             .map((res: Response) => res.json())
