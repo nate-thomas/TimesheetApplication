@@ -25,7 +25,7 @@ namespace TimeSheetApplication.ApiControllers
         [HttpGet]
         public IEnumerable<WPassignment> GetWPassignments()
         {
-            return _context.WPassignments;
+            return _context.passignments;
         }
         //5 - Retrieve list of employees on a WP Assignment receiving a ProjNumber 
         //and a WorkPackageNumber (WorkPackagesApiController)
@@ -34,7 +34,7 @@ namespace TimeSheetApplication.ApiControllers
         public IEnumerable<WPassignment> GetEmployeesFromWPandProjectAssignments([FromRoute] string projectNumber,
             string wpNumber)
         {
-            return _context.WPassignments.Where(r => r.WorkPackageNumber == wpNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WPassignment>;
+            return _context.passignments.Where(r => r.WorkPackageNumber == wpNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WPassignment>;
         }
 
         // GET: api/WPassignments/All/EN
@@ -42,7 +42,7 @@ namespace TimeSheetApplication.ApiControllers
         public IEnumerable<WPassignment> GetWPassignmentsforEmployee([FromRoute] string projectNumber,
             string employeeNumber)
         {
-            return _context.WPassignments.Where(r => r.EmployeeNumber == employeeNumber).ToList() as IEnumerable<WPassignment>;
+            return _context.passignments.Where(r => r.EmployeeNumber == employeeNumber).ToList() as IEnumerable<WPassignment>;
         }
 
         // GET: api/WPassignments/PN/EN
@@ -50,7 +50,7 @@ namespace TimeSheetApplication.ApiControllers
         public IEnumerable <WPassignment> GetWPProjectassignmentforEmployee([FromRoute] string projectNumber,
             string employeeNumber)
         {
-            return _context.WPassignments.Where(r => r.EmployeeNumber == employeeNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WPassignment>;
+            return _context.passignments.Where(r => r.EmployeeNumber == employeeNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WPassignment>;
         }
 
         // PUT: api/WPassignmentsAPI/5
@@ -97,7 +97,7 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            _context.WPassignments.Add(wPassignment);
+            _context.passignments.Add(wPassignment);
             try
             {
                 await _context.SaveChangesAsync();
@@ -127,14 +127,14 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var wPassignment = await _context.WPassignments.SingleOrDefaultAsync(m => m.ProjectNumber == projNo
+            var wPassignment = await _context.passignments.SingleOrDefaultAsync(m => m.ProjectNumber == projNo
             && m.WorkPackageNumber == wpNo && m.EmployeeNumber == empNo);
             if (wPassignment == null)
             {
                 return NotFound();
             }
 
-            _context.WPassignments.Remove(wPassignment);
+            _context.passignments.Remove(wPassignment);
             await _context.SaveChangesAsync();
 
             return Ok(wPassignment);
@@ -142,7 +142,7 @@ namespace TimeSheetApplication.ApiControllers
 
         private bool WPassignmentExists(string id)
         {
-            return _context.WPassignments.Any(e => e.ProjectNumber == id);
+            return _context.passignments.Any(e => e.ProjectNumber == id);
         }
     }
 }

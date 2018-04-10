@@ -28,7 +28,7 @@ namespace TimeSheetApplication.Data
         public DbSet<ResponsibleEngineerBudget> ResponsibleEngineerBudgets { get; set; }
         public DbSet<REBbyGrade> REBbyGrades { get; set; }
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
-        public DbSet<WPassignment> WPassignments { get; set; }
+        public DbSet<WPassignment> passignments { get; set; }
 
 
 

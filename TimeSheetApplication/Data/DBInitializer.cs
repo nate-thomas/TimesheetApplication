@@ -399,10 +399,10 @@ namespace TimeSheetApplication.Data {
 
 
             // Initializing Work Packages assignments for the teams
-            if (!context.WPassignments.Any()) {
+            if (!context.passignments.Any()) {
                  List<WPassignment> WPassignments = getAssignments();
 
-                 context.WPassignments.AddRange(WPassignments);
+                 context.passignments.AddRange(WPassignments);
                  context.SaveChanges();
              }
 
