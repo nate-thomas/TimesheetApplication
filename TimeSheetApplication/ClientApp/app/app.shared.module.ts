@@ -17,7 +17,6 @@ import { ProjectsTableComponent } from './components/projects/projectsTable/proj
 import { AddProjectComponent } from './components/projects/addProject/addProject.component';
 import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
 import { WorkpackageComponent } from './components/workpackages/workpackages.component';
-import { ManageProjectsComponent } from './components/projects/manageProjects/manageProjects.component';
 import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
 import { AddWorkpackageComponent } from './components/workpackages/addWorkPackage/addWorkpackage.component';
 import { DeleteWorkpackageComponent } from './components/workpackages/deleteWorkPackage/deleteWorkpackage.component';
@@ -40,7 +39,6 @@ import { UpdateProjectComponent } from './components/projects/updateProject/upda
         ProjectsTableComponent,
         UpdateProjectComponent,
         AddProjectComponent,
-        ManageProjectsComponent,
         WorkpackageComponent,
         ViewTimesheetsComponent,
         AddWorkpackageComponent,
@@ -56,8 +54,8 @@ import { UpdateProjectComponent } from './components/projects/updateProject/upda
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
-            { path: 'admintasks', component: AdmintasksComponent },
-            { path: 'workpackages', component: WorkpackageComponent },
+            //{ path: 'admintasks', component: AdmintasksComponent },
+            //{ path: 'workpackages', component: WorkpackageComponent },
             //{ path: 'addTimesheet', component: TimesheetsTableComponent },
             //{ path: 'addEmployee', component: AddEmployeeComponent },
             //{ path: 'addProject', component: AddProjectComponent },

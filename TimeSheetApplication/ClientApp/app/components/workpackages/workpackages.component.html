@@ -3,13 +3,12 @@
     <div class="row">
         <div class="col-md-6 wp">
             <!--<table>
-                <tr class="input-row">
-                    <td style="padding-right: 10px;">Work Package Number:</td>
-                    <td>DROPDOWN HERE</td>
-                </tr>
+        <tr class="input-row">
+            <td style="padding-right: 10px;">Work Package Number:</td>
+            <td>DROPDOWN HERE</td>
+        </tr>
 
-            </table>-->
-
+    </table>-->
             <!-- Table Header -->
             <div class="tableHeader">
                 <!-- xs, sm view -->
@@ -37,18 +36,17 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Budget</th>
-                            <th># of Employees</th>
+                            <th>Project Number</th>
+                            <th>Work Package</th>
                             <th>Description</th>
-                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let timesheetRow of timesheet">
-                            <td><input type="text" name="numberOfEmployees" [(ngModel)]="timesheetRow.projectNumber" style="width: 100px;" /></td>
-                            <td><input type="text" name="wpBudget" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 100px;" /></td>
-                            <td><input type="text" name="description" [(ngModel)]="timesheetRow.total" style="width:100px;" /></td>
-                            <td><input type="text" name="status" [(ngModel)]="timesheetRow.saturday" style="width: 100px;" /></td>
+                        <tr *ngFor="let workpackage of workpackages" (click)="getSelected(workpackage)">
+                            <td><p> {{workpackage.projectNumber}} </p></td>
+                            <td><p> {{workpackage.workPackageNumber}} </p></td>
+                            <td><p> {{workpackage.description}} </p></td>
+
                         </tr>
                         <tr></tr>
                         <tr>
@@ -60,9 +58,32 @@
             <br />
 
             <!-- Modal START -->
-            <button type="button" class="splitWorkPackages">SPLIT WORK PACKAGE</button>
+            <button id="splitWorkPackage" type="button" class="splitWorkpackage" data-toggle="modal" data-target="#splitWorkpackage">Split Workpackage</button>
+            <button id="newWorkpackageButton" type="button" class="newWorkpackage" data-toggle="modal" data-target="#addWorkpackage">New Workpackage</button>
+            <button id="deleteWorkpackageButton" type="button" class="deleteWorkpackage" data-toggle="modal" data-target="#deleteWorkpackage">Delete Workpackage</button>
 
+            <br />
+            <br />
+
+
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" data-toggle="modal" id="addWorkpackage">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <AddWorkpackage></AddWorkpackage>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade bs-example-modal-lg secondary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" data-toggle="modal" id="deleteWorkpackage">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <DeleteWorkpackage></DeleteWorkpackage>
+                    </div>
+                </div>
+            </div>
             <!-- Modal END -->
+
+
             <br />
             <hr />
         </div>
