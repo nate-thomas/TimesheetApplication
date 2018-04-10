@@ -1,0 +1,72 @@
+﻿<div class="body">
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='body-content'>
+                <div class="component-content">
+                    <div align="center">
+                        <h2>Updating Project</h2>
+                    </div>
+                    <div>
+                        <form (ngSubmit)="updateProject()">
+                            <!-- xs, sm -->
+                            <div class="visible-xs visible-sm">
+                                <div class="row inputBox center">
+                                    <div class="col-xs-12">
+                                        Project Number
+                                        <br />
+                                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" disabled />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        Budget
+                                        <br />
+                                        <input id="budgetInputSmall" type="text" name="budget" [(ngModel)]="project.budget" [ngClass]="validateInput(project.budget)" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-xs-12">
+                                        Description
+                                        <br />
+                                        <input id="descriptionInputSmall" type="text" name="description" [(ngModel)]="project.description" [ngClass]="validateInput(project.description)" />
+                                    </div>
+                                </div>
+                                <br />
+                                <button id="updateProjectButtonSmall">Update Project</button>
+                                <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
+                            </div>
+                            <!-- md, lg, xl-->
+                            <div class="hidden-xs hidden-sm">
+                                <div class="row inputBox">
+                                    <div class="col-md-6" align="center">
+                                        Project Number
+                                        <br />
+                                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" disabled />
+                                    </div>
+                                    <div class="col-md-6" align="center">
+                                        Budget
+                                        <br />
+                                        <input id="budgetInputSmall" type="text" name="budget" [(ngModel)]="project.budget" [ngClass]="validateInput(project.budget)" />
+                                    </div>
+                                </div>
+                                <div class="row inputBox">
+                                    <div class="col-md-6" align="center">
+                                        Description
+                                        <br />
+                                        <input id="descriptionInputSmall" type="text" name="description" [(ngModel)]="project.description" [ngClass]="validateInput(project.description)" />
+                                    </div>
+                                </div>
+                                
+                                <div class="buttons" align="center">
+                                    <button id="updateProjectButtonLarge" align="center">Update Projects</button>
+                                    <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
+                                </div>
+                            </div>
+                            <br />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

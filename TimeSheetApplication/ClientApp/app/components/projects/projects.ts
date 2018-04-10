@@ -6,6 +6,7 @@ export class Project {
     description: string;
     budget: number;
     workPackages: string[];
+    projectManager: string;
 
     constructor() { }
 }

@@ -42,22 +42,37 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            List<string> employeesNumberList = new List<string>();
+            List<EmployeeViewModel> employeesList = new List<EmployeeViewModel>();
 
             var projectTeams = _context.ProjectTeams.ToArray();
             foreach (ProjectTeam pt in projectTeams)
             {
                 if(pt.ProjectNumber.Equals(projNum))
                 {
-                    employeesNumberList.Add(pt.EmployeeNumber);
-                }
+                    var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, pt.EmployeeNumber));
+                    var appUser = await _userManager.FindByNameAsync(pt.EmployeeNumber);
+                    var userRole = await _userManager.GetRolesAsync(appUser);
+                    EmployeeViewModel temp = new EmployeeViewModel
+                    {
+                        EmployeeNumber = employee.EmployeeNumber,
+                        FirstName = employee.FirstName,
+                        LastName = employee.LastName,
+                        Grade = employee.Grade,
+                        EmployeeIntials = employee.EmployeeIntials,
+                        Password = "",
+                        ConfirmPassword = "",
+                        Role = userRole[0],
+                        supervisorNumber = employee.SupervisorNumber
+                    };
+                    employeesList.Add(temp);
+                } 
             }
 
-            if(employeesNumberList.Count == 0)
+            if(employeesList.Count == 0)
             {
                 return BadRequest("Project not found");
             }
-            return new ObjectResult(employeesNumberList);
+            return new ObjectResult(employeesList);
         }
 
 
@@ -85,6 +100,44 @@ namespace TimeSheetApplication.ApiControllers
                 return BadRequest("Employee not found");
             }
             return new ObjectResult(pojectsList);
+        }
+
+        /* WORK IN PROGRESS -> Not Functional... YET =] */
+        /* Work in this method Raymond, feel free to change everything if you think it's better */
+        [HttpPut("{projNum}")]
+        public async Task<IActionResult> UpdateEmployeesOfProject([FromRoute] string projNum,
+                                                                  [FromBody] List<string> list)
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var projectTeams = _context.ProjectTeams.ToArray();
+            /* I think this approach will not work because of FKs */
+            /* Remove all Users from the ProjectTeam */
+            foreach (ProjectTeam pt in projectTeams)
+            {
+                if(pt.ProjectNumber != null && pt.ProjectNumber.Equals(projNum))
+                {
+                    _context.ProjectTeams.Remove(pt);
+                    _context.SaveChanges();
+                }
+            }
+            /* Add list of Users to the ProjectTeam */
+            foreach (string str in list)
+            {
+                ProjectTeam newpt = new ProjectTeam
+                {
+                    ProjectNumber = "projNum",
+                    EmployeeNumber = str
+                };
+                await _context.ProjectTeams.AddAsync(newpt);
+                _context.SaveChanges();
+            }
+
+            return new NoContentResult();
         }
 
     }

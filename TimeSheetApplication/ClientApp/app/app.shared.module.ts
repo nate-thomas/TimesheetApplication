@@ -19,6 +19,7 @@ import { EmployeesTableComponent } from './components/employees/employeesTable/e
 import { WorkPackagesComponent } from './components/workpackages/workpackages.component';
 import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
 import { UpdateEmployeeComponent } from './components/employees/updateEmployee/updateEmployee.component';
+import { UpdateProjectComponent } from './components/projects/updateProject/updateProject.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { UpdateEmployeeComponent } from './components/employees/updateEmployee/u
 		LoginComponent,
         TimesheetsTableComponent,
         ProjectsTableComponent,
+        UpdateProjectComponent,
         AddProjectComponent,
         WorkPackagesComponent,
         ViewTimesheetsComponent
