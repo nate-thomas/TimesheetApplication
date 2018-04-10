@@ -60,19 +60,28 @@ export class UserComponent {
 
     updateEmployee() {
         if (this.employee.firstName == "") {
-            delete this.employee.firstName;
+            this.employee.firstName = localStorage.getItem("firstName") || "";
         }
 
         if (this.employee.lastName == "") {
-            delete this.employee.lastName;
+            this.employee.lastName = localStorage.getItem("lastName") || "";
         }
 
         if (this.employee.employeeIntials == "") {
-            delete this.employee.employeeIntials;
+            this.employee.employeeIntials = localStorage.getItem("employeeIntials") || "";
         }
 
+        this.employee.grade = localStorage.getItem("grade") || "";
+        this.employee.supervisorNumber = localStorage.getItem("supervisorNumber") || "";
+        this.employee.role = localStorage.getItem("role") || "";
+
         this.putEmployee(this.employee.employeeNumber, this.employee)
-            .subscribe(res => alert("Employee updated!"));        
+            .subscribe(res => {
+                localStorage.setItem("firstName", this.employee.firstName);
+                localStorage.setItem("employeeIntials", this.employee.employeeIntials);
+                localStorage.setItem("lastName", this.employee.lastName);
+                alert("Employee updated!");
+            });        
     }
 
     updatePassword() {
