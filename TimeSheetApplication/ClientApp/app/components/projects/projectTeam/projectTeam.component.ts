@@ -91,6 +91,10 @@ export class ProjectTeamComponent implements OnChanges {
         this.projectMembers = event;
     }
 
+    checkSVRole() {
+        return (localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator")
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
