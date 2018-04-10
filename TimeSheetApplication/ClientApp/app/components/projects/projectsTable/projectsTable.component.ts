@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppComponent } from '../../app/app.component';
 import { Router } from '@angular/router';
 
+
 @Component({
     selector: 'projectsTable',
     styleUrls: ['./projectsTable.component.css'],

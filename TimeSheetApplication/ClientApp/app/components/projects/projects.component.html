@@ -5,8 +5,12 @@
                 <nav-menu></nav-menu>
             </div>
             <div class='col-sm-9 body-content'>
+                <!--<projectsTable (outputProject)="projectChange($event)"></projectsTable>
+                <workpackages [inputProjectNumber]="selectedProject" (outputWorkPackage)="workPackageChange($event)"></workpackages>-->
                 <projectsTable></projectsTable>
                 <workpackages></workpackages>
+                <projectteam [inputProjectNumber]="selectedProject" (outputEmployee)="memberChange($event)">></projectteam>
+                <workpackageteam [inputProjectNumber]="selectedProject" [inputWorkPackageNumber]="selectedWorkPackage" [inputMember]="selectedMember"></workpackageteam>
             </div>
         </div>
     </div>
