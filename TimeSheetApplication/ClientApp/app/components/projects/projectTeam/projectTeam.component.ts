@@ -15,6 +15,7 @@ import { AppComponent } from '../../app/app.component';
 export class ProjectTeamComponent implements OnChanges {
     @Input() inputProjectNumber: string = 'WebPrj128';
     @Output() outputEmployee: EventEmitter<Employee> = new EventEmitter<Employee>();
+    outputProjectNumber: string;
     selected: Employee;
     projectMembers: Employee[];
     emptyEmployee: Employee = new Employee();
@@ -56,8 +57,13 @@ export class ProjectTeamComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['selectedProjectNumber'] !== undefined)
+
+        this.outputProjectNumber = this.inputProjectNumber;
+        
+        if (changes['selectedProjectNumber'] !== undefined) {
             this.inputProjectNumber = changes['selectedProjectNumber'].currentValue;
+        }
+
         if (this.inputProjectNumber !== undefined && this.inputProjectNumber != '') {
             //console.log("hi im in project team:" + this.inputProjectNumber + ".");
             this.loadEmployees();
@@ -78,10 +84,12 @@ export class ProjectTeamComponent implements OnChanges {
         this.deleteEmployeeFromProjectTeam(delMember.employeeNumber).then(() => {
             this.projectMembers = this.projectMembers.filter(e => e !== delMember);
             if (this.selected === delMember) { this.selected = this.emptyEmployee; }
-        });;
+        });
     }
 
-    addEmployeeToProject() { }
+    membersChange(event: any) {
+        this.projectMembers = event;
+    }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only

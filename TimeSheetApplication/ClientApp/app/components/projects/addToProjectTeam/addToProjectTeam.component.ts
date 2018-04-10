@@ -17,19 +17,22 @@ export class AddToProjectTeamComponent {
     employees: Employee[] = [];
     newMember: Employee = new Employee();
 
-    //@Input()
-    //project: Project;
-    //@Input()
-    //projects: Project[];
-    //@Output()
-    //projectsChange = new EventEmitter<Project[]>();
+    @Input()
+    currentMembers: Employee[];
+
+    @Input()
+    project: string;
+
+
+    @Output()
+    projectTeamChange = new EventEmitter<Employee[]>();
 
     constructor(private http: Http, private router: Router) { }
 
     loadEmployees() {
         this.getEmployees()
             .subscribe(
-                employees => this.employees = employees
+            employees => this.employees = employees
             );
     }
 
@@ -45,91 +48,38 @@ export class AddToProjectTeamComponent {
             });
     }
 
-    postProject(project: Project): Observable<Response> {
+ 
+    postToProjectTeam(): Promise<void | null> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        console.log(project);
 
-        return this.http.post(AppComponent.url + "/api/Projects/", this.project, options)
-            .map((res: Response) => res.json())
-            .catch((err: any) => {
-                console.log(err._body);
-                return Observable.throw(new Error(JSON.stringify(err)));
-            });
+        const url = AppComponent.url + '/api/ProjectTeams/';
+        return this.http.post(url,
+            { "projectNumber": this.project, "employeeNumber": this.newMember.employeeNumber },
+            { headers: headers })
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
     }
 
     ngOnInit() {
         this.loadEmployees();
     }
 
-    ///* Utility methods */
 
-    //validateInput(input: string) {
-    //    if (input == undefined || input == null || input == "") {
-    //        return 'invalid-input';
-    //    } else {
-    //        return '';
-    //    }
-    //}
+    addToProjectTeam() {
+        console.log("child:" + this.project + " " + this.newMember.employeeNumber);
+        this.postToProjectTeam()
+            .then(() => this.currentMembers.push(this.newMember));
+    }
 
-    ///* Subscription methods to bind the response to a property (if applicable) */
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    }
 
-    //loadProjects() {
-    //    this.getProjects()
-    //        .subscribe(
-    //        projects => {
-    //            this.projects = projects;
-    //            this.projectsChange.emit(this.projects);
-    //        }
-    //        );
-    //}
-
-    //addProject() {
-    //    this.project.statusName = "Current";
-
-    //    if (this.project.projectNumber &&
-    //        this.project.description &&
-    //        this.project.budget) {
-
-    //        this.postProject(this.project)
-    //            .subscribe(res => {
-    //                alert("Project added!");
-    //                this.ngOnInit();
-    //            });
-
-    //    } else {
-    //        alert("All fields are required!");
-    //    }
-
-    //}
-
-
-    ///* CRUD methods to make RESTful calls to the API */
-
-    //getProjects(): Observable<Project[]> {
-    //    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-    //    let options = new RequestOptions({ headers: headers });
-
-    //    return this.http.get(AppComponent.url + "/api/Projects/", options)
-    //        .map((res: Response) => res.json())
-    //        .catch((err: Response) => {
-    //            console.log(JSON.stringify(err));
-    //            return Observable.throw(new Error(JSON.stringify(err)));
-    //        });
-    //}
-
-    //postProject(project: Project): Observable<Response> {
-    //    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-    //    let options = new RequestOptions({ headers: headers });
-
-    //    console.log(project);
-
-    //    return this.http.post(AppComponent.url + "/api/Projects/", this.project, options)
-    //        .map((res: Response) => res.json())
-    //        .catch((err: any) => {
-    //            console.log(err._body);
-    //            return Observable.throw(new Error(JSON.stringify(err)));
-    //        });
-    //}
+    loadProjectTeam() {
+        this.projectTeamChange.emit(this.currentMembers);
+    }
 }
