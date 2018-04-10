@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 
 import { Employee } from '../employees/employees';
+import { Workpackage } from '../workpackages/workpackage';
 
 @Component({
     selector: 'projects',
@@ -8,9 +9,10 @@ import { Employee } from '../employees/employees';
     styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent {
-    selectedProject: string = 'WebPrj128';
-    selectedWorkPackage: string = 'A2';
+    selectedProject: string;
+    selectedWorkPackage: string;
     selectedMember: Employee;
+    selectedWorkpackage: Workpackage;
 
     constructor() { }
 
@@ -19,7 +21,8 @@ export class ProjectsComponent {
     }
 
     workPackageChange(event: any) {
-        this.selectedWorkPackage = event;
+        this.selectedWorkPackage = event.workPackageNumber;
+        console.log("parent: " + this.selectedWorkPackage);
     }
 
     memberChange(event: any) {
@@ -33,4 +36,8 @@ export class ProjectsComponent {
             return false;
         }
     }
+
+    //workpackagesChange(workpackage: Workpackage) {
+    //    this.selectedWorkpackage = workpackage;
+    //}
 }

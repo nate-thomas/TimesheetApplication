@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, EventEmitter, Output } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Workpackage } from './workpackage';
@@ -19,6 +19,8 @@ import 'rxjs/add/operator/map';
 export class WorkpackageComponent {
     workpackages: Workpackage[] = new Array();
     workpackage: Workpackage = new Workpackage();
+    @Output()
+    selectWorkpackage = new EventEmitter<Workpackage>();
 
     constructor(private http: Http) { }
 
@@ -35,6 +37,21 @@ export class WorkpackageComponent {
 
 
     /* Subscription methods to bind the response to a property (if applicable) */
+
+    onSelect(workpackageSearch: Workpackage) {
+        //alert(projectNumber);
+
+        console.log(workpackageSearch);
+
+        this.getWorkpackage(workpackageSearch.projectNumber, workpackageSearch.workpackageNumber)
+            .subscribe(workpackage => {
+                this.workpackage = workpackage
+                this.selectWorkpackage.emit(this.workpackage)
+                console.log(this.workpackage)
+            }); 
+    }
+
+
     loadWorkpackages() {
         this.getWorkpackages()
             .subscribe(
@@ -70,6 +87,7 @@ export class WorkpackageComponent {
     }
 
     getWorkpackage(projectNumber: string, workPackageNumber: string): Observable<Workpackage> {
+
         return this.http.get(AppComponent.url + "/api/workpackages/" + projectNumber + "/" + workPackageNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
@@ -80,5 +98,7 @@ export class WorkpackageComponent {
 
         console.log(item);
         this.workpackage = item;
+        this.selectWorkpackage.emit(this.workpackage);
+
     }
 }
