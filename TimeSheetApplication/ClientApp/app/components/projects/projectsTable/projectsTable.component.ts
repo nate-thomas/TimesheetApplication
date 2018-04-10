@@ -88,12 +88,13 @@ export class ProjectsTableComponent {
     }
 
     loadPMProjects(employeeNumber: string) {
-        console.log("hi this is" + this.project);
-        alert("empNum is: " + employeeNumber)
+        //console.log("hi this is" + this.project);
+        //alert("empNum is: " + employeeNumber)
+        //console.log("URL IS: " + URL);
         this.getProjectsByPM(employeeNumber)
             .subscribe(projects => {
                 //This part is not working
-                alert("loadPM: " + employeeNumber)
+               // alert("loadPM: " + employeeNumber)
                 this.projects = projects
                 //alert(this.employeeNumber);
             });
@@ -160,7 +161,7 @@ export class ProjectsTableComponent {
         let options = new RequestOptions({ headers: headers });
         console.log(employeeNumber);
 
-        return this.http.get(AppComponent.url + "/api/Projects/" + employeeNumber, options)
+        return this.http.get(AppComponent.url + "/api/Projects/pm/" + employeeNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 console.log(JSON.stringify(err));

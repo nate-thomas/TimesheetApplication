@@ -21,7 +21,7 @@
         <!-- xs, sm view -->
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
-                <button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+               <!-- <button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>-->
             </div>
             <div class="col-xs-12 text-center">
                 <h1>Projects</h1>
@@ -33,7 +33,7 @@
         <!--  md, lg, xl views -->
         <div class="row hidden-xs hidden-sm">
             <div class="col-md-4">
-                <button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+                <!--<button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>-->
             </div>
             <div class="col-md-4 text-center">
                 <h1>Projects</h1>
@@ -74,10 +74,13 @@
     </div>
     <br />
 
-    <!-- Modal START -->
-    <button type="button" class="newProject" data-toggle="modal" data-target="#addProject">New Project</button>
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="addProject">
+
+    <!--<button type="button" class="newProject" data-toggle="modal" data-target="#addProject" *ngif="checkPMRole()">New Project</button>-->
+    <button id="newProjectButton" type="button" class="newProject" data-toggle="modal" data-target=".new-project" *ngIf="checkPMRole()">New Project</button>
+    <!-- Modal START -->
+
+    <div class="modal fade bs-example-modal-lg new-project" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="addProject">
         <div class="modalse-dialog modal-lg" role="document">
             <div class="modal-content">
                 <addProject [project]="project" [projects]="projects" (projectsChange)="setProjects($event)"></addProject>
@@ -85,7 +88,6 @@
         </div>
     </div>
     <!-- Modal END -->
-
     <!-- Modal Update Project START -->
     <div class="modal fade update-project" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
