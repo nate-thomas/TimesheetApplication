@@ -58,6 +58,7 @@ export class AddProjectComponent {
             this.postProject(this.project)
                 .subscribe(res => {
                     alert("Project added!");
+                    this.ngOnInit();
                 });
 
         } else {

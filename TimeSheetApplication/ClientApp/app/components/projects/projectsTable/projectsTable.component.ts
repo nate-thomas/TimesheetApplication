@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Project } from '../projects';
 import { Observable } from 'rxjs/Observable';
 import { AppComponent } from '../../app/app.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'projectsTable',
@@ -14,7 +15,7 @@ export class ProjectsTableComponent {
     project: Project = new Project();
     projects: Project[] = new Array();
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private router: Router) { }
 
 
      /* Functions to be called when component is loaded */
@@ -41,17 +42,16 @@ export class ProjectsTableComponent {
     /* Subscription methods to bind the response to a property (if applicable) */
     loadProjects() {
         this.getProjects()
-            .subscribe(
-                projects => this.projects = projects
-        );
+            .subscribe(projects => this.projects = projects);
+        
     }
 
-    loadProject(projectNumber: string) {
-        this.getProject(projectNumber)
-            .subscribe(
-                project => this.projects = [project]
-        );
-    }
+    //loadProject(projectNumber: string) {
+    //    this.getProject(projectNumber)
+    //        .subscribe(
+    //            project => this.projects = [project]
+    //    );
+    //}
 
 
 
@@ -87,19 +87,19 @@ export class ProjectsTableComponent {
 
     // Archiving
 
-    archiveProject(index: number) {
+    archiveProject(index: string) {
         this.project.statusName = "Archived";
+        this.project.projectNumber = index;
 
-        this.putProject(this.project.projectNumber, this.project)
+        this.putProject(index, this.project)
             .subscribe(res => {
                 //alert("Project updated!")
+                this.ngOnInit();
             });
-        
-        this.getProjects()
-            .subscribe(
-            projects => this.projects = projects
-            );
 
+        
+        
+        
         console.log('archived project');
     }
     
