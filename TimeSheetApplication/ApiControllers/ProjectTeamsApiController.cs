@@ -28,7 +28,7 @@ namespace TimeSheetApplication.ApiControllers
 {
     [Produces("application/json")]
     [Route("api/ProjectTeams")]
-    //[Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = OAuthValidationDefaults.AuthenticationScheme)]
     [EnableCors("CorsPolicy")]
     public class ProjectTeamsApiController : Controller
     {
