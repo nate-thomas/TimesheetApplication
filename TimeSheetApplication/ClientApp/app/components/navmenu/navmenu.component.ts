@@ -8,9 +8,19 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
     constructor() { }
 
-    checkRole(role: string) {
+    checkHRAndSupervisorRole() {
         if (typeof window !== 'undefined') {
-            if (localStorage.getItem("role") == role) {
+            if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    checkPMAndSupervisorRole() {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("role") == "Project Manager" || localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
                 return true;
             } else {
                 return false;

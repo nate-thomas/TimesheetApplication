@@ -60,24 +60,33 @@ export class UserComponent {
 
     updateEmployee() {
         if (this.employee.firstName == "") {
-            delete this.employee.firstName;
+            this.employee.firstName = localStorage.getItem("firstName") || "";
         }
 
         if (this.employee.lastName == "") {
-            delete this.employee.lastName;
+            this.employee.lastName = localStorage.getItem("lastName") || "";
         }
 
         if (this.employee.employeeIntials == "") {
-            delete this.employee.employeeIntials;
+            this.employee.employeeIntials = localStorage.getItem("employeeIntials") || "";
         }
 
+        this.employee.grade = localStorage.getItem("grade") || "";
+        this.employee.supervisorNumber = localStorage.getItem("supervisorNumber") || "";
+        this.employee.role = localStorage.getItem("role") || "";
+
         this.putEmployee(this.employee.employeeNumber, this.employee)
-            .subscribe(res => alert("Employee updated!"));        
+            .subscribe(res => {
+                localStorage.setItem("firstName", this.employee.firstName);
+                localStorage.setItem("employeeIntials", this.employee.employeeIntials);
+                localStorage.setItem("lastName", this.employee.lastName);
+                alert("Employee updated!");
+            });        
     }
 
     updatePassword() {
         if (this.validatePasswords(this.employee.password, this.employee.confirmPassword)) {
-            this.postPassword(this.employee.employeeNumber, this.employee.password, this.employee.confirmPassword)
+            this.putPassword(this.employee.employeeNumber, this.employee.password, this.employee.confirmPassword)
                 .subscribe(res => alert("Password changed!"));
         }
     }
@@ -96,12 +105,12 @@ export class UserComponent {
             });
     }
 
-    postPassword(employeeNumber: string, password: string, confirmPassword: string) {
+    putPassword(employeeNumber: string, password: string, confirmPassword: string) {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let body = { "password": password, "confirmPassword": confirmPassword };
+        let body = { "Password": password, "ConfirmPassword": confirmPassword };
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(AppComponent.url + "/api/ApplicationUserApi/" + employeeNumber, body, options)
+        return this.http.put(AppComponent.url + "/api/ApplicationUser/" + employeeNumber, body, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert("Password change failed!");

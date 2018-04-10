@@ -17,20 +17,12 @@
                         <span class='glyphicon glyphicon-time'></span> Timesheets
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
-
+                <li [routerLinkActive]="['link-active']" *ngIf="checkPMAndSupervisorRole()">
                     <a id="projectsLink" [routerLink]="['/projects']">
                         <span class='glyphicon glyphicon-folder-close'></span> Projects
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
-
-                    <a id="workpackagesLink" [routerLink]="['/workpackages']">
-                        <span class='glyphicon glyphicon-briefcase'></span> Workpackages
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                <li [routerLinkActive]="['link-active']" *ngIf="checkRole('Human Resources')">
+                <li [routerLinkActive]="['link-active']" *ngIf="checkHRAndSupervisorRole()">
                     <a id="employeesLink" [routerLink]="['/employees']">
                         <span class='glyphicon glyphicon-th-list'></span> Employees
                     </a>

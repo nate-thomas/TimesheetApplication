@@ -71,10 +71,14 @@ export class AddEmployeeComponent {
             this.employee.grade &&
             this.employee.role) {
 
-            this.postEmployee(this.employee)
-                .subscribe(res => {
-                    alert("Employee added!");
-                });
+            if (this.employee.employeeNumber.toString().length != 7) {
+                alert("Employee number must be 7 digits!");
+            } else {
+                this.postEmployee(this.employee)
+                    .subscribe(res => {
+                        alert("Employee added!");
+                    });
+            }
 
         } else {
             alert("All fields are required!");

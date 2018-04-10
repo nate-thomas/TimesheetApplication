@@ -190,64 +190,50 @@ namespace TimeSheetApplication.Controllers
             return BadRequest("Employee already exists");
         }
 
-        /* Update Basic Employee Information -Not password or Role- */
+        /* NEW VERSION FOR UPDATING EMPLOYEE */
         [HttpPut("{empNumber}")]
-        public async Task<IActionResult> UpdateEmployeeRole(long empNumber, [FromBody] Employee item)
+        public async Task<IActionResult> UpdateEmployeeRole([FromRoute] string empNumber, [FromBody] EmployeeViewModel item)
         {
-            string empNumberStr = empNumber.ToString();
-            if (!ModelState.IsValid || !String.Equals(item.EmployeeNumber, empNumberStr))
+            if (!ModelState.IsValid || !String.Equals(item.EmployeeNumber, empNumber))
             {
                 return BadRequest(ModelState);
             }
 
-            var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
+            var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumber));
             var appUser = await _userManager.FindByNameAsync(item.EmployeeNumber);
 
             if (employee == null)
             {
-                return NotFound();
+                return NotFound("Employee not Found");
             }
 
-            //Set First Name if asked to
-            if (item.FirstName != null)
+            //Get new Role
+            var newRole = await _roleManager.FindByNameAsync(item.Role);
+
+            if (newRole == null)
             {
-                employee.FirstName = item.FirstName;
+                return NotFound("Invalid Role");
             }
-            //Set Last Name if asked to
-            if (item.LastName != null)
+
+            //Validation on front-end
+            //Update fields
+            employee.FirstName = item.FirstName;
+            employee.LastName = item.LastName;
+            employee.Grade = item.Grade;
+            employee.EmployeeIntials = item.EmployeeIntials;
+            employee.SupervisorNumber = item.supervisorNumber;
+
+            //update role and remove previous role
+            var test = await _userManager.GetRolesAsync(appUser);
+            foreach (var r in test)
             {
-                employee.LastName = item.LastName;
+                await _userManager.RemoveFromRoleAsync(appUser, r);
             }
-            //Set LaborGrade if asked to
-            if (item.Grade != null)
-            {
-                employee.LaborGrade = item.LaborGrade;
-            }
-            //Set Grade if asked to
-            if (item.Grade != null)
-            {
-                employee.Grade = item.Grade;
-            }
-            //Set EmployeeIntials if asked to
-            if (item.EmployeeIntials != null)
-            {
-                employee.EmployeeIntials = item.EmployeeIntials;
-            }
-            //Set Supervisor if asked to
-            if (item.Supervisor != null)
-            {
-                employee.Supervisor = item.Supervisor;
-            }
-            //Set SupervisorNumber if asked to
-            if (item.SupervisorNumber != null)
-            {
-                employee.SupervisorNumber = item.SupervisorNumber;
-            }
-            //Set Timesheets if asked to
-            if (item.Timesheets != null)
-            {
-                employee.Timesheets = item.Timesheets;
-            }
+            
+            await _userManager.AddToRoleAsync(appUser, item.Role);
+
+            var test2 = await _userManager.GetRolesAsync(appUser);
+
             //Check if new model doesn't break any FK Constraints
             try
             {
@@ -259,36 +245,6 @@ namespace TimeSheetApplication.Controllers
             {
                 return BadRequest(ModelState);
             }
-        }
-
-        /* Update Employee Role */
-        [HttpPut("{empNumber}/{empRole}")]
-        public async Task<IActionResult> Update([FromRoute] long empNumber,
-                                                [FromRoute] string empRole)
-        {
-            string empNumberStr = empNumber.ToString();
-            string fixRole = empRole.Replace('-',' ');
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
-            var appUser = await _userManager.FindByNameAsync(empNumberStr);
-            var newRole = await _roleManager.FindByNameAsync(fixRole);
-
-            if (employee != null && appUser != null)
-            {
-                if(newRole == null)
-                {
-                    return BadRequest("Invalid Role");
-                }
-                await _userManager.AddToRoleAsync(appUser, fixRole);
-                return new NoContentResult();
-            }
-            return BadRequest("Employee not found");
-           
         }
 
         [HttpDelete("{empNumber}")]

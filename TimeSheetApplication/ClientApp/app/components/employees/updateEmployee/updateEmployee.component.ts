@@ -39,11 +39,19 @@ export class UpdateEmployeeComponent {
 
     /* Utility methods */
 
-    validateInput(input: string) {
-        if (input == undefined || input == null || input == "") {
-            return 'invalid-input';
+    validateInput(input: string, isRestricted: boolean) {
+        if (localStorage.getItem("role") != "Supervisor") {
+            if (input == undefined || input == null || input == "") {
+                return 'invalid-input';
+            } else {
+                return '';
+            }
         } else {
-            return '';
+            if (isRestricted) {
+                return "disabled-input"
+            } else {
+                return '';
+            }
         }
     }
 
@@ -70,8 +78,7 @@ export class UpdateEmployeeComponent {
 
             this.putEmployee(this.employee.employeeNumber, this.employee)
                 .subscribe(res => {
-                    this.putRole(this.employee.employeeNumber, this.employee.role)
-                        .subscribe(res => { alert("Employee updated!") });
+                    alert("Employee updated!");
                 });
 
         } else {
@@ -155,22 +162,6 @@ export class UpdateEmployeeComponent {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.get(AppComponent.url + "/api/Roles/", options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                console.log(JSON.stringify(err));
-                return Observable.throw(new Error(JSON.stringify(err)));
-            });
-    }
-
-    putRole(employeeNumber: string, role: string): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        console.log(localStorage.getItem("access_token"));
-
-        let formattedRole = role.replace(" ", "-");
-
-        return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber + "/" + formattedRole, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 console.log(JSON.stringify(err));
