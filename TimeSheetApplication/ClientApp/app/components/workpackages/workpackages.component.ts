@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, Output } from '@angular/core';
+﻿import { Component, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Workpackage } from './workpackage';
@@ -21,6 +21,8 @@ export class WorkpackageComponent {
     workpackage: Workpackage = new Workpackage();
     @Output()
     selectWorkpackage = new EventEmitter<Workpackage>();
+    @Input()
+    inputProjectNumber: string; 
 
     constructor(private http: Http) { }
 
@@ -31,10 +33,18 @@ export class WorkpackageComponent {
 
     /* Functions to be called when component is loaded */
     ngOnInit() {
-        this.loadWorkpackages()
-        this.workpackage.projectNumber = "Work Package";
     }
 
+    ngOnChanges(changes: SimpleChanges) {
+
+        if (changes['selectedProjectNumber'] !== undefined) {
+            this.inputProjectNumber = changes['selectedProjectNumber'].currentValue;
+        }
+
+        if (this.inputProjectNumber !== undefined && this.inputProjectNumber != '') {
+            this.loadWorkpackages();
+        }
+    }
 
     /* Subscription methods to bind the response to a property (if applicable) */
 
@@ -81,10 +91,14 @@ export class WorkpackageComponent {
 
     /* CRUD methods to make RESTful calls to the API */
     getWorkpackages(): Observable<Workpackage[]> {
-        return this.http.get(AppComponent.url + "/api/workpackages/")
+        console.log("in get");
+        console.log(this.inputProjectNumber);
+
+        return this.http.get(AppComponent.url + "/api/workpackages/" + this.inputProjectNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
+
 
     getWorkpackage(projectNumber: string, workPackageNumber: string): Observable<Workpackage> {
 
