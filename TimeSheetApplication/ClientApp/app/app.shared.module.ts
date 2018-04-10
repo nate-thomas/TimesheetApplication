@@ -16,8 +16,10 @@ import { AddEmployeeComponent } from './components/employees/addEmployee/addEmpl
 import { ProjectsTableComponent } from './components/projects/projectsTable/projectsTable.component';
 import { AddProjectComponent } from './components/projects/addProject/addProject.component';
 import { EmployeesTableComponent } from './components/employees/employeesTable/employeesTable.component';
-import { WorkPackagesComponent } from './components/workpackages/workpackages.component';
+import { WorkpackageComponent } from './components/workpackages/workpackages.component';
 import { ViewTimesheetsComponent } from './components/timesheets/viewTimesheets/viewTimesheets.component'
+import { AddWorkpackageComponent } from './components/workpackages/addWorkPackage/addWorkpackage.component';
+import { DeleteWorkpackageComponent } from './components/workpackages/deleteWorkPackage/deleteWorkpackage.component';
 import { UpdateEmployeeComponent } from './components/employees/updateEmployee/updateEmployee.component';
 import { UpdateProjectComponent } from './components/projects/updateProject/updateProject.component';
 
@@ -37,9 +39,10 @@ import { UpdateProjectComponent } from './components/projects/updateProject/upda
         ProjectsTableComponent,
         UpdateProjectComponent,
         AddProjectComponent,
-        WorkPackagesComponent,
-        ViewTimesheetsComponent
-
+        WorkpackageComponent,
+        ViewTimesheetsComponent,
+        AddWorkpackageComponent,
+        DeleteWorkpackageComponent
     ],
     imports: [
         CommonModule,
@@ -51,6 +54,11 @@ import { UpdateProjectComponent } from './components/projects/updateProject/upda
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
+            //{ path: 'admintasks', component: AdmintasksComponent },
+            //{ path: 'workpackages', component: WorkpackageComponent },
+            //{ path: 'addTimesheet', component: TimesheetsTableComponent },
+            //{ path: 'addEmployee', component: AddEmployeeComponent },
+            //{ path: 'addProject', component: AddProjectComponent },
             { path: 'user', component: UserComponent },
             { path: '**', redirectTo: 'login' }
         ])
