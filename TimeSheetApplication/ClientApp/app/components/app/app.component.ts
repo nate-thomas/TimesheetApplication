@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    public static url: string = "http://localhost:54006";
+    public static url: string = "http://localhost:58911";
 }

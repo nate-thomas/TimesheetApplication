@@ -25,3 +25,8 @@
 .invalid-input {
     border: 2px solid red;
 }
+
+.disabled-input {
+    pointer-events: none;
+    background-color: #eaeaea;
+}
