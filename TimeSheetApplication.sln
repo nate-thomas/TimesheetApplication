@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSheetApplication", "Tim
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumTests", "SeleniumTests\SeleniumTests.csproj", "{FE5A2950-4856-4876-81D6-494B7FBB9C7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestProject", "XUnitTestProject\XUnitTestProject.csproj", "{60F32FF3-BBB1-4B80-8529-376AA51618A0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{FE5A2950-4856-4876-81D6-494B7FBB9C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE5A2950-4856-4876-81D6-494B7FBB9C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE5A2950-4856-4876-81D6-494B7FBB9C7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60F32FF3-BBB1-4B80-8529-376AA51618A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60F32FF3-BBB1-4B80-8529-376AA51618A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60F32FF3-BBB1-4B80-8529-376AA51618A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60F32FF3-BBB1-4B80-8529-376AA51618A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
