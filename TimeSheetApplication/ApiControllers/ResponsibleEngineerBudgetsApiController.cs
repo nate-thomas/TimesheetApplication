@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNet.Security.OAuth.Validation;
@@ -8,7 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TimeSheetApplication.Data;
+using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models.TimeSheetSystem;
 
 namespace TimeSheetApplication.ApiControllers
@@ -19,9 +18,9 @@ namespace TimeSheetApplication.ApiControllers
     [EnableCors("CorsPolicy")]
     public class ResponsibleEngineerBudgetsApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
 
-        public ResponsibleEngineerBudgetsApiController(ApplicationDbContext context)
+        public ResponsibleEngineerBudgetsApiController(IDbContext context)
         {
             _context = context;
         }

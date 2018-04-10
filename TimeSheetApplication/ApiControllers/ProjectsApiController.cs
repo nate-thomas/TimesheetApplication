@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Data;
+using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models.TimeSheetSystem;
 using TimeSheetApplication.ViewModels;
 
@@ -15,9 +16,9 @@ namespace TimeSheetApplication.ApiControllers
     [Route("api/Projects")]
     public class ProjectsApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
 
-        public ProjectsApiController(ApplicationDbContext context)
+        public ProjectsApiController(IDbContext context)
         {
             _context = context;
         }

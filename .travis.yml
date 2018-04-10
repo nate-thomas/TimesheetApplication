@@ -1,5 +1,6 @@
 language: csharp
 mono: none
+sudo: true
 dotnet: 2.0.0
 dist: trusty
 solution: TimesheetApplication.sln
@@ -11,12 +12,23 @@ before_script:
   - nuget restore TimesheetApplication.sln
   - nuget install xunit.runners -Version 2.3.1 -OutputDirectory testrunner
   - npm install -g webpack 
+  
+cache:
+  directories:
+    - node_modules
+
+install: 
+  - npm install 
+  - npm install -g webpack 
+  - dotnet restore
+  - npm update 
 
 script:
+
  - dotnet restore
  - dotnet test SeleniumTests/SeleniumTests.csproj
  - dotnet test XUnitTestProject/XUnitTestProject.csproj
- 
+
 notifications:
   slack:
     rooms:

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TimeSheetApplication.Data;
+using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models.TimeSheetSystem;
 
 namespace TimeSheetApplication.ApiControllers
@@ -19,9 +19,9 @@ namespace TimeSheetApplication.ApiControllers
     [EnableCors("CorsPolicy")]
     public class TimesheetsApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
 
-        public TimesheetsApiController(ApplicationDbContext context)
+        public TimesheetsApiController(IDbContext context)
         {
             _context = context;
         }
@@ -37,7 +37,7 @@ namespace TimeSheetApplication.ApiControllers
 
             var timesheets = await _context.Timesheets.Where(m => m.EmployeeNumber == employeeNumber).ToListAsync();
             
-            if (timesheets == null)
+            if (timesheets.Count == 0)
             {
                 return NotFound();
             }
@@ -96,7 +96,7 @@ namespace TimeSheetApplication.ApiControllers
                 .OrderByDescending(t => t.StatusName)
                 .ThenByDescending(t => t.EndDate);
 
-            if (timesheets == null)
+            if (timesheets.Count() == 0)
             {
                 return NotFound();
             }

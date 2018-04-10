@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheetApplication.Data;
+using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models;
 using TimeSheetApplication.ViewModels;
 
@@ -22,10 +23,10 @@ namespace TimeSheetApplication.ApiControllers
     [EnableCors("CorsPolicy")]
     public class ApplicationUserApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ApplicationUserApiController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ApplicationUserApiController(IDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;

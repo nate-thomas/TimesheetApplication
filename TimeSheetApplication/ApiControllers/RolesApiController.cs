@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheetApplication.Data;
+using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models;
 
 namespace TimeSheetApplication.ApiControllers
@@ -19,10 +20,10 @@ namespace TimeSheetApplication.ApiControllers
     [EnableCors("CorsPolicy")]
     public class RolesApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RolesApiController(ApplicationDbContext context, RoleManager<IdentityRole> roleManager)
+        public RolesApiController(IDbContext context, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _roleManager = roleManager;

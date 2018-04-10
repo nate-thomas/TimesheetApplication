@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.System.Collections.Sequences;
 using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Data;
+using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models.TimeSheetSystem;
 using TimeSheetApplication.ViewModels;
 
@@ -22,9 +23,9 @@ namespace TimeSheetApplication.ApiControllers
     [EnableCors("CorsPolicy")]
     public class WorkPackagesApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IDbContext _context;
 
-        public WorkPackagesApiController(ApplicationDbContext context)
+        public WorkPackagesApiController(IDbContext context)
         {
             _context = context;
         }

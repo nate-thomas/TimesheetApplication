@@ -111,7 +111,11 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
+
+    <Folder Include="Migrations\" />
+
     <Folder Include="ClientApp\app\components\projects\addToProjectTeam\" />
+
     <Folder Include="Services\" />
 
   </ItemGroup>
