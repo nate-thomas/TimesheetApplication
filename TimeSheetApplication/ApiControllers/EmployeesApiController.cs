@@ -210,7 +210,7 @@ namespace TimeSheetApplication.Controllers
             //Get new Role
             var newRole = await _roleManager.FindByNameAsync(item.Role);
 
-            if (employee == null)
+            if (newRole == null)
             {
                 return NotFound("Invalid Role");
             }
