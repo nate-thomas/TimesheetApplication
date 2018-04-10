@@ -17,4 +17,14 @@ export class NavMenuComponent {
             }
         }
     }
+
+    checkPMAndSupervisorRole() {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("role") == "Project Manager" || localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }
