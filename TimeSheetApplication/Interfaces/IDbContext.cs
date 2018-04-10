@@ -29,5 +29,6 @@ namespace TimeSheetApplication.Interfaces
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+        EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
     }
 }
