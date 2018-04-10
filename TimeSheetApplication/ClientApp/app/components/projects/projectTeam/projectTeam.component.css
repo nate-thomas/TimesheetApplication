@@ -36,6 +36,11 @@
     font-size: 16px;
 }
 
+.project-members-table {
+    height: 380px;
+    overflow-y: scroll;
+}
+
 .table tr.active td {
     background-color: #123456 !important;
     color: white;

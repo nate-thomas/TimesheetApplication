@@ -1,4 +1,32 @@
-﻿.tableHeader {
+﻿.component-content {
+    margin: 5%;
+}
+
+.inputBox {
+    padding: 15px;
+}
+
+.xs-input {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    .body {
+        padding-top: 50px;
+    }
+}
+
+.employee-dropdown {
+    height: 28px;
+    width: 160px
+}
+
+.invalid-input {
+    border: 2px solid red;
+}
+
+.tableHeader {
     padding-top: 30px;
 }
 
@@ -11,6 +39,7 @@
     padding: 0px 5px 0px 5px;
     outline: 1px solid #6ac48d;
     box-shadow: none;
+    background-color: #eaeaea;
 }
 
 
@@ -34,14 +63,4 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-}
-
-.table tr.active td {
-    background-color: #123456 !important;
-    color: white;
-}
-
-.table tr.active button {
-    /*background-color: #123456 !important;*/
-    color: #173c00;
 }

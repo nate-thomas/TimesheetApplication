@@ -19,8 +19,29 @@ export class AddProjectComponent {
     projects: Project[];
     @Output()
     projectsChange = new EventEmitter<Project[]>();
+    employeeNumber: string = localStorage.getItem("employeeNumber") || "";
 
     constructor(private http: Http, private router: Router) { }
+
+    checkSupervisorRole() {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    checkPMRole() {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("role") == "Project Manager" || localStorage.getItem("role") == "Administrator") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
     ngOnInit() {
 
@@ -36,20 +57,65 @@ export class AddProjectComponent {
         }
     }
 
+    validateInputNumber(input: number) {
+        if (input == undefined || input == null) {
+            return 'invalid-input';
+        } else {
+            return '';
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
+    //loadProjects() {
+    //    this.getProjects()
+    //        .subscribe(
+    //        projects => {
+    //            this.projects = projects;
+    //            this.projectsChange.emit(this.projects);
+    //        }
+    //     );
+    //}
+
     loadProjects() {
-        this.getProjects()
-            .subscribe(
-            projects => {
+        alert("loadingProjectsFn");
+        if (this.checkSupervisorRole()) {
+   //         this.loadSupervisorProjects();
+        } else if (this.checkPMRole()) {
+            //this.getProjects()
+            //    .subscribe(
+            //    projects => {
+            //        this.projects = projects;
+            //        this.projectsChange.emit(this.projects);
+            //    }
+            //);
+            
+            this.loadPMProjects(this.employeeNumber);
+        } else {
+            alert("This must have been a mistake for you to have landed on this page");
+        }
+    }
+
+    //loadSupervisorProjects() {
+    //    this.getProjects()
+    //        .subscribe(projects => {
+    //            this.projects = projects;
+    //            this.projectsChange.emit(this.projects);
+    //        });
+    //}
+
+    loadPMProjects(employeeNumber: string) {
+        this.getProjectsByPM(employeeNumber)
+            .subscribe(projects => {
                 this.projects = projects;
                 this.projectsChange.emit(this.projects);
-            }
-            );
+                console.log(projects);
+            });
     }
 
     addProject() {
         this.project.statusName = "Current";
+        this.project.projectManager = this.employeeNumber;
 
         if (this.project.projectNumber &&
             this.project.description &&
@@ -86,12 +152,28 @@ export class AddProjectComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        console.log(project);
+        //console.log(project);
 
         return this.http.post(AppComponent.url + "/api/Projects/", this.project, options)
             .map((res: Response) => res.json())
             .catch((err: any) => {
                 console.log(err._body);
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
+
+    /* get projects by project manager */
+    getProjectsByPM(employeeNumber: string): Observable<Project[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+        console.log(employeeNumber);
+
+        return this.http.get(AppComponent.url + "/api/Projects/pm/" + employeeNumber, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                alert("The project name already exists!");
+                //console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
     }

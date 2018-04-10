@@ -28,7 +28,7 @@ export class ViewTimesheetsComponent {
     /* Utiilty methods */
 
     validateSupervisorRole() {
-        if (localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
+        if (localStorage.getItem("role") == "Supervisor") { // || localStorage.getItem("role") == "Administrator") {
             return true;
         } else {
             return false;

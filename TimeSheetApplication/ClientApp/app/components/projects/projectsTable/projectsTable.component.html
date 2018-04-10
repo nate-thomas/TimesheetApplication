@@ -21,7 +21,7 @@
         <!-- xs, sm view -->
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
-                <button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+               <!-- <button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>-->
             </div>
             <div class="col-xs-12 text-center">
                 <h1>Projects</h1>
@@ -33,7 +33,7 @@
         <!--  md, lg, xl views -->
         <div class="row hidden-xs hidden-sm">
             <div class="col-md-4">
-                <button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>
+                <!--<button class="btn-icon"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /></button>-->
             </div>
             <div class="col-md-4 text-center">
                 <h1>Projects</h1>
@@ -44,7 +44,6 @@
         </div>
     </div>
 
-
     <!-- Table Body -->
     <div class="table-responsive">
         <table class="table table-hover">
@@ -52,21 +51,17 @@
                 <tr>
                     <th>Project #</th>
                     <th>Budget</th>
-                    <th># of WP</th>
-                    <th># of Employees</th>
                     <th>Description</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 <ng-container>
-                    <tr *ngFor="let project of projects; let i = index">
-                        <td id="pnum">{{project.projectNumber}}</td>
-                        <td id="pbud">{{project.budget}}</td>
-                        <td id="numOfWP">NUM</td>
-                        <td id="numOfEMP">NUM</td>
-                        <td id="pdesc">{{project.description}}</td>
-                        <td id="status">{{project.statusName}}</td>
+                    <tr (click)="onSelect(project.projectNumber)" *ngFor="let project of projects; let i = index">
+                        <td id="project.projectNumber">{{project.projectNumber}}</td>
+                        <td id="project.budget">{{project.budget}}</td>
+                        <td id="project.description">{{project.description}}</td>
+                        <td id="project.statusName">{{project.statusName}}</td>
                         <td><button id="updateProjectButton" type="button" class="updateProject" data-toggle="modal" data-target=".update-project" style="text-align: center;" (click)="initializeUpdateComponent(project)"><span class="glyphicon glyphicon-pencil"></span></button></td>
                         <ng-container *ngIf="project.statusName == 'Current'">
                             <td><button (click)="archiveProject(project.projectNumber)">x</button></td>
@@ -79,10 +74,13 @@
     </div>
     <br />
 
-    <!-- Modal START -->
-    <button type="button" class="newProject" data-toggle="modal" data-target=".bs-example-modal-lg">New Project</button>
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+    <!--<button type="button" class="newProject" data-toggle="modal" data-target="#addProject" *ngif="checkPMRole()">New Project</button>-->
+    <button id="newProjectButton" type="button" class="newProject" data-toggle="modal" data-target=".new-project" *ngIf="checkPMRole()">New Project</button>
+    <!-- Modal START -->
+
+    <div class="modal fade bs-example-modal-lg new-project" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="addProject">
         <div class="modalse-dialog modal-lg" role="document">
             <div class="modal-content">
                 <addProject [project]="project" [projects]="projects" (projectsChange)="setProjects($event)"></addProject>
@@ -90,7 +88,6 @@
         </div>
     </div>
     <!-- Modal END -->
-
     <!-- Modal Update Project START -->
     <div class="modal fade update-project" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
