@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { Component } from '@angular/core';
 import { Employee } from '../employees';
-import { AppComponent } from '../../app/app.component'
+import { AppComponent } from '../../app/app.component';
 
 @Component({
     selector: 'employeesTable',

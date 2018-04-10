@@ -26,6 +26,7 @@
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Compile Remove="ClientApp\app\components\oki\**" />
+    <Compile Remove="ClientApp\app\components\workpackages\addToWorkPackageTeam\**" />
     <Compile Remove="Views\AuthorizationCodes\**" />
     <Compile Remove="Views\Employees\**" />
     <Compile Remove="Views\LaborGrades\**" />
@@ -44,6 +45,7 @@
     <Content Remove="Views\Timesheets\**" />
     <Content Remove="Views\WorkPackages\**" />
     <EmbeddedResource Remove="ClientApp\app\components\oki\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\workpackages\addToWorkPackageTeam\**" />
     <EmbeddedResource Remove="Views\AuthorizationCodes\**" />
     <EmbeddedResource Remove="Views\Employees\**" />
     <EmbeddedResource Remove="Views\LaborGrades\**" />
@@ -53,6 +55,7 @@
     <EmbeddedResource Remove="Views\Timesheets\**" />
     <EmbeddedResource Remove="Views\WorkPackages\**" />
     <None Remove="ClientApp\app\components\oki\**" />
+    <None Remove="ClientApp\app\components\workpackages\addToWorkPackageTeam\**" />
     <None Remove="Views\AuthorizationCodes\**" />
     <None Remove="Views\Employees\**" />
     <None Remove="Views\LaborGrades\**" />
@@ -72,11 +75,15 @@
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
+    <None Remove="ClientApp\app\components\projects\projectTeam\projectTeam.component.ts" />
     <None Remove="ClientApp\app\components\projects\updateProject\updateProject.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheetRows.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
+    <None Remove="ClientApp\app\components\workpackages\addWorkPackage\addWorkpackage.component.ts" />
+    <None Remove="ClientApp\app\components\workpackages\deleteWorkPackage\deleteWorkpackage.component.ts" />
     <None Remove="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <None Remove="ClientApp\app\components\workpackages\workPackageTeam\workPackageTeam.component.ts" />
     <None Remove="ClientApp\app\components\workpackages\wpAssignments.ts" />
   </ItemGroup>
 
@@ -90,17 +97,25 @@
     <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projects\projectTeam\projectTeam.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\updateProject\updateProject.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\deleteWorkPackage\deleteWorkpackage.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\addWorkPackage\addWorkpackage.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\workPackageTeam\workPackageTeam.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\workpackages\wpAssignments.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
+
     <Folder Include="Migrations\" />
+
+    <Folder Include="ClientApp\app\components\projects\addToProjectTeam\" />
+
     <Folder Include="Services\" />
 
   </ItemGroup>
