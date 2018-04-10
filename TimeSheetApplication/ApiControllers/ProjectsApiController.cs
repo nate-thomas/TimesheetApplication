@@ -77,14 +77,14 @@ namespace TimeSheetApplication.ApiControllers
 
         // PUT: api/ProjectsApi/5
         [HttpPut("{ProjectNumber}")]
-        public async Task<IActionResult> PutProject([FromRoute] string id, [FromBody] Project project)
+        public async Task<IActionResult> PutProject([FromRoute] string ProjectNumber, [FromBody] Project project)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != project.ProjectNumber)
+            if (ProjectNumber != project.ProjectNumber)
             {
                 return BadRequest();
             }
@@ -97,7 +97,7 @@ namespace TimeSheetApplication.ApiControllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(id))
+                if (!ProjectExists(ProjectNumber))
                 {
                     return NotFound();
                 }
