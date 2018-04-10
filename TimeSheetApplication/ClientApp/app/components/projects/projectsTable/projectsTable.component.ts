@@ -15,16 +15,48 @@ import { Router } from '@angular/router';
 export class ProjectsTableComponent {
     project: Project = new Project();
     projects: Project[] = new Array();
+    employeeNumber: string = localStorage.getItem("employeeNumber") || "";
     @Output()
     selectProject = new EventEmitter<Project>();
 
     constructor(private http: Http, private router: Router) { }
 
+    /* Check Roles */
 
-     /* Functions to be called when component is loaded */
-    
+    checkSupervisorRole() {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    checkPMRole() {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("role") == "Project Manager" || localStorage.getItem("role") == "Administrator") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
+    /* Functions to be called when component is loaded */
+
     ngOnInit() {
-        this.loadProjects();
+        if (this.checkSupervisorRole()) {
+            this.loadSupervisorProjects();
+            //alert("Hi Supervisor");
+        } else if (this.checkPMRole()) {
+           // alert("SHELY: this is emp num: " + this.employeeNumber)
+            this.loadPMProjects(this.employeeNumber);
+            //alert("Hi Project Manager");
+        } else {
+            alert("This must have been a mistake for you to have landed on this page");
+        }
     }
 
 
@@ -43,12 +75,31 @@ export class ProjectsTableComponent {
 
 
     /* Subscription methods to bind the response to a property (if applicable) */
-    loadProjects() {
-        this.getProjects()
-            .subscribe(projects => this.projects = projects);
+    //loadProjects() {
+    //    this.getProjects()
+    //        .subscribe(projects => this.projects = projects);
         
+    //}
+
+    loadSupervisorProjects() {
+    this.getProjects()
+        .subscribe(projects => this.projects = projects);
+
     }
 
+    loadPMProjects(employeeNumber: string) {
+        //console.log("hi this is" + this.project);
+        //alert("empNum is: " + employeeNumber)
+        //console.log("URL IS: " + URL);
+        this.getProjectsByPM(employeeNumber)
+            .subscribe(projects => {
+                //This part is not working
+               // alert("loadPM: " + employeeNumber)
+                this.projects = projects
+                //alert(this.employeeNumber);
+            });
+
+    }
 
     /* Output selected Project Object in table */
 
@@ -70,8 +121,6 @@ export class ProjectsTableComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        console.log('It works here3');
-
         return this.http.get(AppComponent.url + "/api/Projects/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
@@ -92,6 +141,7 @@ export class ProjectsTableComponent {
             });
     }
 
+    /* Get project by project number */
     getProjectPN(projectNumber: string): Observable<Project> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
@@ -103,6 +153,22 @@ export class ProjectsTableComponent {
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
+
+
+    /* get projects by project manager */
+    getProjectsByPM(employeeNumber: string): Observable<Project[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+        console.log(employeeNumber);
+
+        return this.http.get(AppComponent.url + "/api/Projects/pm/" + employeeNumber, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
 
     /* Archiving */
 

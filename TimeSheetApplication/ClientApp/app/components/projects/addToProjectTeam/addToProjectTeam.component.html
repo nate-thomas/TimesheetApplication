@@ -12,33 +12,36 @@
                     <div class="col-xs-12">
                         Project Number
                         <br />
-                        <!--<input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="" [ngClass]="validateInput(project.projectNumber)" />-->
-                    
-                        <select [(ngModel)]="newMember" name="employeeNumber">
-                            <option *ngFor="let employee of employees" [value]="employee?.employeeNumber">{{employee.firstName}} {{employee.lastName}}</option>
+
+                        <select [(ngModel)]="newMember" name="newMember">
+                            <option *ngFor="let employee of employees" [ngValue]="employee">{{employee.firstName}} {{employee.lastName}}</option>
                         </select>
                     </div>
                 </div>
                 <br />
                 <button id="addToProjectTeamButtonSmall" align="center">Add To Project Team</button>
-                <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjectTeam()">Close</button>
+                <button type="button" id="closeButtonLarge" data-dismiss="modal" (click)="loadProjectTeam()">Close</button>
             </div>
 
             <!-- md, lg, xl-->
-            <!--<div class="hidden-xs hidden-sm">
+            <div class="hidden-xs hidden-sm">
                 <div class="row inputBox">
-                    <div class="col-md-6" align="center">
+                    <div class="col-md-12" align="center">
                         Project Number
                         <br />
-                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" />
+
+                        <select [(ngModel)]="newMember" name="newMember">
+                            <option *ngFor="let employee of employees" [ngValue]="employee">{{employee.firstName}} {{employee.lastName}}</option>
+                        </select>
                     </div>
                 </div>
                 <br />
-                <div class="buttons" align="center">
+                <div align="center">
+
                     <button id="addToProjectTeamButtonLarge" align="center">Add To Project Team</button>
-                    <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
+                    <button type="button" id="closeButtonLarge" data-dismiss="modal" (click)="loadProjectTeam()">Close</button>
                 </div>
-            </div>-->
+            </div>
         </form>
     </div>
 </div>

@@ -41,12 +41,12 @@
     <br />
 
     <!-- Modal START -->
-    <button type="button" class="newProjectMember" data-toggle="modal" data-target="#add-to-project-team-modal-target">New Project Member</button>
+    <button *ngIf="checkSVRole()" type="button" class="newProjectMember" data-toggle="modal" data-target="#add-to-project-team-modal-target">New Project Member</button>
 
     <div class="modal fade" id="add-to-project-team-modal-target" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <addtoprojectteam></addtoprojectteam>
+                <addtoprojectteam [project]="outputProjectNumber" [currentMembers]="projectMembers" (projectTeamChange)="membersChange($event)"></addtoprojectteam>
             </div>
         </div>
     </div>

@@ -1,16 +1,15 @@
-﻿<div class="body" *ngIf="validatePMandSupervisorRole()">
+﻿<div class="body">
     <div class='container-fluid'>
         <div class='row'>
             <div class='col-sm-3'>
                 <nav-menu></nav-menu>
             </div>
             <div class='col-sm-9 body-content'>
-                <!--<projectsTable (outputProject)="projectChange($event)"></projectsTable>
-                <workpackages [inputProjectNumber]="selectedProject" (outputWorkPackage)="workPackageChange($event)"></workpackages>-->
-                <projectsTable></projectsTable>
-                <workpackages></workpackages>
-                <projectteam [inputProjectNumber]="selectedProject" (outputEmployee)="memberChange($event)">></projectteam>
-                <workpackageteam [inputProjectNumber]="selectedProject" [inputWorkPackageNumber]="selectedWorkPackage" [inputMember]="selectedMember"></workpackageteam>
+
+                <projectsTable (selectProject)="projectChange($event)"></projectsTable>
+                <workpackages *ngIf="checkPMRole()" [inputProjectNumber]="selectedProject" (selectWorkpackage)="workPackageChange($event)"></workpackages>
+                <projectteam [inputProjectNumber]="selectedProject" (outputEmployee)="memberChange($event)"></projectteam>
+                <workpackageteam *ngIf="checkPMRole()" [inputProjectNumber]="selectedProject" [inputWorkPackageNumber]="selectedWorkPackage" [inputMember]="selectedMember"></workpackageteam>
             </div>
         </div>
     </div>
