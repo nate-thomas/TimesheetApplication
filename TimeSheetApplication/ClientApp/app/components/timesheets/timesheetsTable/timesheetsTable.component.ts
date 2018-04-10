@@ -338,7 +338,11 @@ export class TimesheetsTableComponent {
                 this.timesheet = new Timesheet();
                 this.addTimesheetRow();
 
-                return Observable.throw(new Error(JSON.stringify(err)));
+                if (err.status == 404) {
+                    return Observable.throw(new Error("Timesheet does not exist for the employee at the specified end-date."))
+                } else {
+                    return Observable.throw(new Error(JSON.stringify(err)));
+                }
             });
     }
 
