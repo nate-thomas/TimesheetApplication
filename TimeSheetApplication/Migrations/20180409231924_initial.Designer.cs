@@ -11,8 +11,8 @@ using TimeSheetApplication.Data;
 namespace TimeSheetApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180405231500_Initial")]
-    partial class Initial
+    [Migration("20180409231924_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -365,9 +365,13 @@ namespace TimeSheetApplication.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("ProjectManager");
+
                     b.Property<string>("StatusName");
 
                     b.HasKey("ProjectNumber");
+
+                    b.HasIndex("ProjectManager");
 
                     b.HasIndex("StatusName");
 
@@ -608,6 +612,10 @@ namespace TimeSheetApplication.Migrations
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.Project", b =>
                 {
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Employee", "PM")
+                        .WithMany("Projects")
+                        .HasForeignKey("ProjectManager");
+
                     b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectStatus", "Status")
                         .WithMany("Projects")
                         .HasForeignKey("StatusName");

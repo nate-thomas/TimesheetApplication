@@ -40,17 +40,17 @@ namespace TimeSheetApplication.Data {
                 List<Employee> Employees = new List<Employee>()
                 {
                     new Employee {EmployeeNumber = "1000001", FirstName = "Wyatt", LastName = "Ariss", Grade = "P5", EmployeeIntials = "WAA"},
-                    new Employee {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT", SupervisorNumber = "1000001"},
-                    new Employee {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR", SupervisorNumber = "1000001"},
-                    new Employee {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000002", FirstName = "Nathaniel", LastName = "Thomas", Grade = "P2", EmployeeIntials = "MNT", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000003", FirstName = "Chloee", LastName = "Robertson", Grade = "P2", EmployeeIntials = "CLR", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000004", FirstName = "Harvard", LastName = "Sung", Grade = "P2", EmployeeIntials = "HS", SupervisorNumber = "1000005"},
                     new Employee {EmployeeNumber = "1000005", FirstName = "John", LastName = "Park", Grade = "P2", EmployeeIntials = "JP"},
                     new Employee {EmployeeNumber = "1000006", FirstName = "Shely", LastName = "Lin", Grade = "P2", EmployeeIntials = "SL", SupervisorNumber = "1000005"},
                     new Employee {EmployeeNumber = "1000007", FirstName = "Rei", LastName = "Ruiz", Grade = "P2", EmployeeIntials = "RR", SupervisorNumber = "1000005"},
                     new Employee {EmployeeNumber = "1000008", FirstName = "Raymond", LastName = "Gollinger", Grade = "P2", EmployeeIntials = "RG", SupervisorNumber = "1000005"},
                     new Employee {EmployeeNumber = "1000009", FirstName = "Victor", LastName = "Starzynski", Grade = "P2", EmployeeIntials = "VS", SupervisorNumber = "1000005"},
-                    new Employee {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC", SupervisorNumber = "1000001"},
-                    new Employee {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN", SupervisorNumber = "1000001"},
-                    new Employee {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW", SupervisorNumber = "1000001"},
+                    new Employee {EmployeeNumber = "1000010", FirstName = "Waylon", LastName = "Ching", Grade = "P2", EmployeeIntials = "WC", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000011", FirstName = "Kenneth", LastName = "Li", Grade = "P2", EmployeeIntials = "KEN", SupervisorNumber = "1000005"},
+                    new Employee {EmployeeNumber = "1000012", FirstName = "Donald", LastName = "Watson", Grade = "P2", EmployeeIntials = "BDW", SupervisorNumber = "1000005"},
                 };
 
                 context.Employees.AddRange(Employees);
@@ -263,15 +263,15 @@ namespace TimeSheetApplication.Data {
             if (!context.Projects.Any()) {
                 List<Project> Projects = new List<Project>()
                 {
-                    new Project {ProjectNumber = "WebPrj128", Description = "[Current] Web project for BC Hydro (Prj02)", StatusName="Current", Budget = 15000},
-                    new Project {ProjectNumber = "WebPrj098", Description = "[Current] Web project for Burnaby Publc Library", StatusName="Current", Budget = 13000},
-                    new Project {ProjectNumber = "WebPrj2018", Description = "[Archieved] Web project for Oranj Fitness", StatusName="Archived", Budget = 50000},
-                    new Project {ProjectNumber = "WebPrj127", Description = "[Current] Web project for BC Hydro (Prj01)", StatusName="Current", Budget = 75000},
-                    new Project {ProjectNumber = "SW789", Description = "[Current] Software project for Lululemon", StatusName="Current", Budget = 5000},
-                    new Project {ProjectNumber = "SW8985", Description = "[Archived] Software project for Dairy Farmers of Canada", StatusName="Archived", Budget = 22000},
-                    new Project {ProjectNumber = "SW999", Description = "[Current] Software project for The Vancouver Sun", StatusName="Current", Budget = 88000},
-                    new Project {ProjectNumber = "SW090", Description = "[Current] Software project for Merck", StatusName="Current", Budget = 30000},
-                    new Project {ProjectNumber = "Cloud001", Description = "[Current] Cloud Computing project for BCAA", StatusName="Current", Budget = 150000},
+                    new Project {ProjectNumber = "WebPrj128", Description = "[Current] Web project for BC Hydro (Prj02)", StatusName="Current", Budget = 15000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "WebPrj098", Description = "[Current] Web project for Burnaby Publc Library", StatusName="Current", Budget = 13000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "WebPrj2018", Description = "[Archieved] Web project for Oranj Fitness", StatusName="Archived", Budget = 50000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "WebPrj127", Description = "[Current] Web project for BC Hydro (Prj01)", StatusName="Current", Budget = 75000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "SW789", Description = "[Current] Software project for Lululemon", StatusName="Current", Budget = 5000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "SW8985", Description = "[Archived] Software project for Dairy Farmers of Canada", StatusName="Archived", Budget = 22000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "SW999", Description = "[Current] Software project for The Vancouver Sun", StatusName="Current", Budget = 88000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "SW090", Description = "[Current] Software project for Merck", StatusName="Current", Budget = 30000, ProjectManager = "1000001"},
+                    new Project {ProjectNumber = "Cloud001", Description = "[Current] Cloud Computing project for BCAA", StatusName="Current", Budget = 150000, ProjectManager = "1000001"},
                 };
 
                 context.Projects.AddRange(Projects);

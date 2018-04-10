@@ -1,10 +1,11 @@
-﻿<div class="component-content">
+﻿<div class="component-content" *ngIf="validateHRRole()">
     <!-- Temporary Input and Button to load an employee -->
+    <br />
     <table>
         <tr>
             <td style="padding-right: 10px;">Employee Number:</td>
-            <td><input id="employeeNumberInput" type="text" #employeeNumber /><br /></td>
-            <td style="padding-left:10px" rowspan="2">
+            <td><input class="input-top" id="employeeNumberInput" type="text" #employeeNumber /><br /></td>
+            <td style="padding-left:10px">
                 <!-- change this to load employee info-->
                 <button id="loadEmployeeInfoButton" class="btn-icon" (click)="loadEmployee(employeeNumber.value)">
                     <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
@@ -36,15 +37,16 @@
         </div>
     </div>
 
-
     <!-- Table Body -->
-    <div class="table-responsive">
+    <div class="table-responsive employees-table">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Employee ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Initials</th>
+                    <th>Role</th>
                     <th>Labour Grade</th>
                     <th>Supervisor</th>
                     <th></th>
@@ -55,25 +57,34 @@
                     <td id="{{'eployeeNumberOutput' + i}}">{{employee.employeeNumber}}</td>
                     <td id="{{'firstNameOutput' + i}}">{{employee.firstName}}</td>
                     <td id="{{'lastNameOutput' + i}}">{{employee.lastName}}</td>
+                    <td id="{{'employeeIntialsOutput' + i}}">{{employee.employeeIntials}}</td>
+                    <td id="{{'roleOutput' + i}}">{{employee.role}}</td>
                     <td id="{{'gradeOutput' + i}}">{{employee.grade}}</td>
                     <td id="{{'supervisorNumberOutput' + i}}">{{employee.supervisorNumber}}</td>
+                    <td><button id="updateEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".update-employee" style="text-align: center;" (click)="initializeUpdateComponent(employee)"><span class='glyphicon glyphicon-pencil'></span></button></td>
                 </tr>
                 <tr></tr>
             </tbody>
 
         </table>
         <br />
-        <!--<button (click)="printProperties()">Print to Console</button>-->
     </div>
 
+    <br />
+    <button id="newEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".new-employee" (click)="initializeAddComponent()">New Employee</button>
 
-    <button id="newEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".bs-example-modal-lg">New Employee</button>
-    <button id="viewEmployeesButton" type="button" class="viewEmployees" (click)="loadEmployees()">View All</button>
-
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal fade new-employee" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <AddEmployee></AddEmployee>
+                <AddEmployee [employee]="employee" [employees]="employees" [supervisors]="supervisors" (employeesChange)="setEmployees($event)"></AddEmployee>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade update-employee" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <UpdateEmployee [employee]="employee" [employees]="employees" [supervisors]="supervisors" (employeesChange)="setEmployees($event)"></UpdateEmployee>
             </div>
         </div>
     </div>

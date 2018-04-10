@@ -13,22 +13,40 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './employeesTable.component.html'
 })
 export class EmployeesTableComponent {
+    supervisors: Employee[] = new Array();
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
     constructor(private http: Http) { }
 
-    /* Temporary method to clear the properties in the component */
-
-    clearProperties() {
-        this.employees = new Array();
-        this.employee = new Employee();
-    }
-
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
         this.loadEmployees();
+    }
+
+    /* Utility methods */
+
+    validateHRRole() {
+        if (localStorage.getItem("role") == "Human Resources") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    setEmployees(employees: Employee[]) {
+        this.employees = employees;
+    }
+
+    initializeAddComponent() {
+        this.employee = new Employee();
+        this.loadSupervisors();
+    }
+
+    initializeUpdateComponent(employee: Employee) {
+        this.employee = employee;
+        this.loadSupervisors();
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
@@ -47,13 +65,15 @@ export class EmployeesTableComponent {
             );
     }
 
-    removeEmployee(employeeNumber: string) {
-        this.deleteEmployee(employeeNumber)
-            .subscribe(res => console.log("Response: " + JSON.stringify(res)));
+    loadSupervisors() {
+        this.getSupervisors()
+            .subscribe(
+            (supervisors: any) => this.supervisors = supervisors
+            );
     }
 
-    addEmployee() {
-        this.postEmployee(this.employee)
+    removeEmployee(employeeNumber: string) {
+        this.deleteEmployee(employeeNumber)
             .subscribe(res => console.log("Response: " + JSON.stringify(res)));
     }
 
@@ -71,8 +91,8 @@ export class EmployeesTableComponent {
         return this.http.get(AppComponent.url + "/api/Employees/", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -83,8 +103,20 @@ export class EmployeesTableComponent {
         return this.http.get(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
+    getSupervisors(): Observable<Response> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/UsersInRoles/" + "Supervisor", options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -95,20 +127,8 @@ export class EmployeesTableComponent {
         return this.http.delete(AppComponent.url + "/api/Employees/" + employeeNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
-            });
-    }
-
-    postEmployee(employee: Employee): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.post(AppComponent.url + "/api/EmployeesI/", this.employee, options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 
@@ -119,8 +139,8 @@ export class EmployeesTableComponent {
         return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
-                alert(err.json().error_description);
-                return Observable.throw(new Error(err.json().error));
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
             });
     }
 }

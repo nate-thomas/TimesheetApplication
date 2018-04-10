@@ -23,31 +23,107 @@ namespace TimeSheetApplication.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public EmployeesApiController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public EmployeesApiController(ApplicationDbContext context,
+                                      UserManager<ApplicationUser> userManager,
+                                      RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
-
+            _roleManager = roleManager;
         }
 
         [HttpGet]
-        public IEnumerable<Employee> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return _context.Employees.ToList();
+            List<EmployeeViewModel> employeesList = new List<EmployeeViewModel>();
+            var employee = _context.Employees.ToArray<Employee>();
+            foreach (Employee emp in employee)
+            {
+
+                var appUser = await _userManager.FindByNameAsync(emp.EmployeeNumber);
+                var userRole = await _userManager.GetRolesAsync(appUser);
+
+                EmployeeViewModel temp = new EmployeeViewModel
+                {
+                    EmployeeNumber = emp.EmployeeNumber,
+                    FirstName = emp.FirstName,
+                    LastName = emp.LastName,
+                    Grade = emp.Grade,
+                    EmployeeIntials = emp.EmployeeIntials,
+                    Password = "",
+                    ConfirmPassword = "",
+                    Role = userRole[0],
+                    supervisorNumber = emp.SupervisorNumber
+                };
+                employeesList.Add(temp);
+            }
+            return new ObjectResult(employeesList);
         }
 
         [HttpGet("{empNumber}", Name = "GetByEmployeeNumber")]
-        public IActionResult GetByEmployeeNumber(long empNumber)
+        public async Task<IActionResult> GetByEmployeeNumber(long empNumber)
         {
             string empNumberStr = empNumber.ToString();
 
-            var item = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
-            if (item == null)
+            var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
+            var appUser = await _userManager.FindByNameAsync(empNumberStr);
+            var userRole = await _userManager.GetRolesAsync(appUser);
+
+            if (employee == null || appUser == null || userRole == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(item);
+
+            EmployeeViewModel empToReturn = new EmployeeViewModel
+            {
+                EmployeeNumber = employee.EmployeeNumber,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Grade = employee.Grade,
+                EmployeeIntials = employee.EmployeeIntials,
+                Password = "",
+                ConfirmPassword = "",
+                Role = userRole[0],
+                supervisorNumber = employee.SupervisorNumber
+            };
+
+            return new ObjectResult(empToReturn);
+        }
+
+        [HttpGet("sup/{supNumber}")]
+        public async Task<IActionResult> GetByForSupervisor([FromRoute] string supNumber)
+        {
+            List<EmployeeViewModel> employeesList = new List<EmployeeViewModel>();
+            var employee = _context.Employees.ToArray<Employee>();
+            foreach (Employee emp in employee)
+            {
+                if (emp.SupervisorNumber != null && emp.SupervisorNumber.Equals(supNumber))
+                {
+                    var appUser = await _userManager.FindByNameAsync(emp.EmployeeNumber);
+                    var userRole = await _userManager.GetRolesAsync(appUser);
+
+                    EmployeeViewModel temp = new EmployeeViewModel
+                    {
+                        EmployeeNumber = emp.EmployeeNumber,
+                        FirstName = emp.FirstName,
+                        LastName = emp.LastName,
+                        Grade = emp.Grade,
+                        EmployeeIntials = emp.EmployeeIntials,
+                        Password = "",
+                        ConfirmPassword = "",
+                        Role = userRole[0],
+                        supervisorNumber = emp.SupervisorNumber
+                    };
+                    employeesList.Add(temp);
+                }
+            }
+            if(employeesList.Count == 0)
+            {
+                return BadRequest("Supervisor not found");
+            }
+            return new ObjectResult(employeesList);
         }
 
         [HttpPost]
@@ -63,8 +139,25 @@ namespace TimeSheetApplication.Controllers
                 return BadRequest("Passwords don't match");
             }
 
-            if (await _userManager.FindByNameAsync(item.EmployeeNumber) == null)
+            var appUser = await _userManager.FindByNameAsync(item.EmployeeNumber);
+            var userRole = await _roleManager.FindByNameAsync(item.Role);
+            
+            /* Check if supervisor exists */
+            if (item.supervisorNumber != null)
             {
+                var appUserSupervisor = await _userManager.FindByNameAsync(item.supervisorNumber);
+                if (appUserSupervisor == null)
+                {
+                    return BadRequest("Invalid Supervisor Number");
+                }
+            }
+
+            if (appUser == null)
+            {
+                if (userRole == null)
+                {
+                    return BadRequest("Invalid Role");
+                }
 
                 Employee newEmployee = new Employee
                 {
@@ -72,7 +165,8 @@ namespace TimeSheetApplication.Controllers
                     FirstName = item.FirstName,
                     LastName = item.LastName,
                     Grade = item.Grade,
-                    EmployeeIntials = item.EmployeeIntials
+                    EmployeeIntials = item.EmployeeIntials,
+                    SupervisorNumber = item.supervisorNumber
                 };
 
                 _context.Employees.Add(newEmployee);
@@ -87,7 +181,7 @@ namespace TimeSheetApplication.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddPasswordAsync(user, item.Password);
-                    await _userManager.AddToRoleAsync(user, item.Role);
+                    await _userManager.AddToRoleAsync(user, userRole.Name);
                 }
 
                 return CreatedAtRoute("GetByEmployeeNumber", new { empNumber = item.EmployeeNumber }, item);
@@ -96,61 +190,50 @@ namespace TimeSheetApplication.Controllers
             return BadRequest("Employee already exists");
         }
 
+        /* NEW VERSION FOR UPDATING EMPLOYEE */
         [HttpPut("{empNumber}")]
-        public IActionResult Update(long empNumber, [FromBody] Employee item)
+        public async Task<IActionResult> UpdateEmployeeRole([FromRoute] string empNumber, [FromBody] EmployeeViewModel item)
         {
-            string empNumberStr = empNumber.ToString();
-            if (!ModelState.IsValid || !String.Equals(item.EmployeeNumber, empNumberStr))
+            if (!ModelState.IsValid || !String.Equals(item.EmployeeNumber, empNumber))
             {
                 return BadRequest(ModelState);
             }
 
-            var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
+            var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumber));
+            var appUser = await _userManager.FindByNameAsync(item.EmployeeNumber);
+
             if (employee == null)
             {
-                return NotFound();
+                return NotFound("Employee not Found");
             }
 
-            //Set First Name if asked to
-            if (item.FirstName != null)
+            //Get new Role
+            var newRole = await _roleManager.FindByNameAsync(item.Role);
+
+            if (newRole == null)
             {
-                employee.FirstName = item.FirstName;
+                return NotFound("Invalid Role");
             }
-            //Set Last Name if asked to
-            if (item.LastName != null)
+
+            //Validation on front-end
+            //Update fields
+            employee.FirstName = item.FirstName;
+            employee.LastName = item.LastName;
+            employee.Grade = item.Grade;
+            employee.EmployeeIntials = item.EmployeeIntials;
+            employee.SupervisorNumber = item.supervisorNumber;
+
+            //update role and remove previous role
+            var test = await _userManager.GetRolesAsync(appUser);
+            foreach (var r in test)
             {
-                employee.LastName = item.LastName;
+                await _userManager.RemoveFromRoleAsync(appUser, r);
             }
-            //Set LaborGrade if asked to
-            if (item.LaborGrade != null)
-            {
-                employee.LaborGrade = item.LaborGrade;
-            }
-            //Set Grade if asked to
-            if (item.Grade != null)
-            {
-                employee.Grade = item.Grade;
-            }
-            //Set EmployeeIntials if asked to
-            if (item.EmployeeIntials != null)
-            {
-                employee.EmployeeIntials = item.EmployeeIntials;
-            }
-            //Set Supervisor if asked to
-            if (item.Supervisor != null)
-            {
-                employee.Supervisor = item.Supervisor;
-            }
-            //Set SupervisorNumber if asked to
-            if (item.SupervisorNumber != null)
-            {
-                employee.SupervisorNumber = item.SupervisorNumber;
-            }
-            //Set Timesheets if asked to
-            if (item.Timesheets != null)
-            {
-                employee.Timesheets = item.Timesheets;
-            }
+            
+            await _userManager.AddToRoleAsync(appUser, item.Role);
+
+            var test2 = await _userManager.GetRolesAsync(appUser);
+
             //Check if new model doesn't break any FK Constraints
             try
             {
@@ -165,18 +248,22 @@ namespace TimeSheetApplication.Controllers
         }
 
         [HttpDelete("{empNumber}")]
-        public IActionResult Delete(long empNumber)
+        public async Task<IActionResult> Delete(long empNumber)
         {
             string empNumberStr = empNumber.ToString();
 
             var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, empNumberStr));
-            if (employee == null)
+            var appUser = await _userManager.FindByNameAsync(empNumberStr);
+
+            if (employee == null || appUser == null)
             {
                 return NotFound();
             }
 
             _context.Employees.Remove(employee);
             _context.SaveChanges();
+            await _userManager.DeleteAsync(appUser);
+
             return new NoContentResult();
         }
     }

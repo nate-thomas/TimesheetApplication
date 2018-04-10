@@ -20,19 +20,14 @@
                 <li [routerLinkActive]="['link-active']">
 
                     <a id="projectsLink" [routerLink]="['/projects']">
-                        <span class='glyphicon glyphicon-th-list'></span> Projects
+                        <span class='glyphicon glyphicon-folder-close'></span> Projects
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="checkRole('Human Resources')">
                     <a id="employeesLink" [routerLink]="['/employees']">
                         <span class='glyphicon glyphicon-th-list'></span> Employees
                     </a>
                 </li>
-                <!--<li [routerLinkActive]="['link-active']">
-                    <a id="admintasksLink" [routerLink]="['/admintasks']">
-                        <span class='glyphicon glyphicon-cog'></span> Admin Tasks
-                    </a>
-                </li>-->
                 <li [routerLinkActive]="['link-active']">
                     <a id="userLink" [routerLink]="['/user']">
                         <span class='glyphicon glyphicon-user'></span> User
