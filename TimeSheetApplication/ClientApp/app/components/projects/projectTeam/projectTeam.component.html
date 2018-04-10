@@ -18,40 +18,40 @@
         </div>
     </div>
 
-
     <!-- Table Body -->
     <div class="table-responsive table-body project-members-table">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Name</th>
                     <th>Employee ID</th>
+                    <th>Name</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let employee of employees; let i = index" (click)="onSelect(employee)">
-                    <td id="{{'eployeeNumberOutput' + i}}">{{employee?.employeeNumber}}</td>
-                    <td id="{{'nameOutput' + i}}">{{employee?.firstName}} {{employee?.lastName}}</td>
-                    <!--<td><button id="updateEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".update-employee" style="text-align: center;" (click)="initializeUpdateComponent(employee)"><span class='glyphicon glyphicon-pencil'></span></button></td>-->
+                <tr *ngFor="let employee of projectMembers; let i = index" (click)="onSelect(employee)" [class.active]="employee == selected">
+                    <td id="{{'eployeeNumberOutput' + i}}">{{employee.employeeNumber}}</td>
+                    <td id="{{'nameOutput' + i}}">{{employee.firstName}} {{employee.lastName}}</td>
+                    <td><button id="removeEmployeeButton" type="button" class="" style="text-align: center;" (click)="remove(employee)">x</button></td>
                 </tr>
                 <tr></tr>
             </tbody>
-
         </table>
-        <br />
     </div>
+    <br />
 
     <!-- Modal START -->
-    <button type="button" class="newProjectMember" data-toggle="modal" data-target=".bs-example-modal-lg">New Project Member</button>
+    <button type="button" class="newProjectMember" data-toggle="modal" data-target="#add-to-project-team-modal-target">New Project Member</button>
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal fade bs-example-modal-lg" id="add-to-project-team-modal-target" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <!--<addProject></addProject>-->
+                <addtoprojectteam></addtoprojectteam>
             </div>
         </div>
     </div>
     <!-- Modal END -->
 
+    <br />
+    <hr />
 </div>

@@ -17,14 +17,15 @@ export class WorkPackageTeamComponent implements OnChanges {
     @Input() inputWorkPackageNumber: string = 'A2';
     @Input() inputMember: Employee = new Employee();
     selected: Employee;
-    projectMembers: Employee[];
+    workPackageMembers: Employee[];
+    emptyEmployee: Employee = new Employee();
 
     constructor(private http: Http) { }
 
     loadEmployees() {
         this.getEmployees(this.inputProjectNumber, this.inputWorkPackageNumber)
             .subscribe(
-            employees => this.projectMembers = employees
+                employees => this.workPackageMembers = employees
             );
     }
 
@@ -40,11 +41,40 @@ export class WorkPackageTeamComponent implements OnChanges {
             });
     }
 
+    deleteEmployeeFromWorkPackageTeam(id: string): Promise<void> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        const url = AppComponent.url + '/api/WPassignments/' + id + '/' + this.inputProjectNumber + '/' + this.inputWorkPackageNumber;
+        return this.http.delete(url, { headers: headers })
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
+    postEmployeeToWorkPackageTeam(id: string): Promise<void> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        const url = AppComponent.url + '/api/WPassignments/';
+        return this.http.post(url,
+            {
+                employeeNumber: id,
+                projectNumber: this.inputProjectNumber,
+                workPackageNumber: this.inputWorkPackageNumber
+            },
+            { headers: headers })
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
     ngOnInit() {
         //this.loadEmployees();
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        
         if (changes['selectedProjectNumber'] !== undefined) {
             this.inputProjectNumber = changes['selectedProjectNumber'].currentValue;
             this.inputWorkPackageNumber = '';
@@ -52,7 +82,6 @@ export class WorkPackageTeamComponent implements OnChanges {
         if (changes['selectedWorkPackageNumber'] !== undefined)
             this.inputWorkPackageNumber = changes['selectedWorkPackageNumber'].currentValue;
         if (this.inputProjectNumber !== undefined && this.inputProjectNumber != '' && this.inputWorkPackageNumber !== undefined && this.inputWorkPackageNumber != '') {
-
             console.log("hi im in wp team:" + this.inputProjectNumber + "." + this.inputWorkPackageNumber + ".");
             this.loadEmployees();
         }
@@ -62,7 +91,22 @@ export class WorkPackageTeamComponent implements OnChanges {
         this.selected = member;
     }
 
-    removeEmployeeFromWorkPackage() { }
+    remove(delMember: Employee) {
+        this.deleteEmployeeFromWorkPackageTeam(delMember.employeeNumber).then(() => {
+            this.workPackageMembers = this.workPackageMembers.filter(e => e !== delMember);
+            if (this.selected === delMember) { this.selected = this.emptyEmployee; }
+        });
+    }
 
-    addEmployeeToWorkPackage() { }
+    add() {
+        let addMember = this.inputMember;
+        this.postEmployeeToWorkPackageTeam(addMember.employeeNumber).then(() => {
+            this.workPackageMembers.push(addMember);
+        });
+    }
+
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    }
 }

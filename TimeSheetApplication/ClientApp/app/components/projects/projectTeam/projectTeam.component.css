@@ -36,17 +36,17 @@
     font-size: 16px;
 }
 
-.workpackages-table {
+.project-members-table {
     height: 380px;
     overflow-y: scroll;
 }
 
-.project-members-table {
-    height: 180px;
-    overflow-y: scroll;
+.table tr.active td {
+    background-color: #123456 !important;
+    color: white;
 }
 
-.work-package-members-table {
-    height: 180px;
-    overflow-y: scroll;
+.table tr.active button {
+    /*background-color: #123456 !important;*/
+    color: #173c00;
 }

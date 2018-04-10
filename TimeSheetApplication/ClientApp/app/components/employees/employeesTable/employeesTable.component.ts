@@ -27,8 +27,36 @@ export class EmployeesTableComponent {
 
     /* Utility methods */
 
+    checkSupervisorNumber(employee: Employee) {
+        if (localStorage.getItem("role") == "Supervisor") {
+            if (localStorage.getItem("employeeNumber") == employee.supervisorNumber) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    checkIfOwnEmployee(employee: Employee) {
+        if (localStorage.getItem("employeeNumber") == employee.employeeNumber) {
+            return false
+        } else {
+            return true;
+        }
+    }
+
     validateHRRole() {
-        if (localStorage.getItem("role") == "Human Resources") {
+        if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateHRAndSupervisorRole() {
+        if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator" || localStorage.getItem("role") == "Supervisor") {
             return true;
         } else {
             return false;

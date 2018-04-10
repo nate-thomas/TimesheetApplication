@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Data;
+using TimeSheetApplication.Models;
 using TimeSheetApplication.Models.TimeSheetSystem;
+using TimeSheetApplication.ViewModels;
 
 namespace TimeSheetApplication.ApiControllers
 {
@@ -15,10 +18,11 @@ namespace TimeSheetApplication.ApiControllers
     public class WPassignmentsAPIController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public WPassignmentsAPIController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public WPassignmentsAPIController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/WPassignmentsAPI
@@ -31,10 +35,39 @@ namespace TimeSheetApplication.ApiControllers
         //and a WorkPackageNumber (WorkPackagesApiController)
         //GET: api:WPassignments/Employees/PN/WP
         [HttpGet("Employees/{projectNumber}/{wpNumber}")]
-        public IEnumerable<WPassignment> GetEmployeesFromWPandProjectAssignments([FromRoute] string projectNumber,
+        public async Task<IActionResult> GetEmployeesFromWPandProjectAssignments([FromRoute] string projectNumber,
             string wpNumber)
         {
-            return _context.WPassignments.Where(r => r.WorkPackageNumber == wpNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WPassignment>;
+            List<EmployeeViewModel> employeesList = new List<EmployeeViewModel>();
+            var WpAssignments = _context.WPassignments.ToArray();
+            foreach (WPassignment wpa in WpAssignments)
+            {
+                if (wpa.ProjectNumber.Equals(projectNumber) && wpa.WorkPackageNumber.Equals(wpNumber))
+                {
+                    var employee = _context.Employees.FirstOrDefault(emp => String.Equals(emp.EmployeeNumber, wpa.EmployeeNumber));
+                    var appUser = await _userManager.FindByNameAsync(wpa.EmployeeNumber);
+                    var userRole = await _userManager.GetRolesAsync(appUser);
+                    EmployeeViewModel temp = new EmployeeViewModel
+                    {
+                        EmployeeNumber = employee.EmployeeNumber,
+                        FirstName = employee.FirstName,
+                        LastName = employee.LastName,
+                        Grade = employee.Grade,
+                        EmployeeIntials = employee.EmployeeIntials,
+                        Password = "",
+                        ConfirmPassword = "",
+                        Role = userRole[0],
+                        supervisorNumber = employee.SupervisorNumber
+                    };
+                    employeesList.Add(temp);
+                }
+            }
+
+            //if (employeesList.Count == 0)
+            //{
+            //    return BadRequest("Project not found");
+            //}
+            return new ObjectResult(employeesList);
         }
 
         // GET: api/WPassignments/All/EN
@@ -118,15 +151,17 @@ namespace TimeSheetApplication.ApiControllers
         }
 
         // DELETE: api/WPassignmentsAPI/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWPassignment([FromRoute] string id)
+        [HttpDelete("{empNo}/{projNo}/{wpNo}")]
+        public async Task<IActionResult> DeleteWPassignment([FromRoute] string empNo,
+            string projNo, string wpNo)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var wPassignment = await _context.WPassignments.SingleOrDefaultAsync(m => m.ProjectNumber == id);
+            var wPassignment = await _context.WPassignments.SingleOrDefaultAsync(m => m.ProjectNumber == projNo
+            && m.WorkPackageNumber == wpNo && m.EmployeeNumber == empNo);
             if (wPassignment == null)
             {
                 return NotFound();

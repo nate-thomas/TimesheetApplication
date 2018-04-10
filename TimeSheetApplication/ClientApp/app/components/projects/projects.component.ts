@@ -8,9 +8,11 @@ import { Employee } from '../employees/employees';
     styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent {
-    selectedProject: string;
-    selectedWorkPackage: string;
+    selectedProject: string = 'WebPrj128';
+    selectedWorkPackage: string = 'A2';
     selectedMember: Employee;
+
+    constructor() { }
 
     projectChange(event: any) {
         this.selectedProject = event;
@@ -22,5 +24,13 @@ export class ProjectsComponent {
 
     memberChange(event: any) {
         this.selectedMember = event;
+    }
+
+    validatePMandSupervisorRole() {
+        if (localStorage.getItem("role") == "Project Manager" || localStorage.getItem("role") == "Supervisor" || localStorage.getItem("role") == "Administrator") {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

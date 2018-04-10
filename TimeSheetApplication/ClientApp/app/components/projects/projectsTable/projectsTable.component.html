@@ -6,21 +6,13 @@
             <td style="padding-right: 10px;">Project Number:</td>
             <td><input class="input-top" type="text" #employeeNumber /></td>
             <td style="padding-left:10px" rowspan="2">
-                <button class="btn-icon" (click)="loadTimesheet(employeeNumber.value, endDate.value)">
-                    <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Timesheet" />
+                <button class="btn-icon">
+                    <img class="img-icon" src="../../../assets/images/icon-search.png" alt="Load Project" />
                 </button>
             </td>
         </tr>
-        <!--<tr class="input-row">
-            <td>End Date (YYYY-MM-DD):</td>
-            <td><input class="input-top" type="text" #endDate /><br /></td>
-        </tr>-->
-        <tr>
-            <!--<td><button disabled (click)="addTimesheet(employeeNumber.value, endDate.value)">Create Timesheet</button></td>-->
-        </tr>
-        <tr>
-            <!--<td><button disabled (click)="removeTimesheet(employeeNumber.value, endDate.value)">Delete Timesheet</button></td>-->
-        </tr>
+        <tr></tr>
+        <tr></tr>
     </table>
     <br />
 
@@ -67,17 +59,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="">
-                    <td><input type="text" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" style="width: 100px;" /></td>
-                    <td><input type="text" name="numberOfWorkPackages" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 100px;" /></td>
-                    <td><input type="text" name="numberOfEmployees" [(ngModel)]="timesheetRow.total" style="width:100px;" /></td>
-                    <td><input type="text" name="description" [(ngModel)]="timesheetRow.sunday" style="width: 100px;" /></td>
-                    <td><input type="text" name="status" [(ngModel)]="timesheetRow.sunday" style="width: 100px;" /></td>
-
-                </tr>
+                <ng-container>
+                    <tr *ngFor="let project of projects; let i = index">
+                        <td id="pnum">{{project.projectNumber}}</td>
+                        <td id="pbud">{{project.budget}}</td>
+                        <td id="numOfWP">NUM</td>
+                        <td id="numOfEMP">NUM</td>
+                        <td id="pdesc">{{project.description}}</td>
+                        <td id="status">{{project.statusName}}</td>
+                        <td><button id="updateProjectButton" type="button" class="updateProject" data-toggle="modal" data-target=".update-project" style="text-align: center;" (click)="initializeUpdateComponent(project)"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                        <ng-container *ngIf="project.statusName == 'Current'">
+                            <td><button (click)="archiveProject(project.projectNumber)">x</button></td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
                 <tr></tr>
-             
-              
             </tbody>
         </table>
     </div>
@@ -87,18 +83,25 @@
     <button type="button" class="newProject" data-toggle="modal" data-target=".bs-example-modal-lg">New Project</button>
 
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modalse-dialog modal-lg" role="document">
             <div class="modal-content">
-                <addProject></addProject>
+                <addProject [project]="project" [projects]="projects" (projectsChange)="setProjects($event)"></addProject>
             </div>
         </div>
     </div>
     <!-- Modal END -->
 
-    <!--<button class="btn-newRow" [routerLink]="['/addProject']">New Project</button>-->
-    <!--<button class="pull-right" [routerLink]="['/manage-projects']">Manage</button>
-    <button class="pull-right">Statistics</button>-->
-    <!--<button (click)="printProperties()">Print to Console</button>-->
+    <!-- Modal Update Project START -->
+    <div class="modal fade update-project" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <UpdateProject [project]="project" [projects]="projects" (projectsChange)="setProjects($event)"></UpdateProject>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Update Project END -->
+
+
     <br />
     <hr />
 </div>

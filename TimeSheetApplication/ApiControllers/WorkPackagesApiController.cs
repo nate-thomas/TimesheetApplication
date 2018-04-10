@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Internal.System.Collections.Sequences;
 using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Data;
 using TimeSheetApplication.Models.TimeSheetSystem;
+using TimeSheetApplication.ViewModels;
 
 namespace TimeSheetApplication.ApiControllers
 {
@@ -54,7 +55,7 @@ namespace TimeSheetApplication.ApiControllers
         [HttpGet("{projectNumber}/{workPackageNumber}")]
         public IEnumerable<WorkPackage> GetWorkPackage([FromRoute] string projectNumber, [FromRoute] string workPackageNumber)
         {
-            return _context.WorkPackages.Where(r => r.WorkPackageNumber == workPackageNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WorkPackage>;
+             return _context.WorkPackages.Where(r => r.WorkPackageNumber == workPackageNumber && r.ProjectNumber == projectNumber).ToList() as IEnumerable<WorkPackage>;
         }
 
         // PUT: api/WorkPackages/09876%2fA0000

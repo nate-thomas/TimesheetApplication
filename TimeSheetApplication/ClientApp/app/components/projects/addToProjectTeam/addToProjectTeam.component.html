@@ -1,0 +1,40 @@
+﻿<!-- component -->
+
+<div class="component-content">
+    <div class="title" align="center">
+        <h2>Adding New Member to Project</h2>
+    </div>
+    <div>
+        <form (ngSubmit)="addProject()">
+            <!-- xs, sm -->
+            <div class="visible-xs visible-sm">
+                <div class="row inputBox">
+                    <div class="col-xs-12">
+                        Project Number
+                        <br />
+                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" />
+                    </div>
+                </div>
+                <br />
+                <button id="addToProjectTeamButtonSmall" align="center">Add To Project Team</button>
+                <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
+            </div>
+
+            <!-- md, lg, xl-->
+            <div class="hidden-xs hidden-sm">
+                <div class="row inputBox">
+                    <div class="col-md-6" align="center">
+                        Project Number
+                        <br />
+                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" />
+                    </div>
+                </div>
+                <br />
+                <div class="buttons" align="center">
+                    <button id="addToProjectTeamButtonLarge" align="center">Add To Project Team</button>
+                    <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -17,6 +17,7 @@ export class ProjectTeamComponent implements OnChanges {
     @Output() outputEmployee: EventEmitter<Employee> = new EventEmitter<Employee>();
     selected: Employee;
     projectMembers: Employee[];
+    emptyEmployee: Employee = new Employee();
 
     constructor(private http: Http) { }
 
@@ -31,7 +32,7 @@ export class ProjectTeamComponent implements OnChanges {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(AppComponent.url + "/api/ProjectTeams/" + projectNumber, options)
+        return this.http.get(AppComponent.url + '/api/ProjectTeams/' + projectNumber, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 console.log(JSON.stringify(err));
@@ -39,26 +40,51 @@ export class ProjectTeamComponent implements OnChanges {
             });
     }
 
+    deleteEmployeeFromProjectTeam(id: string): Promise<void> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        const url = AppComponent.url + '/api/ProjectTeams/' + id + '/' + this.inputProjectNumber;
+        return this.http.delete(url, { headers: headers })
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
     ngOnInit() {
-        
-        //this.loademployees();
+        //this.loadEmployees();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['selectedProjectNumber'] !== undefined)
             this.inputProjectNumber = changes['selectedProjectNumber'].currentValue;
         if (this.inputProjectNumber !== undefined && this.inputProjectNumber != '') {
-            console.log("hi im in project team:" + this.inputProjectNumber + ".");
+            //console.log("hi im in project team:" + this.inputProjectNumber + ".");
             this.loadEmployees();
         }
     }
 
     onSelect(member: Employee) {
         this.outputEmployee.emit(member);
-        this.selected = member;
+        if (this.selected == member) {
+            this.selected = this.emptyEmployee;
+            this.outputEmployee.emit(undefined);
+        }
+        else
+            this.selected = member;
     }
 
-    removeEmployeeFromProject() { }
+    remove(delMember: Employee) {
+        this.deleteEmployeeFromProjectTeam(delMember.employeeNumber).then(() => {
+            this.projectMembers = this.projectMembers.filter(e => e !== delMember);
+            if (this.selected === delMember) { this.selected = this.emptyEmployee; }
+        });;
+    }
 
     addEmployeeToProject() { }
+
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    }
 }
