@@ -165,12 +165,12 @@ namespace TimeSheetApplication.ApiControllers
             {
                 return BadRequest(ModelState);
             }
-            List<WPassignment> conflictingWorkPackageAssignments = await _context.passignments.Where(w => w.EmployeeNumber == empNo
+            List<WPassignment> conflictingWorkPackageAssignments = await _context.WPassignments.Where(w => w.EmployeeNumber == empNo
             && w.ProjectNumber == projNo).ToListAsync();
 
             foreach(WPassignment item in conflictingWorkPackageAssignments)
             {
-                _context.passignments.Remove(item);
+                _context.WPassignments.Remove(item);
 
             }
 
@@ -215,7 +215,7 @@ namespace TimeSheetApplication.ApiControllers
         }
         private bool ProjectTeamExists(string projno, string empno)
         {
-            return _context.passignments.Any(e => e.ProjectNumber == projno && e.EmployeeNumber == empno);
+            return _context.WPassignments.Any(e => e.ProjectNumber == projno && e.EmployeeNumber == empno);
         }
 
     }
