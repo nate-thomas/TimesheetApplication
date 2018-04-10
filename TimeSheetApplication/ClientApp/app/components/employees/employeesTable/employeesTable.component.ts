@@ -13,6 +13,7 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './employeesTable.component.html'
 })
 export class EmployeesTableComponent {
+    supervisors: Employee[] = new Array();
     employees: Employee[] = new Array();
     employee: Employee = new Employee();
 
@@ -22,6 +23,58 @@ export class EmployeesTableComponent {
 
     ngOnInit() {
         this.loadEmployees();
+    }
+
+    /* Utility methods */
+
+    checkSupervisorNumber(employee: Employee) {
+        if (localStorage.getItem("role") == "Supervisor") {
+            if (localStorage.getItem("employeeNumber") == employee.supervisorNumber) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    checkIfOwnEmployee(employee: Employee) {
+        if (localStorage.getItem("employeeNumber") == employee.employeeNumber) {
+            return false
+        } else {
+            return true;
+        }
+    }
+
+    validateHRRole() {
+        if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateHRAndSupervisorRole() {
+        if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator" || localStorage.getItem("role") == "Supervisor") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    setEmployees(employees: Employee[]) {
+        this.employees = employees;
+    }
+
+    initializeAddComponent() {
+        this.employee = new Employee();
+        this.loadSupervisors();
+    }
+
+    initializeUpdateComponent(employee: Employee) {
+        this.employee = employee;
+        this.loadSupervisors();
     }
 
     /* Subscription methods to bind the response to a property (if applicable) */
@@ -37,6 +90,13 @@ export class EmployeesTableComponent {
         this.getEmployee(employeeNumber)
             .subscribe(
                 employee => this.employees = [employee]
+            );
+    }
+
+    loadSupervisors() {
+        this.getSupervisors()
+            .subscribe(
+            (supervisors: any) => this.supervisors = supervisors
             );
     }
 
@@ -69,6 +129,18 @@ export class EmployeesTableComponent {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.get(AppComponent.url + "/api/Employees/" + employeeNumber, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
+    getSupervisors(): Observable<Response> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/UsersInRoles/" + "Supervisor", options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 console.log(JSON.stringify(err));

@@ -1,6 +1,7 @@
 ﻿import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
+import { Input, Output, EventEmitter } from '@angular/core'
 
 import 'rxjs/add/operator/map';
 
@@ -15,8 +16,15 @@ import { AppComponent } from '../../app/app.component'
     templateUrl: './addEmployee.component.html'
 })
 export class AddEmployeeComponent {
-    employee: Employee = new Employee();
-    supervisors: Employee[] = new Array();
+    @Input()
+    employee: Employee;
+    @Input()
+    employees: Employee[];
+    @Input()
+    supervisors: Employee[];
+    @Output()
+    employeesChange = new EventEmitter<Employee[]>();
+
     grades: Object[] = new Array();
     roles: String[] = new Array();
 
@@ -25,8 +33,6 @@ export class AddEmployeeComponent {
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
-        this.employee = new Employee();
-        this.loadSupervisors();
         this.loadGrades();
         this.loadRoles();
     }
@@ -43,11 +49,19 @@ export class AddEmployeeComponent {
 
     /* Subscription methods to bind the response to a property (if applicable) */
 
+    loadEmployees() {
+        this.getEmployees()
+            .subscribe(
+                employees => {
+                    this.employees = employees;
+                    this.employeesChange.emit(this.employees);
+                }
+        );
+    }
+
     addEmployee() {
         this.employee.password = "P@$$w0rd";
         this.employee.confirmPassword = "P@$$w0rd";
-
-        console.log(JSON.stringify(this.employee));
 
         if (this.employee.employeeNumber &&
             this.employee.firstName &&
@@ -57,20 +71,19 @@ export class AddEmployeeComponent {
             this.employee.grade &&
             this.employee.role) {
 
-            this.postEmployee(this.employee)
-                .subscribe(res => alert("Employee added!"));
+            if (this.employee.employeeNumber.toString().length != 7) {
+                alert("Employee number must be 7 digits!");
+            } else {
+                this.postEmployee(this.employee)
+                    .subscribe(res => {
+                        alert("Employee added!");
+                    });
+            }
+
         } else {
             alert("All fields are required!");
         }
         
-    }
-
-    updateEmployee() {
-        this.putEmployee(this.employee.employeeNumber, this.employee)
-            .subscribe(res => {
-                this.putRole(this.employee.employeeNumber, this.employee.role)
-                    .subscribe(res => { alert("Employee updated!") });
-            });
     }
 
     loadGrades() {
@@ -96,6 +109,18 @@ export class AddEmployeeComponent {
 
     /* CRUD methods to make RESTful calls to the API */
 
+    getEmployees(): Observable<Employee[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Employees/", options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
     postEmployee(employee: Employee): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
@@ -104,18 +129,6 @@ export class AddEmployeeComponent {
             .map((res: Response) => res.json())
             .catch((err: any) => {
                 alert(err._body);
-                return Observable.throw(new Error(JSON.stringify(err)));
-            });
-    }
-
-    putEmployee(employeeNumber: string, employee: Employee): Observable<Response> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber, this.employee, options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
     }

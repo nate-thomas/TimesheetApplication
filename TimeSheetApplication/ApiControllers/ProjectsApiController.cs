@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Data;
 using TimeSheetApplication.Interfaces;
 using TimeSheetApplication.Models.TimeSheetSystem;
+using TimeSheetApplication.ViewModels;
 
 namespace TimeSheetApplication.ApiControllers
 {
@@ -48,16 +49,43 @@ namespace TimeSheetApplication.ApiControllers
             return Ok(project);
         }
 
+        [HttpGet("pm/{pmNumber}")]
+        public async Task<IActionResult> GetProjectsByPM([FromRoute] string pmNumber)
+        {
+            List<ProjectViewModel> projectsList = new List<ProjectViewModel>();
+            var projects = _context.Projects.ToArray<Project>();
+            foreach (Project p in projects)
+            {
+                if(p.ProjectManager != null && p.ProjectManager.Equals(pmNumber))
+                {
+                    ProjectViewModel temp = new ProjectViewModel
+                    {
+                        ProjectNumber = p.ProjectNumber,
+                        StatusName = p.StatusName,
+                        Description = p.Description,
+                        Budget = p.Budget,
+                        ProjectManager = p.ProjectManager
+                    };
+                    projectsList.Add(temp);
+                }
+            }
+            if (projectsList.Count == 0)
+            {
+                return BadRequest("Prokect Manager not found");
+            }
+            return new ObjectResult(projectsList);
+        }
+
         // PUT: api/ProjectsApi/5
         [HttpPut("{ProjectNumber}")]
-        public async Task<IActionResult> PutProject([FromRoute] string id, [FromBody] Project project)
+        public async Task<IActionResult> PutProject([FromRoute] string ProjectNumber, [FromBody] Project project)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != project.ProjectNumber)
+            if (ProjectNumber != project.ProjectNumber)
             {
                 return BadRequest();
             }
@@ -70,7 +98,7 @@ namespace TimeSheetApplication.ApiControllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(id))
+                if (!ProjectExists(ProjectNumber))
                 {
                     return NotFound();
                 }

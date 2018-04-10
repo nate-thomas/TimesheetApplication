@@ -23,7 +23,7 @@
         <!-- xs, sm view -->
         <div class="row visible-xs visible-sm">
             <div class="col-xs-12">
-                <button id="timesheetArchiveButtonSmall" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="loadTimesheets()"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive"/> View Timesheets</button>
+                <button id="timesheetArchiveButtonSmall" class="btn-icon timesheet-button" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="loadTimesheets()"><img class="img-icon" src="../../../assets/images/icon-timesheets.png" alt="Timesheets"/></button>
             </div>
             <div class="col-xs-12 text-center">
                 <h1>Timesheet</h1>
@@ -35,7 +35,7 @@
         <!--  md, lg, xl views -->
         <div class="row hidden-xs hidden-sm">
             <div class="col-md-4">
-                <button id="timesheetArchiveButtonLarge" class="btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="loadTimesheets()"><img class="img-icon" src="../../../assets/images/icon-archive.png" alt="Archive" /> View Timesheets</button>
+                <button id="timesheetArchiveButtonLarge" class="btn-icon timesheet-button" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="loadTimesheets()"><img class="img-icon" src="../../../assets/images/icon-timesheets.png" alt="Timesheets" /></button>
             </div>
             <div class="col-md-4 text-center">
                 <h1>Timesheet</h1>
@@ -67,22 +67,22 @@
                 <tr *ngFor="let timesheetRow of timesheet.timesheetRows; let i = index">
                     <td>
                         <select id="{{'projectNumberSelect' + i}}" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)">
-                            <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
+                            <option *ngFor="let projectNumber of employeeProjects" [value]="projectNumber">{{projectNumber}}</option>
                         </select>
                     </td>
                     <td>
                         <select id="{{'workPackageNumberSelect' + i}}" name="workPackageNumber" [(ngModel)]="timesheetRow.workPackageNumber" [ngClass]="validateInput(timesheetRow.workPackageNumber)">
-                            <option *ngFor="let workPackageNumber of projectWorkPackageMap[timesheetRow.projectNumber]" [value]="workPackageNumber">{{workPackageNumber}}</option>
+                            <option *ngFor="let workPackageNumber of employeeProjectsWPMap[timesheetRow.projectNumber]" [value]="workPackageNumber">{{workPackageNumber}}</option>
                         </select>
                     </td>
                     <td><input id="{{'totalInput' + i}}" type="text" style="width: 75px;" value="{{calculateTimesheetHours(timesheetRow)}}" disabled /></td>
-                    <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="saturday" [(ngModel)]="timesheetRow.saturday" [ngClass]="validateDailyHours(timesheetRow.saturday)" /></td>
-                    <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" step="0.25" name="sunday" [(ngModel)]="timesheetRow.sunday" [ngClass]="validateDailyHours(timesheetRow.sunday)" /></td>
-                    <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" step="0.25" name="monday" [(ngModel)]="timesheetRow.monday" [ngClass]="validateDailyHours(timesheetRow.monday)" /></td>
-                    <td><input id="{{'tuesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="tuesday" [(ngModel)]="timesheetRow.tuesday" [ngClass]="validateDailyHours(timesheetRow.tuesday)" /></td>
-                    <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="wednesday" [(ngModel)]="timesheetRow.wednesday" [ngClass]="validateDailyHours(timesheetRow.wednesday)" /></td>
-                    <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="thursday" [(ngModel)]="timesheetRow.thursday" [ngClass]="validateDailyHours(timesheetRow.thursday)" /></td>
-                    <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" step="0.25" name="friday" [(ngModel)]="timesheetRow.friday" [ngClass]="validateDailyHours(timesheetRow.friday)" /></td>
+                    <td><input id="{{'saturdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="saturday" [(ngModel)]="timesheetRow.saturday" [ngClass]="validateInputHours(timesheetRow.saturday)" /></td>
+                    <td><input id="{{'sundayInput' + i}}" type="number" min="0" max="24" step="0.25" name="sunday" [(ngModel)]="timesheetRow.sunday" [ngClass]="validateInputHours(timesheetRow.sunday)" /></td>
+                    <td><input id="{{'mondayInput' + i}}" type="number" min="0" max="24" step="0.25" name="monday" [(ngModel)]="timesheetRow.monday" [ngClass]="validateInputHours(timesheetRow.monday)" /></td>
+                    <td><input id="{{'tuesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="tuesday" [(ngModel)]="timesheetRow.tuesday" [ngClass]="validateInputHours(timesheetRow.tuesday)" /></td>
+                    <td><input id="{{'wednesdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="wednesday" [(ngModel)]="timesheetRow.wednesday" [ngClass]="validateInputHours(timesheetRow.wednesday)" /></td>
+                    <td><input id="{{'thursdayInput' + i}}" type="number" min="0" max="24" step="0.25" name="thursday" [(ngModel)]="timesheetRow.thursday" [ngClass]="validateInputHours(timesheetRow.thursday)" /></td>
+                    <td><input id="{{'fridayInput' + i}}" type="number" min="0" max="24" step="0.25" name="friday" [(ngModel)]="timesheetRow.friday" [ngClass]="validateInputHours(timesheetRow.friday)" /></td>
                     <td><button id="deleteTimesheetRowButton" (click)="deleteTimesheetRow(i)" *ngIf="checkTimesheetStatus()" style="text-align: center;">x</button></td>
                 </tr>
                 <tr></tr>

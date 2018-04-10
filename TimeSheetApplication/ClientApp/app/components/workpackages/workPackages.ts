@@ -3,6 +3,7 @@
     workPackageNumber: string;
     description: string;
     budget: number;
+    responsibleEngineerNumber: string;
 
     constructor() { }
 }

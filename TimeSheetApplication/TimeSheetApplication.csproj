@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\app\components\oki\**" />
     <Compile Remove="Views\AuthorizationCodes\**" />
     <Compile Remove="Views\Employees\**" />
     <Compile Remove="Views\LaborGrades\**" />
@@ -42,6 +43,7 @@
     <Content Remove="Views\TimesheetRows\**" />
     <Content Remove="Views\Timesheets\**" />
     <Content Remove="Views\WorkPackages\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\oki\**" />
     <EmbeddedResource Remove="Views\AuthorizationCodes\**" />
     <EmbeddedResource Remove="Views\Employees\**" />
     <EmbeddedResource Remove="Views\LaborGrades\**" />
@@ -50,6 +52,7 @@
     <EmbeddedResource Remove="Views\TimesheetRows\**" />
     <EmbeddedResource Remove="Views\Timesheets\**" />
     <EmbeddedResource Remove="Views\WorkPackages\**" />
+    <None Remove="ClientApp\app\components\oki\**" />
     <None Remove="Views\AuthorizationCodes\**" />
     <None Remove="Views\Employees\**" />
     <None Remove="Views\LaborGrades\**" />
@@ -61,7 +64,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\admintasks\admintasks.component.ts" />
     <None Remove="ClientApp\app\components\employees\addEmployee\AddEmployee.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.component.ts" />
     <None Remove="ClientApp\app\components\employees\employees.ts" />
@@ -69,17 +71,16 @@
     <None Remove="ClientApp\app\components\employees\updateEmployee\updateEmployee.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
-    <None Remove="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
-    <None Remove="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
+    <None Remove="ClientApp\app\components\projects\updateProject\updateProject.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheetRows.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
     <None Remove="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <None Remove="ClientApp\app\components\workpackages\wpAssignments.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\admintasks\admintasks.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\addEmployee\addEmployee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\employees\employees.component.ts" />
@@ -87,18 +88,20 @@
     <TypeScriptCompile Include="ClientApp\app\components\employees\updateEmployee\updateEmployee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projects\updateProject\updateProject.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\wpAssignments.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
-    <Folder Include="ClientApp\app\components\oki\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Services\" />
 
   </ItemGroup>
 

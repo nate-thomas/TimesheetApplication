@@ -9,6 +9,7 @@ import { Timesheet } from './timesheets'
 import { TimesheetRow } from './timesheetRows'
 import { Project } from '../../projects/projects'
 import { WorkPackage } from '../../workpackages/workPackages'
+import { WPassignment } from '../../workpackages/wpAssignments'
 import { AppComponent } from '../../app/app.component'
 
 @Component({
@@ -21,19 +22,21 @@ export class TimesheetsTableComponent {
     timesheet: Timesheet = new Timesheet();
     endDate: string = this.formatDate(new Date);
     weekNumber: number = this.getWeekNumber(this.endDate);
-    projects: Project[] = new Array();
-    workPackages: WorkPackage[] = new Array();
     employeeNumber: string = localStorage.getItem("employeeNumber") || "";
-    projectWorkPackageMap: { [index: string]: any } = {};
+    employeeProjectsWPMap: { [index: string]: any } = {};
+    employeeProjects: string[] = new Array();
 
     constructor(private http: Http) { }
+
+    testFunction() {
+        console.log("called");
+    }
 
     /* Functions to be called when component is loaded */
 
     ngOnInit() {
         this.loadTimesheet();
-        this.loadProjects();
-        this.loadWorkPackages();
+        this.loadWPassignments();
     }
 
     /* Utility methods */
@@ -112,9 +115,10 @@ export class TimesheetsTableComponent {
         }
     }
 
-    validateDailyHours(hour: number) {
+
+    validateInputHours(hour: number) {
         if (this.timesheet.statusName == "Draft" || this.timesheet.statusName == "Rejected") {
-            if (hour < 0 || hour > 24) {
+            if (hour == null || hour < 0 || hour > 24) {
                 return 'timesheet-input invalid-input';
             } else {
                 return 'timesheet-input';
@@ -124,10 +128,25 @@ export class TimesheetsTableComponent {
         }
     }
 
-    validateTotalHours() {
-        let totalHours = 0;
-        let requiredHours = 40;
-        
+    validateSelectedPWP() {
+        for (let timesheetRow of this.timesheet.timesheetRows) {
+            if (timesheetRow.projectNumber == null || timesheetRow.workPackageNumber == null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    validateDailyHours() {
+        let totalSatHours = 0;
+        let totalSunHours = 0;
+        let totalMonHours = 0;
+        let totalTueHours = 0;
+        let totalWedHours = 0;
+        let totalThuHours = 0;
+        let totalFriHours = 0;
+
         for (let timesheetRow of this.timesheet.timesheetRows) {
             if (timesheetRow.saturday < 0 || timesheetRow.saturday > 24 ||
                 timesheetRow.sunday < 0 || timesheetRow.sunday > 24 ||
@@ -140,16 +159,54 @@ export class TimesheetsTableComponent {
                 return false;
             }
 
-            totalHours += timesheetRow.saturday +
-                          timesheetRow.sunday +
-                          timesheetRow.monday +
-                          timesheetRow.tuesday +
-                          timesheetRow.wednesday +
-                          timesheetRow.thursday +
-                          timesheetRow.friday;
+            totalSatHours += timesheetRow.saturday;
+            totalSunHours += timesheetRow.sunday
+            totalMonHours += timesheetRow.monday;
+            totalTueHours += timesheetRow.tuesday;
+            totalWedHours += timesheetRow.wednesday;
+            totalThuHours += timesheetRow.thursday;
+            totalFriHours += timesheetRow.friday;
         }
-        
-        if (totalHours == requiredHours) {
+
+        if (totalSatHours > 24 ||
+            totalSunHours > 24 ||
+            totalMonHours > 24 ||
+            totalTueHours > 24 ||
+            totalWedHours > 24 ||
+            totalThuHours > 24 ||
+            totalFriHours > 24) {
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    validateTotalHours(status: string) {
+        let totalHours = 0;
+
+        for (let timesheetRow of this.timesheet.timesheetRows) {
+            if (timesheetRow.saturday == null || timesheetRow.saturday < 0 || timesheetRow.saturday > 24 ||
+                timesheetRow.sunday == null || timesheetRow.sunday < 0 || timesheetRow.sunday > 24 ||
+                timesheetRow.monday == null || timesheetRow.monday < 0 || timesheetRow.monday > 24 ||
+                timesheetRow.tuesday == null || timesheetRow.tuesday < 0 || timesheetRow.tuesday > 24 ||
+                timesheetRow.wednesday == null || timesheetRow.wednesday < 0 || timesheetRow.wednesday > 24 ||
+                timesheetRow.thursday == null || timesheetRow.thursday < 0 || timesheetRow.thursday > 24 ||
+                timesheetRow.friday == null || timesheetRow.friday < 0 || timesheetRow.friday > 24) {
+
+                return false;
+            }
+
+            totalHours += timesheetRow.saturday +
+                timesheetRow.sunday +
+                timesheetRow.monday +
+                timesheetRow.tuesday +
+                timesheetRow.wednesday +
+                timesheetRow.thursday +
+                timesheetRow.friday;
+        }
+
+        if (status == "Draft" || totalHours == 40) {
             return true;
         } else {
             return false;
@@ -174,13 +231,14 @@ export class TimesheetsTableComponent {
         return totalHours;
     }
 
-    generateProjectWorkPackageMap() {
-        for (let workPackage of this.workPackages) {
-            if (this.projectWorkPackageMap[workPackage.projectNumber]) {
-                this.projectWorkPackageMap[workPackage.projectNumber].push(workPackage.workPackageNumber);
+    generateEmployeeProjectsWPMap(wpAssignments: WPassignment[]) {
+        for (let wpAssignment of wpAssignments) {
+            if (this.employeeProjectsWPMap[wpAssignment.projectNumber]) {
+                this.employeeProjectsWPMap[wpAssignment.projectNumber].push(wpAssignment.workPackageNumber);
             } else {
-                this.projectWorkPackageMap[workPackage.projectNumber] = [];
-                this.projectWorkPackageMap[workPackage.projectNumber].push(workPackage.workPackageNumber);
+                this.employeeProjects.push(wpAssignment.projectNumber);
+                this.employeeProjectsWPMap[wpAssignment.projectNumber] = [];
+                this.employeeProjectsWPMap[wpAssignment.projectNumber].push(wpAssignment.workPackageNumber);
             }
         }
     }
@@ -206,10 +264,8 @@ export class TimesheetsTableComponent {
         this.weekNumber = this.getWeekNumber(this.endDate);
     }
 
-
-
     updateTimesheet(status: string) {
-        if (this.validateTotalHours()) {
+        if (this.validateSelectedPWP() && this.validateTotalHours(status) && this.validateDailyHours()) {
             if ((new Date(this.timesheet.endDate)).getDay() != 5) {
                 alert("You can only update a timesheet on a Friday!");
             } else {
@@ -245,23 +301,15 @@ export class TimesheetsTableComponent {
                     });
             }
         } else {
-            alert("Total timesheet hours must add up to 40 and each day's total hours must be between 0 and 24.");
+            alert("All fields are required and total timesheet hours must be 40 and each day's total hours must be between 0 and 24.");
         }
     }
 
-    loadProjects() {
-        this.getProjects()
+    loadWPassignments() {
+        this.getWPassignments()
             .subscribe(
-                projects => this.projects = projects
-            );
-    }
-
-    loadWorkPackages() {
-        this.getWorkPackages()
-            .subscribe(
-                workPackages => { 
-                    this.workPackages = workPackages;
-                    this.generateProjectWorkPackageMap();
+            wpAssignments => {
+                    this.generateEmployeeProjectsWPMap(wpAssignments);
                 }
             );
     }
@@ -306,29 +354,15 @@ export class TimesheetsTableComponent {
             });
     }
 
-    getProjects(): Observable<Project[]> {
+    getWPassignments(): Observable<WPassignment[]> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(AppComponent.url + "/api/Projects/", options)
+        return this.http.get(AppComponent.url + "/api/WPassignments/All/" + localStorage.getItem("employeeNumber"), options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 console.log(JSON.stringify(err));
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
-
-    }
-
-    getWorkPackages(): Observable<WorkPackage[]> {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(AppComponent.url + "/api/WorkPackages/", options)
-            .map((res: Response) => res.json())
-            .catch((err: Response) => {
-                console.log(JSON.stringify(err));
-                return Observable.throw(new Error(JSON.stringify(err)));
-            });
-
     }
 }
