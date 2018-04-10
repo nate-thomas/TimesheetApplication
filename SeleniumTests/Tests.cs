@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 using System.Reflection;
 
 namespace SeleniumTests
@@ -8,30 +9,60 @@ namespace SeleniumTests
     [TestClass]
     public class Tests
     {
+        private string loginUrl = "http://localhost:58122/login";
+
         //Login Helper Function
-        public void Login(IWebDriver driver)
+        public void AdminLogin(IWebDriver driver)
         {
             driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000001");
             driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$W0rd");
             driver.FindElement(By.XPath("//button")).Submit();
         }
 
+        public Boolean IsAlertPresent(IWebDriver driver)
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }   // try 
+            catch (NoAlertPresentException exception)
+            {
+                return false;
+            }
+        }
+
         [TestMethod]
-        public void LoginTest()
+        public void LoginTestValidCredentials()
         {
             var driverDir = System.IO.Path
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             IWebDriver driver = new ChromeDriver(driverDir);
 
-            driver.Navigate().GoToUrl("http://localhost:58122/login");
-            Login(driver);
+            driver.Navigate().GoToUrl(loginUrl);
+            AdminLogin(driver);
 
-            //Add an assert to see if login worked or not
-
-
+            var logo = driver.FindElement(By.XPath("//div[text()='TimeSheetApplication']"));
+            Assert.IsNotNull(logo);
         }
 
-        
+        [TestMethod]
+        public void LoginTestInvalidCredentials()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("12312312322");
+            driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("00000");
+            driver.FindElement(By.XPath("//button")).Submit();
+
+            Assert.IsTrue(IsAlertPresent(driver));
+        }
+
+
 
         [TestMethod]
         public void GoogleSearchTest()

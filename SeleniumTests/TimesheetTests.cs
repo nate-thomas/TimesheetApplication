@@ -10,6 +10,8 @@ namespace SeleniumTests
     public class TimesheetTests
     {
 
+        private string loginUrl = "http://localhost:58122/login";
+
         //Login Helper Function
         public void AdminLogin(IWebDriver driver)
         {
@@ -38,10 +40,10 @@ namespace SeleniumTests
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             IWebDriver driver = new ChromeDriver(driverDir);
 
-            driver.Navigate().GoToUrl("http://localhost:58122/login");
+            driver.Navigate().GoToUrl(loginUrl);
             AdminLogin(driver);
 
-            driver.FindElement(By.XPath("//input[@id='']")).SendKeys("");
+            driver.FindElement(By.XPath("//input[@id='endDateInput']")).SendKeys("");
             driver.FindElement(By.XPath("//button[@id='']")).Submit();
 
 
@@ -54,7 +56,7 @@ namespace SeleniumTests
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             IWebDriver driver = new ChromeDriver(driverDir);
 
-            driver.Navigate().GoToUrl("http://localhost:58122/login");
+            driver.Navigate().GoToUrl(loginUrl);
 
             AdminLogin(driver);
             //Navigate to timesheet page
@@ -62,9 +64,13 @@ namespace SeleniumTests
             //Add new row
             driver.FindElement(By.XPath("//button[@id='addTimesheetRowButton']")).Submit();
             //Enter hours into cells            
-            driver.FindElement(By.XPath("//input[@name='saturday']]")).SendKeys("16");
-            driver.FindElement(By.XPath("//input[@name='monday']]")).SendKeys("16");
-            driver.FindElement(By.XPath("//input[@name='friday']]")).SendKeys("16");
+            driver.FindElement(By.XPath("//input[@id='saturdayInput0']")).SendKeys("16");
+            driver.FindElement(By.XPath("//input[@id='tuesdayInput0']")).SendKeys("16");
+            driver.FindElement(By.XPath("//input[@id='mondayInput0']")).SendKeys("16");
+
+            //Select Project and workpackage
+            driver.FindElement(By.XPath("//select[@id='projectNumberSelect0']")).FindElement(By.XPath("//option[@value='Cloud001']")).Click();
+            driver.FindElement(By.XPath("//select[@id='workPackageNumberSelect0']")).FindElement(By.XPath("//option[@value='A']")).Click();
 
             //Click update
             driver.FindElement(By.XPath("//button[@id='updateTimesheetButton']")).Submit();
@@ -80,7 +86,7 @@ namespace SeleniumTests
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             IWebDriver driver = new ChromeDriver(driverDir);
 
-            driver.Navigate().GoToUrl("http://localhost:58122/login");
+            driver.Navigate().GoToUrl(loginUrl);
 
 
 
@@ -94,7 +100,7 @@ namespace SeleniumTests
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             IWebDriver driver = new ChromeDriver(driverDir);
 
-            driver.Navigate().GoToUrl("http://localhost:58122/login");
+            driver.Navigate().GoToUrl(loginUrl);
 
 
         }
@@ -106,9 +112,14 @@ namespace SeleniumTests
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             IWebDriver driver = new ChromeDriver(driverDir);
 
-            driver.Navigate().GoToUrl("http://localhost:58122/login");
+            driver.Navigate().GoToUrl(loginUrl);
 
+            //Click new row button
+            driver.FindElement(By.XPath("//button[@id='addTimesheetRowButton']")).Submit();
 
+            var newRow = driver.FindElement(By.XPath("//select[@id='projectNumberSelect1']"));
+
+            Assert.IsNotNull(newRow);
         }
     }
 }
