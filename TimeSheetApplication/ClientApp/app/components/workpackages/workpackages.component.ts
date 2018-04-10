@@ -94,7 +94,7 @@ export class WorkpackageComponent {
         console.log("in get");
         console.log(this.inputProjectNumber);
 
-        return this.http.get(AppComponent.url + "/api/workpackages/")
+        return this.http.get(AppComponent.url + "/api/workpackages/" + this.inputProjectNumber)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || "Server Error"));
     }
