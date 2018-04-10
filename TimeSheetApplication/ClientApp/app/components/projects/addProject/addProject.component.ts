@@ -45,7 +45,7 @@ export class AddProjectComponent {
                 this.projects = projects;
                 this.projectsChange.emit(this.projects);
             }
-            );
+         );
     }
 
     addProject() {

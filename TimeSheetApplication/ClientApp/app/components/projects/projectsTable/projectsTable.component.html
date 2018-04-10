@@ -52,21 +52,17 @@
                 <tr>
                     <th>Project #</th>
                     <th>Budget</th>
-                    <th># of WP</th>
-                    <th># of Employees</th>
                     <th>Description</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 <ng-container>
-                    <tr *ngFor="let project of projects; let i = index">
-                        <td id="pnum">{{project.projectNumber}}</td>
-                        <td id="pbud">{{project.budget}}</td>
-                        <td id="numOfWP">NUM</td>
-                        <td id="numOfEMP">NUM</td>
-                        <td id="pdesc">{{project.description}}</td>
-                        <td id="status">{{project.statusName}}</td>
+                    <tr (click)="onSelect(project.projectNumber)" *ngFor="let project of projects; let i = index">
+                        <td id="project.projectNumber">{{project.projectNumber}}</td>
+                        <td id="project.budget">{{project.budget}}</td>
+                        <td id="project.description">{{project.description}}</td>
+                        <td id="project.statusName">{{project.statusName}}</td>
                         <td><button id="updateProjectButton" type="button" class="updateProject" data-toggle="modal" data-target=".update-project" style="text-align: center;" (click)="initializeUpdateComponent(project)"><span class="glyphicon glyphicon-pencil"></span></button></td>
                         <ng-container *ngIf="project.statusName == 'Current'">
                             <td><button (click)="archiveProject(project.projectNumber)">x</button></td>
