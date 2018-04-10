@@ -118,15 +118,17 @@ namespace TimeSheetApplication.ApiControllers
         }
 
         // DELETE: api/WPassignmentsAPI/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWPassignment([FromRoute] string id)
+        [HttpDelete("{empNo}/{projNo}/{wpNo}")]
+        public async Task<IActionResult> DeleteWPassignment([FromRoute] string empNo,
+            string projNo, string wpNo)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var wPassignment = await _context.WPassignments.SingleOrDefaultAsync(m => m.ProjectNumber == id);
+            var wPassignment = await _context.WPassignments.SingleOrDefaultAsync(m => m.ProjectNumber == projNo
+            && m.WorkPackageNumber == wpNo && m.EmployeeNumber == empNo);
             if (wPassignment == null)
             {
                 return NotFound();
