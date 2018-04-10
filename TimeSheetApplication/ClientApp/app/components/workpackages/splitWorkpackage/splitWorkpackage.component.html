@@ -1,0 +1,94 @@
+﻿<div class="body">
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='body-content'>
+
+                <div class="component-content">
+
+                    <div align="center">
+                        <h2>Creating New Workpackage</h2>
+                    </div>
+
+
+                    <div>
+                        <form (ngSubmit)="splitWorkpackage()">
+                            <!-- xs, sm -->
+                            <div class="visible-xs visible-sm">
+                                <div class="row inputBox center">
+
+                                    <div class="col-xs-12">
+                                        Project Number
+                                        <br />
+                                        <input id="firstNameInputSmall" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.projectNumber" readonly />
+                                    </div>
+
+                                </div>
+                                <div class="row inputBox">
+
+                                    <div class="col-xs-12">
+                                        Workpackage Name
+                                        <br />
+                                        {{workpackage.workpackageNumber}}
+                                        <input id="firstNameInputSmall" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.workpackageNumber" />
+                                    </div>
+
+                                </div>
+                                <div class="row inputBox">
+
+                                    <div class="col-xs-12">
+                                        Description
+                                        <br />
+                                        <input id="lastNameInputSmall" type="text" name="decription" [(ngModel)]="workpackageSubmission.description" />
+                                    </div>
+
+                                </div>
+                                <br />
+                                <button id="addEmployeeButtonSmall">Add Employee</button>
+                                <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+                            </div>
+
+                            <!-- md, lg, xl-->
+                            <div class="hidden-xs hidden-sm">
+                                <div class="row inputBox">
+
+                                    <div class="col-md-6" align="center">
+                                        Project Number
+                                        <br />
+                                        <input id="firstNameInputSmall" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.projectNumber" readonly />
+
+                                    </div>
+
+                                    <div class="col-md-6" align="center">
+                                        Work Package
+                                        <br />
+                                        {{workpackage.workpackageNumber}}
+                                        <input id="supervisorNumberInputLarge" type="text" name="workpackageNumber" [(ngModel)]="workpackageSubmission.workpackageNumber" />
+                                    </div>
+
+                                </div>
+                                <div class="row inputBox">
+
+                                    <div class="col-md-6" align="center">
+                                        Description
+                                        <br />
+                                        <input id="firstNameInputLarge" type="text" name="decription" [(ngModel)]="workpackageSubmission.description" />
+                                    </div>
+
+                                </div>
+                                <div class="row inputBox">
+
+                                </div>
+                                <div class="buttons" align="center">
+                                    <button id="addEmployeeButtonLarge" align="center" ng-click="()">Split Workpackage</button>
+                                    <button id="closeButtonLarge" data-dismiss="modal">Close</button>
+                                    <!--<button id="clearEmployeePropertiesLarge" (click)="clearProperties()">Cancel</button>-->
+                                </div>
+                            </div>
+                            <br />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
