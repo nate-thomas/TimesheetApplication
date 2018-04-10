@@ -72,10 +72,12 @@
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
+    <None Remove="ClientApp\app\components\projects\projectTeam\projectTeam.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheetRows.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
     <None Remove="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <None Remove="ClientApp\app\components\workpackages\workPackageTeam\workPackageTeam.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,14 +90,18 @@
     <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projects\projectTeam\projectTeam.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\workPackageTeam\workPackageTeam.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
+    <Folder Include="ClientApp\app\components\projects\addToProjectTeam\" />
+    <Folder Include="ClientApp\app\components\workpackages\addToWorkPackageTeam\" />
     <Folder Include="Services\" />
 
   </ItemGroup>

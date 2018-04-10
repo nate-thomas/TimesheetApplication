@@ -1,0 +1,57 @@
+﻿<div class="col-md-6 members-team">
+    <!-- Table Header -->
+    <div class="tableHeader">
+        <!-- xs, sm view -->
+        <div class="row visible-xs visible-sm">
+
+            <div class="col-xs-12 text-center">
+                <h3>Work Package Members</h3>
+            </div>
+        </div>
+
+        <!--  md, lg, xl views -->
+        <div class="row hidden-xs hidden-sm">
+            <div class="col-md-12 text-center">
+                <h3>Work Package Members</h3>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Table Body -->
+    <div class="table-responsive table-body work-package-members-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Employee ID</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees; let i = index" (click)="onSelect(employee)">
+                    <td id="{{'eployeeNumberOutput' + i}}">{{employee?.employeeNumber}}</td>
+                    <td id="{{'nameOutput' + i}}">{{employee?.firstName}} {{employee?.lastName}}</td>
+                    <!--<td><button id="updateEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".update-employee" style="text-align: center;" (click)="initializeUpdateComponent(employee)"><span class='glyphicon glyphicon-pencil'></span></button></td>-->
+                </tr>
+                <tr></tr>
+            </tbody>
+
+        </table>
+        <br />
+    </div>
+
+    <!-- Modal START -->
+    <button type="button" class="newWorkPackageMember" data-toggle="modal" data-target=".bs-example-modal-lg">Add to Work Package</button>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!--<addProject></addProject>-->
+            </div>
+        </div>
+    </div>
+    <!-- Modal END -->
+
+</div>
