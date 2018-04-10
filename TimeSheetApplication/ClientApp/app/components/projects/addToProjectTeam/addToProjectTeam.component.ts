@@ -5,6 +5,7 @@ import { Project } from '../projects';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AppComponent } from '../../app/app.component';
+import { Employee } from '../../employees/employees';
 
 @Component({
     selector: 'addtoprojectteam',
@@ -12,6 +13,10 @@ import { AppComponent } from '../../app/app.component';
     templateUrl: './addToProjectTeam.component.html'
 })
 export class AddToProjectTeamComponent {
+
+    employees: Employee[] = [];
+    newMember: Employee = new Employee();
+
     //@Input()
     //project: Project;
     //@Input()
@@ -19,11 +24,30 @@ export class AddToProjectTeamComponent {
     //@Output()
     //projectsChange = new EventEmitter<Project[]>();
 
-    //constructor(private http: Http, private router: Router) { }
+    constructor(private http: Http, private router: Router) { }
 
-    //ngOnInit() {
+    loadEmployees() {
+        this.getEmployees()
+            .subscribe(
+                employees => this.employees = employees
+            );
+    }
 
-    //}
+    getEmployees(): Observable<Employee[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(AppComponent.url + "/api/Employees/", options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
+    ngOnInit() {
+        this.loadEmployees();
+    }
 
     ///* Utility methods */
 
