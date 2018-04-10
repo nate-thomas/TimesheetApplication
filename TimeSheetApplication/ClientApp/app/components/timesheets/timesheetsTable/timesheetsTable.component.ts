@@ -28,6 +28,10 @@ export class TimesheetsTableComponent {
 
     constructor(private http: Http) { }
 
+    testFunction() {
+        console.log("called");
+    }
+
     /* Functions to be called when component is loaded */
 
     ngOnInit() {

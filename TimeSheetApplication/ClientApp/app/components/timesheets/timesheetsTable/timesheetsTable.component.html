@@ -66,7 +66,7 @@
             <tbody>
                 <tr *ngFor="let timesheetRow of timesheet.timesheetRows; let i = index">
                     <td>
-                        <select id="{{'projectNumberSelect' + i}}" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)">
+                        <select id="{{'projectNumberSelect' + i}}" name="projectNumber" [(ngModel)]="timesheetRow.projectNumber" [ngClass]="validateInput(timesheetRow.projectNumber)" (ngModelChange)="testFunction()">
                             <option *ngFor="let project of projects" [value]="project.projectNumber">{{project.projectNumber}}</option>
                         </select>
                     </td>

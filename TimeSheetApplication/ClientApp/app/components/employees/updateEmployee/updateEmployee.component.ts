@@ -175,9 +175,10 @@ export class UpdateEmployeeComponent {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
 
-        console.log(localStorage.getItem("access_token"));
-
         let formattedRole = role.replace(" ", "-");
+
+        console.log(AppComponent.url + "/api/Employees/" + employeeNumber + "/" + formattedRole)
+        console.log(localStorage.getItem("access_token"));
 
         return this.http.put(AppComponent.url + "/api/Employees/" + employeeNumber + "/" + formattedRole, options)
             .map((res: Response) => res.json())

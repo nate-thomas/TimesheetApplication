@@ -76,6 +76,7 @@
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
     <None Remove="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <None Remove="ClientApp\app\components\workpackages\wpAssignments.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,6 +93,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheets.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\workpackages\workpackages.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\workpackages\wpAssignments.ts" />
   </ItemGroup>
 
   <ItemGroup>

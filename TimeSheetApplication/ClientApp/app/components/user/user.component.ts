@@ -77,7 +77,7 @@ export class UserComponent {
 
     updatePassword() {
         if (this.validatePasswords(this.employee.password, this.employee.confirmPassword)) {
-            this.postPassword(this.employee.employeeNumber, this.employee.password, this.employee.confirmPassword)
+            this.putPassword(this.employee.employeeNumber, this.employee.password, this.employee.confirmPassword)
                 .subscribe(res => alert("Password changed!"));
         }
     }
@@ -96,12 +96,12 @@ export class UserComponent {
             });
     }
 
-    postPassword(employeeNumber: string, password: string, confirmPassword: string) {
+    putPassword(employeeNumber: string, password: string, confirmPassword: string) {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
-        let body = { "password": password, "confirmPassword": confirmPassword };
+        let body = { "Password": password, "ConfirmPassword": confirmPassword };
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(AppComponent.url + "/api/ApplicationUserApi/" + employeeNumber, body, options)
+        return this.http.put(AppComponent.url + "/api/ApplicationUser/" + employeeNumber, body, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert("Password change failed!");
