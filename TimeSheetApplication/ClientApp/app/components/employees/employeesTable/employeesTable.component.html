@@ -73,6 +73,8 @@
     </div>
 
     <br />
+    
+    <button id="viewEmployeesButton" type="button" class="newEmployee" (click)="loadEmployees()">View Employees</button>
     <button id="newEmployeeButton" type="button" class="newEmployee" data-toggle="modal" data-target=".new-employee" (click)="initializeAddComponent()" *ngIf="validateHRRole()">New Employee</button>
 
     <div class="modal fade new-employee" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
