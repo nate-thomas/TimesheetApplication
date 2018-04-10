@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 using System.Reflection;
 
 namespace SeleniumTests
@@ -14,6 +15,19 @@ namespace SeleniumTests
             driver.FindElement(By.XPath("//input[@placeholder='Username']")).SendKeys("1000003");
             driver.FindElement(By.XPath("//input[@placeholder='Password']")).SendKeys("P@$$w0rd");
             driver.FindElement(By.XPath("//button")).Submit();
+        }
+
+        public Boolean IsAlertPresent(IWebDriver driver)
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }   // try 
+            catch (NoAlertPresentException exception)
+            {
+                return false;
+            }
         }
 
 
@@ -37,7 +51,7 @@ namespace SeleniumTests
 
             IWebElement empNum = driver.FindElement(By.XPath("//td[@id='eployeeNumberOutput0']"));
 
-            Assert.IsTrue(empNum.GetAttribute("value").Equals("1000001"));
+            Assert.IsTrue(empNum.GetAttribute("text").Equals("1000001"));
         }
 
 
@@ -59,7 +73,7 @@ namespace SeleniumTests
 
 
         [TestMethod]
-        public void AddEmployeeTest()
+        public void AddEmptyEmployeeTest()
         {
             var driverDir = System.IO.Path
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -69,7 +83,10 @@ namespace SeleniumTests
             HRLogin(driver);
             driver.FindElement(By.XPath("//a[@id='employeesLink']")).Submit();
 
+            driver.FindElement(By.XPath("//button[@id='newEmployeeButton']")).Submit();
+            driver.FindElement(By.XPath("//button[text()='Add Employee']")).Submit();
 
+            Assert.IsTrue(IsAlertPresent(driver));
         }
     }
 }

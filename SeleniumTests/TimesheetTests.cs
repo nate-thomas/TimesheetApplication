@@ -188,5 +188,23 @@ namespace SeleniumTests
         }
 
 
+        [TestMethod]
+        public void SaveTimesheetTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+
+            AdminLogin(driver);
+
+            driver.FindElement(By.XPath("//input[@id='endDateInput']")).SendKeys("2000-03-16");
+            driver.FindElement(By.XPath("//img[@alt='Load Timesheet']")).Submit();
+
+
+        }
+
+
     }
 }

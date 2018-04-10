@@ -54,8 +54,20 @@ namespace SeleniumTests
         }
 
 
+        [TestMethod]
+        public void UpdateUserTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+            AdminLogin(driver);
+
+            driver.FindElement(By.XPath("//a[@id='userLink']")).Submit();
 
 
+        }
 
 
     }

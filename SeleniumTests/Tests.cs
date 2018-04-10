@@ -154,7 +154,7 @@ namespace SeleniumTests
         }
 
         [TestMethod]
-        public void PMSupervisorProjectsManagementAccessTest()
+        public void PMProjectsManagementAccessTest()
         {
             var driverDir = System.IO.Path
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
