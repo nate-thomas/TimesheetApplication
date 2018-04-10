@@ -53,7 +53,6 @@ import { UpdateEmployeeComponent } from './components/employees/updateEmployee/u
             { path: 'login', component: LoginComponent },
             { path: 'timesheets', component: TimesheetsComponent },
             { path: 'projects', component: ProjectsComponent },
-            { path: 'manage-projects', component: ManageProjectsComponent },
             { path: 'employees', component: EmployeesComponent },
             { path: 'admintasks', component: AdmintasksComponent },
             { path: 'workpackages', component: WorkpackageComponent },

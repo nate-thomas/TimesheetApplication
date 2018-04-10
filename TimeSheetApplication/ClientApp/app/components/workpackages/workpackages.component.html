@@ -1,101 +1,432 @@
-﻿<div class="body">
-    <div class='container-fluid'>
-        <div class='row'>
-            <div class='col-sm-3'>
-                <nav-menu></nav-menu>
-            </div>
-            <div class='col-sm-9 body-content'>
-                <div class="component-content">
-                    <div class="card-deck">
+﻿<div class="component-content">
+    <!-- Temporary Input and Button to load a Timesheet -->
+    <div class="row">
+        <div class="col-md-6 wp">
+            <!--<table>
+                <tr class="input-row">
+                    <td style="padding-right: 10px;">Work Package Number:</td>
+                    <td>DROPDOWN HERE</td>
+                </tr>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <h2 class="hidden-xs hidden-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h2>
-                                <h5 class="visible-xs visible-sm project-number card-title"><b>{{workpackage.projectNumber}}</b></h5>
-                            </div>
-                        </div>
+            </table>-->
 
-                        <div class="card" style="flex: 4">
-                            <div class="card-body">
-                                <h5 class="card-title">Project Details</h5>
-                                <div class="card-text">
-                                    {{workpackage.description}}
-                                </div>
-                                <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
-                            </div>
-                        </div>
+            <!-- Table Header -->
+            <div class="tableHeader">
+                <!-- xs, sm view -->
+                <div class="row visible-xs visible-sm">
 
+                    <div class="col-xs-12 text-center">
+                        <h3>Work Packages</h3>
                     </div>
-                    <br class="hidden-xs" />
-                    <br class="hidden-xs" />
-                    <div class="card-deck">
 
-                        <div class="card">
-                            <div class="card-header">
-                                Work Packages
-                            </div>
-                            <div class="card-header">
-                                <input id="projectInput" type="text" #projectNumber />
-                                <input id="workpackageInput" type="text" #workpackageNumber />
-
-                                <button id="loadWorkpackageButton" class="btn-icon" (click)="loadWorkpackage(projectNumber.value, workpackageNumber.value)">
-                                    <img class="img-icon" src="../../assets/images/icon-search.png" alt="Load Timesheet" />
-                                </button>
-                            </div>
-                            <ul class="list-group list-group-flush" *ngFor="let workpackage of workpackages; let i = index">
-                                <li class="list-group-item" *ngIf="i < 10" (click)="getSelected(workpackage)">
-                                    <p> {{workpackage.projectNumber}} </p>
-                                    <p> {{workpackage.workPackageNumber}} </p>
-                                </li>
-                            </ul>
-
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                Team Involved
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Employee A</li>
-                                <li class="list-group-item">Employee B</li>
-                                <li class="list-group-item">Employee C</li>
-                            </ul>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Package Details</h5>
-                                <p class="card-text">{{workpackage.description}}</p>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
 
-                <button id="newWorkpackageButton" type="button" class="newWorkpackage" data-toggle="modal" data-target="#addWorkpackage">New Workpackage</button>
-                <button id="deleteWorkpackageButton" type="button" class="deleteWorkpackage" data-toggle="modal" data-target="#deleteWorkpackage">Delete Workpackage</button>
+                <!--  md, lg, xl views -->
+                <div class="row hidden-xs hidden-sm">
 
-                <br />
-                <br />
-
-            </div>
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" data-toggle="modal" id="addWorkpackage">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <AddWorkpackage></AddWorkpackage>
+                    <div class="col-md-12 text-center">
+                        <h3>Work Packages</h3>
                     </div>
+
                 </div>
             </div>
 
-            <div class="modal fade bs-example-modal-lg secondary" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" data-toggle="modal" id="deleteWorkpackage">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <DeleteWorkpackage></DeleteWorkpackage>
+
+            <!-- Table Body -->
+            <div class="table-responsive table-body workpackages-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Budget</th>
+                            <th># of Employees</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let timesheetRow of timesheet">
+                            <td><input type="text" name="numberOfEmployees" [(ngModel)]="timesheetRow.projectNumber" style="width: 100px;" /></td>
+                            <td><input type="text" name="wpBudget" [(ngModel)]="timesheetRow.workPackageNumber" style="width: 100px;" /></td>
+                            <td><input type="text" name="description" [(ngModel)]="timesheetRow.total" style="width:100px;" /></td>
+                            <td><input type="text" name="status" [(ngModel)]="timesheetRow.saturday" style="width: 100px;" /></td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <!--<td colspan="11"></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+
+            <!-- Modal START -->
+            <button type="button" class="splitWorkPackages">SPLIT WORK PACKAGE</button>
+
+            <!-- Modal END -->
+            <br />
+            <hr />
+        </div>
+        <div class="col-md-6 members-team">
+            <!-- Table Header -->
+            <div class="tableHeader">
+                <!-- xs, sm view -->
+                <div class="row visible-xs visible-sm">
+
+                    <div class="col-xs-12 text-center">
+                        <h3>Project Members</h3>
                     </div>
                 </div>
+
+                <!--  md, lg, xl views -->
+                <div class="row hidden-xs hidden-sm">
+                    <div class="col-md-12 text-center">
+                        <h3>Project Members</h3>
+                    </div>
+
+                </div>
             </div>
+
+
+            <!-- Table Body -->
+            <div class="table-responsive table-body project-members-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Employee #</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- LOL START -->
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <!-- LOL END -->
+
+
+                        <tr></tr>
+                        <tr>
+                            <!--<td colspan="11"></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!-- WORK PACKAGES TABLE THINGY -->
+            <br />
+
+            <div class="tableHeader">
+                <!-- xs, sm view -->
+                <div class="row visible-xs visible-sm">
+
+                    <div class="col-xs-12 text-center">
+                        <h3>Work Package Team</h3>
+                    </div>
+                </div>
+
+                <!--  md, lg, xl views -->
+                <div class="row hidden-xs hidden-sm">
+                    <div class="col-md-12 text-center">
+                        <h3>Work Package Team</h3>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Table Body -->
+            <div class="table-responsive table-body project-members-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Employee #</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- LOL START -->
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <tr>
+                            <td>SHELY LIN</td>
+                            <td>1000006</td>
+                        </tr>
+                        <!-- LOL END -->
+
+
+                        <tr></tr>
+                        <tr>
+                            <!--<td colspan="11"></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- WORK PACKAGES TABLE THINGY END -->
+            </div>
+
 
         </div>
     </div>
 </div>
-

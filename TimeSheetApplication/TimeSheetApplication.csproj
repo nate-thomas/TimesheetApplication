@@ -71,9 +71,7 @@
     <None Remove="ClientApp\app\components\employees\updateEmployee\updateEmployee.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\projects\addProject\addProject.component.ts" />
-    <None Remove="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <None Remove="ClientApp\app\components\projects\projects.component.ts" />
-    <None Remove="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheetRows.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.component.ts" />
     <None Remove="ClientApp\app\components\timesheets\timesheets.ts" />
@@ -90,7 +88,6 @@
     <TypeScriptCompile Include="ClientApp\app\components\employees\updateEmployee\updateEmployee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\addProject\addProject.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\projects\manageProjects\manageProjects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projects.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projects\projectsTable\projectsTable.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\timesheets\timesheetsTable\timesheetRows.ts" />
@@ -103,6 +100,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\assets\images\" />
+    <Folder Include="Services\" />
 
   </ItemGroup>
 

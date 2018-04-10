@@ -92,6 +92,40 @@ namespace TimeSheetApplication.Controllers
             return new ObjectResult(empToReturn);
         }
 
+        [HttpGet("sup/{supNumber}")]
+        public async Task<IActionResult> GetByForSupervisor([FromRoute] string supNumber)
+        {
+            List<EmployeeViewModel> employeesList = new List<EmployeeViewModel>();
+            var employee = _context.Employees.ToArray<Employee>();
+            foreach (Employee emp in employee)
+            {
+                if (emp.SupervisorNumber != null && emp.SupervisorNumber.Equals(supNumber))
+                {
+                    var appUser = await _userManager.FindByNameAsync(emp.EmployeeNumber);
+                    var userRole = await _userManager.GetRolesAsync(appUser);
+
+                    EmployeeViewModel temp = new EmployeeViewModel
+                    {
+                        EmployeeNumber = emp.EmployeeNumber,
+                        FirstName = emp.FirstName,
+                        LastName = emp.LastName,
+                        Grade = emp.Grade,
+                        EmployeeIntials = emp.EmployeeIntials,
+                        Password = "",
+                        ConfirmPassword = "",
+                        Role = userRole[0],
+                        supervisorNumber = emp.SupervisorNumber
+                    };
+                    employeesList.Add(temp);
+                }
+            }
+            if(employeesList.Count == 0)
+            {
+                return BadRequest("Supervisor not found");
+            }
+            return new ObjectResult(employeesList);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateEmployee([FromBody] EmployeeViewModel item)
         {

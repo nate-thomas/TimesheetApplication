@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TimeSheetApplication.Data;
 using TimeSheetApplication.Models.TimeSheetSystem;
+using TimeSheetApplication.ViewModels;
 
 namespace TimeSheetApplication.ApiControllers
 {
@@ -45,6 +46,33 @@ namespace TimeSheetApplication.ApiControllers
             }
 
             return Ok(project);
+        }
+
+        [HttpGet("pm/{pmNumber}")]
+        public async Task<IActionResult> GetProjectsByPM([FromRoute] string pmNumber)
+        {
+            List<ProjectViewModel> projectsList = new List<ProjectViewModel>();
+            var projects = _context.Projects.ToArray<Project>();
+            foreach (Project p in projects)
+            {
+                if(p.ProjectManager != null && p.ProjectManager.Equals(pmNumber))
+                {
+                    ProjectViewModel temp = new ProjectViewModel
+                    {
+                        ProjectNumber = p.ProjectNumber,
+                        StatusName = p.StatusName,
+                        Description = p.Description,
+                        Budget = p.Budget,
+                        ProjectManager = p.ProjectManager
+                    };
+                    projectsList.Add(temp);
+                }
+            }
+            if (projectsList.Count == 0)
+            {
+                return BadRequest("Prokect Manager not found");
+            }
+            return new ObjectResult(projectsList);
         }
 
         // PUT: api/ProjectsApi/5
