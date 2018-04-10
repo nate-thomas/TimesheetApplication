@@ -11,7 +11,6 @@
     padding: 0px 5px 0px 5px;
     outline: 1px solid #6ac48d;
     box-shadow: none;
-    background-color: #eaeaea;
 }
 
 
@@ -35,4 +34,21 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+
+.invalid-input {
+    border: 2px solid red;
+}
+
+.timesheet-input {
+    width: 105px;
+}
+
+.disabled-input {
+    pointer-events: none;
+    background-color: #eaeaea;
+}
+
+.timesheet-button {
+    background-color: dimgrey;
 }

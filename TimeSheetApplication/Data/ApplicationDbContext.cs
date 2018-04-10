@@ -27,7 +27,11 @@ namespace TimeSheetApplication.Data
         public DbSet<WorkPackage> WorkPackages { get; set; }
 
         public DbSet<ResponsibleEngineerBudget> ResponsibleEngineerBudgets { get; set; }
+        public DbSet<REBbyGrade> REBbyGrades { get; set; }
         public DbSet<ProjectTeam> ProjectTeams { get; set; }
+        public DbSet<WPassignment> WPassignments { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,12 +44,29 @@ namespace TimeSheetApplication.Data
             modelBuilder.Entity<Project>().ToTable("Projects");
             modelBuilder.Entity<TimesheetStatus>().ToTable("TimesheetStatus");
 
+
             modelBuilder.Entity<TimesheetRow>().ToTable("TimesheetRows").HasKey(c => new { c.EmployeeNumber, c.EndDate, c.ProjectNumber, c.WorkPackageNumber });
             modelBuilder.Entity<Timesheet>().ToTable("Timesheets").HasKey(c => new { c.EmployeeNumber, c.EndDate });
             modelBuilder.Entity<WorkPackage>().ToTable("WorkPackages").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber });
 
             modelBuilder.Entity<ProjectTeam>().ToTable("ProjectTeams").HasKey(c => new { c.EmployeeNumber, c.ProjectNumber });
             modelBuilder.Entity<ResponsibleEngineerBudget>().ToTable("ResponsibleEngineerBudgets").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber, c.EndDate });
+            modelBuilder.Entity<REBbyGrade>().ToTable("REBbyGrades").HasKey(c => new { c.ProjectNumber, c.WorkPackageNumber, c.EndDate, c.Grade });
+
+            modelBuilder.Entity<WPassignment>(entity => {
+                entity.HasKey(e => new { e.ProjectNumber, e.WorkPackageNumber, e.EmployeeNumber });
+
+                entity.ToTable("WPassignments");
+
+                entity.HasOne(d => d.ProjectTeam)
+                    .WithMany(p => p.WPassignment)
+                    .HasForeignKey(d => new { d.EmployeeNumber, d.ProjectNumber })
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.WorkPackage)
+                    .WithMany(p => p.WPassignment)
+                    .HasForeignKey(d => new { d.ProjectNumber, d.WorkPackageNumber });
+            });
         }
     }
 }

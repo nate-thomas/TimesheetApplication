@@ -1,101 +1,72 @@
-﻿<div class="body">
-    <div class='container-fluid'>
-        <div class='row'>
-            <div class='body-content'>
-                <!-- component -->
+﻿
+<!-- component -->
 
-                <div class="component-content">
-                    <div class="title" align="center">
-                        <h2>Creating New Project</h2>
-                    </div>
-                    <div>
-                        <form (ngSubmit)="addEmployee()">
-                            <!-- xs, sm -->
-                            <div class="visible-xs visible-sm">
-                                <div class="row inputBox">
-                                    <div class="col-xs-12">
-                                        Project Number
-                                        <br />
-                                        <input type="text" name="projectNumber" />
-                                    </div>
-                                </div>
-                                <div class="row inputBox">
-                                    <div class="col-xs-12">
-                                        Manager Number
-                                        <br />
-                                        <input type="text" name="employeeNumber" />
-                                    </div>
-                                </div>
-                                <div class="row inputBox">
-                                    <div class="col-xs-12">
-                                        First Name
-                                        <br />
-                                        <input type="text" name="firstName" />
-                                    </div>
-                                </div>
-                                <div class="row inputBox">
-                                    <div class="col-xs-12">
-                                        Last Name
-                                        <br />
-                                        <input type="text" name="lastName" />
-                                    </div>
-                                </div>
-                                <div class="row inputBox">
-                                    <div class="col-xs-12">
-                                        Description
-                                        <br />
-                                        <input type="text" name="description" />
-                                    </div>
-                                </div>
-                                <br />
-                                <button>Add Project</button>
-                                <button [routerLink]="['/projects']">Cancel</button>
-                            </div>
-
-                            <!-- md, lg, xl-->
-                            <div class="hidden-xs hidden-sm">
-                                <div class="row inputBox">
-                                    <div class="col-md-6" align="center">
-                                        Project Number
-                                        <br />
-                                        <input type="text" name="projectNumber" />
-                                    </div>
-                                    <div class="col-md-6" align="center">
-                                        Manager Number
-                                        <br />
-                                        <input type="text" name="employeeNumber" />
-                                    </div>
-                                </div>
-                                <div class="row inputBox">
-                                    <div class="col-md-6" align="center">
-                                        First Name
-                                        <br />
-                                        <input type="text" name="firstName" />
-                                    </div>
-                                    <div class="col-md-6" align="center">
-                                        Last Name
-                                        <br />
-                                        <input type="text" name="lastName" />
-                                    </div>
-                                </div>
-                                <div class="row inputBox">
-                                    <div class="col-md-12" align="center">
-                                        Description
-                                        <br />
-                                        <input type="text" name="description" />
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="buttons" align="center">
-                                    <button align="center">Add Project</button>
-                                    <button data-dismiss="modal">Close</button>
-                                    <!--<button [routerLink]="['/projects']">Cancel</button>-->
-                                </div>
-                            </div>
-                        </form>
+<div class="component-content">
+    <div class="title" align="center">
+        <h2>Creating New Project</h2>
+    </div>
+    <div>
+        <form (ngSubmit)="addProject()">
+            <!-- xs, sm -->
+            <div class="visible-xs visible-sm">
+                <div class="row inputBox">
+                    <div class="col-xs-12">
+                        Project Number
+                        <br />
+                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" />
                     </div>
                 </div>
+                <div class="row inputBox">
+                    <div class="col-xs-12">
+                        Budget
+                        <br />
+                        <input id="budgetInputSmall" type="text" name="budget" [(ngModel)]="project.budget" [ngClass]="validateInput(project.budget)" />
+
+                    </div>
+                </div>
+                <div class="row inputBox">
+                    <div class="col-xs-12">
+                        Description
+                        <br />
+                        <input id="descriptionInputSmall" type="text" name="description" [(ngModel)]="project.description" [ngClass]="validateInput(project.description)" />
+                    </div>
+                </div>
+                <br />
+                <button id="addProjectButtonSmall" align="center">Add Project</button>
+                <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
             </div>
-        </div>
+
+            <!-- md, lg, xl-->
+            <div class="hidden-xs hidden-sm">
+                <div class="row inputBox">
+                    <div class="col-md-6" align="center">
+                        Project Number
+                        <br />
+                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" />
+                    </div>
+                </div>
+                <div class="row inputBox">
+                    <div class="col-md-6" align="center">
+                        Budget
+                        <br />
+                        <input id="budgetInputSmall" type="text" name="budget" [(ngModel)]="project.budget" [ngClass]="validateInput(project.budget)" />
+
+                    </div>
+                </div>
+                <div class="row inputBox">
+                    <div class="col-md-6" align="center">
+                        Description
+                        <br />
+                        <input id="descriptionInputSmall" type="text" name="description" [(ngModel)]="project.description" [ngClass]="validateInput(project.description)" />
+                    </div>
+                </div>
+                <br />
+                <div class="buttons" align="center">
+                    <button id="addProjectButtonLarge" align="center">Add Project</button>
+                    <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+          
