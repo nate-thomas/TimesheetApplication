@@ -57,6 +57,14 @@ export class AddProjectComponent {
         }
     }
 
+    validateInputNumber(input: number) {
+        if (input == undefined || input == null) {
+            return 'invalid-input';
+        } else {
+            return '';
+        }
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
 
     //loadProjects() {
