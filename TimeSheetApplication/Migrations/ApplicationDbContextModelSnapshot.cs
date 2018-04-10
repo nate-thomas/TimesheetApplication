@@ -364,9 +364,13 @@ namespace TimeSheetApplication.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("ProjectManager");
+
                     b.Property<string>("StatusName");
 
                     b.HasKey("ProjectNumber");
+
+                    b.HasIndex("ProjectManager");
 
                     b.HasIndex("StatusName");
 
@@ -607,6 +611,10 @@ namespace TimeSheetApplication.Migrations
 
             modelBuilder.Entity("TimeSheetApplication.Models.TimeSheetSystem.Project", b =>
                 {
+                    b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.Employee", "PM")
+                        .WithMany("Projects")
+                        .HasForeignKey("ProjectManager");
+
                     b.HasOne("TimeSheetApplication.Models.TimeSheetSystem.ProjectStatus", "Status")
                         .WithMany("Projects")
                         .HasForeignKey("StatusName");

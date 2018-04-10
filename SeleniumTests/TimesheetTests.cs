@@ -33,6 +33,25 @@ namespace SeleniumTests
             }
         }
 
+
+        [TestMethod]
+        public void ViewSelectTimesheetTest()
+        {
+            var driverDir = System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            IWebDriver driver = new ChromeDriver(driverDir);
+
+            driver.Navigate().GoToUrl(loginUrl);
+            AdminLogin(driver);
+
+            driver.FindElement(By.XPath("//button[@id='timesheetArchiveButtonSmall']")).Submit();
+            driver.FindElement(By.XPath("//button[@id='timesheetViewButton0']")).Submit();
+
+            IWebElement input = driver.FindElement(By.XPath("//input[@id='endDateInput']"));
+
+            Assert.IsTrue(input.GetAttribute("value").Equals("2018-02-02"));
+        }
+
         [TestMethod]
         public void SearchTimesheetTest()
         {
@@ -43,10 +62,12 @@ namespace SeleniumTests
             driver.Navigate().GoToUrl(loginUrl);
             AdminLogin(driver);
 
-            driver.FindElement(By.XPath("//input[@id='endDateInput']")).SendKeys("");
-            driver.FindElement(By.XPath("//button[@id='']")).Submit();
+            driver.FindElement(By.XPath("//input[@id='endDateInput']")).SendKeys("2018-03-16");
+            driver.FindElement(By.XPath("//img[@alt='Load Timesheet']")).Submit();
 
-
+            IWebElement input = driver.FindElement(By.XPath("//input[@id='totalInput0']"));
+            
+            Assert.IsTrue(input.GetAttribute("value").Equals("11"));
         }
 
         [TestMethod]
@@ -79,8 +100,9 @@ namespace SeleniumTests
             Assert.IsTrue(IsAlertPresent(driver));
         }
 
+
         [TestMethod]
-        public void ResetTimesheetTest()
+        public void OverDailyLimitTimesheetTest()
         {
             var driverDir = System.IO.Path
                 .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -88,21 +110,10 @@ namespace SeleniumTests
 
             driver.Navigate().GoToUrl(loginUrl);
 
+            IWebElement input = driver.FindElement(By.XPath("//input[@id='saturdayInput0']"));
+            input.SendKeys("25");
 
-
-
-        }
-
-        [TestMethod]
-        public void SignTimesheetTest()
-        {
-            var driverDir = System.IO.Path
-                .GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            IWebDriver driver = new ChromeDriver(driverDir);
-
-            driver.Navigate().GoToUrl(loginUrl);
-
-
+            Assert.IsTrue(input.GetAttribute("class").Equals("ng-valid ng-dirty ng-touched timesheet-input invalid-input"));
         }
 
         [TestMethod]
@@ -113,6 +124,10 @@ namespace SeleniumTests
             IWebDriver driver = new ChromeDriver(driverDir);
 
             driver.Navigate().GoToUrl(loginUrl);
+
+            driver.FindElement(By.XPath("//input[@id='endDateInput']")).SendKeys("2000-03-16");
+            driver.FindElement(By.XPath("//img[@alt='Load Timesheet']")).Submit();
+
 
             //Click new row button
             driver.FindElement(By.XPath("//button[@id='addTimesheetRowButton']")).Submit();

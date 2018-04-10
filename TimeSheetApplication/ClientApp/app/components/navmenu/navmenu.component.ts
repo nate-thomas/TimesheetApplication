@@ -6,4 +6,15 @@ import { Component } from '@angular/core';
     styleUrls: ['./navmenu.component.css']
 })
 export class NavMenuComponent {
+    constructor() { }
+
+    checkRole(role: string) {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem("role") == role) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }

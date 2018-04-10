@@ -4,17 +4,17 @@
             <div class='body-content'>
                 <div class="component-content">
                     <div align="center">
-                        <h2>Creating New Employee</h2>
+                        <h2>Updating Employee</h2>
                     </div>
                     <div>
-                        <form (ngSubmit)="addEmployee()">
+                        <form (ngSubmit)="updateEmployee()">
                             <!-- xs, sm -->
                             <div class="visible-xs visible-sm">
                                 <div class="row inputBox center">
                                     <div class="col-xs-12">
                                         Employee Number
                                         <br />
-                                        <input id="employeeNumberInputSmall" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)" />
+                                        <input id="employeeNumberInputSmall" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)" disabled/>
                                     </div>
                                 </div>
                                 <div class="row inputBox">
@@ -66,17 +66,16 @@
                                     </div>
                                 </div>
                                 <br />
-                                <button id="addEmployeeButtonSmall">Add Employee</button>
+                                <button id="updateEmployeeButtonSmall">Update Employee</button>
                                 <button id="closeButtonLarge" data-dismiss="modal">Close</button>
                             </div>
-
                             <!-- md, lg, xl-->
                             <div class="hidden-xs hidden-sm">
                                 <div class="row inputBox">
                                     <div class="col-md-6" align="center">
                                         Employee Number
                                         <br />
-                                        <input id="employeeNumberInputLarge" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)"/>
+                                        <input id="employeeNumberInputLarge" type="text" name="employeeNumber" [(ngModel)]="employee.employeeNumber" [ngClass]="validateInput(employee.employeeNumber)" disabled/>
                                     </div>
                                     <div class="col-md-6" align="center">
                                         Supervisor
@@ -90,19 +89,19 @@
                                     <div class="col-md-6" align="center">
                                         First Name
                                         <br />
-                                        <input id="firstNameInputLarge" type="text" name="firstName" [(ngModel)]="employee.firstName" [ngClass]="validateInput(employee.firstName)"/>
+                                        <input id="firstNameInputLarge" type="text" name="firstName" [(ngModel)]="employee.firstName" [ngClass]="validateInput(employee.firstName)" />
                                     </div>
                                     <div class="col-md-6" align="center">
                                         Last Name
                                         <br />
-                                        <input id="lastNameInputLarge" type="text" name="lastName" [(ngModel)]="employee.lastName" [ngClass]="validateInput(employee.lastName)"/>
+                                        <input id="lastNameInputLarge" type="text" name="lastName" [(ngModel)]="employee.lastName" [ngClass]="validateInput(employee.lastName)" />
                                     </div>
                                 </div>
                                 <div class="row inputBox">
                                     <div class="col-md-6" align="center">
                                         Initials
                                         <br />
-                                        <input id="initialsInputLarge" type="text" name="employeeIntials" [(ngModel)]="employee.employeeIntials" [ngClass]="validateInput(employee.employeeIntials)"/>
+                                        <input id="initialsInputLarge" type="text" name="employeeIntials" [(ngModel)]="employee.employeeIntials" [ngClass]="validateInput(employee.employeeIntials)" />
                                     </div>
                                     <div class="col-md-6" align="center">
                                         Role
@@ -122,7 +121,7 @@
                                     </div>
                                 </div>
                                 <div class="buttons" align="center">
-                                    <button id="addEmployeeButtonLarge" align="center">Add Employee</button>
+                                    <button id="updateEmployeeButtonLarge" align="center">Update Employee</button>
                                     <button id="closeButtonLarge" data-dismiss="modal" (click)="loadEmployees()">Close</button>
                                 </div>
                             </div>

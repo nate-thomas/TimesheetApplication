@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     public static url: string = "http://localhost:58122";
-
 }
