@@ -23,6 +23,11 @@ export class ProjectsTableComponent {
         this.loadProjects();
     }
 
+
+    setProjects(projects: Project[]) {
+        this.projects = projects;
+    }
+
     /* Subscription methods to bind the response to a property (if applicable) */
     loadProjects() {
         this.getProjects()

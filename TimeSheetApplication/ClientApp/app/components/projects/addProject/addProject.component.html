@@ -6,47 +6,34 @@
         <h2>Creating New Project</h2>
     </div>
     <div>
-        <form>
+        <form (ngSubmit)="addProject()">
             <!-- xs, sm -->
             <div class="visible-xs visible-sm">
                 <div class="row inputBox">
                     <div class="col-xs-12">
                         Project Number
                         <br />
-                        <input type="text" name="projectNumber" />
+                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" />
                     </div>
                 </div>
                 <div class="row inputBox">
                     <div class="col-xs-12">
-                        Manager Number
+                        Budget
                         <br />
-                        <input type="text" name="employeeNumber" />
-                    </div>
-                </div>
-                <div class="row inputBox">
-                    <div class="col-xs-12">
-                        First Name
-                        <br />
-                        <input type="text" name="firstName" />
-                    </div>
-                </div>
-                <div class="row inputBox">
-                    <div class="col-xs-12">
-                        Last Name
-                        <br />
-                        <input type="text" name="lastName" />
+                        <input id="budgetInputSmall" type="text" name="budget" [(ngModel)]="project.budget" [ngClass]="validateInput(project.budget)" />
+
                     </div>
                 </div>
                 <div class="row inputBox">
                     <div class="col-xs-12">
                         Description
                         <br />
-                        <input type="text" name="description" />
+                        <input id="descriptionInputSmall" type="text" name="description" [(ngModel)]="project.description" [ngClass]="validateInput(project.description)" />
                     </div>
                 </div>
                 <br />
-                <button>Add Project</button>
-                <button data-dismiss="modal">Close</button>
+                <button id="addProjectButtonSmall" align="center">Add Project</button>
+                <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
             </div>
 
             <!-- md, lg, xl-->
@@ -55,38 +42,28 @@
                     <div class="col-md-6" align="center">
                         Project Number
                         <br />
-                        <input type="text" name="projectNumber" />
-                    </div>
-                    <div class="col-md-6" align="center">
-                        Manager Number
-                        <br />
-                        <input type="text" name="employeeNumber" />
+                        <input id="projectNumberInputSmall" type="text" name="projectNumber" [(ngModel)]="project.projectNumber" [ngClass]="validateInput(project.projectNumber)" />
                     </div>
                 </div>
                 <div class="row inputBox">
                     <div class="col-md-6" align="center">
-                        First Name
+                        Budget
                         <br />
-                        <input type="text" name="firstName" />
-                    </div>
-                    <div class="col-md-6" align="center">
-                        Last Name
-                        <br />
-                        <input type="text" name="lastName" />
+                        <input id="budgetInputSmall" type="text" name="budget" [(ngModel)]="project.budget" [ngClass]="validateInput(project.budget)" />
+
                     </div>
                 </div>
                 <div class="row inputBox">
-                    <div class="col-md-12" align="center">
+                    <div class="col-md-6" align="center">
                         Description
                         <br />
-                        <input type="text" name="description" />
+                        <input id="descriptionInputSmall" type="text" name="description" [(ngModel)]="project.description" [ngClass]="validateInput(project.description)" />
                     </div>
                 </div>
                 <br />
                 <div class="buttons" align="center">
-                    <button align="center">Add Project</button>
-                    <button data-dismiss="modal">Close</button>
-                    <!--<button [routerLink]="['/projects']">Cancel</button>-->
+                    <button id="addProjectButtonLarge" align="center">Add Project</button>
+                    <button id="closeButtonLarge" data-dismiss="modal" (click)="loadProjects()">Close</button>
                 </div>
             </div>
         </form>

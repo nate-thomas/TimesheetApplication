@@ -78,9 +78,9 @@
     <button type="button" class="newProject" data-toggle="modal" data-target=".bs-example-modal-lg">New Project</button>
 
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modalse-dialog modal-lg" role="document">
             <div class="modal-content">
-                <addProject></addProject>
+                <addProject [project]="project" [projects]="projects" (projectsChange)="setProjects($event)"></addProject>
             </div>
         </div>
     </div>
