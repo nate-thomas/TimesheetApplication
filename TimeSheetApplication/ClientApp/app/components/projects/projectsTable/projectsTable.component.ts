@@ -1,6 +1,6 @@
 ﻿import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Project } from '../projects';
 import { Observable } from 'rxjs/Observable';
 import { AppComponent } from '../../app/app.component';
@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 export class ProjectsTableComponent {
     project: Project = new Project();
     projects: Project[] = new Array();
+    @Output()
+    selectProject = new EventEmitter<Project>();
 
     constructor(private http: Http, private router: Router) { }
 
@@ -46,12 +48,18 @@ export class ProjectsTableComponent {
         
     }
 
-    //loadProject(projectNumber: string) {
-    //    this.getProject(projectNumber)
-    //        .subscribe(
-    //            project => this.projects = [project]
-    //    );
-    //}
+
+    /* Output selected Project Object in table */
+
+    onSelect(projectNumber: string) {
+        //alert(projectNumber);
+        this.getProjectPN(projectNumber)
+            .subscribe(project => {
+                this.project = project
+                this.selectProject.emit(this.project);
+                console.log(this.project)
+            });
+    }
 
 
 
@@ -83,9 +91,19 @@ export class ProjectsTableComponent {
             });
     }
 
+    getProjectPN(projectNumber: string): Observable<Project> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
 
+        return this.http.get(AppComponent.url + "/api/Projects/" + projectNumber, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
 
-    // Archiving
+    /* Archiving */
 
     archiveProject(index: string) {
         this.project.statusName = "Archived";
@@ -96,10 +114,7 @@ export class ProjectsTableComponent {
                 //alert("Project updated!")
                 this.ngOnInit();
             });
-
-        
-        
-        
+      
         console.log('archived project');
     }
     
