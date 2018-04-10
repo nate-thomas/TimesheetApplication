@@ -59,15 +59,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let project of projects; let i = index">
-                    <td id="pnum">{{project.projectNumber}}</td>
-                    <td id="pbud">{{project.budget}}</td>
-                    <td id="numOfWP">NUM</td>
-                    <td id="numOfEMP">NUM</td>
-                    <td id="pdesc">{{project.description}}</td>
-                    <td id="status">{{project.statusName}}</td>
-                    <td><button id="updateProjectButton" type="button" class="updateProject" data-toggle="modal" data-target=".update-project" style="text-align: center;" (click)="initializeUpdateComponent(project)"><span class='glyphicon glyphicon-pencil'></span></button></td>
-                </tr>
+                <ng-container>
+                    <tr *ngFor="let project of projects; let i = index">
+                        <td id="pnum">{{project.projectNumber}}</td>
+                        <td id="pbud">{{project.budget}}</td>
+                        <td id="numOfWP">NUM</td>
+                        <td id="numOfEMP">NUM</td>
+                        <td id="pdesc">{{project.description}}</td>
+                        <td id="status">{{project.statusName}}</td>
+                        <td><button id="updateProjectButton" type="button" class="updateProject" data-toggle="modal" data-target=".update-project" style="text-align: center;" (click)="initializeUpdateComponent(project)"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                        <ng-container *ngIf="project.statusName == 'Current'">
+                            <td><button (click)="archiveProject(i)">x</button></td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
                 <tr></tr>
             </tbody>
         </table>

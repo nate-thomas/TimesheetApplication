@@ -99,11 +99,13 @@ export class UpdateProjectComponent {
     putProject(projectNumber: string, project: Project): Observable<Response> {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
         let options = new RequestOptions({ headers: headers });
+        alert(projectNumber);
 
         return this.http.put(AppComponent.url + "/api/Projects/" + projectNumber, this.project, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 console.log(JSON.stringify(err));
+                
                 return Observable.throw(new Error(JSON.stringify(err)));
             });
     }

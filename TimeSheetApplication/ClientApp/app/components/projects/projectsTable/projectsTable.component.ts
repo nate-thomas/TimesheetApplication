@@ -44,16 +44,15 @@ export class ProjectsTableComponent {
             .subscribe(
                 projects => this.projects = projects
         );
-
-        console.log('It works here');
     }
 
-    loadProject(employeeNumber: string) {
-        this.getProject(employeeNumber)
+    loadProject(projectNumber: string) {
+        this.getProject(projectNumber)
             .subscribe(
                 project => this.projects = [project]
         );
     }
+
 
 
     /* CRUD methods to make RESTful calls to the API */
@@ -84,4 +83,35 @@ export class ProjectsTableComponent {
             });
     }
 
+
+
+    // Archiving
+
+    archiveProject(index: number) {
+        this.project.statusName = "Archived";
+
+        this.putProject(this.project.projectNumber, this.project)
+            .subscribe(res => {
+                //alert("Project updated!")
+            });
+        
+        this.getProjects()
+            .subscribe(
+            projects => this.projects = projects
+            );
+
+        console.log('archived project');
+    }
+    
+    putProject(projectNumber: string, project: Project): Observable<Response> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.put(AppComponent.url + "/api/Projects/" + projectNumber, this.project, options)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => {
+                console.log(JSON.stringify(err));
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
 }
