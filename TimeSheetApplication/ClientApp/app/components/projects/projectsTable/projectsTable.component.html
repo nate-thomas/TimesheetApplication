@@ -65,7 +65,7 @@
                     <td id="numOfWP">NUM</td>
                     <td id="numOfEMP">NUM</td>
                     <td id="pdesc">{{project.description}}</td>
-                    <td id="">{{project.statusName}}</td>
+                    <td id="status">{{project.statusName}}</td>
                     <td><button id="updateProjectButton" type="button" class="updateProject" data-toggle="modal" data-target=".update-project" style="text-align: center;" (click)="initializeUpdateComponent(project)"><span class='glyphicon glyphicon-pencil'></span></button></td>
                 </tr>
                 <tr></tr>
@@ -90,7 +90,7 @@
     <div class="modal fade update-project" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                IMPLEMENT UPDATE
+                <UpdateProject [project]="project" [projects]="projects" (projectsChange)="setProjects($event)"></UpdateProject>
             </div>
         </div>
     </div>

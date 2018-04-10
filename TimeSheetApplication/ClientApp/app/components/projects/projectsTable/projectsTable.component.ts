@@ -28,6 +28,16 @@ export class ProjectsTableComponent {
         this.projects = projects;
     }
 
+
+    initializeAddComponent() {
+        this.project = new Project();
+    }
+
+    initializeUpdateComponent(project: Project) {
+        this.project = project;
+    }
+
+
     /* Subscription methods to bind the response to a property (if applicable) */
     loadProjects() {
         this.getProjects()
