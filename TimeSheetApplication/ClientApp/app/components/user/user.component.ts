@@ -101,7 +101,7 @@ export class UserComponent {
         let body = { "password": password, "confirmPassword": confirmPassword };
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(AppComponent.url + "/api/ApplicationUserApi/" + employeeNumber, body, options)
+        return this.http.put(AppComponent.url + "/api/ApplicationUser/" + employeeNumber, body, options)
             .map((res: Response) => res.json())
             .catch((err: Response) => {
                 alert("Password change failed!");
