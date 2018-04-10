@@ -15,7 +15,7 @@ export class ProjectsComponent {
     constructor() { }
 
     projectChange(event: any) {
-        this.selectedProject = event;
+        this.selectedProject = event.projectNumber;
     }
 
     workPackageChange(event: any) {

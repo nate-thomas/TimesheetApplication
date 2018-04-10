@@ -45,6 +45,20 @@ export class AddToProjectTeamComponent {
             });
     }
 
+    postProject(project: Project): Observable<Response> {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('access_token') })
+        let options = new RequestOptions({ headers: headers });
+
+        console.log(project);
+
+        return this.http.post(AppComponent.url + "/api/Projects/", this.project, options)
+            .map((res: Response) => res.json())
+            .catch((err: any) => {
+                console.log(err._body);
+                return Observable.throw(new Error(JSON.stringify(err)));
+            });
+    }
+
     ngOnInit() {
         this.loadEmployees();
     }

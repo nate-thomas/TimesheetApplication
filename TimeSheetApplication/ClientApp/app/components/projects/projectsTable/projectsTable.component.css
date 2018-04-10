@@ -35,3 +35,13 @@
     display: inline-block;
     font-size: 16px;
 }
+
+.table tr.active td {
+    background-color: #123456 !important;
+    color: white;
+}
+
+.table tr.active button {
+    /*background-color: #123456 !important;*/
+    color: #173c00;
+}
