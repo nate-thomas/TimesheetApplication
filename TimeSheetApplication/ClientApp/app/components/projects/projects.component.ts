@@ -37,6 +37,10 @@ export class ProjectsComponent {
         }
     }
 
+    checkPMRole() {
+        return (localStorage.getItem("role") == "Project Manager" || localStorage.getItem("role") == "Administrator")
+    }
+    
     //workpackagesChange(workpackage: Workpackage) {
     //    this.selectedWorkpackage = workpackage;
     //}
