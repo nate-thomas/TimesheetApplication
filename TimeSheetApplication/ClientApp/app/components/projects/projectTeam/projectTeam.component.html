@@ -1,0 +1,57 @@
+﻿<div class="col-md-6 members-team">
+    <!-- Table Header -->
+    <div class="tableHeader">
+        <!-- xs, sm view -->
+        <div class="row visible-xs visible-sm">
+
+            <div class="col-xs-12 text-center">
+                <h3>Project Members</h3>
+            </div>
+        </div>
+
+        <!--  md, lg, xl views -->
+        <div class="row hidden-xs hidden-sm">
+            <div class="col-md-12 text-center">
+                <h3>Project Members</h3>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Table Body -->
+    <div class="table-responsive table-body project-members-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of projectMembers; let i = index" (click)="onSelect(employee)" [class.active]="employee == selected">
+                    <td id="{{'eployeeNumberOutput' + i}}">{{employee.employeeNumber}}</td>
+                    <td id="{{'nameOutput' + i}}">{{employee.firstName}} {{employee.lastName}}</td>
+                    <td><button id="removeEmployeeButton" type="button" class="" style="text-align: center;" (click)="remove(employee)">x</button></td>
+                </tr>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+    <!-- Modal START -->
+    <button type="button" class="newProjectMember" data-toggle="modal" data-target="#add-to-project-team-modal-target">New Project Member</button>
+
+    <div class="modal fade" id="add-to-project-team-modal-target" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <addtoprojectteam></addtoprojectteam>
+            </div>
+        </div>
+    </div>
+    <!-- Modal END -->
+
+    <br />
+    <hr />
+</div>

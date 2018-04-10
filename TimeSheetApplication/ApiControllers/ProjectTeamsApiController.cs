@@ -83,10 +83,10 @@ namespace TimeSheetApplication.ApiControllers
                 } 
             }
 
-            if(employeesList.Count == 0)
-            {
-                return BadRequest("Project not found");
-            }
+            //if(employeesList.Count == 0)
+            //{
+            //    return BadRequest("Project not found");
+            //}
             return new ObjectResult(employeesList);
         }
 
