@@ -39,6 +39,14 @@ export class EmployeesTableComponent {
         }
     }
 
+    checkIfOwnEmployee(employee: Employee) {
+        if (localStorage.getItem("employeeNumber") == employee.employeeNumber) {
+            return false
+        } else {
+            return true;
+        }
+    }
+
     validateHRRole() {
         if (localStorage.getItem("role") == "Human Resources" || localStorage.getItem("role") == "Administrator") {
             return true;
