@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 
 import { Employee } from '../employees/employees';
+import { Workpackage } from '../workpackages/workpackage';
 
 @Component({
     selector: 'projects',
@@ -11,6 +12,7 @@ export class ProjectsComponent {
     selectedProject: string = 'WebPrj128';
     selectedWorkPackage: string = 'A2';
     selectedMember: Employee;
+    selectedWorkpackage: Workpackage;
 
     constructor() { }
 
@@ -32,5 +34,9 @@ export class ProjectsComponent {
         } else {
             return false;
         }
+    }
+
+    workpackagesChange(workpackage: Workpackage) {
+        this.selectedWorkpackage = workpackage;
     }
 }
